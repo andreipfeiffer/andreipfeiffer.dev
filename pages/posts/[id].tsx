@@ -1,36 +1,37 @@
 import Layout from "../../components/layout";
-import { getAllPostIds, getPostData } from "../../lib/posts";
+import { Article, getAllPostIds, getPostData } from "../../lib/posts";
 import Head from "next/head";
 import Date from "../../components/date";
 import { GetStaticProps, GetStaticPaths } from "next";
+import useDarkMode from "use-dark-mode";
 // import styles from "./post.module.css";
 
-type Theme = "light" | "dark";
-const theme: Theme = "dark";
+type Props = {
+  article: Article;
+};
 
-export default function Post({
-  postData,
-}: {
-  postData: {
-    title: string;
-    date: string;
-    contentHtml: string;
-  };
-}) {
+export default function Post(props: Props) {
+  const { article } = props;
+
+  const darkMode = useDarkMode(false);
+  const theme = darkMode.value ? "atom-one-light" : "atom-one-dark";
+
   return (
     <Layout>
       <Head>
-        <title>{postData.title}</title>
+        <title>{article.title}</title>
         <link
           rel="stylesheet"
-          href={`https://highlightjs.org/static/demo/styles/atom-one-${theme}.css`}
+          href={`https://highlightjs.org/static/demo/styles/${theme}.css`}
         />
       </Head>
 
       <article>
-        <h1>{postData.title}</h1>
-        <Date dateString={postData.date} />
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <h1>{article.title}</h1>
+        Posted on <Date dateString={article.date} />
+        <br />
+        Reading time {Math.ceil(article.minutes)} minutes
+        <div dangerouslySetInnerHTML={{ __html: article.content }} />
       </article>
     </Layout>
   );
@@ -45,10 +46,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData = await getPostData(params?.id as string);
+  const article = await getPostData(params?.id as string);
   return {
     props: {
-      postData,
+      article,
     },
   };
 };

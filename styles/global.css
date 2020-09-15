@@ -13,7 +13,7 @@ body {
 }
 
 a {
-  color: dodgerblue;
+  color: var(--primary);
   text-decoration: none;
 }
 
@@ -36,4 +36,21 @@ figure {
 }
 figure img {
   margin: 0;
+}
+
+/* dark/light mode */
+body {
+  transition: background-color 0.2s, color 0.3s;
+}
+.light-mode {
+  background-color: white;
+  color: black;
+  --primary: dodgerblue;
+  --accent: royalblue;
+}
+.dark-mode {
+  background-color: black;
+  color: white;
+  --primary: goldenrod;
+  --accent: sandybrown;
 }

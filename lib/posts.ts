@@ -3,12 +3,12 @@ import path from "path";
 import matter, { GrayMatterFile, Input } from "gray-matter";
 import remark from "remark";
 import html from "remark-html";
-// remark plugins
 import highlight from "remark-highlight.js";
 import slug from "remark-slug";
 import headings from "remark-autolink-headings";
 import externalLinks from "remark-external-links";
 import toc from "remark-toc";
+import readingTime from "reading-time";
 
 type FrontMatter = {
   date: string;
@@ -16,15 +16,13 @@ type FrontMatter = {
   tags?: string;
 };
 
-type Article = {
+export type Article = {
   id: string;
-  date: string;
-  title: string;
-  tags?: string;
   content: string;
-};
+  minutes: number;
+} & FrontMatter;
 
-export type ArticlePreview = Omit<Article, "content">;
+export type ArticlePreview = Pick<Article, "id"> & FrontMatter;
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -69,7 +67,7 @@ export function getAllPostIds() {
   });
 }
 
-export async function getPostData(id: string) {
+export async function getPostData(id: string): Promise<Article> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
@@ -92,12 +90,15 @@ export async function getPostData(id: string) {
     .use(externalLinks, { target: false, rel: ["noopener"] })
     .use(html)
     .process(matterResult.content);
-  const contentHtml = processedContent.toString();
 
-  // Combine the data with the id and contentHtml
+  const content = processedContent.toString();
+  const readingStats = readingTime(content);
+
+  // Combine the data with the id and content
   return {
     id,
-    contentHtml,
+    content,
+    minutes: readingStats.minutes,
     ...(matterResult.data as { date: string; title: string }),
   };
 }

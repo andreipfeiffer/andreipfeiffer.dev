@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "./layout.module.css";
 import Link from "next/link";
+import useDarkMode from "use-dark-mode";
 
 const name = "Andrei Pfeiffer";
 export const siteTitle = "Andrei Pfeiffer, personal website & blog";
@@ -40,6 +41,8 @@ export default function Layout({
             </Link>
           </h2>
         )}
+
+        <ToggleDarkMode />
       </header>
 
       <main>{children}</main>
@@ -52,5 +55,14 @@ export default function Layout({
         </div>
       )}
     </div>
+  );
+}
+
+function ToggleDarkMode() {
+  const darkMode = useDarkMode();
+  return (
+    <button type="button" onClick={darkMode.toggle}>
+      {`Toggle dark mode`}
+    </button>
   );
 }
