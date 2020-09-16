@@ -29,7 +29,7 @@ export default function Home(props: Props) {
       <section>
         <h2>Blog</h2>
         <ul>
-          {articles.map(({ id, date, title, tags }) => (
+          {articles.map(({ id, date, title }) => (
             <li key={id}>
               <Link href="/posts/[id]" as={`/posts/${id}`}>
                 <a>{title}</a>
@@ -37,7 +37,6 @@ export default function Home(props: Props) {
               <br />
               <small>
                 <Date dateString={date} />
-                {tags && ` | Tags: ${tags.split(" ").join(",")}`}
               </small>
             </li>
           ))}

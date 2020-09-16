@@ -32,6 +32,8 @@ export default function Post(props: Props) {
         <br />
         Reading time {Math.ceil(article.minutes)} minutes
         <div dangerouslySetInnerHTML={{ __html: article.content }} />
+        <br />
+        {article.tags.length > 0 && `Tags: ${article.tags.join(", ")}`}
       </article>
     </Layout>
   );

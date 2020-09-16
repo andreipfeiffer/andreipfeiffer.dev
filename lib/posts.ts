@@ -13,7 +13,7 @@ import readingTime from "reading-time";
 type FrontMatter = {
   date: string;
   title: string;
-  tags?: string;
+  tags: string[];
 };
 
 export type Article = {
@@ -43,7 +43,7 @@ export function getSortedPostsData(): ArticlePreview[] {
     // Combine the data with the id
     return {
       id,
-      ...(matterResult.data as FrontMatter),
+      ...getFrontMatter(matterResult),
     };
   });
   // Sort posts by date
@@ -99,6 +99,12 @@ export async function getPostData(id: string): Promise<Article> {
     id,
     content,
     minutes: readingStats.minutes,
-    ...(matterResult.data as { date: string; title: string }),
+    ...getFrontMatter(matterResult),
   };
+}
+
+function getFrontMatter(matter: GrayMatterFile<string>): FrontMatter {
+  const { date, title, tags } = matter.data;
+  const _tags = tags ? tags.split(",") : [];
+  return { date, title, tags: _tags };
 }
