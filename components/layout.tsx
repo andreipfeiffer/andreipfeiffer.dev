@@ -6,13 +6,13 @@ import useDarkMode from "use-dark-mode";
 const name = "Andrei Pfeiffer";
 export const siteTitle = "Andrei Pfeiffer, personal website & blog";
 
-export default function Layout({
-  children,
-  home,
-}: {
+type Props = {
   children: React.ReactNode;
-  home?: boolean;
-}) {
+};
+
+export default function Layout(props: Props) {
+  const { children } = props;
+
   return (
     <div className={styles.container}>
       <Head>
@@ -31,29 +31,48 @@ export default function Layout({
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
-      <header className={styles.header}>
-        {home ? (
-          <h1>{name}</h1>
-        ) : (
-          <h2>
-            <Link href="/">
-              <a>{name}</a>
+      <header>
+        <Link href="/">
+          <a>{name}</a>
+        </Link>
+
+        <ul>
+          <li>
+            <Link href="/talks">
+              <a>Talks</a>
             </Link>
-          </h2>
-        )}
+          </li>
+          <li>
+            <Link href="/workshops">
+              <a>Workshops</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/blog">
+              <a>Blog</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/about">
+              <a>About</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/contact">
+              <a>Get in touch</a>
+            </Link>
+          </li>
+        </ul>
 
         <ToggleDarkMode />
       </header>
 
-      <main>{children}</main>
+      <main className={styles.main}>{children}</main>
 
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
+      <footer>
+        Follow me on Twitter{" "}
+        <a href="https://twitter.com/pfeiffer_andrei">@pfeiffer_andrei</a>
+      </footer>
     </div>
   );
 }

@@ -27,10 +27,15 @@ export default function Post(props: Props) {
       </Head>
 
       <article>
-        <h1>{article.title}</h1>
-        Posted on <Date dateString={article.date} />
+        <header>
+          <h1>{article.title}</h1>
+          <small>
+            Posted on <Date dateString={article.date} />
+          </small>
+          <br />
+          <small>Reading time {Math.ceil(article.minutes)} minutes</small>
+        </header>
         <br />
-        Reading time {Math.ceil(article.minutes)} minutes
         <div dangerouslySetInnerHTML={{ __html: article.content }} />
         <br />
         {article.tags.length > 0 && `Tags: ${article.tags.join(", ")}`}

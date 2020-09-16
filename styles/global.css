@@ -25,6 +25,19 @@ img {
   max-width: 100%;
 }
 
+h2 {
+  margin-top: 3em;
+}
+h3 {
+  margin-top: 2em;
+}
+li {
+  margin-bottom: 0.5em;
+}
+textarea {
+  resize: none;
+}
+
 /* blog */
 .permalink::before {
   content: "🔗";

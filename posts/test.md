@@ -5,8 +5,6 @@ tags: "react native, webview"
 category: "mobile"
 ---
 
-# React Native WebView files upload
-
 You might wonder why the hack would you want to upload files through a WebView in a mobile app. Let’s just say that your best friend really needs this.
 
 Consider you have an HTML page, that contains a file upload input:
