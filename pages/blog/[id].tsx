@@ -1,9 +1,11 @@
-import Layout from "../../components/layout";
-import { Article, getAllPostIds, getPostData } from "../../lib/posts";
-import Head from "next/head";
-import Date from "../../components/date";
 import { GetStaticProps, GetStaticPaths } from "next";
+import Head from "next/head";
+import Link from "next/link";
 import useDarkMode from "use-dark-mode";
+
+import Layout from "../../components/layout";
+import Date from "../../components/date";
+import { Article, getAllPostIds, getPostData } from "../../lib/posts";
 // import styles from "./post.module.css";
 
 type Props = {
@@ -38,10 +40,33 @@ export default function Post(props: Props) {
         <br />
         <div dangerouslySetInnerHTML={{ __html: article.content }} />
         <br />
-        {article.tags.length > 0 && `Tags: ${article.tags.join(", ")}`}
+        {renderTags(article.tags)}
       </article>
     </Layout>
   );
+
+  function renderTags(tags: string[]) {
+    if (tags.length === 0) {
+      return null;
+    }
+
+    const tags_list = tags.map((tag) => (
+      <Link key={tag} href="/tag/[tag]" as={`/tag/${encodeURIComponent(tag)}`}>
+        <a>{tag}</a>
+      </Link>
+    ));
+
+    return (
+      <>
+        <strong>Tags</strong>:
+        <ul>
+          {tags_list.map((tag, i) => (
+            <li key={tags[i]}>{tag}</li>
+          ))}
+        </ul>
+      </>
+    );
+  }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

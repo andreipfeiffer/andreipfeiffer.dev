@@ -9,13 +9,15 @@ export default function Home() {
         <title>{siteTitle}</title>
       </Head>
 
-      <h1>
+      <h1>Andrei Pfeiffer</h1>
+
+      <h2>
         Eclectic Code Designer
         <br />
         <small>UI Engineer, web &amp; mobile</small>
         <br />
         <small>Organizer of revo.js conf &amp; tim.js meetup</small>
-      </h1>
+      </h2>
     </Layout>
   );
 }

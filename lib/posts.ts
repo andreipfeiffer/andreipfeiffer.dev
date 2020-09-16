@@ -35,25 +35,8 @@ export type ArticlePreview = Pick<Article, "id"> & FrontMatter;
 const postsDirectory = path.join(process.cwd(), "posts");
 
 export function getSortedPostsData(): ArticlePreview[] {
-  // Get file names under /posts
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
-    // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, "");
+  const allPostsData = getAllPosts();
 
-    // Read markdown file as string
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
-
-    // Combine the data with the id
-    return {
-      id,
-      ...getFrontMatter(matterResult),
-    };
-  });
   // Sort posts by date
   return allPostsData.sort((a, b) => {
     if (a.date < b.date) {
@@ -73,6 +56,20 @@ export function getAllPostIds() {
       },
     };
   });
+}
+
+export function getAllTags() {
+  const tags = new Set<string>();
+
+  getAllPosts().forEach((post) => {
+    post.tags.forEach((tag) => tags.add(tag));
+  });
+
+  return [...tags].map((tag) => ({
+    params: {
+      tag,
+    },
+  }));
 }
 
 export async function getPostData(id: string): Promise<Article> {
@@ -111,10 +108,41 @@ export async function getPostData(id: string): Promise<Article> {
   };
 }
 
+export function getArticlesByTag(tag: string): ArticlePreview[] {
+  return getAllPosts().filter((post) => post.tags.includes(tag));
+}
+
 function getFrontMatter(matter: GrayMatterFile<string>): FrontMatter {
   const { date, title, category, tags } = matter.data;
-  const _tags = tags ? tags.split(",") : [];
+  const _tags = getTags(tags);
   const _category = category || null;
 
   return { date, title, category: _category, tags: _tags };
+}
+
+function getTags(tags: string): string[] {
+  return tags ? tags.split(",").map((tag) => tag.trim()) : [];
+}
+
+function getAllPosts(): ArticlePreview[] {
+  // Get file names under /posts
+  const fileNames = fs.readdirSync(postsDirectory);
+
+  return fileNames.map((fileName) => {
+    // Remove ".md" from file name to get id
+    const id = fileName.replace(/\.md$/, "");
+
+    // Read markdown file as string
+    const fullPath = path.join(postsDirectory, fileName);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+
+    // Use gray-matter to parse the post metadata section
+    const matterResult = matter(fileContents);
+
+    // Combine the data with the id
+    return {
+      id,
+      ...getFrontMatter(matterResult),
+    };
+  });
 }
