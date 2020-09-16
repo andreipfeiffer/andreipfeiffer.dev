@@ -2,6 +2,7 @@
 title: "React Native WebView files upload"
 date: "2018-05-18"
 tags: "react native, webview"
+category: "mobile"
 ---
 
 # React Native WebView files upload

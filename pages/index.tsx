@@ -29,11 +29,12 @@ export default function Home(props: Props) {
       <section>
         <h2>Blog</h2>
         <ul>
-          {articles.map(({ id, date, title }) => (
+          {articles.map(({ id, date, title, category }) => (
             <li key={id}>
               <Link href="/posts/[id]" as={`/posts/${id}`}>
                 <a>{title}</a>
-              </Link>
+              </Link>{" "}
+              {category && <small>[{category}]</small>}
               <br />
               <small>
                 <Date dateString={date} />

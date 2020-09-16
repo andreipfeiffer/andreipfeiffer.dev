@@ -10,10 +10,18 @@ import externalLinks from "remark-external-links";
 import toc from "remark-toc";
 import readingTime from "reading-time";
 
+type Category =
+  | "mobile"
+  | "javascript"
+  | "css"
+  | "development"
+  | "non-technical";
+
 type FrontMatter = {
   date: string;
   title: string;
   tags: string[];
+  category: Category;
 };
 
 export type Article = {
@@ -104,7 +112,9 @@ export async function getPostData(id: string): Promise<Article> {
 }
 
 function getFrontMatter(matter: GrayMatterFile<string>): FrontMatter {
-  const { date, title, tags } = matter.data;
+  const { date, title, category, tags } = matter.data;
   const _tags = tags ? tags.split(",") : [];
-  return { date, title, tags: _tags };
+  const _category = category || null;
+
+  return { date, title, category: _category, tags: _tags };
 }
