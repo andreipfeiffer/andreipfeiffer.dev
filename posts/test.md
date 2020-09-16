@@ -29,7 +29,7 @@ By default, when you use the WebView component provided by React Native and you 
 - select a file from your device
 
 <figure>
-  <img src="https://miro.medium.com/max/2000/1*3l5BnpJOBe_tKtpyvwgYLA.png" alt="">
+  <img src="/images/img1.png" alt="">
 </figure>
 
 It also supports the [`accept`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) attribute. If specified, it will allow users to upload only photos, only videos, or both, based on its value:
@@ -84,7 +84,7 @@ So, we had to build our own component, based on the efforts of the previously me
 By default, when using the custom WebView mentioned earlier, it will open a dialog that allows photo capture, video recording and gallery selection.
 
 <figure>
-  <img src="https://miro.medium.com/max/2000/1*wwJGnX_TIxdTQARJMNeO-Q.png" alt="">
+  <img src="/images/img2.png" alt="">
 </figure>
 
 It will also read the accept attribute from the input element, if available, and allow users to upload only the specified file types. Currently, the following values are supported:
