@@ -6,7 +6,7 @@ import useDarkMode from "use-dark-mode";
 import Layout from "../../components/layout";
 import Date from "../../components/date";
 import { Article, getAllPostIds, getPostData } from "../../lib/posts";
-// import styles from "./post.module.css";
+// import styles from "./blog.module.css";
 
 type Props = {
   article: Article;
