@@ -22,7 +22,7 @@ export default function Blog(props: Props) {
       <ul>
         {articles.map(({ id, date, title, category }) => (
           <li key={id}>
-            <Link href="/blog/[id]" as={`/blog/${id}`}>
+            <Link href={`/blog/${id}`}>
               <a>{title}</a>
             </Link>{" "}
             {category && <small>[{category}]</small>}

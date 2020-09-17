@@ -51,7 +51,7 @@ export default function Post(props: Props) {
     }
 
     const tags_list = tags.map((tag) => (
-      <Link key={tag} href="/tag/[tag]" as={`/tag/${encodeURIComponent(tag)}`}>
+      <Link key={tag} href={`/tag/${encodeURIComponent(tag)}`}>
         <a>{tag}</a>
       </Link>
     ));
