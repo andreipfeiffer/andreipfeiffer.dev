@@ -7,11 +7,15 @@ const name = "Andrei Pfeiffer";
 export const siteTitle = "Andrei Pfeiffer, personal website & blog";
 
 type Props = {
+  className?: string;
   children: React.ReactNode;
 };
 
 export default function Layout(props: Props) {
-  const { children } = props;
+  const { children, className } = props;
+
+  let mainStyles = styles.main;
+  className && (mainStyles += ` ${className}`);
 
   return (
     <div className={styles.container}>
@@ -67,7 +71,7 @@ export default function Layout(props: Props) {
         <ToggleDarkMode />
       </header>
 
-      <main className={styles.main}>{children}</main>
+      <main className={mainStyles}>{children}</main>
 
       <footer>
         Follow me on Twitter{" "}
