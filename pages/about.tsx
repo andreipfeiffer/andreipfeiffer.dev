@@ -1,10 +1,11 @@
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
 // import Link from "next/link";
+import styles from "./about.module.css";
 
 export default function About() {
   return (
-    <Layout>
+    <Layout className={styles.about}>
       <Head>
         <title>About me: {siteTitle}</title>
       </Head>
