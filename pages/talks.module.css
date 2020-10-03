@@ -5,3 +5,7 @@
 .list li p {
   margin: 0;
 }
+.list li time {
+  display: block;
+  font-size: 0.75em;
+}

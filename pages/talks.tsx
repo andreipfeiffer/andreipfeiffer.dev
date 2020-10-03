@@ -22,6 +22,18 @@ export default function Talks() {
 
       <ul className={styles.list}>
         <li>
+          <strong>i18n &amp; l10n</strong>
+          <p>
+            This talk discusses what Internationalisation and Localisation is,
+            and how to implement translations and pluralisation with i18next,
+            and various localised formatting using the Intl API.
+          </p>
+          <p>
+            <time dateTime="2020-09">September 2020</time>
+            <i>Slides and Live code</i>
+          </p>
+        </li>
+        <li>
           <strong>Simple vs. Easy</strong>
           <p>
             In this talk, I touch upon a correlation between "simplicity" and
@@ -31,18 +43,8 @@ export default function Talks() {
             with on a daily basis.
           </p>
           <p>
+            <time dateTime="2020-07">July 2020</time>
             <i>Slides only, Includes Code, Theoretical</i>
-          </p>
-        </li>
-        <li>
-          <strong>i18n &amp; l10n</strong>
-          <p>
-            This talk discusses what Internationalisation and Localisation is,
-            and how to implement translations and pluralisation with i18next,
-            and various localised formatting using the Intl API.
-          </p>
-          <p>
-            <i>Slides and Live code</i>
           </p>
         </li>
         <li>
@@ -52,6 +54,7 @@ export default function Talks() {
             It mostly covers some obscure properties that are not widely used.
           </p>
           <p>
+            <time dateTime="2020-08">August 2020</time>
             <i>Live code</i>
           </p>
         </li>
@@ -64,6 +67,7 @@ export default function Talks() {
             it's tehnical implementation challenges in regard to performance.
           </p>
           <p>
+            <time dateTime="2020-04">April 2020</time>
             <i>Slides and Live demo</i>
           </p>
         </li>
@@ -75,6 +79,7 @@ export default function Talks() {
             and fixing performance bottlenecks.
           </p>
           <p>
+            <time dateTime="2020-01">January 2020</time>
             <i>Slides and Live code</i>
           </p>
         </li>
@@ -87,6 +92,7 @@ export default function Talks() {
             there's actually a tricotomy.
           </p>
           <p>
+            <time dateTime="2019-11">November 2019</time>
             <i>Slides only, Theoretical</i>
           </p>
         </li>
@@ -100,6 +106,7 @@ export default function Talks() {
             application.
           </p>
           <p>
+            <time dateTime="2019-02">February 2019</time>
             <i>Slides and Live demo</i>
           </p>
         </li>
@@ -112,6 +119,18 @@ export default function Talks() {
             between JavaScript code and native Swift code.
           </p>
           <p>
+            <time dateTime="2018-10">October 2018</time>
+            <i>Live code</i>
+          </p>
+        </li>
+        <li>
+          <strong>JS Tips &amp; Tricks (lightning talk)</strong>
+          <p>
+            This is a short talk that goes through various practical debugging
+            tips using Chrome's Devtools.
+          </p>
+          <p>
+            <time dateTime="2018-07">July 2018</time>
             <i>Live code</i>
           </p>
         </li>
@@ -123,17 +142,8 @@ export default function Talks() {
             concepts, syntax, features and performance.
           </p>
           <p>
+            <time dateTime="2018-06">June 2018</time>
             <i>Slides and Live demo</i>
-          </p>
-        </li>
-        <li>
-          <strong>JS Tips &amp; Tricks (lightning talk)</strong>
-          <p>
-            This is a short talk that goes through various practical debugging
-            tips using Chrome's Devtools.
-          </p>
-          <p>
-            <i>Live code</i>
           </p>
         </li>
         {/* <li>
@@ -147,7 +157,21 @@ export default function Talks() {
             percieved by developers and managers.
           </p>
           <p>
+            <time dateTime="2017-11">November 2017</time>
             <i>Slides only</i>
+          </p>
+        </li>
+        <li>
+          <strong>JavaScript is different</strong>
+          <p>
+            This talk tries to answer questions like:{" "}
+            <i>"Why does JavaScript still has bad features and poor design?"</i>
+            , <i>"Why do developers hate JavaScript?"</i> and{" "}
+            <i>"Why is JavaScript different than other languages?"</i>.
+          </p>
+          <p>
+            <time dateTime="2017-10">October 2017</time>
+            <i>Slides only, Theoretical</i>
           </p>
         </li>
         <li>
@@ -158,38 +182,41 @@ export default function Talks() {
             JavaScript code.
           </p>
           <p>
+            <time dateTime="2017-08">August 2017</time>
             <i>Slides only</i>
           </p>
         </li>
-        <li>
-          <strong>JavaScript is different</strong>
-          <p>This talk tries to answer questions like: </p>
-        </li>
-        <li>
-          <strong>A Vue over React</strong>
-        </li>
-        <li>
-          <strong>WAT iz dat code?</strong>
-        </li>
-        <li>
-          <strong>Testing layers</strong>
-        </li>
-        <li>
-          <strong>Promises: past, present &amp; future</strong>
-        </li>
-        <li>
-          <strong>ES6 under the microscope</strong>
-        </li>
-        <li>
-          <strong>Looping Events</strong>
-        </li>
-        <li>
-          <strong>Source Maps</strong>
-        </li>
-        <li>
-          <strong>Task automation with Grunt</strong>
-        </li>
       </ul>
+
+      <section>
+        <h2>Old and discountinued talks</h2>
+        <ul>
+          <li>
+            <strong>A Vue over React</strong>
+          </li>
+          <li>
+            <strong>WAT iz dat code?</strong>
+          </li>
+          <li>
+            <strong>Testing layers</strong>
+          </li>
+          <li>
+            <strong>Promises: past, present &amp; future</strong>
+          </li>
+          <li>
+            <strong>ES6 under the microscope</strong>
+          </li>
+          <li>
+            <strong>Looping Events</strong>
+          </li>
+          <li>
+            <strong>Source Maps</strong>
+          </li>
+          <li>
+            <strong>Task automation with Grunt</strong>
+          </li>
+        </ul>
+      </section>
     </Layout>
   );
 }
