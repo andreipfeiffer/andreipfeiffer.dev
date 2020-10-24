@@ -1,16 +1,18 @@
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
-import { getSortedPostsData, ArticlePreview } from "../lib/posts";
+import { getAllPosts, Post } from "../lib/blog";
 import Link from "next/link";
 import Date from "../components/date";
 import { GetStaticProps } from "next";
 
 type Props = {
-  articles: ArticlePreview[];
+  posts: Post[];
 };
 
 export default function Blog(props: Props) {
-  const { articles } = props;
+  const { posts } = props;
+
+  console.log({ posts });
 
   return (
     <Layout>
@@ -20,15 +22,15 @@ export default function Blog(props: Props) {
 
       <h2>Blog</h2>
       <ul>
-        {articles.map(({ id, date, title, category }) => (
+        {posts.map(({ id, meta }) => (
           <li key={id}>
             <Link href={`/blog/${id}`}>
-              <a>{title}</a>
+              <a>{meta.title}</a>
             </Link>{" "}
-            {category && <small>[{category}]</small>}
+            {meta.category && <small>[{meta.category}]</small>}
             <br />
             <small>
-              <Date dateString={date} />
+              <Date dateString={meta.date} />
             </small>
           </li>
         ))}
@@ -38,10 +40,9 @@ export default function Blog(props: Props) {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const articles = getSortedPostsData();
   return {
     props: {
-      articles,
+      posts: getAllPosts(),
     },
   };
 };

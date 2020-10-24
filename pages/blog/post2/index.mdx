@@ -1,9 +1,16 @@
----
-title: "React Native WebView files upload"
-date: "2018-05-18"
-tags: "react native, webview"
-category: "mobile"
----
+import BlogPost from "../../../components/blog_post";
+import Foo from "../../../components/Foo";
+
+export const meta = {
+  title: "React Native WebView files upload",
+  date: "2018-05-18",
+  tags: ["react native", "webview"],
+  category: "mobile",
+};
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<Foo />
 
 You might wonder why the hack would you want to upload files through a WebView in a mobile app. Let’s just say that your best friend really needs this.
 
@@ -27,7 +34,7 @@ By default, when you use the WebView component provided by React Native and you 
 - select a file from your device
 
 <figure>
-  <img src="/images/img1.png" alt="">
+  <img src="/images/img1.png" alt="" />
 </figure>
 
 It also supports the [`accept`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) attribute. If specified, it will allow users to upload only photos, only videos, or both, based on its value:
@@ -82,11 +89,17 @@ So, we had to build our own component, based on the efforts of the previously me
 By default, when using the custom WebView mentioned earlier, it will open a dialog that allows photo capture, video recording and gallery selection.
 
 <figure>
-  <img src="/images/img2.png" alt="">
+  <img src="/images/img2.png" alt="" />
 </figure>
 
 It will also read the accept attribute from the input element, if available, and allow users to upload only the specified file types. Currently, the following values are supported:
 
-- <code>accept="<b>image/\*</b>"</code>
-- <code>accept="<b>video/\*</b>"</code>
-- <code>accept="<b>image/\*, video/\*</b>"</code>
+- <code>
+    accept="<b>image/\*</b>"
+  </code>
+- <code>
+    accept="<b>video/\*</b>"
+  </code>
+- <code>
+    accept="<b>image/\*, video/\*</b>"
+  </code>

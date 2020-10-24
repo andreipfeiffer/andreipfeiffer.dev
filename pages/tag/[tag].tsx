@@ -4,17 +4,17 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import Layout from "../../components/layout";
-import { ArticlePreview, getArticlesByTag, getAllTags } from "../../lib/posts";
+import { getPostsByTag, getAllTags, Post } from "../../lib/blog";
 // import styles from "./post.module.css";
 
 type Props = {
-  articles: ArticlePreview[];
+  posts: Post[];
 };
 
-export default function Post(props: Props) {
+export default function PostsByTag(props: Props) {
   const router = useRouter();
   const { tag } = router.query;
-  const { articles } = props;
+  const { posts: articles } = props;
 
   return (
     <Layout>
@@ -28,7 +28,7 @@ export default function Post(props: Props) {
         {articles.map((article) => (
           <li key={article.id}>
             <Link href={`/blog/${article.id}`}>
-              <a>{article.title}</a>
+              <a>{article.meta.title}</a>
             </Link>
           </li>
         ))}
@@ -38,7 +38,14 @@ export default function Post(props: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllTags();
+  const tags = getAllTags();
+
+  const paths = tags.map((tag) => ({
+    // "params" key is required
+    // "tag" key must match the [tag] slug name
+    params: { tag },
+  }));
+
   return {
     paths,
     fallback: false,
@@ -46,10 +53,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const articles = getArticlesByTag(params?.tag as string);
+  const posts = getPostsByTag(params?.tag as string);
   return {
     props: {
-      articles,
+      posts,
     },
   };
 };
