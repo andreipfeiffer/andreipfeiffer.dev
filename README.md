@@ -1,9 +1,19 @@
 This is a starter template for [Learn Next.js](https://nextjs.org/learn).
 
-## Build
+<br />
+
+### Develpoment
+
+```
+npm run dev
+```
+
+<br />
+
+### Production Build
 
 ```
 npm run export
 ```
 
-This will generate the **`out` folder** which can be statically served.
+This will generate the **`out`** folder which can be statically served.
