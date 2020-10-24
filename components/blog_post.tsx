@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import useDarkMode from "use-dark-mode";
+import readingTime from "reading-time";
 
 import Layout from "./layout";
 import Date from "./date";
@@ -9,11 +10,14 @@ import { Metadata } from "../lib/blog";
 
 type Props = {
   meta: Metadata;
-  children: React.ReactChildren;
+  children: React.ReactElement;
 };
 
 export default function BlogPost(props: Props) {
   const { children, meta } = props;
+
+  // not very acccurate, but good enough
+  const readTime = readingTime(getReactNodeText(children));
 
   const darkMode = useDarkMode(false);
   const theme = darkMode.value ? "atom-one-light" : "atom-one-dark";
@@ -36,7 +40,7 @@ export default function BlogPost(props: Props) {
             Posted on <Date dateString={meta.date} />
           </small>
           <br />
-          {/* <small>Reading time {Math.ceil(article.minutes)} minutes</small> */}
+          <small>{readTime.text}</small>
         </header>
         <br />
         <div>{children}</div>
@@ -68,4 +72,12 @@ export default function BlogPost(props: Props) {
       </>
     );
   }
+}
+
+function getReactNodeText(node: React.ReactElement): string {
+  if (node instanceof Array) return node.map(getReactNodeText).join("");
+  if (typeof node === "object" && node)
+    return getReactNodeText(node.props.children);
+  if (["string", "number"].includes(typeof node)) return String(node);
+  return "";
 }

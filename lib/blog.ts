@@ -39,7 +39,6 @@ export type Metadata = {
   title: string;
   tags: string[];
   category: Category;
-  reading: string;
 };
 
 type Category =
