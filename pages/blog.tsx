@@ -25,7 +25,15 @@ export default function Blog(props: Props) {
             <Link href={`/blog/${id}`}>
               <a>{meta.title}</a>
             </Link>{" "}
-            {meta.category && <small>[{meta.category}]</small>}
+            {meta.category && (
+              <small>
+                [
+                <Link href={`/category/${meta.category}`}>
+                  <a>{meta.category}</a>
+                </Link>
+                ]
+              </small>
+            )}
             <br />
             <small>
               <Date dateString={meta.date} />

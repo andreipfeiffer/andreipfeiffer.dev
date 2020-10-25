@@ -11,6 +11,12 @@ export function getPostsByTag(tag: string): Post[] {
   return getAllPosts().filter((post) => post.meta.tags.includes(tag));
 }
 
+export function getPostsByCategory(category: Category): Post[] {
+  return getAllPosts().filter(
+    (post) => post.meta.category.toLowerCase() === category.toLowerCase()
+  );
+}
+
 export function getAllTags(): string[] {
   const tags = new Set<string>();
 
@@ -41,9 +47,12 @@ export type Metadata = {
   category: Category;
 };
 
-type Category =
-  | "mobile"
-  | "javascript"
-  | "css"
-  | "development"
-  | "non-technical";
+export type Category = typeof CATEGORIES[number];
+
+export const CATEGORIES = [
+  "mobile",
+  "javascript",
+  "css",
+  "development",
+  "non-technical",
+] as const;
