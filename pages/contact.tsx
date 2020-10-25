@@ -1,12 +1,12 @@
 import Head from "next/head";
-import Layout, { siteTitle } from "../components/layout";
+import Layout, { SITE_TITLE } from "../components/layout";
 // import Link from "next/link";
 
 export default function Contact() {
   return (
     <Layout>
       <Head>
-        <title>Get in touch: {siteTitle}</title>
+        <title>Get in touch: {SITE_TITLE}</title>
       </Head>
 
       <h1>Get in touch</h1>

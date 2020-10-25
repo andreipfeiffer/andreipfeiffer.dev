@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Layout, { siteTitle } from "../components/layout";
+import Layout, { SITE_TITLE } from "../components/layout";
 // import Link from "next/link";
 import styles from "./talks.module.css";
 
@@ -7,7 +7,7 @@ export default function Talks() {
   return (
     <Layout className={styles.talks}>
       <Head>
-        <title>Talks: {siteTitle}</title>
+        <title>Talks: {SITE_TITLE}</title>
       </Head>
 
       <h1>Talks &amp; Live coding sessions</h1>

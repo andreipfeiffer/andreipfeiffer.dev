@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Layout, { siteTitle } from "../components/layout";
+import Layout, { SITE_TITLE } from "../components/layout";
 import { getAllPosts, Post } from "../lib/blog";
 import Link from "next/link";
 import Date from "../components/date";
@@ -15,7 +15,7 @@ export default function Blog(props: Props) {
   return (
     <Layout>
       <Head>
-        <title>Blog: {siteTitle}</title>
+        <title>Blog: {SITE_TITLE}</title>
       </Head>
 
       <h2>Blog</h2>

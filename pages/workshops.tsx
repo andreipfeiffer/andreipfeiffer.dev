@@ -1,12 +1,12 @@
 import Head from "next/head";
-import Layout, { siteTitle } from "../components/layout";
+import Layout, { SITE_TITLE } from "../components/layout";
 // import Link from "next/link";
 
 export default function Workshops() {
   return (
     <Layout>
       <Head>
-        <title>Workshops: {siteTitle}</title>
+        <title>Workshops: {SITE_TITLE}</title>
       </Head>
 
       <h1>Workshops &amp; Trainings</h1>

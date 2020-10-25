@@ -1,12 +1,12 @@
 import Head from "next/head";
-import Layout, { siteTitle } from "../components/layout";
+import Layout, { SITE_TITLE } from "../components/layout";
 // import Link from "next/link";
 
 export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>{siteTitle}</title>
+        <title>{SITE_TITLE}</title>
       </Head>
 
       <h1>Andrei Pfeiffer</h1>
