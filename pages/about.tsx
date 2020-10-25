@@ -13,8 +13,8 @@ export default function About() {
       <h1>About me</h1>
 
       <p>
-        I'm {new Date().getFullYear() - 1982} years old, born on April 3rd 1982.{" "}
-        <br />I live in Timişoara, Romania.
+        I'm {new Date().getFullYear() - 1982} years old, living in Timişoara,
+        Romania.
       </p>
 
       <p>
@@ -194,6 +194,8 @@ export default function About() {
           across Europe in autumn and playing Dota2 in between.
         </p>
       </section>
+
+      <a href="/andrei-pfeiffer-resume-v4.pdf">View full resumee</a>
     </Layout>
   );
 }

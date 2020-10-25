@@ -12,8 +12,6 @@ type Props = {
 export default function Blog(props: Props) {
   const { posts } = props;
 
-  console.log({ posts });
-
   return (
     <Layout>
       <Head>
