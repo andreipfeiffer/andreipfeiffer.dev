@@ -7,3 +7,7 @@
 .main {
   padding: 3em 0;
 }
+
+.active {
+  color: brown;
+}

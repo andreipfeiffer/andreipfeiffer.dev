@@ -28,7 +28,9 @@ export default function Blog(props: Props) {
             {meta.category && (
               <small>
                 [
-                <Link href={`/category/${meta.category}`}>
+                <Link
+                  href={`/blog-category/${encodeURIComponent(meta.category)}`}
+                >
                   <a>{meta.category}</a>
                 </Link>
                 ]

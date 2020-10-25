@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "./layout.module.css";
-import Link from "next/link";
+import { Link } from "./Link";
 import useDarkMode from "use-dark-mode";
 
 const name = "Andrei Pfeiffer";
@@ -42,27 +42,27 @@ export default function Layout(props: Props) {
 
         <ul>
           <li>
-            <Link href="/talks">
+            <Link href="/talks" activeClass={styles.active}>
               <a>Talks</a>
             </Link>
           </li>
           <li>
-            <Link href="/workshops">
+            <Link href="/workshops" activeClass={styles.active}>
               <a>Workshops</a>
             </Link>
           </li>
           <li>
-            <Link href="/blog">
+            <Link href="/blog" activeClass={styles.active}>
               <a>Blog</a>
             </Link>
           </li>
           <li>
-            <Link href="/about">
+            <Link href="/about" activeClass={styles.active}>
               <a>About</a>
             </Link>
           </li>
           <li>
-            <Link href="/contact">
+            <Link href="/contact" activeClass={styles.active}>
               <a>Get in touch</a>
             </Link>
           </li>
