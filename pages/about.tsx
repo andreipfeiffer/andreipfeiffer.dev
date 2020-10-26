@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Layout, { SITE_TITLE } from "../components/layout";
-// import Link from "next/link";
+import Link from "next/link";
 import styles from "./about.module.css";
 
 export default function About() {
@@ -68,12 +68,27 @@ export default function About() {
           <a href="http://revojs.ro">revo.js</a>, an annual not-for-profit,
           community driven, JavaScript conference.
         </p>
+        <p>
+          Since 2013, I've been involved in the local JavaScript community,
+          co-organizing <a href="http://timjs.ro">tim.js</a>, a monthly meetup
+          dedicated to the entire JavaScript ecosystem.
+        </p>
+        <p>
+          I enjoy sharing my knowledge during meetup and conference{" "}
+          <Link href="/talks">
+            <a>talks</a>
+          </Link>
+          , hands-on{" "}
+          <Link href="/workshops">
+            <a>workshops and trainings</a>
+          </Link>
+          , or in written{" "}
+          <Link href="/blog">
+            <a>articles</a>
+          </Link>
+          .
+        </p>
       </section>
-      <p>
-        Since 2013, I've been involved in the local JavaScript community,
-        co-organizing <a href="http://timjs.ro">tim.js</a>, a monthly meetup
-        dedicated to the entire JavaScript ecosystem.
-      </p>
     </Layout>
   );
 }
