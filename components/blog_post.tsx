@@ -4,7 +4,7 @@ import useDarkMode from "use-dark-mode";
 import readingTime from "reading-time";
 
 import Layout from "./layout";
-import Date from "./date";
+import FormattedDate from "./date";
 import { Metadata } from "../lib/blog";
 // import styles from "./BlogPost.module.css";
 
@@ -37,7 +37,7 @@ export default function BlogPost(props: Props) {
         <header>
           <h1>{meta.title}</h1>
           <small>
-            Posted on <Date dateString={meta.date} />
+            Posted on <FormattedDate date={meta.date} />
           </small>
           <br />
           <small>{readTime.text}</small>

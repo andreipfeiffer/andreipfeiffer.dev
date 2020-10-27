@@ -2,7 +2,7 @@ import Head from "next/head";
 import Layout, { SITE_TITLE } from "../components/layout";
 import { getAllPosts, Post } from "../lib/blog";
 import Link from "next/link";
-import Date from "../components/date";
+import FormattedDate from "../components/date";
 import { GetStaticProps } from "next";
 
 type Props = {
@@ -38,7 +38,7 @@ export default function Blog(props: Props) {
             )}
             <br />
             <small>
-              <Date dateString={meta.date} />
+              <FormattedDate date={meta.date} />
             </small>
           </li>
         ))}
