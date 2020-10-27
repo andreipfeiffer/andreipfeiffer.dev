@@ -1,5 +1,4 @@
 import BlogPost from "../../../components/blog_post";
-import Foo from "../../../components/Foo";
 
 export const meta = {
   title: "React Native WebView files upload",
@@ -9,8 +8,6 @@ export const meta = {
 };
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
-
-<Foo />
 
 You might wonder why the hack would you want to upload files through a WebView in a mobile app. Let’s just say that your best friend really needs this.
 
@@ -23,8 +20,6 @@ Consider you have an HTML page, that contains a file upload input:
 We’ll have to tackle each platform individually, because the solutions differ between iOS and Android.
 
 ---
-
-## Table of contents
 
 ## iOS
 
