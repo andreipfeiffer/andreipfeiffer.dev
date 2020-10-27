@@ -4,13 +4,11 @@ const slug = require("remark-slug");
 const headings = require("remark-autolink-headings");
 const externalLinks = require("remark-external-links");
 const toc = require("remark-toc");
-const frontmatter = require("remark-frontmatter");
 
 const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [
-      frontmatter,
       html,
       highlight,
       slug,
