@@ -12,7 +12,6 @@
     "@mdx-js/loader": "^1.6.19",
     "@next/mdx": "^9.5.5",
     "@types/babel__core": "^7.1.10",
-    "gray-matter": "^4.0.2",
     "next": "^10.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
