@@ -1,3 +1,6 @@
+const withPlugins = require("next-compose-plugins");
+const optimizedImages = require("next-optimized-images");
+
 const html = require("remark-html");
 const highlight = require("remark-highlight.js");
 const slug = require("remark-slug");
@@ -28,6 +31,12 @@ const withMDX = require("@next/mdx")({
   },
 });
 
-module.exports = withMDX({
-  pageExtensions: ["ts", "tsx", "mdx"],
-});
+module.exports = withPlugins([
+  [withMDX, { pageExtensions: ["ts", "tsx", "mdx"] }],
+  [optimizedImages, { optipng: { optimizeImagesInDev: true } }],
+  {
+    images: {
+      deviceSizes: [320, 768, 1024, 1200, 1900],
+    },
+  },
+]);
