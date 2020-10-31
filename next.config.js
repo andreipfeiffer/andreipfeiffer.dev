@@ -39,4 +39,7 @@ module.exports = withPlugins([
       deviceSizes: [320, 768, 1024, 1200, 1900],
     },
   },
+  {
+    trailingSlash: true,
+  },
 ]);
