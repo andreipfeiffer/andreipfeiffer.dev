@@ -1,0 +1,83 @@
+import BlogPost from "../../../components/blog_post";
+import Code from "../../../components/code";
+
+export const meta = {
+  title: "React Native’s RCT_EXTERN_METHOD",
+  date: "2019-10-19",
+  tags: ["React Native", "Swift", "Objective-C", "Bridge"],
+  category: "mobile",
+};
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+Most of the Objective-C Macros from React Native that you have to use when bridging native code are self-explanatory and easy to use. But there is something weird about **RCT_EXTERN_METHOD** at first sight.
+
+It took me quite some time to understand how it works. There’s no detailed documentation about this, so I will try my best to explain it.
+
+> Note: **RCT_EXPORT_METHOD**, which is different, works exactly the same
+
+---
+
+As the name implies, these Macros enable us to expose a native method to React Native’s bridge. It has the following syntax:
+
+```
+RCT_EXTERN_METHOD(
+  methodName:         (paramType1)internalParamName1
+  externalParamName2: (paramType2)internalParamName2
+  externalParamName3: (paramType3)internalParamName3
+  ...
+)
+```
+
+Probably the easiest way to understand it is from some examples:
+
+## Example with no arguments
+
+```
+// Obj-C
+RCT_EXTERN_METHOD(getCount)
+
+// Swift
+func getCount() {...}
+```
+
+This is the most simple example. When your method has no arguments, all you need to do is specify the method name.
+
+## Example with 1 argument
+
+```
+// Obj-C
+RCT_EXTERN_METHOD(getCount:(NSString)name)
+
+// Swift
+func getCount(_ name: NSString) {...}
+```
+
+There are 3 things going on here:
+
+1. The external name of the argument (`getCount`), maps to the **Swift method name**;
+2. The internal name of the argument (`name`) maps to the corresponding **Swift argument**;
+3. Since the argument doesn’t have an external name, we use `"_"` instead.
+
+## Example with 2 (or more) arguments
+
+<Code>
+
+
+// Obj-C
+RCT_EXTERN_METHOD(getCount:(NSString)name withAge:(NSNumber)age)
+
+// Swift
+func getCount(\_ name: NSString, withAge age: NSNumber)
+
+</Code>
+
+
+For the 1st argument, the above rules apply. Starting with the second argument, the external and internal names map as we would expect:
+
+---
+
+If you want to learn more about using Swift code in React Native, you should check out **Swift in React Native: The Ultimate Guide**:
+
+- [Part 1: native Modules](https://teabreak.e-spres-oh.com/swift-in-react-native-the-ultimate-guide-part-1-modules-9bb8d054db03)
+- [Part 2: native UI Components](https://teabreak.e-spres-oh.com/swift-in-react-native-the-ultimate-guide-part-2-ui-components-907767123d9e)
