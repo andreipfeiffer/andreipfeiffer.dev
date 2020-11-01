@@ -5,15 +5,18 @@ Built with [Next.js](https://nextjs.org/).
 ### Development
 
 ```
+npm install
 npm run dev
 ```
 
 <br />
 
-### Production Build
+### Production Deploy
 
 ```
-npm run export
+npm install
+npm run build
+npm start
 ```
 
-This will generate the **`out`** folder which can be statically served.
+This will build the **`.next/`** folder and serve it using a Node.js server.
