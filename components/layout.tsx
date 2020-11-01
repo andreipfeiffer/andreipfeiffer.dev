@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "./layout.module.css";
+import styles from "./layout.module.scss";
 import { Link } from "./Link";
 import useDarkMode from "use-dark-mode";
 

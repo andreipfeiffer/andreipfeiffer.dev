@@ -1,0 +1,28 @@
+$breakpoint-sm: 768px;
+$breakpoint-md: 1024px;
+$breakpoint-lg: 1200px;
+
+@mixin breakpoint($point, $limit: min) {
+  $offset: 0;
+  @if $limit == max {
+    $offset: -1;
+  }
+
+  @if $point == lg {
+    @media (#{$limit}-width: $breakpoint-lg + $offset) {
+      @content;
+    }
+  } @else if $point == md {
+    @media (#{$limit}-width: $breakpoint-md + $offset) {
+      @content;
+    }
+  } @else if $point == sm {
+    @media (#{$limit}-width: $breakpoint-sm + $offset) {
+      @content;
+    }
+  } @else {
+    @media (#{$limit}-width: $point) {
+      @content;
+    }
+  }
+}

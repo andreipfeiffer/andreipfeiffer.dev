@@ -1,7 +1,12 @@
+@import "../styles/mixins";
+
 .container {
-  max-width: 75%;
-  padding: 0 1rem;
+  padding: 2rem;
   /* margin: 3rem auto 6rem; */
+
+  @include breakpoint(md) {
+    max-width: 980px;
+  }
 }
 
 .main {
