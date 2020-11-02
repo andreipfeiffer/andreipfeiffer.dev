@@ -33,25 +33,35 @@ Probably the easiest way to understand it is from some examples:
 
 ## Example with no arguments
 
-```
-// Obj-C
-RCT_EXTERN_METHOD(getCount)
-
-// Swift
-func getCount() {...}
-```
+<Code>
+  <i style={{ opacity: 0.4 }}>// Obj-C</i>
+  <p>
+    RCT_EXTERN_METHOD(<b style={{ color: "#038C3E" }}>getCount</b>)
+  </p>
+  <br />
+  <i style={{ opacity: 0.4 }}>// Swift</i>
+  <p>
+    func <b style={{ color: "#038C3E" }}>getCount</b>()
+  </p>
+</Code>
 
 This is the most simple example. When your method has no arguments, all you need to do is specify the method name.
 
 ## Example with 1 argument
 
-```
-// Obj-C
-RCT_EXTERN_METHOD(getCount:(NSString)name)
-
-// Swift
-func getCount(_ name: NSString) {...}
-```
+<Code>
+  <i style={{ opacity: 0.4 }}>// Obj-C</i>
+  <p>
+    RCT_EXTERN_METHOD(<b style={{ color: "#038C3E" }}>getCount</b>:(NSString)
+    <b style={{ color: "#EF6A25" }}>name</b>)
+  </p>
+  <br />
+  <i style={{ opacity: 0.4 }}>// Swift</i>
+  <p>
+    func <b style={{ color: "#038C3E" }}>getCount</b>(_{" "}
+    <b style={{ color: "#EF6A25" }}>name</b>: NSString)
+  </p>
+</Code>
 
 There are 3 things going on here:
 
@@ -62,16 +72,22 @@ There are 3 things going on here:
 ## Example with 2 (or more) arguments
 
 <Code>
-
-
-// Obj-C
-RCT_EXTERN_METHOD(getCount:(NSString)name withAge:(NSNumber)age)
-
-// Swift
-func getCount(\_ name: NSString, withAge age: NSNumber)
-
+  <i style={{ opacity: 0.4 }}>// Obj-C</i>
+  <p>
+    RCT_EXTERN_METHOD(<b style={{ color: "#038C3E" }}>getCount</b>:(NSString)
+    <b style={{ color: "#EF6A25" }}>name</b> <b style={{ color: "#038C3E" }}>
+      withAge
+    </b>:(NSNumber)<b style={{ color: "#EF6A25" }}>age</b>)
+  </p>
+  <br />
+  <i style={{ opacity: 0.4 }}>// Swift</i>
+  <p>
+    func <b style={{ color: "#038C3E" }}>getCount</b>(_{" "}
+    <b style={{ color: "#EF6A25" }}>name</b>: NSString,{" "}
+    <b style={{ color: "#038C3E" }}>withAge</b>{" "}
+    <b style={{ color: "#EF6A25" }}>age</b>: NSNumber)
+  </p>
 </Code>
-
 
 For the 1st argument, the above rules apply. Starting with the second argument, the external and internal names map as we would expect:
 
@@ -81,3 +97,71 @@ If you want to learn more about using Swift code in React Native, you should che
 
 - [Part 1: native Modules](https://teabreak.e-spres-oh.com/swift-in-react-native-the-ultimate-guide-part-1-modules-9bb8d054db03)
 - [Part 2: native UI Components](https://teabreak.e-spres-oh.com/swift-in-react-native-the-ultimate-guide-part-2-ui-components-907767123d9e)
+
+---
+
+---
+
+---
+
+```js
+const btn = document.getElementById("btn");
+let count = 0;
+var object = { numberee: 123, striiing: "something", array: [1, 2, 3] };
+
+function render() {
+  btn.innerText = `Count: ${count}`;
+}
+
+btn.addEventListener("click", () => {
+  // Count from 1 to 10.
+  if (count < 10) {
+    count += 1;
+    render();
+  }
+});
+```
+
+```js
+function Compon() {
+  const [state, setState] = useState(1);
+
+  return (
+    <span className={styles.foo}>
+      <Button onClick={() => setState(state++)} />
+    </span>
+  );
+}
+```
+
+```css
+html {
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+```
+
+```html
+<html lang="en">
+  <head>
+    <title>HTML Template</title>
+  </head>
+
+  <body>
+    <main>
+      <!-- Page contents -->
+      <button class="cls" id="btn" [data-attr="value" ] />
+    </main>
+  </body>
+</html>
+```

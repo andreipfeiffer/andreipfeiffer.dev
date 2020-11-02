@@ -1,4 +1,5 @@
 import React from "react";
+import useDarkMode from "use-dark-mode";
 import styles from "./code.module.css";
 
 type Props = {
@@ -6,5 +7,14 @@ type Props = {
 };
 
 export default function Code({ children }: Props) {
-  return <code className={styles.code}>{children}</code>;
+  const darkMode = useDarkMode(false);
+  return (
+    <div
+      className={`${styles.container} ${
+        darkMode.value === true && styles.container_dark
+      }`}
+    >
+      <code className={styles.code}>{children}</code>
+    </div>
+  );
 }

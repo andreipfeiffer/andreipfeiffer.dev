@@ -20,17 +20,27 @@ export default function BlogPost(props: Props) {
   const readTime = readingTime(getReactNodeText(children));
 
   const darkMode = useDarkMode(false);
-  const theme = darkMode.value ? "atom-one-light" : "atom-one-dark";
+  const theme = darkMode.value ? "highlight-dark" : "highlight-light";
 
   return (
     <Layout>
       <Head>
         <title>{meta.title}</title>
-        <link
+        {/* <link
           rel="stylesheet"
           // this could be included only when needed, like pass a boolean to <BlogPost />
           href={`https://highlightjs.org/static/demo/styles/${theme}.css`}
+        /> */}
+        <link
+          rel="stylesheet"
+          // this could be included only when needed, like pass a boolean to <BlogPost />
+          href={`/${theme}.css`}
         />
+
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,800;1,400;1,800&amp;display=swap"
+          rel="stylesheet"
+        ></link>
       </Head>
 
       <article>
