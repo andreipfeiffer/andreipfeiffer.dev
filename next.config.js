@@ -2,7 +2,7 @@ const withPlugins = require("next-compose-plugins");
 const optimizedImages = require("next-optimized-images");
 
 const html = require("remark-html");
-const highlight = require("remark-highlight.js");
+const prism = require("remark-prism");
 const slug = require("remark-slug");
 const headings = require("remark-autolink-headings");
 const externalLinks = require("remark-external-links");
@@ -12,8 +12,8 @@ const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [
+      [prism, { showSpotlight: true }],
       html,
-      highlight,
       slug,
       [
         headings,

@@ -38,7 +38,7 @@ export default function BlogPost(props: Props) {
         />
 
         <link
-          href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,800;1,400;1,800&amp;display=swap"
+          href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
           rel="stylesheet"
         ></link>
       </Head>

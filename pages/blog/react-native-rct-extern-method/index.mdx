@@ -25,7 +25,6 @@ RCT_EXTERN_METHOD(
   methodName:         (paramType1)internalParamName1
   externalParamName2: (paramType2)internalParamName2
   externalParamName3: (paramType3)internalParamName3
-  ...
 )
 ```
 
@@ -34,15 +33,18 @@ Probably the easiest way to understand it is from some examples:
 ## Example with no arguments
 
 <Code>
-  <i style={{ opacity: 0.4 }}>// Obj-C</i>
-  <p>
-    RCT_EXTERN_METHOD(<b style={{ color: "#038C3E" }}>getCount</b>)
-  </p>
+  <i style={{ opacity: 0.3 }}>// Obj-C</i>
   <br />
-  <i style={{ opacity: 0.4 }}>// Swift</i>
-  <p>
+  <span>
+    RCT_EXTERN_METHOD(<b style={{ color: "#038C3E" }}>getCount</b>)
+  </span>
+  <br />
+  <br />
+  <i style={{ opacity: 0.3 }}>// Swift</i>
+  <br />
+  <span>
     func <b style={{ color: "#038C3E" }}>getCount</b>()
-  </p>
+  </span>
 </Code>
 
 This is the most simple example. When your method has no arguments, all you need to do is specify the method name.
@@ -50,17 +52,20 @@ This is the most simple example. When your method has no arguments, all you need
 ## Example with 1 argument
 
 <Code>
-  <i style={{ opacity: 0.4 }}>// Obj-C</i>
-  <p>
+  <i style={{ opacity: 0.3 }}>// Obj-C</i>
+  <br />
+  <span>
     RCT_EXTERN_METHOD(<b style={{ color: "#038C3E" }}>getCount</b>:(NSString)
     <b style={{ color: "#EF6A25" }}>name</b>)
-  </p>
+  </span>
   <br />
-  <i style={{ opacity: 0.4 }}>// Swift</i>
-  <p>
+  <br />
+  <i style={{ opacity: 0.3 }}>// Swift</i>
+  <br />
+  <span>
     func <b style={{ color: "#038C3E" }}>getCount</b>(_{" "}
     <b style={{ color: "#EF6A25" }}>name</b>: NSString)
-  </p>
+  </span>
 </Code>
 
 There are 3 things going on here:
@@ -72,21 +77,25 @@ There are 3 things going on here:
 ## Example with 2 (or more) arguments
 
 <Code>
-  <i style={{ opacity: 0.4 }}>// Obj-C</i>
-  <p>
+  <i style={{ opacity: 0.3 }}>// Obj-C</i>
+  <br />
+  <span>
     RCT_EXTERN_METHOD(<b style={{ color: "#038C3E" }}>getCount</b>:(NSString)
     <b style={{ color: "#EF6A25" }}>name</b> <b style={{ color: "#038C3E" }}>
       withAge
-    </b>:(NSNumber)<b style={{ color: "#EF6A25" }}>age</b>)
-  </p>
+    </b>:(NSNumber)
+    <b style={{ color: "#EF6A25" }}>age</b>)
+  </span>
   <br />
-  <i style={{ opacity: 0.4 }}>// Swift</i>
-  <p>
+  <br />
+  <i style={{ opacity: 0.3 }}>// Swift</i>
+  <br />
+  <span>
     func <b style={{ color: "#038C3E" }}>getCount</b>(_{" "}
     <b style={{ color: "#EF6A25" }}>name</b>: NSString,{" "}
     <b style={{ color: "#038C3E" }}>withAge</b>{" "}
     <b style={{ color: "#EF6A25" }}>age</b>: NSNumber)
-  </p>
+  </span>
 </Code>
 
 For the 1st argument, the above rules apply. Starting with the second argument, the external and internal names map as we would expect:
@@ -104,7 +113,9 @@ If you want to learn more about using Swift code in React Native, you should che
 
 ---
 
-```js
+For the 1st argument, the [`above rules`](https://upsidedown.ro) apply. Starting with the second argument, This is `const btn = inlineCode(prop)`. the external and internal names map as we would expect.
+
+```js{1-3,6}
 const btn = document.getElementById("btn");
 let count = 0;
 var object = { numberee: 123, striiing: "something", array: [1, 2, 3] };
@@ -112,6 +123,8 @@ var object = { numberee: 123, striiing: "something", array: [1, 2, 3] };
 function render() {
   btn.innerText = `Count: ${count}`;
 }
+
+const x = window.scrollTop;
 
 btn.addEventListener("click", () => {
   // Count from 1 to 10.
@@ -122,9 +135,16 @@ btn.addEventListener("click", () => {
 });
 ```
 
-```js
-function Compon() {
-  const [state, setState] = useState(1);
+```tsx
+type Props = {
+  children: React.ReactNode;
+  val?: number;
+};
+
+function Compon(props: Props) {
+  const [state, setState] = useState(true);
+
+  const STATIC_FOO = false || 123;
 
   return (
     <span className={styles.foo}>
@@ -146,8 +166,31 @@ body {
 
 *,
 *:before,
-*:after {
+*::after {
   box-sizing: border-box;
+}
+
+[data-foo="content"] {
+  justify-content: flex-start;
+}
+
+.centered-class {
+  display: flex;
+}
+
+#some-id {
+  color: #ff0000;
+}
+
+@media {
+  @keyframes identifier {
+    0% {
+      color: red;
+    }
+    100% {
+      color: blue;
+    }
+  }
 }
 ```
 
