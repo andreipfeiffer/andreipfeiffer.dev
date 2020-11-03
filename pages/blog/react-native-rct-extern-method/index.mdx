@@ -116,6 +116,8 @@ If you want to learn more about using Swift code in React Native, you should che
 For the 1st argument, the [`above rules`](https://upsidedown.ro) apply. Starting with the second argument, This is `const btn = inlineCode(prop)`. the external and internal names map as we would expect.
 
 ```js{1-3,6}
+import ResizeObserver from "@juggle/resize-observer";
+
 const btn = document.getElementById("btn");
 let count = 0;
 var object = { numberee: 123, striiing: "something", array: [1, 2, 3] };
@@ -136,6 +138,11 @@ btn.addEventListener("click", () => {
 ```
 
 ```tsx
+interface Props {
+  children: React.ReactNode;
+  val?: number;
+}
+
 type Props = {
   children: React.ReactNode;
   val?: number;
@@ -151,6 +158,24 @@ function Compon(props: Props) {
       <Button onClick={() => setState(state++)} />
     </span>
   );
+}
+
+class User extends Base implements Props {
+  private current_user: User = {};
+
+  constructor(props) {
+    super(props);
+    this.current_user = new User(props);
+  }
+
+  init(id) {
+    // do something
+  }
+
+  async getUsers(id: number, name: string, roles: Role[]): User[] {
+    const u = await api.fetchUser(id);
+    return [].push(new User(u));
+  }
 }
 ```
 
@@ -174,7 +199,7 @@ body {
   justify-content: flex-start;
 }
 
-.centered-class {
+.centered-class:hover {
   display: flex;
 }
 
@@ -207,4 +232,24 @@ body {
     </main>
   </body>
 </html>
+```
+
+```js{1-3,6}
+const btn = document.getElementById("btn");
+let count = 0;
+var object = { numberee: 123, striiing: "something", array: [1, 2, 3] };
+
+function render() {
+  btn.innerText = `Count: ${count}`;
+}
+
+const x = window.scrollTop;
+
+btn.addEventListener("click", () => {
+  // Count from 1 to 10.
+  if (count < 10) {
+    count += 1;
+    render();
+  }
+});
 ```
