@@ -2,5 +2,164 @@
 
 /* Inline code */
 :not(pre) > code {
-  background-color: #ddedf7;
+  background-color: #edeff1;
+}
+
+.remark-highlight {
+  background: #ecece9;
+}
+.remark-highlight-code-line {
+  background: #dcdcd3;
+}
+/* Code blocks */
+.token.script,
+.remark-highlight > pre {
+  color: #3e3e3b;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #b7b6ae;
+  font-style: italic;
+}
+
+/* any punctuation, faded */
+.token.punctuation {
+  color: #92918c;
+}
+/* JS constant SOME_CONSTANT */
+.token.constant,
+/* JS template strings interpolation delimitators */
+.token.interpolation-punctuation {
+  /* custom */
+  color: #f55966;
+}
+
+/* JS logical operators, also ":" */
+.token.operator {
+  /* custom */
+  color: #0184bc;
+}
+
+/* JS object property access: "obj.prop" */
+.token.property-access {
+  color: #000000;
+}
+
+/* CSS property name */
+.token.property,
+/* JS const, let, function, any reserved keyword */
+.token.keyword {
+  color: #c14ec0;
+}
+/* HTML tag name */
+.token.tag {
+  color: #e85e6a;
+}
+
+/* CSS default selector, by tag */
+.token.selector {
+  color: #ff3f4f;
+}
+/* CSS selector class */
+.token.class {
+  color: #bba656;
+}
+/* CSS ids */
+.token.id {
+  color: #ff2fe5;
+}
+
+/* JS boolean */
+.token.boolean {
+  color: #0d54f7;
+}
+
+/* JS/CSS numbers */
+.token.number {
+  color: #fd8200;
+}
+/* CSS units */
+.token.unit {
+  color: #f9a64e;
+}
+
+/* JS/CSS strings */
+.token.string,
+/* html attribute value */
+.token.attr-value,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #0da70b;
+}
+
+/* CSS @ rules: @media, @keyframes, etc (including any identifiers) */
+.token.atrule {
+  color: #e88c2c;
+}
+
+/* TS types usage (not definition), probably anything Capitalized, like "ReactNode" */
+.token.maybe-class-name,
+/* TS types definition, classes, React components usage */
+.token.class-name,
+/* CSS @rules: @media, @keyframes (only the @rule) */
+.token.rule {
+  color: #d47e00;
+}
+
+/* CSS pseudo elements */
+.token.pseudo-element,
+/* CSS pseudo classes */
+.token.pseudo-class,
+/* HTML/JSX attributes */
+.token.attr-name,
+/* SJ function and methods name definition & call() */
+.token.function {
+  color: #04a0e2;
+}
+
+/* DOM native objects */
+.token.dom {
+  color: #5f5def;
+  font-style: italic;
+}
+
+/* === UNCHAGED === */
+
+.namespace {
+  opacity: 0.7;
+}
+
+.token.symbol,
+.token.deleted {
+  color: #f92672;
+}
+
+.token.entity {
+  color: #ffffb6;
+  cursor: help;
+}
+
+.token.url {
+  color: #96cbfe;
+}
+
+.token.regex {
+  color: #e9c062;
+}
+
+.token.important {
+  color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic::after {
+  font-style: italic;
 }

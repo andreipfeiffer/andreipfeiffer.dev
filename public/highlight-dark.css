@@ -2,5 +2,160 @@
 
 /* Inline code */
 :not(pre) > code {
-  background-color: #33332e;
+  background-color: #2f2f2e;
+}
+
+.remark-highlight {
+  background: #1d1f21;
+}
+.remark-highlight-code-line {
+  background: #2e3133;
+}
+/* Code blocks */
+.token.script,
+.remark-highlight > pre {
+  color: #d6d6bf;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #525663;
+  font-style: italic;
+}
+
+/* any punctuation, faded */
+.token.punctuation {
+  color: #757986;
+}
+/* JS constant SOME_CONSTANT */
+.token.constant,
+/* JS logical operators, also ":" */
+.token.operator,
+/* JS template strings interpolation delimitators */
+.token.interpolation-punctuation {
+  /* custom */
+  color: #f53e4e;
+}
+
+/* JS object property access: "obj.prop" */
+.token.property-access {
+  color: #f8f8f0;
+}
+
+/* CSS property name */
+.token.property,
+/* JS const, let, function, any reserved keyword */
+.token.keyword {
+  color: #19d1e5;
+}
+/* HTML tag name */
+.token.tag {
+  color: #e85e6a;
+}
+
+/* CSS default selector, by tag */
+.token.selector {
+  color: #ff3f4f;
+}
+/* CSS selector class */
+.token.class {
+  color: #f5d766;
+}
+/* CSS ids */
+.token.id {
+  color: #e453d2;
+}
+
+/* JS boolean */
+.token.boolean {
+  color: #5383f1;
+}
+
+/* JS/CSS numbers */
+.token.number {
+  color: #ea15cf;
+}
+/* CSS units */
+.token.unit {
+  color: #b90ab9;
+}
+
+/* JS/CSS strings */
+.token.string,
+/* html attribute value */
+.token.attr-value,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #f5c91f;
+}
+
+/* CSS @ rules: @media, @keyframes, etc (including any identifiers) */
+.token.atrule {
+  color: #f7b672;
+}
+
+/* TS types usage (not definition), probably anything Capitalized, like "ReactNode" */
+.token.maybe-class-name,
+/* TS types definition, classes, React components usage */
+.token.class-name,
+/* CSS @rules: @media, @keyframes (only the @rule) */
+.token.rule {
+  color: #fd8c15;
+}
+
+/* CSS pseudo elements */
+.token.pseudo-element,
+/* CSS pseudo classes */
+.token.pseudo-class,
+/* HTML/JSX attributes */
+.token.attr-name,
+/* SJ function and methods name definition & call() */
+.token.function {
+  color: #87d236;
+}
+
+/* DOM native objects */
+.token.dom {
+  color: #8280f9;
+  font-style: italic;
+}
+
+/* === UNCHAGED === */
+
+.namespace {
+  opacity: 0.7;
+}
+
+.token.symbol,
+.token.deleted {
+  color: #f92672;
+}
+
+.token.entity {
+  color: #ffffb6;
+  cursor: help;
+}
+
+.token.url {
+  color: #96cbfe;
+}
+
+.token.regex {
+  color: #e9c062;
+}
+
+.token.important {
+  color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic::after {
+  font-style: italic;
 }

@@ -2,6 +2,11 @@
   overflow: auto;
   border-radius: 0.3em;
   margin: 1em 0;
+
+  /* This might be helpful for large & many blocks of code */
+  /* PROS: faster initial rendering */
+  /* CONS: we don't know the height of the elements, so the scroll bar will jump because the browser will render the element when it comes into view */
+  /* content-visibility: auto; */
 }
 
 code {
@@ -11,7 +16,8 @@ code {
 .remark-highlight > pre {
   float: left;
   min-width: 100%;
-  padding: 1em 1.5em;
+  padding: 1.5em;
+  margin: 0;
 
   direction: ltr;
   text-align: left;
@@ -28,13 +34,14 @@ code {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  color: #d6d6bf;
+  /* color: #d6d6bf; */
 }
 
 /* Inline code */
 :not(pre) > code {
   padding: 0 0.2em 0.2em 0.2em;
   border-radius: 0.3em;
+  white-space: nowrap;
 }
 
 /* highlight for each spotlight line */
@@ -53,143 +60,3 @@ code {
 } */
 
 /* ====================================================================== */
-
-.remark-highlight {
-  background: #1d1f21;
-}
-.remark-highlight-code-line {
-  background: #2e3133;
-}
-/* Code blocks */
-.token.script,
-.remark-highlight > pre {
-  color: #d6d6bf;
-}
-
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-  /* custom */
-  color: #525663;
-  font-style: italic;
-}
-
-.token.punctuation {
-  /* custom */
-  color: #757986;
-}
-.token.constant,
-.token.operator,
-.token.interpolation-punctuation {
-  /* custom */
-  color: #f53e4e;
-}
-
-.token.property-access {
-  color: #f8f8f0;
-}
-
-.namespace {
-  opacity: 0.7;
-}
-
-/* const, let, function, html tags */
-.token.property,
-.token.keyword,
-.token.tag {
-  /* custom */
-  color: #19d1e5;
-}
-
-/* css default selector, by tag */
-.token.selector {
-  /* custom */
-  color: #ff3f4f;
-}
-/* css selector class */
-.token.class {
-  /* custom */
-  color: #f5d766;
-}
-.token.id {
-  /* custom */
-  color: #e453d2;
-}
-
-.token.boolean {
-  /* custom */
-  color: #5383f1;
-}
-
-.token.symbol,
-.token.deleted {
-  color: #f92672;
-}
-
-.token.number {
-  /* custom */
-  color: #ea15cf;
-}
-.token.unit {
-  /* custom */
-  color: #b90ab9;
-}
-
-.token.string,
-.token.attr-value,
-.token.char,
-.token.builtin,
-.token.inserted {
-  /* custom */
-  color: #f5c91f;
-}
-
-.token.variable {
-  color: #8280f9;
-}
-
-.token.entity {
-  color: #ffffb6;
-  cursor: help;
-}
-
-.token.url {
-  color: #96cbfe;
-}
-
-.token.maybe-class-name,
-.token.class-name,
-.token.rule {
-  /* custom */
-  color: #fd8c15;
-}
-
-.token.atrule {
-  color: #f9ee98;
-}
-
-/* function name & call */
-.token.pseudo-element,
-.token.attr-name,
-.token.function {
-  /* custom */
-  color: #87d236;
-}
-
-.token.regex {
-  color: #e9c062;
-}
-
-.token.important {
-  color: #fd971f;
-}
-
-.token.important,
-.token.bold {
-  font-weight: bold;
-}
-
-.token.italic::after {
-  font-style: italic;
-}
