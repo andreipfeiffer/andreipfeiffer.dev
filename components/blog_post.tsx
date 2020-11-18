@@ -86,8 +86,11 @@ export default function BlogPost(props: Props) {
 
 function getReactNodeText(node: React.ReactElement): string {
   if (node instanceof Array) return node.map(getReactNodeText).join("");
+
   if (typeof node === "object" && node)
     return getReactNodeText(node.props.children);
+
   if (["string", "number"].includes(typeof node)) return String(node);
+
   return "";
 }

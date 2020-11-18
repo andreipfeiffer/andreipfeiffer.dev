@@ -6,10 +6,10 @@
 }
 
 .remark-highlight {
-  background: #ecece9;
+  background: #f1f1ee;
 }
 .remark-highlight-code-line {
-  background: #dcdcd3;
+  background: #e4e4de;
 }
 /* Code blocks */
 .token.script,
