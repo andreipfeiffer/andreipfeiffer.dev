@@ -73,13 +73,11 @@
   color: #5383f1;
 }
 
-/* JS/CSS numbers */
+/* CSS units */
+.token.unit,
+  /* JS/CSS numbers */
 .token.number {
   color: #ea15cf;
-}
-/* CSS units */
-.token.unit {
-  color: #b90ab9;
 }
 
 /* JS/CSS strings */

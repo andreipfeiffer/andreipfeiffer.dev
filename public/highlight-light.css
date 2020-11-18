@@ -77,13 +77,11 @@
   color: #0d54f7;
 }
 
+/* CSS units */
+.token.unit,
 /* JS/CSS numbers */
 .token.number {
   color: #fd8200;
-}
-/* CSS units */
-.token.unit {
-  color: #f9a64e;
 }
 
 /* JS/CSS strings */
