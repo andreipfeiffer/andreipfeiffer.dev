@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import useDarkMode from "use-dark-mode";
 import readingTime from "reading-time";
 
@@ -13,8 +14,11 @@ type Props = {
   children: React.ReactElement;
 };
 
+const WEB_URL = "https://andreipfeiffer.dev";
+
 export default function BlogPost(props: Props) {
   const { children, meta } = props;
+  const router = useRouter();
 
   // not very acccurate, but good enough
   const readTime = readingTime(getReactNodeText(children));
@@ -41,6 +45,19 @@ export default function BlogPost(props: Props) {
           href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
           rel="stylesheet"
         ></link>
+
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:site_name" content="andreipfeiffer.dev" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`${WEB_URL}${router.pathname}`} />
+        <meta property="og:article:published_time" content={meta.date} />
+        <meta property="og:article:author" content="Andrei Pfeiffer" />
+        <meta property="og:article:section" content={meta.category} />
+        <meta property="og:article:tag" content={meta.tags.join(",")} />
+        {!!meta.cover && (
+          <meta property="og:image" content={`${WEB_URL}${meta.cover}`} />
+        )}
+        <meta property="twitter:creator" content="@pfeiffer_andrei" />
       </Head>
 
       <article>

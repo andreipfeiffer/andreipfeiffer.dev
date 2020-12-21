@@ -45,6 +45,8 @@ export type Metadata = {
   title: string;
   tags: string[];
   category: Category;
+  /** og:image url */
+  cover?: string;
 };
 
 export type Category = typeof CATEGORIES[number];

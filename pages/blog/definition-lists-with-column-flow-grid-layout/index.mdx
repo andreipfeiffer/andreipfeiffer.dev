@@ -8,15 +8,14 @@ export const meta = {
   date: "2020-11-06",
   tags: ["css", "grid", "layout", "column", "flow"],
   category: "css",
+  cover: "/images/blog/cover-definition-lists-with-column-flow-grid-layout.png",
 };
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-There are always multiple ways to implement a certain layout with CSS. Some approaches are _good enough_ for particular needs, but could be fragile for certain edge cases. Others approaches could be _solid and elegant_, more bulletproof and able to withstand potential future changes.
-
-In this post, we'll examine various implementations for the following layout, using both `flex` and `grid`, debating the robustness of each approach. The layout contains a horizontal list of 3 key-value pairs, the values being displayed beneath the labels.
-
 <ListBad />
+
+In this post, we'll examine various implementations for the above layout, using both `flex` and `grid`, debating the robustness of each approach. The layout contains a horizontal list of 3 key-value pairs, the values being displayed beneath the labels.
 
 **TL;DR**: in our final approach, we'll use Definition Lists with `grid-auto-flow: column`. You can [skip to the final implementation](#final-implementation) if you don't want to follow the step by step guide.
 
@@ -25,7 +24,6 @@ In this post, we'll examine various implementations for the following layout, us
 One approach to this layout is having the 3 key-value groups displayed in a `flex` container. To make this happen, we'll have to wrap each group in an additional element:
 
 <SideBySide>
-
 
 ```html
 <div class="container">
@@ -59,8 +57,9 @@ One approach to this layout is having the 3 key-value groups displayed in a `fle
 
 </SideBySide>
 
+This approach works, the content is displayed as needed. However, it has a pretty big flaw, because the markup doesn't say anything about the **semantics** of the content.
 
-This approach works, the content is displayed as needed. However, it has a pretty big flaw, because the markup doesn't say anything about the **semantics** of the content. Whenever we have `span` or `div` elements, we should ask ourselves if we can replace them with other, more semantic elements, that can describe the content better.
+Whenever we have `span` or `div` elements, we should ask ourselves if we can replace them with other, more semantic elements, that can describe the content better.
 
 Let's look at various ways to improve our content sematics.
 
@@ -71,7 +70,6 @@ One way to improve the semantics, is by using an [Unordered List](https://develo
 > A list of 3 key-value pairs
 
 <SideBySide>
-
 
 ```html{1,2,7,12}
 <ul class="container">
@@ -109,11 +107,10 @@ One way to improve the semantics, is by using an [Unordered List](https://develo
 
 </SideBySide>
 
-
 The changes to our code are minor:
 
-- we've replaced the outer `div.container` with an `ul` element;
-- we've replaced the `div.group` with `li` elements;
+- we've replaced the outer `div.container` with an <abbr title="unordered list">`ul`</abbr> element;
+- we've replaced the `div.group` with <abbr title="list item">`li`</abbr> elements;
 - we've removed the default <abbr title="unordered list">`ul`</abbr> CSS styling.
 
 However, we still have the `span` elements wrapping our actual content, which don't offer any semantics. So, let's go a step forward, by switching to a **Definition List**.
@@ -125,7 +122,6 @@ Whenever we have to deal with any kind of **key-value pairs**, we should conside
 > A definition list of 3 terms
 
 <SideBySide>
-
 
 ```html{1,3,4,8,9,13,14}
 <dl class="container">
@@ -163,7 +159,6 @@ Whenever we have to deal with any kind of **key-value pairs**, we should conside
 
 </SideBySide>
 
-
 Let's go through the code changes:
 
 - we've replaced the `ul.container` with an `dl` element;
@@ -186,7 +181,6 @@ Using `flex` is fine, it gets the job done. But I think we can do better. Instea
 Using this approach to layout, allows us to get rid of the extra `div` elements, because CSS Grids can control both the horizontal and the vertical.
 
 <SideBySide>
-
 
 ```html
 <dl class="container">
@@ -219,7 +213,6 @@ Using this approach to layout, allows us to get rid of the extra `div` elements,
 ```
 
 </SideBySide>
-
 
 The problem is that the grid cells are not displayed as we would expect, because they are distributed by rows, using the order from the markup.
 
@@ -259,7 +252,6 @@ Below you can see the final implementation:
 
 <SideBySide>
 
-
 ```html
 <dl class="container">
   <dt class="label">Posts</dt>
@@ -287,4 +279,3 @@ Below you can see the final implementation:
 ```
 
 </SideBySide>
-
