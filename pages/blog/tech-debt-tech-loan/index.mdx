@@ -1,0 +1,89 @@
+import BlogPost from "../../../components/blog_post";
+
+export const meta = {
+  title: "Tech Debt, or Tech Loan?",
+  date: "2020-12-22",
+  tags: ["Technical Debt", "Code Design"],
+  category: "development",
+};
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+If you're interested in **Technical Debt**, hats off to you, because you probably care about the code you write. If this term is new to you, Wikipedia offers a great overview about [what Technical Debt](https://en.wikipedia.org/wiki/Technical_debt) is and what are its common causes:
+
+> "The implied cost of additional rework caused by choosing an easy (limited) solution now, instead of using a better approach that would take longer"
+
+As it states, Technical Debt is a trade-off, a choice we make as developers. Sometimes we are pushed to make these trade-offs. Sometimes it's our own decision. We can't prevent them, so we need to learn how to manage them.
+
+## Design flaws
+
+While it's not trivial to pin-point what pieces of code should be considered as Technical Debt, there's a general agreement that Technical Debt is related to **bad software design**. Personally, I've seen 3 major categories of code, in regard to software design:
+
+- **Well designed code**  
+  This includes flexible, tested, documented code, easy to read, understand, extend, modify or remove.
+  Smaller libraries can easily reach this level of code design, while large applications might contain only parts of such code.
+
+- **Good enough code**  
+  Code that lacks some of the aspects of well designed code, due to complex requirements.
+  This usually applies to bigger libraries and applications, which usually contain a considerable amount of decent code, but not ideal.
+
+- **Poorly designed code**  
+  This includes a wide variety of symptoms that you've probably encountered by now:
+  - opaque code, which is difficult to read and understand what is does;
+  - rigid code, when adding or extending its functionality requires a complete re-write;
+  - fragile code, when tiny changes break unrelated parts of code;
+  - no associated tests, which makes the code impossible to refactor, in order to fix the problems above;
+  - scary code, which we don't change or even touch, because of the fear of not breaking something.
+
+When we get to **Scary Code**, our code will begin to rot, and I think we can agree that we have a huge problem.
+
+## Why do we write poorly designed code?
+
+Nobody writes "bad code" on purpose. There are understandable reasons why we do this:
+
+### We're ignorant and don't know about it
+
+The lack of experience could render us unable to identify the potential design flaws, especially during the first years of experience. We've all been through this phase, and will probably find ourselves again and again when dealing with new challenges.
+
+This scenario [doesn't really fall into the category of Technical Debt](https://sites.google.com/site/unclebobconsultingllc/a-mess-is-not-a-technical-debt) as there's no actual trade-off. To talk about a debt, there must be a trade.
+
+### We identify it, and we document it
+
+If we have enough experience to acknowledge the trade-off, then we can do something about it:
+
+- create an issue on your git repository;
+- create a task in your Issue tracker;
+- mark it as a `// @todo` comment;
+- write it down in our notebook, post-it or whiteboard;
+- discuss it during our next meeting.
+
+Whatever the approach, it's crucial to talk about it and plan the appropriate refactoring with our team.
+
+If we do this reasonably soon, ideally in the following sprint, this can be considered a **Technical Loan**. We just borrowed some money from a friend and we give them back next month, without any interest.
+
+### We know about it, but ignore it
+
+If we keep avoiding to fix the problem, the loan will become a debt, and we'll have to pay constant interest. No developer, manager or client will ask for or wants to get into this situation. But still, this happens over and over.
+
+## The technical nature of the debt
+
+It's true that Technical Debt has a huge impact on the product as well, not only on the development of it. But we, as developers, need to understand that we are the ones that made that choice.
+
+There's a reason why it's called "Technical" Debt. Even if the cause is not technical, the code which includes the Technical Debt is written by developers, and we are the only ones that are able to "pay it".
+
+Depending on your manager or client, there are different ways to handle it:
+
+- If you're dealing with a cerebral, tech-savvy person, we should be able to address the problems freely.
+- If you're dealing with a pushy person, learn to push-back. Tell them "We won't be able to make that deadline, we need to remove this feature". Always be sincere, but polite.
+- If you're dealing with a non-technical person, you should avoid terms like "refactor" or "rewrite". Tell them that "We need to make some changes to accommodate (the following) new features".
+- If you're unlucky and you're dealing with difficult clients or managers, just include the refactoring in a related task or issue. As long as they don't know (and honestly don't even care), and new features are also released, everybody's happy.
+- If they ask you "Why does it take so long?", explain that "We had to take some shortcuts to meet the deadline and we need to make some changes".
+- If all of the above fails, you can disguise the refactoring under some task that includes "security" or "performance", depending on what might tickle your manager or client.
+
+## Take loans. Avoid debts.
+
+Taking shortcuts in software development is unavoidable. It's also a powerful tool to have around. However, we need to understand that any shortcut is a trade-off, and all trade-offs have consequences.
+
+Whenever we have to deal with a **debt**, we pay constant **interest**. The bigger the debt, the higher the interest. The only way to get rid of the interest is to pay the debt.
+
+We can avoid debt, if we make a **loan** instead. No interest to pay, but we have to return the loan as soon as possible.
