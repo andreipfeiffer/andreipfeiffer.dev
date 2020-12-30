@@ -83,7 +83,7 @@ export default function BlogPost(props: Props) {
     }
 
     const tags_list = tags.map((tag) => (
-      <Link key={tag} href={`/blog-tag/${encodeURIComponent(tag)}`}>
+      <Link key={tag} href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}>
         <a>{tag}</a>
       </Link>
     ));

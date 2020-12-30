@@ -8,7 +8,9 @@ export function getAllPosts(): Post[] {
 }
 
 export function getPostsByTag(tag: string): Post[] {
-  return getAllPosts().filter((post) => post.meta.tags.includes(tag));
+  return getAllPosts().filter((post) =>
+    post.meta.tags.map((t) => t.toLowerCase()).includes(tag.toLowerCase())
+  );
 }
 
 export function getPostsByCategory(category: Category): Post[] {
