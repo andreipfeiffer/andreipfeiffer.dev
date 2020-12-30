@@ -3,8 +3,13 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import Layout from "../../components/layout";
-import { getPostsByCategory, CATEGORIES, Post, Category } from "../../lib/blog";
+import Layout from "../../../components/layout";
+import {
+  getPostsByCategory,
+  CATEGORIES,
+  Post,
+  Category,
+} from "../../../lib/blog";
 // import styles from "./post.module.css";
 
 type Props = {
@@ -43,7 +48,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = CATEGORIES.map((category) => ({
     // "params" key is required
     // "tag" key must match the [tag] slug name
-    params: { category },
+    params: { category: category.toLowerCase() },
   }));
 
   return {
