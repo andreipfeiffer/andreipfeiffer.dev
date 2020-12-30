@@ -2,6 +2,7 @@ import Head from "next/head";
 import Layout, { SITE_TITLE } from "../components/layout";
 import Link from "next/link";
 import styles from "./about.module.css";
+import { getAge } from "../lib/utils";
 
 export default function About() {
   return (
@@ -11,10 +12,7 @@ export default function About() {
       </Head>
 
       <h1>About me</h1>
-      <p>
-        I'm {new Date().getFullYear() - 1982} years old, living in Timişoara,
-        Romania.
-      </p>
+      <p>I'm {getAge()} years old, living in Timişoara, Romania.</p>
 
       <p>
         I've been designing &amp; developing websites and web apps since 2000
