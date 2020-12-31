@@ -10,10 +10,10 @@ export const meta = {
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 If you're interested in **Technical Debt**, hats off to you, because you probably care about the code you write, or
-read. If this term is new to you, Wikipedia offers a great overview about [what Technical Debt
+read. In case this term is new to you, Wikipedia offers a great overview about [what Technical Debt
 is](https://en.wikipedia.org/wiki/Technical_debt) and what are its common causes:
 
-> "Technical Debt reflects the implied cost of additional rework caused by choosing an easy (limited) solution now,
+> "Technical Debt reflects the implied cost of additional rework caused by choosing an easy (but limited) solution now,
 > instead of using a better approach that would take longer"
 
 As it states, Technical Debt is a trade-off, a choice we make as developers. Sometimes we are (or feel) pushed to make
@@ -25,17 +25,17 @@ While it's not trivial to pin-point what pieces of code should be considered as 
 agreement that it's related to **software design**. Personally, I've seen 3 major categories of code, in regard to
 software design:
 
-- **Well designed code**
+- **Well designed code**  
   This includes flexible, tested, documented code, easy to read, understand, extend, modify or remove.
   Smaller libraries can easily reach this level of code design, while large applications might contain only parts of such
   code.
 
-- **Good enough code**
+- **Good enough code**  
   Code that lacks some of the aspects of well designed code, due to complex requirements.
   This usually applies to bigger libraries and applications, which usually contain a considerable amount of decent code,
   but not ideal.
 
-- **Poorly designed code**
+- **Poorly designed code**  
   This includes a wide variety of symptoms that you've probably encountered by now:
   - opaque code, which is difficult to read and understand what is does;
   - rigid code, when adding or extending its functionality requires a complete re-write;
@@ -43,7 +43,9 @@ software design:
   - no associated tests, which makes the code impossible to refactor, in order to fix the problems above;
   - scary code, which we don't change or even touch, because of the fear of not breaking something.
 
-When we get to **Scary Code**, our code will begin to rot, and I think we can agree that we have a huge problem.
+We should all aim for writting well designed code, even if we are only able to make it good enough.
+
+It's the poorly and badly designed code that we should stay away from, because it has a tendency to [rot](https://en.wikipedia.org/wiki/Software_rot) and once it does that, the rot will spread, which will cause huge problems on the long run.
 
 ## Why do we write poorly designed code?
 
@@ -70,25 +72,27 @@ control if not addressed.
 
 ### Deprioritization
 
-Sometimes we do care. We understand the trade-offs, and we intend to fix them as soon as possible, that why we:
+Sometimes we do care. We understand the trade-offs, and we intend to fix them as soon as possible. We might even:
 
 - create an issue in our git repository;
 - create a task in our issue tracker;
 - mark it as a `@todo` comment;
-- write it down in our notebook, post-it or whiteboard.
+- write it down in our notebook or whiteboard.
 
 However, none of the above helps if we don't actually fix the problem. If the trade-off "works", we might be forced to
 move on to other, more important tasks or features.
 
-Eventually, this would also lead to Technical Debt, and because we did care, we could consider that "we did our part",
-and now it's time for somebody else to prioritize the refactoring. I believe this not true.
+Eventually, this would also lead to Technical Debt, but because we acknowledged the problem, we could consider that "we did our part",
+and now it's time for somebody else to prioritize the refactoring.
+
+Acknowledging a problem, but not fixing it, is still a problem.
 
 ## The technical nature of the debt
 
 It's true that Technical Debt has a huge impact on the product as well, not only on the development of it. But we, as
 developers, need to understand that we are the ones that made that choice.
 
-There's a reason why it's called "Technical" Debt. Even if the cause is not technical, the code which includes the
+There's a reason why it's called **Technical** Debt. Even if the cause is not technical, the code which includes the
 Technical Debt is written by us, developers, and we are the only ones that are able to "pay the debt".
 
 We need to be responsible for the code that we write. We need to do whatever is necessary to fix the trade-offs that we
@@ -99,31 +103,14 @@ know will become big problems later on.
 The problem with **debt** is not the trade-off itself, but the **interest** that we have to pay over and over.
 
 A **loan**, on the other hand, implies the same trade-off, but **without any interest**. Think of it like borrowing
-money from a friend, and returning it next month.
+money from a friend for a short period of time. You'll still need to return the money, but you don't pay any additional interest.
 
 We can apply the same mindset to technical trade-offs: as soon as we are aware of a trade-off, that could turn into
-technical debt, we should address it:
+technical debt, we should address it right away:
 
 - discuss it with the team during our next meeting;
 - don't start new features before fixing the outstanding trade-off;
 - consider it a priority and plan it as soon as possible, ideally during the next sprint.
-
-<!-- Of course, not all loans are equal. Some of them could be returned when needed, while others are critical to be returned quickly.
-
-### Safe loans
-
-I would include in this category
-
-### Critical loans -->
-
-<!-- Depending on your manager or client, there are different ways to handle it:
-
-- If you're dealing with a cerebral, tech-savvy person, we should be able to address the problems freely.
-- If you're dealing with a pushy person, learn to push-back. Tell them "We won't be able to make that deadline, we need to remove this feature". Always be sincere, but polite.
-- If you're dealing with a non-technical person, you should avoid terms like "refactor" or "rewrite". Tell them that "We need to make some changes to accommodate (the following) new features".
-- If you're unlucky and you're dealing with difficult clients or managers, just include the refactoring in a related task or issue. As long as they don't know (and honestly don't even care), and new features are also released, everybody's happy.
-- If they ask you "Why does it take so long?", explain that "We had to take some shortcuts to meet the deadline and we need to make some changes".
-- If all of the above fails, you can disguise the refactoring under some task that includes "security" or "performance", depending on what might tickle your manager or client. -->
 
 ## Take loans. Avoid debts.
 
