@@ -1,3 +1,4 @@
+import React from "react";
 import Head from "next/head";
 import styles from "./layout.module.scss";
 import { Link } from "./Link";
@@ -14,9 +15,14 @@ type Props = {
 export default function Layout(props: Props) {
   const { children, className } = props;
   const darkMode = useDarkMode();
+  const [logo, setLogo] = React.useState<"black" | "white">("black");
 
   let mainStyles = styles.main;
   className && (mainStyles += ` ${className}`);
+
+  React.useEffect(() => {
+    setLogo(darkMode.value ? "white" : "black");
+  }, [darkMode.value]);
 
   return (
     <div className={styles.container}>
@@ -41,7 +47,7 @@ export default function Layout(props: Props) {
         <Link href="/">
           <a>
             <img
-              src={`/images/logo_${darkMode.value ? "white" : "black"}.svg`}
+              src={`/images/logo_${logo}.svg`}
               alt="Andrei Pfeiffer logo"
               width={80}
               height={40}
