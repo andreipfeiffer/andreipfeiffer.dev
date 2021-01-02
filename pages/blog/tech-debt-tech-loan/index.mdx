@@ -39,11 +39,11 @@ Personally, I've seen 3 major categories of code, regarding software design:
 
 - **Poorly designed code**  
   This includes a wide variety of symptoms that you've probably encountered by now:
-  - opaque code, which is difficult to read and understand what it does;
-  - rigid code, when adding or extending its functionality requires a complete re-write;
-  - fragile code, when tiny changes break unrelated parts of code;
-  - no associated tests, which makes the code impossible to refactor, in order to fix the problems above;
-  - scary code, which we don't change or even touch, because of the fear of not breaking something.
+  - **opaque code**, which is difficult to read and understand what it does;
+  - **rigid code**, when adding or extending its functionality requires a complete re-write;
+  - **fragile code**, when tiny changes break unrelated parts of code;
+  - **no associated tests**, which makes the code impossible to refactor, in order to fix the problems above;
+  - **scary code**, which we don't change or even touch, because of the fear of not breaking something.
 
 We should all aim for writing well-designed code, even if we are only able to reach a good enough level.
 
@@ -51,7 +51,7 @@ It's the poorly and badly designed code that we should stay away from because it
 
 ## Why do we write poorly designed code?
 
-I'm pretty sure nobody writes "bad code" on purpose. There are various reasons why we do this, most of them being understandable, which we'll cover next. Other reasons, like negligence, or not giving a damn about the consequences, are out of scope.
+I'm pretty sure nobody writes "bad code" on purpose. There are various reasons why we do this, most of them being understandable, which we'll cover next. However, we'll not cover reasons like negligence, or not giving a damn about the consequences.
 
 ### Ignorance
 
@@ -59,15 +59,15 @@ The lack of experience could render us unable to identify the potential design f
 of experience. We've all been through this phase, and will probably find ourselves again and again when dealing with new
 challenges.
 
-This scenario [doesn't really fall into the category of Technical
-Debt](https://sites.google.com/site/unclebobconsultingllc/a-mess-is-not-a-technical-debt) as there's no actual
-trade-off. To talk about a debt, we have to choose a quick & dirty solution, over another more robust approach. But if we don't know a better solution, we're basically implementing a poor solution, without the knowledge of a better one.
-
 To overcome this, we must learn how to **identify poorly designed code**, in order to write it better:
 
 - whenever we need a lot of words to explain to a colleague a piece of code that we wrote, it's a sign of opacity, so we need to make it [more readable](https://blog.pragmaticengineer.com/readable-code/);
 - when you feel you need to do a lot of code changes to implement a very simple feature change, it's a sign of [tight coupling](<https://en.wikipedia.org/wiki/Coupling_(computer_programming)>). Writing loosely coupled code is a huge topic that is covered in big books, and it's something that we'll constantly learn.
 - bad code has a tendency to [smell](https://en.wikipedia.org/wiki/Code_smell), so if we learn to identify these smells, and learn their solutions, we'll know how to [refactor](https://en.wikipedia.org/wiki/Code_refactoring) our code accordingly.
+
+This scenario [doesn't really fall into the category of Technical
+Debt](https://sites.google.com/site/unclebobconsultingllc/a-mess-is-not-a-technical-debt) as there's no actual
+trade-off. To talk about a debt, we have to choose a quick & dirty solution, over another more robust approach. But if we don't know a better solution, we're basically implementing a poor solution, without the knowledge of a better one.
 
 <!-- ### Negligence
 
@@ -82,7 +82,7 @@ If we don't learn from others' teachings, we should at least learn from our own 
 
 ### Deprioritization
 
-Sometimes we do care. We understand the trade-offs, and we intend to fix them as soon as possible. We might even:
+With enough experience, we'll be able to understand the trade-offs, and probably intend to fix them. We might even:
 
 - create an issue in our git repository;
 - create a task in our issue tracker;
@@ -119,7 +119,7 @@ technical debt, we must address it right away.
 
 ### Discuss it
 
-Bring it up for discussion during our next meeting. Explain the problem, and present the solution/s. If we don't have a proper fix, we should ask our teammates.
+Bring it up for discussion during our next meeting. Explain the problem, and present the solution/s. If we don't have a proper fix, we should ask our teammates for help.
 
 ### Take initiative
 
@@ -134,11 +134,16 @@ Instead, you could have said, _"We should have a coffee. How about next Monday?"
 It's important not to start new features before fixing the outstanding trade-offs. Depending on our management, or the development process, there are various ways to approach this:
 
 - If we're dealing with a cerebral manager, we should be able to address the problems freely and include the refactoring in our next sprint.
-- If we're dealing with a pushy manager, we need to push back. We should always be sincere and firm, but polite.
+- If we're dealing with a pushy manager, we need to **push back**. We should always be sincere and firm, but polite.
 - If we're dealing with a non-technical person, we should avoid terms like "refactor" or "rewrite". Instead, we can tell them that "We need to make some changes to accommodate (the following) new features".
 - If we're unlucky and we're dealing with difficult clients or managers, we can include the refactoring in the new feature. As long as they don't know (and honestly don't even care), and new features are released as estimated, everybody's happy.
 - If they ask us "Why does it take so long?", explain that "We had to take some shortcuts to meet the deadline, and now we need to clean up the code".
 - If all of the above fails, we can disguise the refactoring under some task that includes "security" or "performance", depending on what might tickle your manager or client.
+
+Always keep a balance between refactoring existing code, and releasing new features:
+
+- allocate 1-2 team members to focus on the refactoring, while the rest of the team develops new features;
+- if the entire team is required to focus on the refactoring, then allocate only part of the sprint for it, and the other for new features.
 
 ## Take loans. Avoid debts.
 
