@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="62px" height="30px" viewBox="0 0 62 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Version_03_mobile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="03_dark" transform="translate(-20.000000, -30.000000)" fill="#FFFFFF">
+            <g id="Group-5" transform="translate(20.000000, 30.000000)">
+                <path d="M47.1766652,0 L38.6052611,29.9999143 L30.0334285,29.9999143 L38.6052611,0 L47.1766652,0 Z M33.0337199,0 L24.4623158,29.9999143 L15.8909117,29.9999143 L24.4623158,0 L33.0337199,0 Z M15.1589567,12.9433344 L10.2852563,30 L-3.99680289e-14,30 L15.1589567,12.9433344 Z M61.3196534,-5.32907052e-14 L56.4210959,17.1432367 L47.8496919,17.1432367 L52.7478207,-5.32907052e-14 L61.3196534,-5.32907052e-14 Z" id="logo_white"></path>
+            </g>
+        </g>
+    </g>
+</svg>

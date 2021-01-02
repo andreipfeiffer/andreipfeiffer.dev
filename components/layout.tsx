@@ -13,6 +13,7 @@ type Props = {
 
 export default function Layout(props: Props) {
   const { children, className } = props;
+  const darkMode = useDarkMode();
 
   let mainStyles = styles.main;
   className && (mainStyles += ` ${className}`);
@@ -38,7 +39,14 @@ export default function Layout(props: Props) {
 
       <header>
         <Link href="/">
-          <a>{name}</a>
+          <a>
+            <img
+              src={`/images/logo_${darkMode.value ? "white" : "black"}.svg`}
+              alt="Andrei Pfeiffer logo"
+              width={80}
+              height={40}
+            />
+          </a>
         </Link>
 
         <ul>
