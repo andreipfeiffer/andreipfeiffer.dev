@@ -9,8 +9,8 @@ export const meta = {
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-If you're interested in **Technical Debt**, hats off to you, because you probably care about the code you write, or
-read. In case this term is new to you, Wikipedia offers a great overview about [what Technical Debt
+If you're interested in **Technical Debt**, hats off to you because you probably care about the code you write and
+read. In case this term is new to you, Wikipedia offers a great overview of [what Technical Debt
 is](https://en.wikipedia.org/wiki/Technical_debt) and what are its common causes:
 
 > "Technical Debt reflects the implied cost of additional rework caused by choosing an easy (but limited) solution now,
@@ -19,37 +19,39 @@ is](https://en.wikipedia.org/wiki/Technical_debt) and what are its common causes
 As it states, Technical Debt is a trade-off, a choice we make as developers. Sometimes we are (or feel) pushed to make
 these trade-offs. Sometimes it's our own decision. We can't always prevent them, so we need to learn how to manage them.
 
+While it's not trivial to pin-point what pieces of code should be considered as Technical Debt, there's a general
+agreement that it's related to **software design flaws**.
+
 ## Design flaws
 
-While it's not trivial to pin-point what pieces of code should be considered as Technical Debt, there's a general
-agreement that it's related to **software design**. Personally, I've seen 3 major categories of code, in regard to
-software design:
+Personally, I've seen 3 major categories of code, regarding software design:
 
 - **Well designed code**  
-  This includes flexible, tested, documented code, easy to read, understand, extend, modify or remove.
+  This includes flexible, tested, documented code, easy to read, understand, extend, modify, or remove.
   Smaller libraries can easily reach this level of code design, while large applications might contain only parts of such
   code.
 
 - **Good enough code**  
-  Code that lacks some of the aspects of well designed code, due to complex requirements.
+  Code that lacks some of the aspects of well-designed code, due to complex requirements.
+  For instance, it could be flexible, but a bit difficult to understand. Or very well tested and documented, but not easy to extend.
   This usually applies to bigger libraries and applications, which usually contain a considerable amount of decent code,
   but not ideal.
 
 - **Poorly designed code**  
   This includes a wide variety of symptoms that you've probably encountered by now:
-  - opaque code, which is difficult to read and understand what is does;
+  - opaque code, which is difficult to read and understand what it does;
   - rigid code, when adding or extending its functionality requires a complete re-write;
   - fragile code, when tiny changes break unrelated parts of code;
   - no associated tests, which makes the code impossible to refactor, in order to fix the problems above;
   - scary code, which we don't change or even touch, because of the fear of not breaking something.
 
-We should all aim for writting well designed code, even if we are only able to make it good enough.
+We should all aim for writing well-designed code, even if we are only able to reach a good enough level.
 
-It's the poorly and badly designed code that we should stay away from, because it has a tendency to [rot](https://en.wikipedia.org/wiki/Software_rot) and once it does that, the rot will spread, which will cause huge problems on the long run.
+It's the poorly and badly designed code that we should stay away from because it has a tendency to [rot](https://en.wikipedia.org/wiki/Software_rot), which can potentially make our code unsalvageable.
 
 ## Why do we write poorly designed code?
 
-Nobody writes "bad code" on purpose. There are various reasons why we do this, some understandable, others not so much:
+I'm pretty sure nobody writes "bad code" on purpose. There are various reasons why we do this, most of them being understandable, which we'll cover next. Other reasons, like negligence, or not giving a damn about the consequences, are out of scope.
 
 ### Ignorance
 
@@ -59,16 +61,24 @@ challenges.
 
 This scenario [doesn't really fall into the category of Technical
 Debt](https://sites.google.com/site/unclebobconsultingllc/a-mess-is-not-a-technical-debt) as there's no actual
-trade-off. To talk about a debt, we have to choose a quick & dirty solution, over another more robust approach.
+trade-off. To talk about a debt, we have to choose a quick & dirty solution, over another more robust approach. But if we don't know a better solution, we're basically implementing a poor solution, without the knowledge of a better one.
 
-### Negligence
+To overcome this, we must learn how to **identify poorly designed code**, in order to write it better:
+
+- whenever we need a lot of words to explain to a colleague a piece of code that we wrote, it's a sign of opacity, so we need to make it [more readable](https://blog.pragmaticengineer.com/readable-code/);
+- when you feel you need to do a lot of code changes to implement a very simple feature change, it's a sign of [tight coupling](<https://en.wikipedia.org/wiki/Coupling_(computer_programming)>). Writing loosely coupled code is a huge topic that is covered in big books, and it's something that we'll constantly learn.
+- bad code has a tendency to [smell](https://en.wikipedia.org/wiki/Code_smell), so if we learn to identify these smells, and learn their solutions, we'll know how to [refactor](https://en.wikipedia.org/wiki/Code_refactoring) our code accordingly.
+
+<!-- ### Negligence
 
 Sometimes we simply don't care. We are aware that we've chosen a quick & dirty solution, we acknowledge that it will
 have consequences later on, but we only care about the present.
 
-This is a toxic attitude that causes Technical Debt, which would lead to [broken
+This mindset will always incur Technical Debt, which would lead to [broken
 windows](https://blog.codinghorror.com/the-broken-window-theory/), and eventually could cause the project to get out of
 control if not addressed.
+
+If we don't learn from others' teachings, we should at least learn from our own mistakes. -->
 
 ### Deprioritization
 
@@ -79,13 +89,12 @@ Sometimes we do care. We understand the trade-offs, and we intend to fix them as
 - mark it as a `@todo` comment;
 - write it down in our notebook or whiteboard.
 
-However, none of the above helps if we don't actually fix the problem. If the trade-off "works", we might be forced to
+However, none of the above helps if we don't actually fix the problem. Even worse, if the trade-off "works", we might be forced to
 move on to other, more important tasks or features.
 
-Eventually, this would also lead to Technical Debt, but because we acknowledged the problem, we could consider that "we did our part",
-and now it's time for somebody else to prioritize the refactoring.
+Eventually, this would lead to [broken windows](https://blog.codinghorror.com/the-broken-window-theory/), which will incur Technical Debt. We might even believe that "we did our part", because we have acknowledged the problem, and now it's time for somebody else to prioritize the refactoring.
 
-Acknowledging a problem, but not fixing it, is still a problem.
+But acknowledging a problem, and not fixing it, it's never a solution. Sooner or later, we'll learn it the hard way.
 
 ## The technical nature of the debt
 
@@ -96,7 +105,7 @@ There's a reason why it's called **Technical** Debt. Even if the cause is not te
 Technical Debt is written by us, developers, and we are the only ones that are able to "pay the debt".
 
 We need to be responsible for the code that we write. We need to do whatever is necessary to fix the trade-offs that we
-know will become big problems later on.
+know will become big problems later on, both for the development team and consequently for the product team as well.
 
 ## Introducing Technical Loan
 
@@ -106,18 +115,36 @@ A **loan**, on the other hand, implies the same trade-off, but **without any int
 money from a friend for a short period of time. You'll still need to return the money, but you don't pay any additional interest.
 
 We can apply the same mindset to technical trade-offs: as soon as we are aware of a trade-off, that could turn into
-technical debt, we should address it right away:
+technical debt, we must address it right away.
 
-- discuss it with the team during our next meeting;
-- don't start new features before fixing the outstanding trade-off;
-- consider it a priority and plan it as soon as possible, ideally during the next sprint.
+### Discuss it
+
+Bring it up for discussion during our next meeting. Explain the problem, and present the solution/s. If we don't have a proper fix, we should ask our teammates.
+
+### Take initiative
+
+Instead of saying _"Let's do this"_, we should say _**"Let me do this"**_.
+
+Remember the last time you met an old friend on the street and you said _"We should have a coffee"_, and your friend agreed, but neither of you took initiative?
+
+Instead, you could have said, _"We should have a coffee. How about next Monday?"_. I bet that would have turned out completely different.
+
+### Make it a priority
+
+It's important not to start new features before fixing the outstanding trade-offs. Depending on our management, or the development process, there are various ways to approach this:
+
+- If we're dealing with a cerebral manager, we should be able to address the problems freely and include the refactoring in our next sprint.
+- If we're dealing with a pushy manager, we need to push back. We should always be sincere and firm, but polite.
+- If we're dealing with a non-technical person, we should avoid terms like "refactor" or "rewrite". Instead, we can tell them that "We need to make some changes to accommodate (the following) new features".
+- If we're unlucky and we're dealing with difficult clients or managers, we can include the refactoring in the new feature. As long as they don't know (and honestly don't even care), and new features are released as estimated, everybody's happy.
+- If they ask us "Why does it take so long?", explain that "We had to take some shortcuts to meet the deadline, and now we need to clean up the code".
+- If all of the above fails, we can disguise the refactoring under some task that includes "security" or "performance", depending on what might tickle your manager or client.
 
 ## Take loans. Avoid debts.
 
-Taking shortcuts in software development is unavoidable. It's also a powerful tool to have around when needed. However, we must to
-understand that any shortcut is a trade-off, and all trade-offs have consequences.
+Taking shortcuts in software development is unavoidable. It's also a powerful tool to have around when needed. However, we must understand that any shortcut is a trade-off, and all trade-offs have consequences.
 
-Whenever we have to deal with a **debt**, we pay constant **interest**. The bigger the debt, the higher the interest. The more we avoid paying the debt, the more interest accumulates.
+Whenever we have to deal with **debt**, we pay constant **interest**. The bigger the debt, the higher the interest. The more we avoid paying the debt, the more interest accumulates.
 The only way to get rid of the interest is to pay the debt.
 
 We can avoid debt, if we make a **loan** instead. No interest to pay, but we have to return the loan as soon as
