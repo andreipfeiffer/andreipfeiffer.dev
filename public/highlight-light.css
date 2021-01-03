@@ -25,12 +25,14 @@
   font-style: italic;
 }
 
+/* JS constant SOME_CONSTANT */
+.token.constant {
+  color: #3f51b5;
+}
 /* any punctuation, faded */
 .token.punctuation {
   color: #92918c;
 }
-/* JS constant SOME_CONSTANT */
-.token.constant,
 /* JS template strings interpolation delimitators */
 .token.interpolation-punctuation {
   /* custom */

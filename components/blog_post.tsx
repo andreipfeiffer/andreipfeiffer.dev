@@ -64,7 +64,7 @@ export default function BlogPost(props: Props) {
         <header>
           <h1>{meta.title}</h1>
           <small>
-            Posted on <FormattedDate date={meta.date} />
+            Written on <FormattedDate date={meta.date} />
           </small>
           <br />
           <small>{readTime.text}</small>
