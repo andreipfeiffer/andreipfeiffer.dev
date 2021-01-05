@@ -45,9 +45,9 @@ export default function About() {
         </p>
         <p>
           My everyday battles revolve around Clean Code Design, User &amp;
-          Developer Experience, UI Interaction &amp; Design and avoiding
-          Technical Debt through constant Refactoring, Code Reviews, Unit Tests
-          and Team Collaboration.
+          Developer Experience, UI Interaction &amp; Design, and fighting
+          software entropy through constant Refactoring, Code Reviews, Unit
+          Tests and Team Collaboration.
         </p>
         <p>
           My current preferred tech stack include React/React Native,

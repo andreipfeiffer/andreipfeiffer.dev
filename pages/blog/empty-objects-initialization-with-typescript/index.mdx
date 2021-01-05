@@ -220,9 +220,7 @@ type Address = typeof EMPTY_ADDRESS;
 
 <br />
 
-#### Type assertions won't help
-
-In this case, using a type assertion like **`country: EMPTY_COUNTRY as Country`** won't work, as the type system will not infer the nested type as expected (at least not in TypeScript 4.1).
+**Note**: In this case, using a type assertion like **`country: EMPTY_COUNTRY as Country`** won't work, as the type system will not infer the nested type as expected (at least not in TypeScript 4.1).
 
 However, this limitation is not a functional problem, but more of an esthetic issue, that impacts the way you vizualize the type in your code editor. Seeing the entire list of properties can obscure the overview of complex types that contains many properties or nested structures.
 
