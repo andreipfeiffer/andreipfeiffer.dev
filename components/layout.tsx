@@ -13,6 +13,36 @@ type Props = {
 };
 
 export default function Layout(props: Props) {
+  const darkMode = useDarkMode();
+  const [logo, setLogo] = React.useState<"black" | "white">("black");
+
+  React.useEffect(() => {
+    setLogo(darkMode.value ? "white" : "black");
+  }, [darkMode.value]);
+
+  return (
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
+      <img
+        src={`/images/logo_${logo}.svg`}
+        alt="Andrei Pfeiffer logo"
+        width={200}
+        height={100}
+      />
+      <br />
+      <p style={{ fontFamily: "monospace" }}>Coming soon, in 2021</p>
+    </div>
+  );
+}
+
+export function _Layout(props: Props) {
   const { children, className } = props;
   const darkMode = useDarkMode();
   const [logo, setLogo] = React.useState<"black" | "white">("black");
