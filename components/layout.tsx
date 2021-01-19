@@ -28,6 +28,7 @@ export default function Layout(props: Props) {
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
+        fontFamily: "monospace",
       }}
     >
       <img
@@ -37,7 +38,26 @@ export default function Layout(props: Props) {
         height={100}
       />
       <br />
-      <p style={{ fontFamily: "monospace" }}>Coming soon, in 2021</p>
+      <p className={styles.muted}>// Coming soon, in 2021</p>
+      <br />
+      <br />
+      <p className={styles.p}>
+        Follow me on Twitter{" "}
+        <a href="https://twitter.com/pfeiffer_andrei">@pfeiffer_andrei</a>
+      </p>
+      <p className={styles.p}>
+        Checkout my{" "}
+        <a href="https://github.com/andreipfeiffer">Github profile</a> and{" "}
+        <a href="https://medium.com/@andrei.pfeiffer">Medium posts</a>
+      </p>
+      <br />
+      <p style={{ fontSize: "1.5em" }}>
+        Or{" "}
+        <a href="https://dev.us2.list-manage.com/subscribe/post?u=a7ac7926ed477a5e810ed46f7&amp;id=51b196576b">
+          <strong>subscribe</strong>
+        </a>{" "}
+        for updates
+      </p>
     </div>
   );
 }
