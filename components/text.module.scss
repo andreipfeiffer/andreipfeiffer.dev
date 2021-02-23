@@ -1,5 +1,9 @@
 @import "../styles/mixins";
 
+.primary {
+  color: var(--primary);
+}
+
 .p01 {
   line-height: 1.42;
   font-size: 28px;

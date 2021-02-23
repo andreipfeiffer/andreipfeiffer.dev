@@ -38,12 +38,25 @@ type Props = {
   as?: string;
   // https://projects.invisionapp.com/d/main#/console/20883010/443628189/inspect
   size?: keyof typeof TextSize;
+  color?: "default" | "primary" | "muted";
 };
 
-export function Text({ children, as = "p", size = "p02" }: Props) {
+export function Text({
+  children,
+  as = "span",
+  size = "p02",
+  color = "default",
+}: Props) {
   return React.createElement(
     as,
-    { className: classNames(styles[size]) },
+    {
+      className: classNames({
+        [styles[size]]: true,
+        [styles.primary]: color === "primary",
+        // global style
+        muted: color === "muted",
+      }),
+    },
     children
   );
 }

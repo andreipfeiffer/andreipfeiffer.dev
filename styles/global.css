@@ -1,6 +1,7 @@
 :root {
   --dark: #121212;
   --light: #ffffff;
+  --primary: #fbc311;
 }
 
 @font-face {
@@ -65,20 +66,32 @@ figure img {
   margin: 0;
 }
 
-/* dark/light mode */
 body {
+  /* dark/light mode */
   transition: background-color 0.2s, color 0.3s;
 }
 
-.light-mode {
+.light-mode,
+.dark-mode .inversed {
   background-color: var(--light);
   color: var(--dark);
-  --primary: dodgerblue;
-  --accent: royalblue;
 }
-.dark-mode {
+.dark-mode,
+.light-mode .inversed {
   background-color: var(--dark);
   color: var(--light);
-  --primary: goldenrod;
-  --accent: sandybrown;
+}
+.bg-primary {
+  background-color: var(--primary);
+  color: var(--dark);
+}
+
+.light-mode .muted {
+  opacity: 0.5;
+}
+.dark-mode .muted {
+  opacity: 0.6;
+}
+.bg-primary .muted {
+  opacity: 0.7;
 }
