@@ -3,12 +3,21 @@
   --light: #ffffff;
 }
 
+@font-face {
+  font-family: "Soehne";
+  src: url("/fonts/soehne-test-buch.woff") format("woff");
+}
+@font-face {
+  font-family: "Soehne";
+  src: url("/fonts/soehne-test-dreiviertelfett.woff") format("woff");
+  font-weight: bold;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-    Helvetica Neue, sans-serif;
+  font-family: "Soehne", Arial, Helvetica, sans-serif;
   line-height: 1.6;
   font-size: 16px;
 }
