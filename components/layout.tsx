@@ -41,6 +41,12 @@ export default function Layout(props: Props) {
         <meta property="og:title" content={SITE_TITLE} />
         <meta property="og:type" content="website" />
         <meta property="twitter:card" content="summary_large_image" />
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@1&amp;display=swap"
+          rel="stylesheet"
+        />
       </Head>
 
       <header>
