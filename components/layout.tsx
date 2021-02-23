@@ -25,7 +25,7 @@ export default function Layout(props: Props) {
   }, [darkMode.value]);
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
