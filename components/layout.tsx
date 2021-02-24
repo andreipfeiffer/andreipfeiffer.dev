@@ -30,8 +30,6 @@ export function Layout(props: Props) {
   return (
     <div className={styles.wrapper}>
       <Head>
-        <link rel="preload" href="/fonts/soehne-test-buch.woff" />
-        <link rel="preload" href="/fonts/soehne-test-dreiviertelfett.woff" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
 
         <link rel="icon" href="/favicon.ico" />
