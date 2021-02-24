@@ -39,12 +39,13 @@
 }
 
 .toggle {
-  --w: 50px;
-  --point: 12px;
+  --w: 36px;
+  --h: 16px;
+  --point: 8px;
 
   position: relative;
   width: var(--w);
-  height: 24px;
+  height: var(--h);
   border-radius: 2rem;
   overflow: hidden;
 
@@ -69,7 +70,7 @@
     height: var(--point);
     position: absolute;
     top: calc(50% - var(--point) / 2);
-    left: 8px;
+    left: 5px;
     border-radius: var(--point);
     background: var(--light);
     transform: translateX(0);
@@ -83,7 +84,7 @@
   }
 
   input:checked + label {
-    transform: translateX(calc(var(--w) - var(--point) - 16px));
+    transform: translateX(calc(var(--w) - var(--point) - 10px));
     background: var(--dark);
   }
 }
