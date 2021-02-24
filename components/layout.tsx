@@ -119,8 +119,14 @@ export function Layout(props: Props) {
 function ToggleDarkMode() {
   const darkMode = useDarkMode();
   return (
-    <button type="button" onClick={darkMode.toggle}>
-      {`Toggle dark mode`}
-    </button>
+    <div className={styles.toggle}>
+      <input
+        id="toggle-dark-mode"
+        type="checkbox"
+        checked={darkMode.value}
+        onChange={darkMode.toggle}
+      />
+      <label htmlFor="toggle-dark-mode">Toggle dark mode</label>
+    </div>
   );
 }
