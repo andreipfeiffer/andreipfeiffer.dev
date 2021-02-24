@@ -20,13 +20,22 @@
 }
 
 .footer {
-  display: flex;
-  justify-content: space-between;
-
+  display: grid;
+  grid-template-columns: auto;
+  row-gap: 0.5em;
   margin-bottom: 40px;
 
   @include breakpoint(md) {
+    grid-template-columns: 1fr 1fr;
     margin-bottom: 60px;
+  }
+}
+
+.copyright {
+  justify-self: start;
+
+  @include breakpoint(md) {
+    justify-self: end;
   }
 }
 

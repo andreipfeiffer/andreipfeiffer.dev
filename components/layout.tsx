@@ -101,12 +101,12 @@ export function Layout(props: Props) {
       <Spacer vertical="100" />
 
       <footer className={classNames(styles.padded, styles.footer)}>
-        <Text size="m03">
+        <Text size="m01">
           Follow me on Twitter{" "}
           <a href="https://twitter.com/pfeiffer_andrei">@pfeiffer_andrei</a>
         </Text>
 
-        <Text size="m03" align="end">
+        <Text size="m02" color="muted" className={styles.copyright}>
           &copy; Andrei Pfeiffer, 2020. All rights reserved.
         </Text>
       </footer>
@@ -116,6 +116,7 @@ export function Layout(props: Props) {
 
 function ToggleDarkMode() {
   const darkMode = useDarkMode();
+
   return (
     <div className={styles.toggle}>
       <input
