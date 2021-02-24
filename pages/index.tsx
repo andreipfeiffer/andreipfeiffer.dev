@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Layout, { SITE_TITLE } from "../components/layout";
+import { Layout, SITE_TITLE } from "../components/layout";
 // import Link from "next/link";
 
 export default function Home() {

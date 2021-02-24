@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import Layout, { SITE_TITLE } from "../components/layout";
+import { Layout, SITE_TITLE } from "../components/layout";
 import { Grid } from "../components/grid";
 import { Text } from "../components/text";
 import { Box } from "../components/box";

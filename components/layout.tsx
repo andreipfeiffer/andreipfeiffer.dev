@@ -12,7 +12,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function Layout(props: Props) {
+export function Layout(props: Props) {
   const { children, className } = props;
   const darkMode = useDarkMode();
   const [logo, setLogo] = React.useState<"black" | "white">("black");

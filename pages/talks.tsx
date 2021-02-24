@@ -1,16 +1,20 @@
 import Head from "next/head";
-import Layout, { SITE_TITLE } from "../components/layout";
+import { Layout, SITE_TITLE } from "../components/layout";
+import { Grid } from "../components/grid";
+import { Text } from "../components/text";
 // import Link from "next/link";
 import styles from "./talks.module.css";
 
 export default function Talks() {
   return (
-    <Layout className={styles.talks}>
+    <Layout>
       <Head>
         <title>Talks: {SITE_TITLE}</title>
       </Head>
 
-      <h1>Talks &amp; Live coding sessions</h1>
+      <Grid.Full>
+        <h1>Talks &amp; Live coding sessions</h1>
+      </Grid.Full>
 
       <p>
         During the past {new Date().getFullYear() - 2013} years, I had various

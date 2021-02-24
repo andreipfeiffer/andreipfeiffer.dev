@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Layout, { SITE_TITLE } from "../components/layout";
+import { Layout, SITE_TITLE } from "../components/layout";
 import { getAllPosts, Post } from "../lib/blog";
 import Link from "next/link";
 import FormattedDate from "../components/date";
