@@ -1,8 +1,5 @@
 import React from "react";
-// import classNames from "classnames";
-
 import { theme } from "./theme";
-// import styles from "./spacer.module.scss";
 
 type Props = {
   vertical?: keyof typeof theme.space;
