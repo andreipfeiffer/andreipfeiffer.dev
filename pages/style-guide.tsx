@@ -1,4 +1,6 @@
-import Layout from "../components/layout";
+import Head from "next/head";
+
+import Layout, { SITE_TITLE } from "../components/layout";
 import { Grid } from "../components/grid";
 import { Text } from "../components/text";
 import { Box } from "../components/box";
@@ -9,6 +11,10 @@ import styles from "./style-guide.module.css";
 export default function Talks() {
   return (
     <Layout>
+      <Head>
+        <title>Style Guide: {SITE_TITLE}</title>
+      </Head>
+
       <Grid.Full>
         <Text size="h05" as="div" color="primary">
           Typography
