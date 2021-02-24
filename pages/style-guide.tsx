@@ -106,7 +106,7 @@ export default function Talks() {
         </Text>
         <br />
 
-        <Box bg="inversed" gap="3">
+        <Box bg="inversed" padded="24">
           <Text size="h06" as="p">
             Inversed theme
           </Text>
@@ -117,7 +117,7 @@ export default function Talks() {
 
         <br />
 
-        <Box bg="primary" gap="3">
+        <Box bg="primary" padded="24">
           <Text size="h06" as="p">
             Primary color background
           </Text>
@@ -130,43 +130,39 @@ export default function Talks() {
 
         <Flex type="inline">
           {renderPlaceholderHorizontal("x")}
-          <Spacer horizontal="1" />
-          {renderPlaceholderHorizontal("⬅ horizontal 1")}
-          <Spacer horizontal="2" />
-          {renderPlaceholderHorizontal("⬅ horizontal 2")}
-          <Spacer horizontal="3" />
-          {renderPlaceholderHorizontal("⬅ horizontal 3")}
-          <Spacer horizontal="4" />
-          {renderPlaceholderHorizontal("⬅ horizontal 4")}
+          <Spacer horizontal="8" />
+          {renderPlaceholderHorizontal("⬅ horizontal 8")}
+          <Spacer horizontal="16" />
+          {renderPlaceholderHorizontal("⬅ horizontal 16")}
+          <Spacer horizontal="24" />
+          {renderPlaceholderHorizontal("⬅ horizontal 24")}
+          <Spacer horizontal="32" />
+          {renderPlaceholderHorizontal("⬅ horizontal 32")}
         </Flex>
 
         <br />
 
-        {renderPlaceholderVertical("⬇ vertical 1")}
-        <Spacer vertical="1" />
-        {renderPlaceholderVertical("⬇ vertical 2")}
-        <Spacer vertical="2" />
-        {renderPlaceholderVertical("⬇ vertical 3")}
-        <Spacer vertical="3" />
-        {renderPlaceholderVertical("⬇ vertical 4")}
-        <Spacer vertical="4" />
-        {renderPlaceholderVertical("⬇ vertical 5")}
-        <Spacer vertical="5" />
-        {renderPlaceholderVertical("⬇ vertical 6")}
-        <Spacer vertical="6" />
-        {renderPlaceholderVertical("⬇ vertical 7")}
-        <Spacer vertical="7" />
         {renderPlaceholderVertical("⬇ vertical 8")}
         <Spacer vertical="8" />
-        {renderPlaceholderVertical("⬇ vertical 9")}
-        <Spacer vertical="9" />
-        {renderPlaceholderVertical("⬇ vertical 10")}
-        <Spacer vertical="10" />
+        {renderPlaceholderVertical("⬇ vertical 16")}
+        <Spacer vertical="16" />
+        {renderPlaceholderVertical("⬇ vertical 24")}
+        <Spacer vertical="24" />
+        {renderPlaceholderVertical("⬇ vertical 32")}
+        <Spacer vertical="32" />
+        {renderPlaceholderVertical("⬇ vertical 40")}
+        <Spacer vertical="40" />
+        {renderPlaceholderVertical("⬇ vertical 60")}
+        <Spacer vertical="60" />
+        {renderPlaceholderVertical("⬇ vertical 80")}
+        <Spacer vertical="80" />
+        {renderPlaceholderVertical("⬇ vertical 100")}
+        <Spacer vertical="100" />
         {renderPlaceholderVertical()}
 
         {renderHeading("Layout")}
 
-        <Flex type="inline" gap="3">
+        <Flex type="inline" gap="24">
           <Text size="h06">Inlined</Text>
           <Text size="h06">elements</Text>
           <Text size="h06">with</Text>
@@ -177,7 +173,7 @@ export default function Talks() {
         <br />
         <br />
 
-        <Flex type="stack" gap="3">
+        <Flex type="stack" gap="24">
           <Text size="h06" as="p">
             Stacked
           </Text>
@@ -240,7 +236,7 @@ export default function Talks() {
 
   function renderPlaceholderVertical(content: string = "placeholder") {
     return (
-      <Box bg="inversed" gap="1">
+      <Box bg="inversed" padded="8">
         <Text size="h06" as="p">
           {content}
         </Text>
@@ -250,7 +246,7 @@ export default function Talks() {
 
   function renderPlaceholderHorizontal(content: string = "placeholder") {
     return (
-      <Box bg="inversed" gap="1">
+      <Box bg="inversed" padded="8">
         <Text size="h06" as="p">
           {content}
         </Text>
@@ -261,11 +257,11 @@ export default function Talks() {
   function renderHeading(text: string) {
     return (
       <>
-        <Spacer vertical="10" />
+        <Spacer vertical="140" />
         <Text size="h02" as="p" color="muted">
           {text}
         </Text>
-        <Spacer vertical="5" />
+        <Spacer vertical="40" />
       </>
     );
   }

@@ -8,7 +8,7 @@ type Props = {
   children: React.ReactNode;
   as?: string;
   bg?: "none" | "primary" | "inversed";
-  gap?: keyof typeof theme.space;
+  padded?: keyof Pick<typeof theme.space, "0" | "8" | "16" | "24" | "32">;
   className?: string;
 };
 
@@ -17,7 +17,7 @@ export function Box({
   className,
   as = "div",
   bg = "none",
-  gap = "0",
+  padded = "0",
 }: Props) {
   return React.createElement(
     as,
@@ -26,7 +26,7 @@ export function Box({
         // from globals
         "bg-primary": bg === "primary",
         inversed: bg === "inversed",
-        [styles[`gap${gap}`]]: gap !== "0",
+        [styles[`padded_${padded}`]]: padded !== "0",
       }),
     },
     children
