@@ -14,16 +14,20 @@ export default function Home() {
       </Head>
 
       <Grid.Full>
-        <Text size="h00" as="h1">
+        <Text size="h01" as="h1">
           Andrei Pfeiffer
         </Text>
+
         <Spacer vertical="24" />
-        <Text size="h03" as="p" color="muted">
+
+        <Text size="h03" as="p">
           Eclectic Code Designer
         </Text>
+        <Spacer vertical="8" />
         <Text size="h03" as="p">
           UI Engineer, web &amp; mobile
         </Text>
+        <Spacer vertical="8" />
         <Text size="h03" as="p">
           Organizer of <a href="http://revojs.ro">revo.js</a> conf &amp;{" "}
           <a href="http://timjs.ro">tim.js</a> meetup
