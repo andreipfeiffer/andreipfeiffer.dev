@@ -1,10 +1,13 @@
 import React from "react";
 import Head from "next/head";
-import styles from "./layout.module.scss";
-import { Link } from "./Link";
 import useDarkMode from "use-dark-mode";
 
-const name = "Andrei Pfeiffer";
+import { Link } from "./Link";
+import { Text } from "../components/text";
+import styles from "./layout.module.scss";
+import { Spacer } from "./spacer";
+import classNames from "classnames";
+
 export const SITE_TITLE = "Andrei Pfeiffer, personal website & blog";
 
 type Props = {
@@ -25,7 +28,7 @@ export function Layout(props: Props) {
   }, [darkMode.value]);
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <Head>
         <link rel="preload" href="/fonts/soehne-test-buch.woff" />
         <link rel="preload" href="/fonts/soehne-test-dreiviertelfett.woff" />
@@ -52,19 +55,19 @@ export function Layout(props: Props) {
         />
       </Head>
 
-      <header>
+      <header className={classNames(styles.padded, styles.header)}>
         <Link href="/">
           <a>
             <img
               src={`/images/logo_${logo}.svg`}
               alt="Andrei Pfeiffer logo"
-              width={80}
-              height={40}
+              width={60}
+              height={30}
             />
           </a>
         </Link>
 
-        <ul>
+        {/* <ul>
           <li>
             <Link href="/talks" activeClass={styles.active}>
               <a>Talks</a>
@@ -90,16 +93,24 @@ export function Layout(props: Props) {
               <a>Get in touch</a>
             </Link>
           </li>
-        </ul>
+        </ul> */}
 
         <ToggleDarkMode />
       </header>
 
       <main className={mainStyles}>{children}</main>
 
-      <footer>
-        Follow me on Twitter{" "}
-        <a href="https://twitter.com/pfeiffer_andrei">@pfeiffer_andrei</a>
+      <Spacer vertical="100" />
+
+      <footer className={classNames(styles.padded, styles.footer)}>
+        <Text size="m03">
+          Follow me on Twitter{" "}
+          <a href="https://twitter.com/pfeiffer_andrei">@pfeiffer_andrei</a>
+        </Text>
+
+        <Text size="m03" align="end">
+          &copy; Andrei Pfeiffer, 2020. All rights reserved.
+        </Text>
       </footer>
     </div>
   );

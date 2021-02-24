@@ -39,6 +39,7 @@ type Props = {
   // https://projects.invisionapp.com/d/main#/console/20883010/443628189/inspect
   size?: keyof typeof TextSize;
   color?: "default" | "primary" | "muted";
+  align?: "start" | "center" | "end";
 };
 
 export function Text({
@@ -46,12 +47,14 @@ export function Text({
   as = "span",
   size = "p02",
   color = "default",
+  align = "start",
 }: Props) {
   return React.createElement(
     as,
     {
       className: classNames({
         [styles[size]]: true,
+        [styles[`align_${align}`]]: true,
         [styles.primary]: color === "primary",
         // global style
         muted: color === "muted",

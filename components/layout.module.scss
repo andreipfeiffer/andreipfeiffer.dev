@@ -1,9 +1,39 @@
 @import "../styles/mixins";
 
-.main {
-  padding: 3em 0;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
 }
 
-.active {
-  color: brown;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 40px 0;
+
+  @include breakpoint(md) {
+    margin: 60px 0;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 40px;
+
+  @include breakpoint(md) {
+    margin-bottom: 60px;
+  }
+}
+
+.padded {
+  padding: 0 20px;
+
+  @include breakpoint(md) {
+    padding: 0 60px;
+  }
 }
