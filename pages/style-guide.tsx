@@ -16,10 +16,7 @@ export default function Talks() {
       </Head>
 
       <Grid.Full>
-        <Text size="h05" as="div" color="primary">
-          Typography
-        </Text>
-        <br />
+        {renderHeading("Typography")}
 
         <Text size="h00" as="h1">
           h00 largest heading
@@ -86,14 +83,7 @@ export default function Talks() {
 
         <a href="/">Links are underlined, without special color</a>
 
-        <br />
-        <br />
-        <br />
-        <Text size="h05" as="div" color="primary">
-          Colors
-        </Text>
-
-        <br />
+        {renderHeading("Colors")}
 
         <div className={styles.colors_wrapper}>
           <div className={styles.color_primary}>
@@ -119,36 +109,27 @@ export default function Talks() {
         </Text>
         <br />
 
-        <Box bg="inversed" className={styles.padded}>
-          <Text size="h06" as="span">
+        <Box bg="inversed" gap="3">
+          <Text size="h06" as="p">
             Inversed theme
           </Text>
-          <br />
-          <Text size="m02" as="span" color="muted">
+          <Text size="m02" as="p" color="muted">
             Muted inversed text
           </Text>
         </Box>
 
         <br />
 
-        <Box bg="primary" className={styles.padded}>
-          <Text size="h06" as="span">
+        <Box bg="primary" gap="3">
+          <Text size="h06" as="p">
             Primary color background
           </Text>
-          <br />
-          <Text size="m02" as="span" color="muted">
+          <Text size="m02" as="p" color="muted">
             Muted primary background text
           </Text>
         </Box>
 
-        <br />
-        <br />
-        <br />
-        <Text size="h05" as="div" color="primary">
-          Spacing
-        </Text>
-
-        <br />
+        {renderHeading("Spacing")}
 
         <Flex type="inline">
           {renderPlaceholderHorizontal("x")}
@@ -186,14 +167,7 @@ export default function Talks() {
         <Spacer vertical="10" />
         {renderPlaceholderVertical()}
 
-        <br />
-        <br />
-        <br />
-        <Text size="h05" as="div" color="primary">
-          Layout
-        </Text>
-
-        <br />
+        {renderHeading("Layout")}
 
         <Flex type="inline" gap="3">
           <Text size="h06">Inlined</Text>
@@ -273,6 +247,18 @@ export default function Talks() {
           {content}
         </Text>
       </Box>
+    );
+  }
+
+  function renderHeading(text: string) {
+    return (
+      <>
+        <Spacer vertical="10" />
+        <Text size="h02" as="p" color="muted">
+          {text}
+        </Text>
+        <Spacer vertical="5" />
+      </>
     );
   }
 }
