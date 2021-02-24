@@ -27,6 +27,10 @@ export default function Layout(props: Props) {
   return (
     <div>
       <Head>
+        <link rel="preload" href="/fonts/soehne-test-buch.woff" />
+        <link rel="preload" href="/fonts/soehne-test-dreiviertelfett.woff" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
@@ -42,7 +46,6 @@ export default function Layout(props: Props) {
         <meta property="og:type" content="website" />
         <meta property="twitter:card" content="summary_large_image" />
 
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@1&amp;display=swap"
           rel="stylesheet"

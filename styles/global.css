@@ -11,11 +11,13 @@
 @font-face {
   font-family: "Soehne";
   src: url("/fonts/soehne-test-buch.woff") format("woff");
+  font-display: swap;
 }
 @font-face {
   font-family: "Soehne";
   src: url("/fonts/soehne-test-dreiviertelfett.woff") format("woff");
   font-weight: bold;
+  font-display: swap;
 }
 
 html,
