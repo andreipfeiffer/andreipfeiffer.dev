@@ -26,6 +26,28 @@ export default function Talks() {
 
       <ul className={styles.list}>
         <li>
+          <strong>A thorough analysis of CSS-in-JS</strong>
+          <p>
+            Do you know what's more challenging than choosing a JavaScript
+            framework for your next project? You guessed: choosing a CSS-in-JS
+            library. Why? Because there are more than 50 different solutions out
+            there, each of them providing a unique combination of features.
+          </p>
+          <p>
+            Instead of looking at each individual library, we'll analyse both
+            their common and differentiating features: the syntax for styles
+            definition, how styles are applied to components, and what gets
+            generated as output. We'll examine how these characteristics affect
+            the overall developer experience, performance metrics, and more
+            importantly we'll debate why type of projects are best suited for
+            each of these features.
+          </p>
+          <p>
+            <time dateTime="2021-02">February 2021</time>
+            <i>Slides only</i>
+          </p>
+        </li>
+        <li>
           <strong>i18n &amp; l10n</strong>
           <p>
             This talk discusses what Internationalisation and Localisation is,
