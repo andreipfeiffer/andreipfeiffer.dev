@@ -53,6 +53,7 @@ export default function Talks() {
         </Text>
 
         <br />
+        <br />
 
         <Text size="p02" as="p">
           <strong>p02 default paragraph text:</strong> Phasellus tempor ornare
@@ -72,6 +73,7 @@ export default function Talks() {
           Vivamus ac suscipit quam, vitae auctor ex.
         </Text>
 
+        <br />
         <br />
 
         <Text size="m01">m01 regular monospaced text</Text>
