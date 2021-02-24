@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Layout, SITE_TITLE } from "../components/layout";
 import { Grid } from "../components/grid";
 import { Text } from "../components/text";
+import { Spacer } from "../components/spacer";
 // import Link from "next/link";
 import styles from "./talks.module.css";
 
@@ -12,17 +13,30 @@ export default function Talks() {
         <title>Talks: {SITE_TITLE}</title>
       </Head>
 
+      <Spacer vertical="100" />
+
       <Grid.Full>
-        <h1>Talks &amp; Live coding sessions</h1>
+        <Text size="h00" as="h1">
+          Talks &amp; Live coding sessions
+        </Text>
       </Grid.Full>
 
-      <p>
-        During the past {new Date().getFullYear() - 2013} years, I had various
-        talks and presentations at conferences, meetups and private events, most
-        of them focused on JavaScript, UI Development, Web and Mobile.
-      </p>
+      <Spacer vertical="100" />
 
-      <p>Here's a non-comprehensive list of topics I've spoken about:</p>
+      <Grid>
+        <Grid.Col span={5}>
+          <p>
+            During the past {new Date().getFullYear() - 2013} years, I had
+            various talks and presentations at conferences, meetups and private
+            events, most of them focused on JavaScript, UI Development, Web and
+            Mobile.
+          </p>
+          <br />
+          <p>Here's a non-comprehensive list of topics I've spoken about:</p>
+        </Grid.Col>
+      </Grid>
+
+      <Spacer vertical="120" />
 
       <ul className={styles.list}>
         <li>
