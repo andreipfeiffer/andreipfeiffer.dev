@@ -1,7 +1,6 @@
 import React from "react";
 import classNames from "classnames";
 
-import { theme } from "./theme";
 import { Text } from "../components/text";
 import styles from "./button.module.scss";
 
