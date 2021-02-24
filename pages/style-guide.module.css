@@ -24,7 +24,3 @@
   background-color: var(--light);
   border: 1px var(--dark) solid;
 }
-
-.padded {
-  padding: 1rem;
-}
