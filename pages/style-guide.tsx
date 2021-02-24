@@ -5,7 +5,9 @@ import { Grid } from "../components/grid";
 import { Text } from "../components/text";
 import { Box } from "../components/box";
 import { Flex } from "../components/flex";
+import { Button } from "../components/button";
 import { Spacer } from "../components/spacer";
+
 import styles from "./style-guide.module.css";
 
 export default function Talks() {
@@ -77,11 +79,6 @@ export default function Talks() {
         <Text size="m02">m02 smaller monospaced text</Text>
         <br />
         <Text size="m03">m03 tiny monospaced text</Text>
-
-        <br />
-        <br />
-
-        <a href="/">Links are underlined, without special color</a>
 
         {renderHeading("Colors")}
 
@@ -227,6 +224,17 @@ export default function Talks() {
         <Grid.Col span={4}>{renderPlaceholderVertical("4")}</Grid.Col>
         <Grid.Col span={4}>{renderPlaceholderVertical("4")}</Grid.Col>
       </Grid>
+
+      <Grid.Full>
+        {renderHeading("Interactive elements")}
+
+        <a href="/">Links are underlined, with inherited color</a>
+
+        <br />
+        <br />
+
+        <Button href="/">Button link</Button>
+      </Grid.Full>
     </Layout>
   );
 
