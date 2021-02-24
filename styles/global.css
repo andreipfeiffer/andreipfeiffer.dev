@@ -1,7 +1,11 @@
 :root {
+  /* duplicated in theme.ts */
   --dark: #121212;
   --light: #ffffff;
   --primary: #fbc311;
+
+  --space: 0.84rem;
+  --space_large: 2.1rem;
 }
 
 @font-face {
@@ -45,7 +49,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+p {
   margin: 0;
 }
 
