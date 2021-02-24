@@ -40,6 +40,7 @@ type Props = {
   size?: keyof typeof TextSize;
   color?: "default" | "primary" | "muted";
   align?: "start" | "center" | "end";
+  className?: string;
 };
 
 export function Text({
@@ -48,11 +49,12 @@ export function Text({
   size = "p02",
   color = "default",
   align = "start",
+  className,
 }: Props) {
   return React.createElement(
     as,
     {
-      className: classNames({
+      className: classNames(className, {
         [styles[size]]: true,
         [styles[`align_${align}`]]: true,
         [styles.primary]: color === "primary",
