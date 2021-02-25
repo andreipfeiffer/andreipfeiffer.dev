@@ -8,7 +8,7 @@ type Props = {
   activeClass?: string;
 };
 
-export const Link = ({ children, href, activeClass }: Props) => {
+export const MainLink = ({ children, href, activeClass }: Props) => {
   const router = useRouter();
 
   let className = children.props.className || "";

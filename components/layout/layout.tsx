@@ -1,12 +1,14 @@
 import React from "react";
 import Head from "next/head";
+import classNames from "classnames";
 import useDarkMode from "use-dark-mode";
 
-import { Link } from "./Link";
-import { Text } from "../components/text";
+import { Text } from "../text";
+import { Spacer } from "../spacer";
+
+import { MainLink } from "./main_link";
+import { DarkModeToggle } from "./darkmode_toggle";
 import styles from "./layout.module.scss";
-import { Spacer } from "./spacer";
-import classNames from "classnames";
 
 export const SITE_TITLE = "Andrei Pfeiffer, personal website & blog";
 
@@ -54,7 +56,7 @@ export function Layout(props: Props) {
       </Head>
 
       <header className={classNames(styles.padded, styles.header)}>
-        <Link href="/">
+        <MainLink href="/">
           <a>
             <img
               src={`/images/logo_${logo}.svg`}
@@ -63,37 +65,37 @@ export function Layout(props: Props) {
               height={30}
             />
           </a>
-        </Link>
+        </MainLink>
 
         {/* <ul>
           <li>
-            <Link href="/talks" activeClass={styles.active}>
+            <MainLink href="/talks" activeClass={styles.active}>
               <a>Talks</a>
-            </Link>
+            </MainLink>
           </li>
           <li>
-            <Link href="/workshops" activeClass={styles.active}>
+            <MainLink href="/workshops" activeClass={styles.active}>
               <a>Workshops</a>
-            </Link>
+            </MainLink>
           </li>
           <li>
-            <Link href="/blog" activeClass={styles.active}>
+            <MainLink href="/blog" activeClass={styles.active}>
               <a>Blog</a>
-            </Link>
+            </MainLink>
           </li>
           <li>
-            <Link href="/about" activeClass={styles.active}>
+            <MainLink href="/about" activeClass={styles.active}>
               <a>About</a>
-            </Link>
+            </MainLink>
           </li>
           <li>
-            <Link href="/contact" activeClass={styles.active}>
+            <MainLink href="/contact" activeClass={styles.active}>
               <a>Get in touch</a>
-            </Link>
+            </MainLink>
           </li>
         </ul> */}
 
-        <ToggleDarkMode />
+        <DarkModeToggle />
       </header>
 
       <main className={mainStyles}>{children}</main>
@@ -107,25 +109,9 @@ export function Layout(props: Props) {
         </Text>
 
         <Text size="m02" color="muted" className={styles.copyright}>
-          &copy; Andrei Pfeiffer, 2020. All rights reserved.
+          &copy; Andrei Pfeiffer, 2020
         </Text>
       </footer>
-    </div>
-  );
-}
-
-function ToggleDarkMode() {
-  const darkMode = useDarkMode();
-
-  return (
-    <div className={styles.toggle}>
-      <input
-        id="toggle-dark-mode"
-        type="checkbox"
-        checked={darkMode.value}
-        onChange={darkMode.toggle}
-      />
-      <label htmlFor="toggle-dark-mode">Toggle dark mode</label>
     </div>
   );
 }
