@@ -79,8 +79,6 @@ export default function Talks() {
         <Text size="m01">m01 regular monospaced text</Text>
         <br />
         <Text size="m02">m02 smaller monospaced text</Text>
-        <br />
-        <Text size="m03">m03 tiny monospaced text</Text>
 
         {renderHeading("Colors")}
 

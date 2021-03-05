@@ -29,8 +29,6 @@ enum TextSize {
   m01 = "m01",
   // monospace small
   m02 = "m02",
-  // monospace tiny
-  m03 = "m03",
 }
 
 type Props = {
