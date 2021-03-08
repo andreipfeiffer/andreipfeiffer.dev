@@ -1,12 +1,3 @@
-.padded_8 {
-  padding: calc(var(--space) * 0.5);
-}
-.padded_16 {
-  padding: var(--space);
-}
-.padded_24 {
-  padding: calc(var(--space) * 1.5);
-}
-.padded_32 {
-  padding: calc(var(--space) * 2);
+.padded {
+  padding: var(--padding);
 }

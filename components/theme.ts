@@ -2,24 +2,18 @@ import vars from "../styles/theme.module.scss";
 
 const { light, dark, primary } = vars;
 
-// 16px from 19px base
-const SPACE = 0.84;
-// 40px from 19px base
-const SPACE_LARGE = 2.1;
-
 export const theme = {
   space: {
-    "0": `0`,
-    "8": `${SPACE / 2}rem`,
-    "16": `${SPACE}rem`,
-    "24": `${SPACE * 1.5}rem`,
-    "32": `${SPACE * 2}rem`,
-    "40": `${SPACE_LARGE}rem`,
-    "60": `${SPACE_LARGE * 1.5}rem`,
-    "80": `${SPACE_LARGE * 2}rem`,
-    "100": `${SPACE_LARGE * 2.5}rem`,
-    "120": `${SPACE_LARGE * 3}rem`,
-    "140": `${SPACE_LARGE * 3.5}rem`,
+    "8": `var(--space-8)`,
+    "16": `var(--space-16)`,
+    "24": `var(--space-24)`,
+    "32": `var(--space-32)`,
+    "40": `var(--space-40)`,
+    "60": `var(--space-60)`,
+    "80": `var(--space-80)`,
+    "100": `var(--space-100)`,
+    "120": `var(--space-120)`,
+    "140": `var(--space-140)`,
   },
 
   color: {

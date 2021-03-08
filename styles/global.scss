@@ -1,12 +1,33 @@
 @import "./theme.module.scss";
+@import "./mixins";
 
 :root {
   --dark: #{$dark};
   --light: #{$light};
   --primary: #{$primary};
 
-  --space: 0.84rem;
-  --space_large: 2.1rem;
+  --space-8: calc(#{$space} / 2);
+  --space-16: #{$space};
+  --space-24: calc(#{$space} * 1.5);
+  --space-32: calc(#{$space} * 2);
+  --space-40: #{$space_block};
+  --space-60: calc(#{$space_block} * 1.5);
+  --space-80: calc(#{$space_block} * 2);
+
+  --space-100: calc(#{$space_block} * 2.5 - 2rem);
+  --space-120: calc(#{$space_block} * 3 - 2em);
+  --space-140: calc(#{$space_block} * 3.5 - 2rem);
+
+  @include breakpoint(sm) {
+    --space-100: calc(#{$space_block} * 2.5 - 1rem);
+    --space-120: calc(#{$space_block} * 3 - 1em);
+    --space-140: calc(#{$space_block} * 3.5 - 1rem);
+  }
+  @include breakpoint(md) {
+    --space-100: calc(#{$space_block} * 2.5);
+    --space-120: calc(#{$space_block} * 3);
+    --space-140: calc(#{$space_block} * 3.5);
+  }
 }
 
 @font-face {

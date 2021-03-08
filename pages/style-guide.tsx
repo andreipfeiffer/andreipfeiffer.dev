@@ -158,6 +158,10 @@ export default function Talks() {
         <Spacer vertical="80" />
         {renderPlaceholderVertical("⬇ vertical 100")}
         <Spacer vertical="100" />
+        {renderPlaceholderVertical("⬇ vertical 120")}
+        <Spacer vertical="120" />
+        {renderPlaceholderVertical("⬇ vertical 140")}
+        <Spacer vertical="140" />
         {renderPlaceholderVertical()}
 
         {renderHeading("Layout")}

@@ -3,7 +3,6 @@ import classNames from "classnames";
 
 import { theme } from "./theme";
 import styles from "./flex.module.scss";
-import { Spacer } from "./spacer";
 
 type Props = {
   children: React.ReactNode;
@@ -18,37 +17,30 @@ export function Flex({
   type = "inline",
   className,
   as = "div",
-  gap = "0",
+  gap,
 }: Props) {
+  const css_vars = {
+    ["--gap"]: `var(--space-${gap})`,
+  } as React.CSSProperties;
+
   return React.createElement(
     as,
     {
       className: classNames(className, {
         [styles[type]]: true,
       }),
+      style: css_vars,
     },
     renderChildren()
   );
 
   function renderChildren() {
-    if (!Array.isArray(children) || gap === "0") {
+    if (!Array.isArray(children)) {
       return children;
     }
 
     return children.map((child, index) => {
-      return (
-        <React.Fragment key={index}>
-          {index > 0 ? (
-            type === "inline" ? (
-              <Spacer horizontal={gap} />
-            ) : (
-              <Spacer vertical={gap} />
-            )
-          ) : null}
-
-          {child}
-        </React.Fragment>
-      );
+      return <React.Fragment key={index}>{child}</React.Fragment>;
     });
   }
 }

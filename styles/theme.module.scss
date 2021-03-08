@@ -2,8 +2,15 @@ $dark: "#121212";
 $light: "#ffffff";
 $primary: "#fbc311";
 
+// 16px from 19px base
+$space: "0.84rem";
+// 40px from 19px base
+$space_block: "2.1rem";
+
 :export {
   dark: #{$dark};
   light: #{$light};
   primary: #{$primary};
+  space: #{$space};
+  space_block: #{$space_block};
 }
