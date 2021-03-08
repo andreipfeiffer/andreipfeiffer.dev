@@ -19,7 +19,11 @@ type Props = {
 
 export function Layout(props: Props) {
   const { children, className } = props;
-  const darkMode = useDarkMode();
+  const darkMode = useDarkMode(false, {
+    onChange: (value) =>
+      document.body.setAttribute("data-darkmode", String(value)),
+  });
+
   const [logo, setLogo] = React.useState<"black" | "white">("black");
 
   let mainStyles = styles.main;

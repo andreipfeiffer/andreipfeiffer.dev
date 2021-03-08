@@ -7,6 +7,8 @@
   var classNameLight = "light-mode";
 
   function setClassOnDocumentBody(darkMode) {
+    // use this so we can target from CSS modules
+    document.body.setAttribute("data-darkmode", darkMode);
     document.body.classList.add(darkMode ? classNameDark : classNameLight);
     document.body.classList.remove(darkMode ? classNameLight : classNameDark);
   }
