@@ -11,7 +11,7 @@ export function DarkModeToggle() {
       <input
         id="toggle-dark-mode"
         type="checkbox"
-        checked={darkMode.value}
+        checked={!!darkMode.value}
         onChange={darkMode.toggle}
       />
       <label htmlFor="toggle-dark-mode">Toggle dark mode</label>
