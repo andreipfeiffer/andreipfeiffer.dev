@@ -1,3 +1,7 @@
+import vars from "../styles/theme.module.scss";
+
+const { light, dark, primary } = vars;
+
 // 16px from 19px base
 const SPACE = 0.84;
 // 40px from 19px base
@@ -19,8 +23,8 @@ export const theme = {
   },
 
   color: {
-    dark: "#121212",
-    light: "#ffffff",
-    primary: "#fbc311",
+    dark,
+    light,
+    primary,
   },
 } as const;

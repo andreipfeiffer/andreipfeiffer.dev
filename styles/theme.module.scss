@@ -1,0 +1,9 @@
+$dark: "#121212";
+$light: "#ffffff";
+$primary: "#fbc311";
+
+:export {
+  dark: #{$dark};
+  light: #{$light};
+  primary: #{$primary};
+}

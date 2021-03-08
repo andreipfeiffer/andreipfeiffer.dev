@@ -1,8 +1,9 @@
+@import "./theme.module.scss";
+
 :root {
-  /* duplicated in theme.ts */
-  --dark: #121212;
-  --light: #ffffff;
-  --primary: #fbc311;
+  --dark: #{$dark};
+  --light: #{$light};
+  --primary: #{$primary};
 
   --space: 0.84rem;
   --space_large: 2.1rem;
