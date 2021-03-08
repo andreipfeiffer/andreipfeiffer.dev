@@ -8,26 +8,33 @@
 }
 
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--light);
 
-  margin: 40px 0;
+  transition: background-color 0.2s;
 
-  @include breakpoint(md) {
-    margin: 60px 0;
+  [data-darkmode="true"] & {
+    background-color: var(--dark);
   }
+}
+
+.main {
+  padding: 3rem 0;
 }
 
 .footer {
   display: grid;
   grid-template-columns: auto;
   row-gap: 0.5em;
-  margin-bottom: 40px;
 
   @include breakpoint(md) {
     grid-template-columns: 1fr 1fr;
-    margin-bottom: 60px;
   }
 }
 
@@ -40,9 +47,9 @@
 }
 
 .padded {
-  padding: 0 20px;
+  padding: 30px 20px;
 
   @include breakpoint(md) {
-    padding: 0 60px;
+    padding: 40px 60px;
   }
 }

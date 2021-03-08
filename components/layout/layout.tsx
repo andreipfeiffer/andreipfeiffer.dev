@@ -26,8 +26,8 @@ export function Layout(props: Props) {
 
   const [logo, setLogo] = React.useState<"black" | "white">("black");
 
-  let mainStyles = styles.main;
-  className && (mainStyles += ` ${className}`);
+  const headerStyles = classNames(styles.padded, styles.header);
+  const mainStyles = classNames(styles.main, className);
 
   React.useEffect(() => {
     setLogo(darkMode.value ? "white" : "black");
@@ -59,7 +59,7 @@ export function Layout(props: Props) {
         />
       </Head>
 
-      <header className={classNames(styles.padded, styles.header)}>
+      <header className={headerStyles}>
         <MainLink href="/">
           <a>
             <img
@@ -98,13 +98,13 @@ export function Layout(props: Props) {
             </MainLink>
           </li>
         </ul> */}
+              <MainLink href="/about" activeClass={styles.active}>
+                <a>About</a>
 
         <DarkModeToggle />
       </header>
 
       <main className={mainStyles}>{children}</main>
-
-      <Spacer vertical="100" />
 
       <footer className={classNames(styles.padded, styles.footer)}>
         <Text size="m02">
