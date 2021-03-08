@@ -4,9 +4,9 @@ import classNames from "classnames";
 import useDarkMode from "use-dark-mode";
 
 import { Text } from "../text";
-import { Spacer } from "../spacer";
 
 import { MainLink } from "./main_link";
+import { Hamburger } from "./hamburger";
 import { DarkModeToggle } from "./darkmode_toggle";
 import styles from "./layout.module.scss";
 
@@ -25,6 +25,7 @@ export function Layout(props: Props) {
   });
 
   const [logo, setLogo] = React.useState<"black" | "white">("black");
+  const [showMenu, toggleMenu] = React.useState(false);
 
   const headerStyles = classNames(styles.padded, styles.header);
   const mainStyles = classNames(styles.main, className);
@@ -71,35 +72,42 @@ export function Layout(props: Props) {
           </a>
         </MainLink>
 
-        {/* <ul>
-          <li>
-            <MainLink href="/talks" activeClass={styles.active}>
-              <a>Talks</a>
-            </MainLink>
-          </li>
-          <li>
-            <MainLink href="/workshops" activeClass={styles.active}>
-              <a>Workshops</a>
-            </MainLink>
-          </li>
-          <li>
-            <MainLink href="/blog" activeClass={styles.active}>
-              <a>Blog</a>
-            </MainLink>
-          </li>
-          <li>
-            <MainLink href="/about" activeClass={styles.active}>
-              <a>About</a>
-            </MainLink>
-          </li>
-          <li>
-            <MainLink href="/contact" activeClass={styles.active}>
-              <a>Get in touch</a>
-            </MainLink>
-          </li>
-        </ul> */}
+        <nav className={styles.nav}>
+          <Hamburger
+            label="Toggle menu"
+            active={showMenu}
+            onClick={() => toggleMenu(!showMenu)}
+            darkMode={darkMode.value}
+          />
+
+          <ul>
+            <li>
+              <MainLink href="/talks" activeClass={styles.active}>
+                <a>Talks</a>
+              </MainLink>
+            </li>
+            <li>
+              <MainLink href="/workshops" activeClass={styles.active}>
+                <a>Workshops</a>
+              </MainLink>
+            </li>
+            <li>
+              <MainLink href="/blog" activeClass={styles.active}>
+                <a>Blog</a>
+              </MainLink>
+            </li>
+            <li>
               <MainLink href="/about" activeClass={styles.active}>
                 <a>About</a>
+              </MainLink>
+            </li>
+            <li>
+              <MainLink href="/contact" activeClass={styles.active}>
+                <a>Get in touch</a>
+              </MainLink>
+            </li>
+          </ul>
+        </nav>
 
         <DarkModeToggle />
       </header>
