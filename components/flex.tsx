@@ -31,8 +31,6 @@ export function Flex({
   );
 
   function renderChildren() {
-    console.log(children);
-
     if (!Array.isArray(children) || gap === "0") {
       return children;
     }
