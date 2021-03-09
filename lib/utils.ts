@@ -1,3 +1,10 @@
 export function getAge() {
-  return new Date().getFullYear() - 1982;
+  return getCurrentYear() - 1982;
 }
+
+export function getCurrentYear() {
+  return new Date().getFullYear();
+}
+
+export const SUBSCRIBE_URL =
+  "https://dev.us2.list-manage.com/subscribe/post?u=a7ac7926ed477a5e810ed46f7&amp;id=51b196576b";

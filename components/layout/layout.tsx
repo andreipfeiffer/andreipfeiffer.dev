@@ -4,6 +4,7 @@ import classNames from "classnames";
 import useDarkMode from "use-dark-mode";
 
 import { Text } from "../text";
+import { getCurrentYear, SUBSCRIBE_URL } from "../../lib/utils";
 
 import { MainLink } from "./main_link";
 import { Hamburger } from "./hamburger";
@@ -117,11 +118,12 @@ export function Layout(props: Props) {
       <footer className={classNames(styles.padded, styles.footer)}>
         <Text size="m02">
           Follow me on Twitter{" "}
-          <a href="https://twitter.com/pfeiffer_andrei">@pfeiffer_andrei</a>
+          <a href="https://twitter.com/pfeiffer_andrei">@pfeiffer_andrei</a> or{" "}
+          <a href={SUBSCRIBE_URL}>subscribe</a> for updates.
         </Text>
 
         <Text size="m02" color="muted" className={styles.copyright}>
-          &copy; Andrei Pfeiffer, 2020
+          &copy; Andrei Pfeiffer, 2020-{getCurrentYear()}
         </Text>
       </footer>
     </div>
