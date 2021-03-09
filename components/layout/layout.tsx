@@ -35,10 +35,22 @@ export function Layout(props: Props) {
     setLogo(darkMode.value ? "white" : "black");
   }, [darkMode.value]);
 
+  React.useEffect(() => {
+    window.addEventListener("scroll", () => {
+      document
+        .querySelector("body")!
+        .setAttribute("data-scrolled", String(window.scrollY > 100));
+    });
+  }, [darkMode.value]);
+
   return (
     <div className={styles.wrapper}>
       <Head>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+        ></meta>
 
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -63,7 +75,7 @@ export function Layout(props: Props) {
 
       <header className={headerStyles}>
         <MainLink href="/">
-          <a>
+          <a className={styles.logo}>
             <img
               src={`/images/logo_${logo}.svg`}
               alt="Andrei Pfeiffer logo"

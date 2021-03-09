@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
+  position: relative;
 }
 
 .header {
@@ -22,6 +23,22 @@
   [data-darkmode="true"] & {
     background-color: var(--dark);
   }
+
+  [data-scrolled="true"] & {
+    // height: 66px;
+    @include breakpoint(md) {
+      // height: auto;
+    }
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+
+  // [data-scrolled="true"] & img {
+  //   transform: scale(0.66);
+  // }
 }
 
 .main {
@@ -47,7 +64,8 @@
 }
 
 .padded {
-  padding: 30px 20px;
+  padding: 20px 30px;
+  transition: all 0.3s;
 
   @include breakpoint(md) {
     padding: 40px 60px;
