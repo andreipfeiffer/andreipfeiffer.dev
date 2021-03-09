@@ -78,7 +78,6 @@ export function Layout(props: Props) {
             label="Toggle menu"
             active={showMenu}
             onClick={() => toggleMenu(!showMenu)}
-            darkMode={darkMode.value}
           />
 
           <ul>

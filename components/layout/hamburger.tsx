@@ -7,10 +7,9 @@ type Props = {
   label: string;
   active: boolean;
   onClick(): void;
-  darkMode: boolean;
 };
 
-export function Hamburger({ active, label, onClick, darkMode }: Props) {
+export function Hamburger({ active, label, onClick }: Props) {
   return (
     <button
       aria-label={label}
