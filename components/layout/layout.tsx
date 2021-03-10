@@ -71,20 +71,23 @@ export function Layout(props: Props) {
         />
       </Head>
 
-      <header className={headerStyles}>
-        <MainLink href="/">
-          <a className={styles.logo}>
-            <img
-              src={`/images/logo_${logo}.svg`}
-              alt="Andrei Pfeiffer logo"
-              width={60}
-              height={30}
-            />
-          </a>
-        </MainLink>
+      {/* use this to have a static element before main, so we can center align main using flex */}
+      <div style={{ height: "80px" }}>
+        <header className={headerStyles}>
+          <MainLink href="/">
+            <a className={styles.logo}>
+              <img
+                src={`/images/logo_${logo}.svg`}
+                alt="Andrei Pfeiffer logo"
+                width={60}
+                height={30}
+              />
+            </a>
+          </MainLink>
 
-        <Nav />
-      </header>
+          <Nav />
+        </header>
+      </div>
 
       <main className={mainStyles}>{children}</main>
 

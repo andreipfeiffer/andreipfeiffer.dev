@@ -9,8 +9,10 @@
 }
 
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
 
   display: flex;
@@ -18,16 +20,19 @@
   align-items: center;
   background-color: var(--light);
 
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, padding 0.5s;
 
   [data-darkmode="true"] & {
     background-color: var(--dark);
   }
 
   [data-scrolled="true"] & {
-    // height: 66px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
     @include breakpoint(md) {
-      // height: auto;
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
   }
 }
@@ -37,6 +42,7 @@
   align-items: center;
   // z-index: 1001;
   width: 40px;
+  height: 20px;
 
   // [data-scrolled="true"] & img {
   //   transform: scale(0.66);
@@ -70,7 +76,7 @@
 }
 
 .padded {
-  padding: 20px 30px;
+  padding: 30px 20px;
 
   @include breakpoint(md) {
     padding: 40px 60px;
