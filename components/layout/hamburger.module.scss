@@ -1,11 +1,13 @@
+@import "../../styles/mixins";
+
 .hamburger {
   background: none;
   border: 0;
   cursor: pointer;
   border-radius: 50%;
   padding: 0;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   position: relative;
   display: flex;
   align-items: center;
@@ -16,33 +18,35 @@
   [data-darkmode="true"] & {
     --color: var(--light);
   }
+
+  @include breakpoint(sm) {
+    display: none;
+  }
 }
 
 .hamburger:focus {
-  // border: 1px red solid;
+  outline: none;
 }
 
-.hamburger_inner,
 .hamburger_inner::before,
 .hamburger_inner::after {
   position: absolute;
   width: 100%;
   height: 2px;
-  transition-duration: 200ms;
-  transition-property: transform, background, opacity;
   background-color: var(--color);
+  transition: transform 0.3s;
+  transition-delay: 0.2s;
 }
 
 .hamburger_inner {
   position: static;
   display: block;
-  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-  transition-duration: 200ms;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s;
 
   .active & {
-    transition-delay: 0.2s;
-    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    transform: rotate(45deg);
+    transform: rotate(90deg);
   }
 }
 
@@ -50,17 +54,10 @@
   display: block;
   content: "";
   top: 3px;
-  transform: translateX(3px);
-  transition: top 200ms ease 0.2s, opacity 200ms ease, transform 200ms ease;
+  transform-origin: left top;
 
   .active & {
-    top: 0;
-    transition: top 200ms ease, opacity 200ms ease 0.2s, transform 200ms ease;
-    opacity: 0;
-  }
-
-  .hamburger:not(.active):hover & {
-    transform: translateX(5px);
+    transform: rotate(45deg) translate(2px, -3px);
   }
 }
 
@@ -68,18 +65,9 @@
   display: block;
   content: "";
   bottom: 3px;
-  transform: translateX(-3px);
-  transition: bottom 200ms ease 0.2s,
-    transform 200ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  transform-origin: left bottom;
 
   .active & {
-    bottom: 0;
-    transition: bottom 200ms ease,
-      transform 200ms cubic-bezier(0.215, 0.61, 0.355, 1) 0.2s;
-    transform: rotate(-90deg);
-  }
-
-  .hamburger:not(.active):hover & {
-    transform: translateX(-5px);
+    transform: rotate(-45deg) translate(2px, 3px);
   }
 }

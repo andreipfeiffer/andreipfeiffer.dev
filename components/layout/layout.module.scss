@@ -35,10 +35,16 @@
 .logo {
   display: flex;
   align-items: center;
+  // z-index: 1001;
+  width: 40px;
 
   // [data-scrolled="true"] & img {
   //   transform: scale(0.66);
   // }
+
+  @include breakpoint(md) {
+    width: auto;
+  }
 }
 
 .main {
@@ -65,13 +71,8 @@
 
 .padded {
   padding: 20px 30px;
-  transition: all 0.3s;
 
   @include breakpoint(md) {
     padding: 40px 60px;
   }
-}
-
-.nav {
-  display: none;
 }

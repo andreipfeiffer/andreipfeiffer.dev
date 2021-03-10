@@ -6,15 +6,33 @@ import styles from "./button.module.scss";
 
 type Props = {
   children: React.ReactNode;
-  href: string;
+  href?: string;
+  onClick?(): void;
+  as?: "button" | "a";
 };
 
-export function Button({ children, href }: Props) {
-  return (
-    <a href={href} className={classNames(styles.button)}>
-      <Text size="m02" as="div">
-        {children}
-      </Text>
-    </a>
+export function Button({ children, href, onClick, as = "button" }: Props) {
+  if (as === "a" && !href) {
+    throw Error("`href` prop needs to be provided for `a` elements");
+  }
+
+  if (as === "button" && !onClick) {
+    throw Error("`onClick` prop needs to be provided for `button` elements");
+  }
+
+  return React.createElement(
+    as,
+    {
+      className: styles.button,
+      href,
+      onClick,
+    },
+    <div className={styles.button_inner}>
+      {typeof children === "string" ? (
+        <Text size="m02">{children}</Text>
+      ) : (
+        children
+      )}
+    </div>
   );
 }

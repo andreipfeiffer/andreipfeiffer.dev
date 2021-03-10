@@ -233,7 +233,17 @@ export default function Talks() {
         <br />
         <br />
 
-        <Button href="/">Button link</Button>
+        <Button onClick={() => alert("clicked")}>Button</Button>
+
+        <Button as="a" href="/">
+          Link button
+        </Button>
+
+        <Button onClick={() => alert("clicked")}>
+          <Text size="h06" as="div">
+            Custom
+          </Text>
+        </Button>
       </Grid.Full>
     </Layout>
   );
