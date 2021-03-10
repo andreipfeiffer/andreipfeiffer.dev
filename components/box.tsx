@@ -3,7 +3,6 @@ import classNames from "classnames";
 
 import { theme } from "./theme";
 import styles from "./box.module.scss";
-import useDarkMode from "use-dark-mode";
 
 type Props = {
   children: React.ReactNode;
@@ -20,8 +19,6 @@ export function Box({
   bg = "none",
   padded,
 }: Props) {
-  const darkMode = useDarkMode();
-
   const css_vars = {
     ["--padding"]: `var(--space-${padded})`,
   } as React.CSSProperties;
@@ -33,8 +30,7 @@ export function Box({
         [styles.padded]: !!padded,
         // from globals
         "bg-primary": bg === "primary",
-        "light-mode": darkMode.value === false,
-        "dark-mode": darkMode.value === true,
+        theme: bg === "theme",
         inversed: bg === "inversed",
       }),
       style: padded && css_vars,

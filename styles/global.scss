@@ -102,12 +102,14 @@ figure img {
 }
 
 .light-mode,
+.light-mode .theme,
 .dark-mode .inversed {
   background-color: var(--light);
   color: var(--dark);
   transition: background-color 0.2s, color 0.3s;
 }
 .dark-mode,
+.dark-mode .theme,
 .light-mode .inversed {
   background-color: var(--dark);
   color: var(--light);
