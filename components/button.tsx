@@ -20,6 +20,8 @@ export function Button({ children, href, onClick, as = "button" }: Props) {
     throw Error("`onClick` prop needs to be provided for `button` elements");
   }
 
+  const _default = typeof children === "string";
+
   return React.createElement(
     as,
     {
@@ -27,12 +29,13 @@ export function Button({ children, href, onClick, as = "button" }: Props) {
       href,
       onClick,
     },
-    <div className={styles.button_inner}>
-      {typeof children === "string" ? (
-        <Text size="m02">{children}</Text>
-      ) : (
-        children
+    <div
+      className={classNames(
+        styles.button_inner,
+        _default && styles.button_default
       )}
+    >
+      {_default ? <Text size="m02">{children}</Text> : children}
     </div>
   );
 }

@@ -22,7 +22,6 @@
   padding-left: 24px;
   padding-right: 24px;
   // for better visual centering
-  padding-bottom: 2px;
   clip-path: polygon(
     var(--cutoff) 0,
     100% 0,
@@ -40,4 +39,8 @@
       5px 100%
     );
   }
+}
+
+.button_default {
+  padding-bottom: 2px;
 }
