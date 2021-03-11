@@ -2,11 +2,13 @@ import React from "react";
 import classNames from "classnames";
 
 import { Text } from "../text";
+import { Box } from "../box";
 import { Hamburger } from "./hamburger";
 import { DarkModeToggle } from "./darkmode_toggle";
 import { MainLink } from "./main_link";
 import styles from "./nav.module.scss";
-import { Box } from "../box";
+
+import { pages } from "./pages";
 
 export function Nav() {
   const [showMenu, toggleMenu] = React.useState(false);
@@ -15,11 +17,9 @@ export function Nav() {
     <nav className={styles.nav}>
       <div className={classNames(styles.menu, showMenu && styles.menu_open)}>
         <Box as="ul" bg="theme" className={styles.menu_list}>
-          <MenuItem text="Talks" href="/talks" />
-          <MenuItem text="Workshops" href="/workshops" />
-          <MenuItem text="Blog" href="/blog" />
-          <MenuItem text="About" href="/about" />
-          <MenuItem text="Get in touch" href="/contact" />
+          {pages.map(({ text, url }) => (
+            <MenuItem key={text} text={text} href={url} />
+          ))}
         </Box>
       </div>
 
