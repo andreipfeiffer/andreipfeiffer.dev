@@ -1,6 +1,13 @@
 import vars from "../styles/theme.module.scss";
 
-const { light, dark, primary } = vars;
+const {
+  light,
+  dark,
+  primary,
+  breakpoint_sm,
+  breakpoint_md,
+  breakpoint_lg,
+} = vars;
 
 export const theme = {
   space: {
@@ -20,5 +27,11 @@ export const theme = {
     dark,
     light,
     primary,
+  },
+
+  breakpoint: {
+    sm: parseInt(breakpoint_sm.replace("px", ""), 10),
+    md: parseInt(breakpoint_md.replace("px", ""), 10),
+    lg: parseInt(breakpoint_lg.replace("px", ""), 10),
   },
 } as const;
