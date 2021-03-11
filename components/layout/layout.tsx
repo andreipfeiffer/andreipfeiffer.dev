@@ -34,11 +34,14 @@ export function Layout(props: Props) {
   }, [darkMode.value]);
 
   React.useEffect(() => {
-    window.addEventListener("scroll", () => {
+    function onScroll() {
       document
         .querySelector("body")!
         .setAttribute("data-scrolled", String(window.scrollY > 100));
-    });
+    }
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
