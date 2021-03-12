@@ -25,7 +25,7 @@ export function Footer() {
         <nav aria-label="Footer navigation" className={styles.footer_nav}>
           <Flex type="stack" gap="24">
             {pages.map(({ text, url }) => (
-              <MainLink href={url}>
+              <MainLink href={url} key={text}>
                 <a className={styles.footer_nav_item}>
                   <Text size="h05">{text}</Text>
                 </a>
