@@ -9,14 +9,18 @@ import { MainLink } from "./main_link";
 import styles from "./nav.module.scss";
 
 import { pages } from "./pages";
+import { useBreakpoint } from "./useBreakpoint";
 
 export function Nav() {
   const [showMenu, toggleMenu] = React.useState(false);
+  const { breakpoint } = useBreakpoint();
 
   return (
     <nav className={styles.nav} aria-label="Main navigation">
       <div className={classNames(styles.menu, showMenu && styles.menu_open)}>
         <Box as="ul" bg="theme" className={styles.menu_list}>
+          {breakpoint === "" && <MenuItem text="Home" href="/" />}
+
           {pages.map(({ text, url }) => (
             <MenuItem key={text} text={text} href={url} />
           ))}
