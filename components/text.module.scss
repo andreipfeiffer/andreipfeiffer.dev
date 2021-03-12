@@ -15,28 +15,28 @@
   font-size: 19px;
 }
 
-.h00 {
-  line-height: 1.08;
-  font-size: 120px;
-  font-weight: bold;
-}
-
-.h00 {
-  line-height: 1.08;
-  font-size: 120px;
-  font-weight: bold;
-}
-
-.h01 {
-  line-height: 1.1;
-  font-size: 100px;
-  font-weight: bold;
-}
-
 .h02 {
   line-height: 1.06;
   font-size: 60px;
   font-weight: bold;
+}
+
+.h00 {
+  composes: h02;
+
+  @include breakpoint(md) {
+    line-height: 1.08;
+    font-size: 120px;
+  }
+}
+
+.h01 {
+  composes: h02;
+
+  @include breakpoint(sm) {
+    line-height: 1.1;
+    font-size: 100px;
+  }
 }
 
 .h02_5 {
