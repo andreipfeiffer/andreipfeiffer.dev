@@ -1,0 +1,35 @@
+@import "../../styles/mixins";
+
+.footer {
+  display: grid;
+  grid-template-columns: auto;
+  row-gap: 0.5em;
+
+  @include breakpoint(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.footer_nav {
+  padding: var(--space-24) 0 var(--space-60) 0;
+}
+
+.footer_nav_item {
+  text-decoration: none !important;
+}
+
+.copyright {
+  justify-self: start;
+
+  @include breakpoint(md) {
+    justify-self: end;
+  }
+}
+
+.padded {
+  padding: 30px 20px;
+
+  @include breakpoint(md) {
+    padding: 40px 60px;
+  }
+}

@@ -3,16 +3,11 @@ import Head from "next/head";
 import classNames from "classnames";
 import useDarkMode from "use-dark-mode";
 
-import { Text } from "../text";
-import { Box } from "../box";
-import { getCurrentYear, SUBSCRIBE_URL } from "../../lib/utils";
-
 import { MainLink } from "./main_link";
 import { Nav } from "./nav";
+import { Footer } from "./footer";
+
 import styles from "./layout.module.scss";
-import { useBreakpoint } from "./useBreakpoint";
-import { pages } from "./pages";
-import { Flex } from "../flex";
 
 export const SITE_TITLE = "Andrei Pfeiffer, personal website & blog";
 
@@ -32,7 +27,6 @@ export function Layout(props: Props) {
 
   const headerStyles = classNames(styles.padded, styles.header);
   const mainStyles = classNames(styles.main, className);
-  const { breakpoint } = useBreakpoint();
 
   React.useEffect(() => {
     setLogo(darkMode.value ? "white" : "black");
@@ -99,35 +93,7 @@ export function Layout(props: Props) {
 
       <main className={mainStyles}>{children}</main>
 
-      <Box
-        bg={breakpoint === "" ? "inversed" : "none"}
-        as="footer"
-        className={classNames(styles.padded, styles.footer)}
-      >
-        {breakpoint === "" && (
-          <nav aria-label="Footer navigation" className={styles.footer_nav}>
-            <Flex type="stack" gap="24">
-              {pages.map(({ text, url }) => (
-                <MainLink href={url}>
-                  <a className={styles.footer_nav_item}>
-                    <Text size="h05">{text}</Text>
-                  </a>
-                </MainLink>
-              ))}
-            </Flex>
-          </nav>
-        )}
-
-        <Text size="m02">
-          Follow me on Twitter{" "}
-          <a href="https://twitter.com/pfeiffer_andrei">@pfeiffer_andrei</a> or{" "}
-          <a href={SUBSCRIBE_URL}>subscribe</a> for updates.
-        </Text>
-
-        <Text size="m02" color="muted" className={styles.copyright}>
-          &copy; Andrei Pfeiffer, 2020-{getCurrentYear()}
-        </Text>
-      </Box>
+      <Footer />
     </div>
   );
 }
