@@ -19,7 +19,7 @@ export function Nav() {
     <nav className={styles.nav} aria-label="Main navigation">
       <div className={classNames(styles.menu, showMenu && styles.menu_open)}>
         <Box as="ul" bg="theme" className={styles.menu_list}>
-          {breakpoint === "" && <MenuItem text="Home" href="/" />}
+          {breakpoint === "" && <MenuItem text="Home" href="/" exact={true} />}
 
           {pages.map(({ text, url }) => (
             <MenuItem key={text} text={text} href={url} />
@@ -41,12 +41,13 @@ export function Nav() {
 type MenuItemProps = {
   text: string;
   href: string;
+  exact?: boolean;
 };
 
-function MenuItem({ text, href }: MenuItemProps) {
+function MenuItem({ text, href, exact = false }: MenuItemProps) {
   return (
     <li>
-      <MainLink href={href} activeClass={styles.menuitem_active}>
+      <MainLink href={href} activeClass={styles.menuitem_active} exact={exact}>
         <a className={styles.menuitem}>
           <Text size="h06" as="strong">
             {text}
