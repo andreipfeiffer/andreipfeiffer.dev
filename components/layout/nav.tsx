@@ -14,7 +14,7 @@ export function Nav() {
   const [showMenu, toggleMenu] = React.useState(false);
 
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.nav} aria-label="Main navigation">
       <div className={classNames(styles.menu, showMenu && styles.menu_open)}>
         <Box as="ul" bg="theme" className={styles.menu_list}>
           {pages.map(({ text, url }) => (

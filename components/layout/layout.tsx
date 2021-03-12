@@ -11,6 +11,8 @@ import { MainLink } from "./main_link";
 import { Nav } from "./nav";
 import styles from "./layout.module.scss";
 import { useBreakpoint } from "./useBreakpoint";
+import { pages } from "./pages";
+import { Flex } from "../flex";
 
 export const SITE_TITLE = "Andrei Pfeiffer, personal website & blog";
 
@@ -102,6 +104,20 @@ export function Layout(props: Props) {
         as="footer"
         className={classNames(styles.padded, styles.footer)}
       >
+        {breakpoint === "" && (
+          <nav aria-label="Footer navigation" className={styles.footer_nav}>
+            <Flex type="stack" gap="24">
+              {pages.map(({ text, url }) => (
+                <MainLink href={url}>
+                  <a className={styles.footer_nav_item}>
+                    <Text size="h05">{text}</Text>
+                  </a>
+                </MainLink>
+              ))}
+            </Flex>
+          </nav>
+        )}
+
         <Text size="m02">
           Follow me on Twitter{" "}
           <a href="https://twitter.com/pfeiffer_andrei">@pfeiffer_andrei</a> or{" "}
