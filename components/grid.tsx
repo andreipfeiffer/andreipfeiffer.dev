@@ -3,7 +3,7 @@ import classNames from "classnames";
 import styles from "./grid.module.scss";
 
 type Props = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   as?: string;
 };
 
