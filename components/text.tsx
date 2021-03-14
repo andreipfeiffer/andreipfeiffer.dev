@@ -35,27 +35,32 @@ type Props = {
   children: React.ReactNode;
   as?: string;
   // https://projects.invisionapp.com/d/main#/console/20883010/443628189/inspect
-  size?: keyof typeof TextSize;
+  size?: keyof typeof TextSize | "inherit";
   color?: "default" | "primary" | "muted";
   align?: "start" | "center" | "end";
+  display?: "inline" | "block";
   className?: string;
+  nowrap?: boolean;
 };
 
 export function Text({
   children,
   as = "span",
-  size = "p02",
+  size = "inherit",
   color = "default",
   align = "start",
+  nowrap = false,
+  display,
   className,
 }: Props) {
   return React.createElement(
     as,
     {
-      className: classNames(className, {
-        [styles[size]]: true,
+      className: classNames(className, display && [styles[display]], {
+        [styles[size]]: size !== "inherit",
         [styles[`align_${align}`]]: true,
         [styles.primary]: color === "primary",
+        [styles.nowrap]: nowrap === true,
         // global style
         muted: color === "muted",
       }),
