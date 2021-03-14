@@ -68,7 +68,7 @@ export function Layout(props: Props) {
         <meta property="twitter:card" content="summary_large_image" />
 
         <link
-          href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@1&amp;display=swap"
+          href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap"
           rel="stylesheet"
         />
       </Head>
