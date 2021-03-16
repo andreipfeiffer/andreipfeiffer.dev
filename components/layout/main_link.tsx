@@ -33,7 +33,6 @@ function isActivePath(path: string, exact: boolean) {
   const router = useRouter();
 
   if (exact) {
-    console.log({ path });
     return router.pathname === path;
   }
 
