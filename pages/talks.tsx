@@ -21,14 +21,11 @@ export default function Talks() {
         <title>Talks and Live coding: {SITE_TITLE}</title>
       </Head>
 
-      <Spacer vertical="100" />
+      {breakpoint && <Spacer vertical="100" />}
 
       <Grid.Full>
         <Text size="h00" as="h1">
-          Talks &amp;{" "}
-          <Text size="inherit" nowrap={true}>
-            Live coding
-          </Text>
+          Talks &amp; <Text nowrap={!!breakpoint}>Live coding</Text>
         </Text>
       </Grid.Full>
 
@@ -60,7 +57,13 @@ export default function Talks() {
   );
 
   function renderTalk(talk: Talk, index: number) {
-    const image = <Grid.Col span={5}>IMG</Grid.Col>;
+    const image = (
+      <Grid.Col span={5}>
+        <div
+          style={{ background: "#888888", opacity: 0.1, paddingTop: "66%" }}
+        ></div>
+      </Grid.Col>
+    );
 
     const header = (
       <>

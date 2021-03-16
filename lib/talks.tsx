@@ -38,20 +38,26 @@ export const talks: Talk[] = [
     date: "September 2020",
     type: "Slides and Live code",
     abstract: (
-      <p>
-        This talk discusses what <em>Internationalisation</em> and{" "}
-        <em>Localisation</em> is and how to implement translations and
-        pluralisations with{" "}
-        <code>
-          <strong>i18next</strong>
-        </code>
-        . We'll also take a look at the ECMAScript{" "}
-        <code>
-          <strong>Intl</strong>
-        </code>{" "}
-        standard and how to use its APIs to apply localised formatting to
-        numbers, currencies, dates and times.
-      </p>
+      <>
+        <p>
+          This talk discusses what <em>Internationalisation</em> and{" "}
+          <em>Localisation</em> is and how to implement translations and
+          pluralisations with{" "}
+          <code>
+            <strong>i18next</strong>
+          </code>
+          .
+        </p>
+        <br />
+        <p>
+          We'll also take a look at the ECMAScript{" "}
+          <code>
+            <strong>Intl</strong>
+          </code>{" "}
+          standard and how to use its APIs to apply localised formatting to
+          numbers, currencies, dates and times.
+        </p>
+      </>
     ),
   },
 
@@ -60,13 +66,21 @@ export const talks: Talk[] = [
     date: "July 2020",
     type: "Slides only",
     abstract: (
-      <p>
-        In this talk, I touch upon a correlation between <em>simplicity</em> and{" "}
-        <em>ease of use</em> in regard to software, by analysing these traits
-        from the application wide high-level decisions that we have to tackle
-        now and then, to the low-level component design that we have to deal
-        with on a daily basis.
-      </p>
+      <>
+        <p>
+          Simple solutions usually require a lot of effort during their usage,
+          but they also provide a high level of control. Complex solutions are
+          usually easy to use, but retain the control for themselves. This
+          theory applies both at high-level architecture and also at low-level,
+          day-to-day code design.
+        </p>
+        <br />
+        <p>
+          We'll explore different methods for tackling software complexity, by
+          deeply understanding our users and deciding where to place the
+          control: in the implementation, or in the consumer.
+        </p>
+      </>
     ),
   },
 
@@ -74,48 +88,125 @@ export const talks: Talk[] = [
     title: "CSS layout tricks",
     date: "August 2020",
     type: "Live code",
-    abstract:
-      "This talk walks through various layout techniques using purely CSS. It mostly covers some obscure properties that are not widely used.",
+    abstract: (
+      <p>
+        This presentation walks through 3 different layout examples using CSS
+        grids. We'll start by focusing on markup semantics, then sprinkle some
+        lesser known CSS properties to implement solid and flexible layouts.
+      </p>
+    ),
   },
 
   {
     title: "Game of Life and Performance",
     date: "April 2020",
     type: "Slides and Live demo",
-    abstract:
-      "This is a 2-part talk. The first part talks about what is John Conway's Game of Life and some of it's practical application today. The second part walks through an implementation of Game of Life, and it's tehnical implementation challenges in regard to performance.",
+    abstract: (
+      <>
+        <p>
+          This is a 2-part talk. The first part is an introduction to John
+          Conway's Game of Life and some of it's practical applications today.
+          The second part walks through an implementation of Game of Life in
+          React.
+        </p>
+        <br />
+        <p>
+          We'll measure rendering performance and code execution performance,
+          identify bottlenecks and optimize our solution to run at 60fps.
+        </p>
+      </>
+    ),
   },
 
   {
     title: "Memoization in React",
     date: "January 2020",
-    type: "Slides and Live code",
-    abstract:
-      "This talk walks through the limitations of React's rendering performance, taking a hands-on approach to identifying, measuring and fixing performance bottlenecks.",
+    type: "Live code",
+    abstract: (
+      <>
+        <p>
+          React is fast enough, until it becomes slow. In this talk we'll
+          examine the limitations of React's rendering performance.
+        </p>
+        <br />
+        <p>
+          We'll take a look at different situations when rendering bottlenecks
+          can occur, measure rendering performance using{" "}
+          <strong>React Profiler</strong> and optimize it using{" "}
+          <code>
+            <strong>React.memo()</strong>
+          </code>
+          ,{" "}
+          <code>
+            <strong>useMemo()</strong>
+          </code>{" "}
+          and{" "}
+          <code>
+            <strong>useCallback()</strong>
+          </code>
+          .
+        </p>
+      </>
+    ),
   },
 
   {
-    title: "The Trichotomy of UI Development",
+    title: "The False Dichotomy of UI Development",
     date: "November 2019",
     type: "Slides only",
-    abstract:
-      "?!?!?! This talk builds upon Chris Coyers (link) talk about the dichotomy in front-end development. I'm takeing this one step forward, debating over different types of User Interfaces, concluding that there's actually a tricotomy.",
+    abstract: (
+      <>
+        <p>
+          We usually talk about 2 different types of Front-End/UI developers:
+          the <strong>designer</strong> type focused on HTML &amp; CSS, and the{" "}
+          <strong>engineer</strong> type focused on JS and frameworks. This
+          dychotomy matches perfectly the difference between client facing
+          websites and back office web applications.
+        </p>
+        <br />
+        <p>
+          But, when dealing with wep apps that are also client facing, we
+          witness a blend of design and engineering skills that are required to
+          build such UIs.
+        </p>
+      </>
+    ),
   },
 
   {
     title: "Isolated Components Driven Development",
     date: "February 2019",
     type: "Slides and Live demo",
-    abstract:
-      "This talks describes the challenges of developing UIs that are integrated with external APIs. Using tools such as React Styleguidist or Storybook eliminate the need for an integration, enabling us to develop components in isolation, outside the application.",
+    abstract: (
+      <>
+        <p>
+          This talks describes the challenges of developing UIs that are need to
+          communicate with external APIs. Using tools such as{" "}
+          <strong>React Styleguidist</strong> or <strong>Storybook</strong> can
+          help us to eliminate the need for an integration, enabling us to
+          develop components in isolation, outside the application.
+        </p>
+      </>
+    ),
   },
 
   {
     title: "Bridging Swift and React Native",
     date: "October 2018",
     type: "Live code",
-    abstract:
-      "?!?!?! This talk is a live coding session based on my Ultimate Guide (link) during which we'll create a native module in Swift and implement a React Native bridge to allow us to exchange data back and forth between JavaScript code and native Swift code.",
+    abstract: (
+      <>
+        <p>
+          This is a live coding session based on my{" "}
+          <a href="https://teabreak.e-spres-oh.com/swift-in-react-native-the-ultimate-guide-part-1-modules-9bb8d054db03">
+            Ultimate Guide for Swift in React Native
+          </a>
+          . We'll create a native module in Swift and implement a React Native
+          bridge, allowing us to exchange data back and forth between JavaScript
+          code and native iOS code written in Swift.
+        </p>
+      </>
+    ),
   },
 
   {
