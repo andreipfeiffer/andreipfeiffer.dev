@@ -3,3 +3,40 @@
   padding: 0;
   list-style-type: none;
 }
+
+.image {
+  position: relative;
+  max-width: 100%;
+}
+
+.image_links {
+  position: absolute;
+  right: 1em;
+  bottom: 0;
+  transform: translateY(50%);
+}
+
+.button {
+  text-transform: capitalize;
+}
+.button_video::before {
+  content: "";
+  display: inline-block;
+  margin-right: 0.65em;
+  width: 0px;
+  height: 0px;
+  border-left: 8px var(--dark) solid;
+  border-top: 5px transparent solid;
+  border-bottom: 5px transparent solid;
+}
+.button_slides::before {
+  content: "";
+  display: inline-block;
+  margin-right: 0.8em;
+  width: 8px;
+  height: 8px;
+  background-color: var(--dark);
+  outline: 1px solid var(--primary);
+  box-shadow: 2px 2px 0 0 var(--dark);
+  transform: translateY(-1px);
+}

@@ -1,5 +1,7 @@
 import React from "react";
 import Head from "next/head";
+import Image from "next/image";
+import classNames from "classnames";
 
 import { Layout, SITE_TITLE } from "../components/layout";
 import { useBreakpoint } from "../components/layout/useBreakpoint";
@@ -7,6 +9,7 @@ import { Grid } from "../components/grid";
 import { Text } from "../components/text";
 import { Spacer } from "../components/spacer";
 import { Flex } from "../components/flex";
+import { Button } from "../components/button";
 
 import { talks, Talk } from "../lib/talks";
 
@@ -51,17 +54,50 @@ export default function Talks() {
       <Spacer vertical="120" />
 
       <Flex as="ul" type="stack" gap="140" className={styles.list}>
-        {talks.map((talk, index) => renderTalk(talk, index))}
+        {talks
+          .filter((talk) => talk.old !== true)
+          .map((talk, index) => renderTalk(talk, index))}
       </Flex>
+
+      <Spacer vertical="140" />
+
+      <Grid.Full>
+        <Text as="h2" size="h02">
+          Old and discontinued talks
+        </Text>
+
+        <Spacer vertical="40" />
+
+        <Flex as="ul" type="stack" gap="40" className={styles.list}>
+          {talks
+            .filter((talk) => talk.old === true)
+            .map((talk, index) => renderOldTalk(talk, index))}
+        </Flex>
+      </Grid.Full>
     </Layout>
   );
 
   function renderTalk(talk: Talk, index: number) {
     const image = (
       <Grid.Col span={5}>
-        <div
-          style={{ background: "#888888", opacity: 0.1, paddingTop: "66%" }}
-        ></div>
+        {talk.image ? (
+          <figure className={styles.image}>
+            <Image
+              src={`/images/talks/${talk.image}`}
+              width={1920}
+              height={1080}
+              layout="responsive"
+            />
+            <div className={styles.image_links}>
+              {talk.video && <PreviewButton type="video" url={talk.video} />}
+              {talk.slides && <PreviewButton type="slides" url={talk.slides} />}
+            </div>
+          </figure>
+        ) : (
+          <div
+            style={{ background: "#888888", opacity: 0.1, paddingTop: "66%" }}
+          ></div>
+        )}
       </Grid.Col>
     );
 
@@ -122,4 +158,42 @@ export default function Talks() {
       </Grid>
     );
   }
+
+  function renderOldTalk(talk: Talk, index: number) {
+    return (
+      <li key={index}>
+        <Text size="h04" as="h3">
+          {talk.title}
+        </Text>
+        <div>
+          <Text size="h06" color="muted">
+            {talk.date}
+          </Text>
+          <Spacer horizontal="16" />
+          <Text size="m02" color="muted">
+            {talk.type}
+          </Text>
+        </div>
+        <Text>{talk.abstract}</Text>
+      </li>
+    );
+  }
+}
+
+type PreviewButtonProps = {
+  url: string;
+  type: "video" | "slides";
+};
+
+function PreviewButton({ url, type }: PreviewButtonProps) {
+  return (
+    <Button as="a" href={url}>
+      <Text
+        size="m02"
+        className={classNames(styles.button, styles[`button_${type}`])}
+      >
+        {type}
+      </Text>
+    </Button>
+  );
 }

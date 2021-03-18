@@ -6,6 +6,10 @@ export type Talk = {
   date: string;
   type: string;
   abstract: React.ReactNode;
+  old?: boolean;
+  image?: string;
+  slides?: string;
+  video?: string;
 };
 
 export const talks: Talk[] = [
@@ -203,21 +207,26 @@ export const talks: Talk[] = [
           </a>
           . We'll create a native module in Swift and implement a React Native
           bridge, allowing us to exchange data back and forth between JavaScript
-          code and native iOS code written in Swift.
+          code and native iOS code written in.
         </p>
       </>
     ),
+    image: "javaswift.png",
+    slides: "https://www.youtube.com/watch?v=0KLy6ikf0uI",
+    video: "https://www.youtube.com/watch?v=0KLy6ikf0uI",
   },
 
   {
-    title: "?!?!?! JS Tips & Tricks (lightning talk)",
+    old: true,
+    title: "Devtools breakpointing",
     date: "July 2018",
-    type: "Live code",
+    type: "Lightning talk, Live code",
     abstract:
-      "This is a short talk that goes through various practical debugging tips using Chrome's Devtools.",
+      "Code breakpoints is something we're all used to. But Chrome Devtools provide additional debugging methods that allow us to break on DOM manipulations, XHR requests or DOM events.",
   },
 
   {
+    old: true,
     title: "Mobx and friends",
     date: "June 2018",
     type: "Slides and Live demo",
@@ -226,6 +235,7 @@ export const talks: Talk[] = [
   },
 
   {
+    old: true,
     title: "How full is your stack?",
     date: "November 2017",
     type: "Slides only",
@@ -234,6 +244,7 @@ export const talks: Talk[] = [
   },
 
   {
+    old: true,
     title: "JavaScript is different",
     date: "October 2017",
     type: "Slides only",
