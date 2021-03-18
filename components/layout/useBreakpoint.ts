@@ -16,13 +16,11 @@ export const useBreakpoint = () => {
     window.matchMedia(`(min-width: ${md}px) and (max-width: ${lg - 1}px)`);
   const mq_lg = isBrowser && window.matchMedia(`(min-width: ${lg}px)`);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     mq_sm && mq_sm.matches && setBreakpoint("sm");
     mq_md && mq_md.matches && setBreakpoint("md");
     mq_lg && mq_lg.matches && setBreakpoint("lg");
-  }, []);
 
-  useEffect(() => {
     mq_xs &&
       mq_xs.addEventListener("change", (e) => {
         e.matches && setBreakpoint("");
