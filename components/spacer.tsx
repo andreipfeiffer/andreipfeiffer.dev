@@ -11,7 +11,7 @@ export function Spacer({ vertical, horizontal }: Props) {
   const height = vertical ? theme.space[vertical] : 0;
 
   if (width) {
-    return <span style={{ width }}></span>;
+    return <span style={{ width, display: "inline-block" }}></span>;
   }
 
   if (height) {
