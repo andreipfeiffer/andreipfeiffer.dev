@@ -10,6 +10,7 @@ type Props = {
   as?: string;
   gap?: keyof typeof theme.space;
   className?: string;
+  align?: "start" | "center" | "end";
 };
 
 export function Flex({
@@ -18,6 +19,7 @@ export function Flex({
   className,
   as = "div",
   gap,
+  align = "start",
 }: Props) {
   const css_vars = {
     ["--gap"]: gap ? `var(--space-${gap})` : "0px",
@@ -26,7 +28,7 @@ export function Flex({
   return React.createElement(
     as,
     {
-      className: classNames(className, {
+      className: classNames(className, styles[align], {
         [styles[type]]: true,
       }),
       style: css_vars,
