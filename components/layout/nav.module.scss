@@ -17,7 +17,7 @@
 
   transform: translateY(-100vh);
   transition-timing-function: ease-in-out;
-  transition: transform 0.7s;
+  transition: transform 0.5s;
 
   @include breakpoint(sm, max) {
     &.menu_open {
@@ -47,6 +47,16 @@
     gap: 0;
     padding: 0;
     min-height: auto;
+  }
+
+  & > li:first-child {
+    display: none;
+  }
+
+  @include breakpoint(sm, max) {
+    & > li:first-child {
+      display: block;
+    }
   }
 }
 
