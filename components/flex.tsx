@@ -20,7 +20,7 @@ export function Flex({
   gap,
 }: Props) {
   const css_vars = {
-    ["--gap"]: `var(--space-${gap})`,
+    ["--gap"]: gap ? `var(--space-${gap})` : "0px",
   } as React.CSSProperties;
 
   return React.createElement(
