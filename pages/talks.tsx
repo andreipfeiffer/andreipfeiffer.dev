@@ -46,7 +46,8 @@ export default function Talks() {
           <br />
           <br />
           <Text size="p01">
-            Below is a non-comprehensive list of topics I've spoken about.
+            Below you'll find a non-comprehensive list of topics I've spoken
+            about.
           </Text>
         </Grid.Col>
       </Grid>

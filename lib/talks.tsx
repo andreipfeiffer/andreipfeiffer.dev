@@ -212,7 +212,6 @@ export const talks: Talk[] = [
       </>
     ),
     image: "javaswift.png",
-    slides: "https://www.youtube.com/watch?v=0KLy6ikf0uI",
     video: "https://www.youtube.com/watch?v=0KLy6ikf0uI",
   },
 
