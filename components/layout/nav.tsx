@@ -3,17 +3,16 @@ import classNames from "classnames";
 
 import { Text } from "../text";
 import { Box } from "../box";
+
 import { Hamburger } from "./hamburger";
 import { DarkModeToggle } from "./darkmode_toggle";
 import { MainLink } from "./main_link";
 import styles from "./nav.module.scss";
 
 import { pages } from "./pages";
-import { useBreakpoint } from "./useBreakpoint";
 
 export function Nav() {
   const [showMenu, toggleMenu] = React.useState(false);
-  const { breakpoint } = useBreakpoint();
 
   return (
     <nav className={styles.nav} aria-label="Main navigation">
