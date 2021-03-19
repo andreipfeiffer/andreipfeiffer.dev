@@ -1,0 +1,125 @@
+@import "../../styles/mixins";
+
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1em;
+}
+
+.menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  min-height: 100vh;
+
+  transform: translateY(-100vh);
+  transition-timing-function: ease-in-out;
+  transition: transform 0.5s;
+
+  @include breakpoint(sm, max) {
+    &.menu_open {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @include breakpoint(sm) {
+    min-height: auto;
+    position: static;
+    transform: none;
+  }
+}
+
+.menu_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 120px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  min-height: 100vh;
+
+  @include breakpoint(sm) {
+    flex-direction: row;
+    gap: 0;
+    padding: 0;
+    min-height: auto;
+  }
+
+  & > li:first-child {
+    display: none;
+  }
+
+  @include breakpoint(sm, max) {
+    & > li:first-child {
+      display: block;
+    }
+  }
+}
+
+.menuitem {
+  --height: 36px;
+  --cutoff: calc(var(--height) / 3);
+
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  appearance: none;
+  background: none;
+  text-decoration: none !important;
+  line-height: 1;
+  max-width: calc(100vw - 40px);
+
+  height: var(--height);
+  text-decoration: none !important;
+  display: inline-flex;
+  white-space: nowrap;
+
+  align-items: center;
+  padding-left: 24px;
+  padding-right: 26px;
+  clip-path: polygon(
+    var(--cutoff) 0,
+    100% 0,
+    calc(100% - var(--cutoff)) 100%,
+    0 100%
+  );
+
+  @include breakpoint(sm, max) {
+    --height: 44px;
+
+    & strong {
+      font-size: calc(0.5em + 2vw);
+    }
+
+    &.menuitem_active::after {
+      content: "// you are here";
+
+      font-family: "Roboto Mono", monospace;
+      font-style: italic;
+      font-size: 13px;
+      font-weight: normal;
+      margin-left: 1.5em;
+    }
+  }
+  @include breakpoint(sm) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  @include breakpoint(md) {
+    padding-left: 24px;
+    padding-right: 26px;
+  }
+}
+
+.menuitem:hover,
+.menuitem:focus,
+.menuitem_active {
+  background-color: var(--primary);
+  color: var(--dark) !important;
+  outline: 0;
+}

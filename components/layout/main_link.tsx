@@ -6,15 +6,19 @@ type Props = {
   href: string;
   children: React.ReactElement;
   activeClass?: string;
+  exact?: boolean;
 };
 
-export const Link = ({ children, href, activeClass }: Props) => {
-  const router = useRouter();
-
+export const MainLink = ({
+  children,
+  href,
+  activeClass,
+  exact = false,
+}: Props) => {
   let className = children.props.className || "";
 
   // we check only the first segment to match
-  if (activeClass && `/${router.pathname.split("/")[1]}`.startsWith(href)) {
+  if (activeClass && isActivePath(href, exact)) {
     className = `${className} ${activeClass}`;
   }
 
@@ -24,3 +28,13 @@ export const Link = ({ children, href, activeClass }: Props) => {
     </NextLink>
   );
 };
+
+function isActivePath(path: string, exact: boolean) {
+  const router = useRouter();
+
+  if (exact) {
+    return router.pathname === path;
+  }
+
+  return `/${router.pathname.split("/")[1]}`.startsWith(path);
+}

@@ -1,0 +1,73 @@
+@import "../../styles/mixins";
+
+.hamburger {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  --color: var(--dark);
+
+  [data-darkmode="true"] & {
+    --color: var(--light);
+  }
+
+  @include breakpoint(sm) {
+    display: none;
+  }
+}
+
+.hamburger:focus {
+  outline: none;
+}
+
+.hamburger_inner::before,
+.hamburger_inner::after {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color);
+  transition: transform 0.3s;
+  transition-delay: 0.2s;
+}
+
+.hamburger_inner {
+  position: static;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s;
+
+  .active & {
+    transform: rotate(90deg);
+  }
+}
+
+.hamburger_inner::before {
+  display: block;
+  content: "";
+  top: 3px;
+  transform-origin: left top;
+
+  .active & {
+    transform: rotate(45deg) translate(2px, -3px);
+  }
+}
+
+.hamburger_inner::after {
+  display: block;
+  content: "";
+  bottom: 3px;
+  transform-origin: left bottom;
+
+  .active & {
+    transform: rotate(-45deg) translate(2px, 3px);
+  }
+}

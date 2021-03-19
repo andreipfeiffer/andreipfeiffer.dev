@@ -1,0 +1,26 @@
+.colors_wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* grid-template-rows: auto; */
+  column-gap: 30px;
+}
+.colors_wrapper > div {
+  padding: 1rem;
+}
+
+.color_primary {
+  background-color: var(--primary);
+  color: var(--dark);
+}
+
+.color_dark {
+  color: var(--light);
+  background-color: var(--dark);
+  border: 1px var(--light) solid;
+}
+
+.color_light {
+  color: var(--dark);
+  background-color: var(--light);
+  border: 1px var(--dark) solid;
+}

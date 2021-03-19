@@ -1,0 +1,66 @@
+@import "../../styles/mixins";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  position: relative;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--light);
+
+  transition: background-color 0.2s, padding 0.5s;
+
+  [data-darkmode="true"] & {
+    background-color: var(--dark);
+  }
+
+  [data-scrolled="true"] & {
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    @include breakpoint(md) {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  // z-index: 1001;
+  width: 40px;
+  height: 20px;
+
+  // [data-scrolled="true"] & img {
+  //   transform: scale(0.66);
+  // }
+
+  @include breakpoint(md) {
+    width: auto;
+  }
+}
+
+.main {
+  padding: 3rem 0;
+}
+
+.padded {
+  padding: 30px 20px;
+
+  @include breakpoint(md) {
+    padding: 40px 60px;
+  }
+}

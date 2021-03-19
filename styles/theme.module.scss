@@ -1,0 +1,25 @@
+$dark: "#121212";
+$light: "#ffffff";
+$primary: "#fbc311";
+
+// 16px from 19px base
+$space: "0.84rem";
+// 40px from 19px base
+$space_block: "2.1rem";
+
+$breakpoint-sm: 600px;
+$breakpoint-md: 1000px;
+$breakpoint-lg: 1200px;
+
+:export {
+  dark: #{$dark};
+  light: #{$light};
+  primary: #{$primary};
+
+  space: #{$space};
+  space_block: #{$space_block};
+
+  breakpoint_sm: $breakpoint-sm;
+  breakpoint_md: $breakpoint-md;
+  breakpoint_lg: $breakpoint-lg;
+}

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import useDarkMode from "use-dark-mode";
 import readingTime from "reading-time";
 
-import Layout from "./layout";
+import { Layout } from "./layout";
 import FormattedDate from "./date";
 import { Metadata } from "../lib/blog";
 // import styles from "./BlogPost.module.css";

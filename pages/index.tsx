@@ -1,6 +1,10 @@
 import Head from "next/head";
-import Layout, { SITE_TITLE } from "../components/layout";
 // import Link from "next/link";
+
+import { Layout, SITE_TITLE } from "../components/layout";
+import { Text } from "../components/text";
+import { Grid } from "../components/grid";
+import { Spacer } from "../components/spacer";
 
 export default function Home() {
   return (
@@ -9,15 +13,26 @@ export default function Home() {
         <title>{SITE_TITLE}</title>
       </Head>
 
-      <h1>Andrei Pfeiffer</h1>
+      <Grid.Full>
+        <Text size="h01" as="h1">
+          Andrei Pfeiffer
+        </Text>
 
-      <h2>
-        Eclectic Code Designer
-        <br />
-        <small>UI Engineer, web &amp; mobile</small>
-        <br />
-        <small>Organizer of revo.js conf &amp; tim.js meetup</small>
-      </h2>
+        <Spacer vertical="24" />
+
+        <Text size="h03" as="p">
+          Eclectic Code Designer
+        </Text>
+        <Spacer vertical="8" />
+        <Text size="h03" as="p">
+          UI Engineer, web &amp; mobile
+        </Text>
+        <Spacer vertical="8" />
+        <Text size="h03" as="p">
+          Organizer of <a href="http://revojs.ro">revo.js</a> conf &amp;{" "}
+          <a href="http://timjs.ro">tim.js</a> meetup
+        </Text>
+      </Grid.Full>
     </Layout>
   );
 }

@@ -1,0 +1,84 @@
+@import "../styles/mixins";
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+
+  @include breakpoint(md) {
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 20px;
+  }
+}
+
+.layout {
+  margin: 1em 20px;
+  row-gap: 1em;
+
+  @include breakpoint(sm) {
+    margin: 1em 60px;
+  }
+
+  @include breakpoint(md) {
+    margin: 1em 8vw;
+  }
+}
+
+// .item {
+// }
+
+.size_2 {
+  @include breakpoint(md) {
+    grid-column: span 2;
+  }
+}
+.size_3 {
+  @include breakpoint(md) {
+    grid-column: span 3;
+  }
+}
+.size_4 {
+  @include breakpoint(md) {
+    grid-column: span 4;
+  }
+}
+.size_5 {
+  @include breakpoint(md) {
+    grid-column: span 5;
+  }
+}
+.size_6 {
+  @include breakpoint(md) {
+    grid-column: span 6;
+  }
+}
+.size_7 {
+  @include breakpoint(md) {
+    grid-column: span 7;
+  }
+}
+.size_8 {
+  @include breakpoint(md) {
+    grid-column: span 8;
+  }
+}
+.size_9 {
+  @include breakpoint(md) {
+    grid-column: span 9;
+  }
+}
+.size_10 {
+  @include breakpoint(md) {
+    grid-column: span 10;
+  }
+}
+.size_11 {
+  @include breakpoint(md) {
+    grid-column: span 11;
+  }
+}
+.size_12 {
+  @include breakpoint(md) {
+    grid-column: span 12;
+  }
+}

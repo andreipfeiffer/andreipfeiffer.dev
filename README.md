@@ -1,4 +1,4 @@
-Built with [Next.js](https://nextjs.org/).
+Built with [Next.js](https://nextjs.org/) and TS.
 
 <br />
 
