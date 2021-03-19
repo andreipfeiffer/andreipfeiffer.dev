@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { theme } from "../theme";
 
 const { sm, md, lg } = theme.breakpoint;
@@ -21,25 +21,30 @@ export const useBreakpoint = () => {
     mq_md && mq_md.matches && setBreakpoint("md");
     mq_lg && mq_lg.matches && setBreakpoint("lg");
 
-    mq_xs &&
-      mq_xs.addEventListener("change", (e) => {
-        e.matches && setBreakpoint("");
-      });
+    function handleXS(e: MediaQueryListEvent) {
+      e.matches && setBreakpoint("");
+    }
+    function handleSM(e: MediaQueryListEvent) {
+      e.matches && setBreakpoint("sm");
+    }
+    function handleMD(e: MediaQueryListEvent) {
+      e.matches && setBreakpoint("md");
+    }
+    function handleLG(e: MediaQueryListEvent) {
+      e.matches && setBreakpoint("lg");
+    }
 
-    mq_sm &&
-      mq_sm.addEventListener("change", (e) => {
-        e.matches && setBreakpoint("sm");
-      });
+    mq_xs && mq_xs.addEventListener("change", handleXS);
+    mq_sm && mq_sm.addEventListener("change", handleSM);
+    mq_md && mq_md.addEventListener("change", handleMD);
+    mq_lg && mq_lg.addEventListener("change", handleLG);
 
-    mq_md &&
-      mq_md.addEventListener("change", (e) => {
-        e.matches && setBreakpoint("md");
-      });
-
-    mq_lg &&
-      mq_lg.addEventListener("change", (e) => {
-        e.matches && setBreakpoint("lg");
-      });
+    return () => {
+      mq_xs && mq_xs.removeEventListener("change", handleXS);
+      mq_sm && mq_sm.removeEventListener("change", handleSM);
+      mq_md && mq_md.removeEventListener("change", handleMD);
+      mq_lg && mq_lg.removeEventListener("change", handleLG);
+    };
   }, []);
 
   return { breakpoint };
