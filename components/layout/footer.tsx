@@ -21,19 +21,17 @@ export function Footer() {
       as="footer"
       className={classNames(styles.padded, styles.footer)}
     >
-      {breakpoint === "" && (
-        <nav aria-label="Footer navigation" className={styles.footer_nav}>
-          <Flex type="stack" gap="24">
-            {pages.map(({ text, url }) => (
-              <MainLink href={url} key={text}>
-                <a className={styles.footer_nav_item}>
-                  <Text size="h05">{text}</Text>
-                </a>
-              </MainLink>
-            ))}
-          </Flex>
-        </nav>
-      )}
+      <nav aria-label="Footer navigation" className={styles.footer_nav}>
+        <Flex type="stack" gap="24">
+          {pages.map(({ text, url }) => (
+            <MainLink href={url} key={text}>
+              <a className={styles.footer_nav_item}>
+                <Text size="h05">{text}</Text>
+              </a>
+            </MainLink>
+          ))}
+        </Flex>
+      </nav>
 
       <Text size="m02">
         Follow me on Twitter{" "}
