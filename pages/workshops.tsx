@@ -1,21 +1,50 @@
+import React from "react";
 import Head from "next/head";
+
+import { Grid } from "../components/grid";
+import { Text } from "../components/text";
+import { Spacer } from "../components/spacer";
 import { Layout, SITE_TITLE } from "../components/layout";
-// import Link from "next/link";
+import { useBreakpoint } from "../components/layout/useBreakpoint";
 
 export default function Workshops() {
+  const { breakpoint } = useBreakpoint();
+
   return (
     <Layout>
       <Head>
-        <title>Workshops: {SITE_TITLE}</title>
+        <title>Workshops and Trainings: {SITE_TITLE}</title>
       </Head>
 
-      <h1>Workshops &amp; Trainings</h1>
+      {breakpoint && <Spacer vertical="100" />}
 
+      <Grid.Full>
+        <Text size="h00" as="h1">
+          Workshops and Trainings
+        </Text>
+      </Grid.Full>
+
+      <Spacer vertical="60" />
+
+      <Grid.Full>
+        <Text size="h04" as="p" display="block">
+          Workshops content is under construction!
+        </Text>
+        <Text as="p" display="block">
+          It will become available in the upcoming weeks...
+        </Text>
+      </Grid.Full>
+    </Layout>
+  );
+
+  /*
+  const content = (
+    <>
+      {" "}
       <p>
         I've done many full-day and half-day workshops for meetups and
         conferences, and also multiple days on location trainings for companies.
       </p>
-
       <p>
         These workshops and trainings covered various software development
         topics, such as:
@@ -29,10 +58,7 @@ export default function Workshops() {
         <li>UI Components Design</li>
         <li>Unit Testing</li>
       </ul>
-
       <hr />
-
-      {/* <p>Below are some public workshops with detailed information.</p> */}
 
       <section>
         <h2>React Rendering Performance Optimizations</h2>
@@ -62,7 +88,6 @@ export default function Workshops() {
 
         <p>Advanced workshop, Half-day or Full-day</p>
       </section>
-
       <section>
         <h2>React Native Custom Modules</h2>
 
@@ -74,7 +99,6 @@ export default function Workshops() {
 
         <p>Advanced workshop, Half-day or Full-day</p>
       </section>
-
       <section>
         <h2>JavaScript Citizens</h2>
 
@@ -87,7 +111,6 @@ export default function Workshops() {
 
         <p>Beginner/Intermediate workshop, Full-day</p>
       </section>
-
       <section>
         <h2>JavaScript Mechanics</h2>
 
@@ -100,6 +123,7 @@ export default function Workshops() {
 
         <p>Beginner/Intermediate workshop, Full-day</p>
       </section>
-    </Layout>
+    </>
   );
+  */
 }

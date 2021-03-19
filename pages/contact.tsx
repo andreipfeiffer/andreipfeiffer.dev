@@ -1,48 +1,74 @@
+import React from "react";
 import Head from "next/head";
+
+import { Grid } from "../components/grid";
+import { Text } from "../components/text";
+import { Spacer } from "../components/spacer";
 import { Layout, SITE_TITLE } from "../components/layout";
-// import Link from "next/link";
+import { useBreakpoint } from "../components/layout/useBreakpoint";
 
 export default function Contact() {
+  const { breakpoint } = useBreakpoint();
+
   return (
     <Layout>
       <Head>
         <title>Get in touch: {SITE_TITLE}</title>
       </Head>
 
-      <h1>Get in touch</h1>
+      {breakpoint && <Spacer vertical="100" />}
 
-      <form action="#" method="post">
-        <label>
-          <span>Your email address:</span>
-          <input type="text" autoFocus />
-        </label>
-        <br />
-        <label>
-          <span>Subject:</span>
-          <select>
-            <option value="contact">General inquiry</option>
-            <option value="speaking">Speaking engagement</option>
-            <option value="workshop">Workhops or Trainings</option>
-          </select>
-        </label>
-        <br />
-        <label>
-          <span>Content:</span>
-          <textarea></textarea>
-        </label>
-      </form>
+      <Grid.Full>
+        <Text size="h00" as="h1">
+          Get in touch
+        </Text>
+      </Grid.Full>
 
-      <br />
+      <Spacer vertical="60" />
 
-      <p>
+      <Grid.Full>
+        <Text as="p">
+          If you want to contact me, my DMs are open on Twitter{" "}
+          <a href="https://twitter.com/pfeiffer_andrei">
+            <strong>@pfeiffer_andrei</strong>
+          </a>
+          .
+        </Text>
+      </Grid.Full>
+
+      {/* <p>
         <strong>Subscribe to blog posts:</strong>
-      </p>
-      <Subscribe />
+      </p> */}
     </Layout>
   );
 }
 
-function Subscribe() {
+function ContactForm() {
+  return (
+    <form action="#" method="post">
+      <label>
+        <span>Your email address:</span>
+        <input type="text" autoFocus />
+      </label>
+      <br />
+      <label>
+        <span>Subject:</span>
+        <select>
+          <option value="contact">General inquiry</option>
+          <option value="speaking">Speaking engagement</option>
+          <option value="workshop">Workhops or Trainings</option>
+        </select>
+      </label>
+      <br />
+      <label>
+        <span>Content:</span>
+        <textarea></textarea>
+      </label>
+    </form>
+  );
+}
+
+function SubscribeForm() {
   return (
     <div id="mc_embed_signup">
       <form
