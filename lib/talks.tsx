@@ -221,8 +221,15 @@ export const talks: Talk[] = [
     title: "Devtools breakpointing",
     date: "July 2018",
     type: "Lightning talk, Live code",
-    abstract:
-      "Code breakpoints is something we're all used to. But Chrome Devtools provide additional debugging methods that allow us to break on DOM manipulations, XHR requests or DOM events.",
+    abstract: (
+      <>
+        <p>
+          Code breakpoints is something we're all used to. But Chrome Devtools
+          provide additional debugging methods that allow us to break on DOM
+          manipulations, XHR requests or DOM events.
+        </p>
+      </>
+    ),
   },
 
   {
@@ -230,8 +237,16 @@ export const talks: Talk[] = [
     title: "Mobx and friends",
     date: "June 2018",
     type: "Slides and Live demo",
-    abstract:
-      "This talk describes MobX as a complex state management solution, in comparison to the simpler Redux library. It covers the basic concepts, syntax, features and performance.",
+    abstract: (
+      <>
+        <p>
+          This is an introduction to MobX, a complex state management solution.
+          It takes the more popular and simpler Redux library, as comparison to
+          highlight the key differences in concepts, syntax, features and
+          performance.
+        </p>
+      </>
+    ),
   },
 
   {
@@ -239,8 +254,18 @@ export const talks: Talk[] = [
     title: "How full is your stack?",
     date: "November 2017",
     type: "Slides only",
-    abstract:
-      "This talk debates on the title of <em>full stack developer and development</em>, looking at the history of the term, but also how it is percieved by developers and managers.",
+    abstract: (
+      <>
+        <p>
+          Developers want to become "full stack". Companies hire full stack
+          developers. Some say they are{" "}
+          <em>"jack of all trades, master of none"</em>. The answer must be
+          somewhere in the middle. We'll analyze the history of the term and
+          debate what it really means from the developement and management point
+          of view.
+        </p>
+      </>
+    ),
   },
 
   {
@@ -248,7 +273,16 @@ export const talks: Talk[] = [
     title: "JavaScript is different",
     date: "October 2017",
     type: "Slides only",
-    abstract:
-      "This talk tries to answer questions like: <em>Why does JavaScript still has bad features and poor design?</em>, <em>Why do developers hate JavaScript?</em> and <em>Why is JavaScript different than other languages?</em>.",
+    abstract: (
+      <>
+        <p>
+          Breaking changes are a great way to improve software, by changing poor
+          design and removing the bad parts. It's what all languages do at some
+          point. However, JavaScript cannot afford to do that. We'll explore why
+          is JavaScript different in this regard and what options does it have
+          for improvement.
+        </p>
+      </>
+    ),
   },
 ];

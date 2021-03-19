@@ -162,19 +162,14 @@ export default function Talks() {
   function renderOldTalk(talk: Talk, index: number) {
     return (
       <li key={index}>
+        <Text size="h06">{talk.date}</Text>
         <Text size="h04" as="h3">
           {talk.title}
         </Text>
-        <div>
-          <Text size="h06" color="muted">
-            {talk.date}
-          </Text>
-          <Spacer horizontal="16" />
-          <Text size="m02" color="muted">
-            {talk.type}
-          </Text>
-        </div>
-        <Text>{talk.abstract}</Text>
+        <Text size="m02" color="muted">
+          {talk.type}
+        </Text>
+        {talk.abstract}
       </li>
     );
   }
