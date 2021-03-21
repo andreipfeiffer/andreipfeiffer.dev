@@ -81,24 +81,30 @@ export default function Talks() {
   function renderTalk(talk: Talk, index: number) {
     const image = (
       <Grid.Col span={5}>
-        {talk.image ? (
-          <figure className={styles.image}>
+        <figure className={styles.image}>
+          {talk.image ? (
             <Image
               src={`/images/talks/${talk.image}`}
               width={1920}
               height={1080}
               layout="responsive"
             />
+          ) : (
+            <div
+              style={{ background: "#888888", opacity: 0.1, paddingTop: "66%" }}
+            ></div>
+          )}
+
+          {talk.urls && (
             <div className={styles.image_links}>
-              {talk.video && <PreviewButton type="video" url={talk.video} />}
-              {talk.slides && <PreviewButton type="slides" url={talk.slides} />}
+              {talk.urls.map((u) => (
+                <PreviewButton type={u.type} url={u.url}>
+                  {u.type === "code" ? u.label : u.type}
+                </PreviewButton>
+              ))}
             </div>
-          </figure>
-        ) : (
-          <div
-            style={{ background: "#888888", opacity: 0.1, paddingTop: "66%" }}
-          ></div>
-        )}
+          )}
+        </figure>
       </Grid.Col>
     );
 
@@ -177,18 +183,19 @@ export default function Talks() {
 }
 
 type PreviewButtonProps = {
+  children: string;
   url: string;
-  type: "video" | "slides";
+  type: "video" | "slides" | "code";
 };
 
-function PreviewButton({ url, type }: PreviewButtonProps) {
+function PreviewButton({ url, type, children }: PreviewButtonProps) {
   return (
     <Button as="a" href={url}>
       <Text
         size="m02"
         className={classNames(styles.button, styles[`button_${type}`])}
       >
-        {type}
+        {children}
       </Text>
     </Button>
   );

@@ -7,6 +7,7 @@
 .image {
   position: relative;
   max-width: 100%;
+  margin: 0;
 }
 
 .image_links {
@@ -18,6 +19,7 @@
 
 .button {
   text-transform: capitalize;
+  display: block;
 }
 .button_video::before {
   content: "";
@@ -39,4 +41,12 @@
   outline: 1px solid var(--primary);
   box-shadow: 2px 2px 0 0 var(--dark);
   transform: translateY(-1px);
+}
+.button_code::before {
+  content: "</>";
+  display: inline-block;
+  margin-right: 0.8em;
+  font-style: normal !important;
+  font-weight: bold;
+  letter-spacing: -2px;
 }

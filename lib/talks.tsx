@@ -1,6 +1,10 @@
 import React from "react";
 import { Text } from "../components/text";
 
+type Video = { type: "video"; url: string };
+type Slides = { type: "slides"; url: string };
+type Code = { type: "code"; url: string; label: string };
+
 export type Talk = {
   title: React.ReactNode;
   date: string;
@@ -8,8 +12,7 @@ export type Talk = {
   abstract: React.ReactNode;
   old?: boolean;
   image?: string;
-  slides?: string;
-  video?: string;
+  urls?: Array<Video | Slides | Code>;
 };
 
 export const talks: Talk[] = [
@@ -35,6 +38,13 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    urls: [
+      {
+        type: "code",
+        url: "https://github.com/andreipfeiffer/css-in-js",
+        label: "Docs",
+      },
+    ],
   },
 
   {
@@ -63,6 +73,13 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    image: "i18n-l10n.png",
+    urls: [
+      {
+        type: "slides",
+        url: "/slides/i18n-and-l10n.pdf",
+      },
+    ],
   },
 
   {
@@ -86,6 +103,13 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    image: "simple-vs-easy.png",
+    urls: [
+      {
+        type: "slides",
+        url: "/slides/simple-vs-easy.pdf",
+      },
+    ],
   },
 
   {
@@ -99,6 +123,14 @@ export const talks: Talk[] = [
         lesser known CSS properties to implement solid and flexible layouts.
       </p>
     ),
+    image: "css-grid-layouts.png",
+    urls: [
+      {
+        type: "code",
+        url: "https://github.com/andreipfeiffer/css-tricks",
+        label: "Code",
+      },
+    ],
   },
 
   {
@@ -120,6 +152,14 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    image: "game-of-life.png",
+    urls: [
+      {
+        type: "code",
+        url: "https://github.com/andreipfeiffer/game-of-life",
+        label: "Code",
+      },
+    ],
   },
 
   {
@@ -152,6 +192,18 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    image: "memoization-in-react.png",
+    urls: [
+      {
+        type: "slides",
+        url: "/slides/memoization-in-react.pdf",
+      },
+      {
+        type: "code",
+        url: "https://github.com/andreipfeiffer/workshop-react-rendering",
+        label: "Code",
+      },
+    ],
   },
 
   {
@@ -192,6 +244,13 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    image: "isolated-components.png",
+    urls: [
+      {
+        type: "slides",
+        url: "/slides/isolated-components-driven-development.pdf",
+      },
+    ],
   },
 
   {
@@ -212,7 +271,9 @@ export const talks: Talk[] = [
       </>
     ),
     image: "javaswift.png",
-    video: "https://www.youtube.com/watch?v=0KLy6ikf0uI",
+    urls: [
+      { type: "video", url: "https://www.youtube.com/watch?v=0KLy6ikf0uI" },
+    ],
   },
 
   {
