@@ -1,12 +1,12 @@
 import React from "react";
 import Head from "next/head";
-// import Link from "next/link";
-// import { GetStaticProps } from "next";
+import Link from "next/link";
+import { GetStaticProps } from "next";
 
 import { Grid } from "../components/grid";
 import { Text } from "../components/text";
 import { Spacer } from "../components/spacer";
-// import FormattedDate from "../components/date";
+import FormattedDate from "../components/date";
 import { Layout, SITE_TITLE } from "../components/layout";
 import { useBreakpoint } from "../components/layout/useBreakpoint";
 
@@ -17,7 +17,7 @@ type Props = {
 };
 
 export default function Blog(props: Props) {
-  // const { posts } = props;
+  const { posts } = props;
   const { breakpoint } = useBreakpoint();
 
   return (
@@ -36,6 +36,7 @@ export default function Blog(props: Props) {
 
       <Spacer vertical="60" />
 
+      {/*
       <Grid.Full>
         <Text size="h04" as="p" display="block">
           Blog is under construction!
@@ -44,8 +45,8 @@ export default function Blog(props: Props) {
           It will become available in the upcoming weeks...
         </Text>
       </Grid.Full>
+    */}
 
-      {/*
       <ul>
         {posts.map(({ id, meta }) => (
           <li key={id}>
@@ -72,15 +73,14 @@ export default function Blog(props: Props) {
           </li>
         ))}
       </ul>
-      */}
     </Layout>
   );
 }
 
-// export const getStaticProps: GetStaticProps<Props> = async () => {
-//   return {
-//     props: {
-//       posts: getAllPosts(),
-//     },
-//   };
-// };
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  return {
+    props: {
+      posts: getAllPosts(),
+    },
+  };
+};
