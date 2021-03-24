@@ -102,7 +102,7 @@ export default function Talks() {
           {talk.urls && (
             <div className={styles.image_links}>
               {talk.urls.map((u) => (
-                <PreviewButton type={u.type} url={u.url}>
+                <PreviewButton type={u.type} url={u.url} key={u.type}>
                   {u.type === "code" ? u.label : u.type}
                 </PreviewButton>
               ))}
