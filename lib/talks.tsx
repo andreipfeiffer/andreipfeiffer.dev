@@ -1,6 +1,10 @@
 import React from "react";
 import { Text } from "../components/text";
 
+type Video = { type: "video"; url: string };
+type Slides = { type: "slides"; url: string };
+type Code = { type: "code"; url: string; label: string };
+
 export type Talk = {
   title: React.ReactNode;
   date: string;
@@ -8,8 +12,7 @@ export type Talk = {
   abstract: React.ReactNode;
   old?: boolean;
   image?: string;
-  slides?: string;
-  video?: string;
+  urls?: Array<Video | Slides | Code>;
 };
 
 export const talks: Talk[] = [
@@ -25,16 +28,23 @@ export const talks: Talk[] = [
       <>
         <p>
           There are more than 50 different CSS-in-JS libraries out there and
-          each of them provides a unique combination of features.
+          each of them provides a unique set of features.
         </p>
         <br />
         <p>
           Instead of reviewing each individual library, we’ll analyse the
           various features that these libraries have to offer, to better
-          understand what solution might work best for specific use-cases.
+          understand what approach better suits a specific use-case.
         </p>
       </>
     ),
+    urls: [
+      {
+        type: "code",
+        url: "https://github.com/andreipfeiffer/css-in-js",
+        label: "Docs",
+      },
+    ],
   },
 
   {
@@ -44,9 +54,9 @@ export const talks: Talk[] = [
     abstract: (
       <>
         <p>
-          This talk discusses what <em>Internationalisation</em> and{" "}
-          <em>Localisation</em> is and how to implement translations and
-          pluralisations with{" "}
+          This talk explains the difference between{" "}
+          <em>Internationalisation</em> and <em>Localisation</em> and how to
+          implement translations and pluralisations using{" "}
           <code>
             <strong>i18next</strong>
           </code>
@@ -63,6 +73,13 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    image: "i18n-l10n.png",
+    urls: [
+      {
+        type: "slides",
+        url: "/slides/i18n-and-l10n.pdf",
+      },
+    ],
   },
 
   {
@@ -86,6 +103,13 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    image: "simple-vs-easy.png",
+    urls: [
+      {
+        type: "slides",
+        url: "/slides/simple-vs-easy.pdf",
+      },
+    ],
   },
 
   {
@@ -99,6 +123,14 @@ export const talks: Talk[] = [
         lesser known CSS properties to implement solid and flexible layouts.
       </p>
     ),
+    image: "css-grid-layouts.png",
+    urls: [
+      {
+        type: "code",
+        url: "https://github.com/andreipfeiffer/css-tricks",
+        label: "Code",
+      },
+    ],
   },
 
   {
@@ -120,6 +152,14 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    image: "game-of-life.png",
+    urls: [
+      {
+        type: "code",
+        url: "https://github.com/andreipfeiffer/game-of-life",
+        label: "Code",
+      },
+    ],
   },
 
   {
@@ -152,6 +192,18 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    image: "memoization-in-react.png",
+    urls: [
+      {
+        type: "slides",
+        url: "/slides/memoization-in-react.pdf",
+      },
+      {
+        type: "code",
+        url: "https://github.com/andreipfeiffer/workshop-react-rendering",
+        label: "Code",
+      },
+    ],
   },
 
   {
@@ -165,7 +217,7 @@ export const talks: Talk[] = [
           the <strong>designer</strong> type focused on HTML &amp; CSS, and the{" "}
           <strong>engineer</strong> type focused on JS and frameworks. This
           dychotomy matches perfectly the difference between client facing
-          websites and back office web applications.
+          websites and back office applications.
         </p>
         <br />
         <p>
@@ -184,7 +236,7 @@ export const talks: Talk[] = [
     abstract: (
       <>
         <p>
-          This talks describes the challenges of developing UIs that are need to
+          This talks describes the challenges of developing UIs that need to
           communicate with external APIs. Using tools such as{" "}
           <strong>React Styleguidist</strong> or <strong>Storybook</strong> can
           help us to eliminate the need for an integration, enabling us to
@@ -192,6 +244,13 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    image: "isolated-components.png",
+    urls: [
+      {
+        type: "slides",
+        url: "/slides/isolated-components-driven-development.pdf",
+      },
+    ],
   },
 
   {
@@ -207,12 +266,14 @@ export const talks: Talk[] = [
           </a>
           . We'll create a native module in Swift and implement a React Native
           bridge, allowing us to exchange data back and forth between JavaScript
-          code and native iOS code written in.
+          code and native iOS code written in Swift.
         </p>
       </>
     ),
     image: "javaswift.png",
-    video: "https://www.youtube.com/watch?v=0KLy6ikf0uI",
+    urls: [
+      { type: "video", url: "https://www.youtube.com/watch?v=0KLy6ikf0uI" },
+    ],
   },
 
   {
@@ -225,7 +286,7 @@ export const talks: Talk[] = [
         <p>
           Code breakpoints is something we're all used to. But Chrome Devtools
           provide additional debugging methods that allow us to break on DOM
-          manipulations, XHR requests or DOM events.
+          manipulations, XHR requests, and various DOM events.
         </p>
       </>
     ),
@@ -240,7 +301,7 @@ export const talks: Talk[] = [
       <>
         <p>
           This is an introduction to MobX, a complex state management solution.
-          It takes the more popular and simpler Redux library, as comparison to
+          It takes the more popular and simpler Redux library as comparison, to
           highlight the key differences in concepts, syntax, features and
           performance.
         </p>
@@ -256,8 +317,8 @@ export const talks: Talk[] = [
     abstract: (
       <>
         <p>
-          Developers want to become "full stack". Companies hire full stack
-          developers. Some say they are{" "}
+          Developers want to become "full-stack". Companies hire full-stack
+          developers. Some say that full-stack means{" "}
           <em>"jack of all trades, master of none"</em>. The answer must be
           somewhere in the middle. We'll analyze the history of the term and
           debate what it really means from the developement and management point
