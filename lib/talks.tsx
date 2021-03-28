@@ -20,6 +20,29 @@ export type Talk = {
 
 export const talks: Talk[] = [
   {
+    title: "Scalable CSS",
+    date: "March 2021",
+    type: "Slides only",
+    abstract: (
+      <>
+        <p>
+          CSS in easy to learn, but difficult to master, even at small scale.
+          Developing and maintaining a large CSS code base requires a lot of
+          effort, strict rules and proper tooling.
+        </p>
+        <br />
+        <p>
+          We'll analyze various solutions we have at our disposal to address the
+          scalability limitations of CSS, looking at methodologies, CSS-in-JS
+          and type systems.
+        </p>
+      </>
+    ),
+    urls: [],
+    image: { path: "scalable-css.png" },
+  },
+
+  {
     title: (
       <>
         A thorough analysis of <Text nowrap>CSS-in-JS</Text>
