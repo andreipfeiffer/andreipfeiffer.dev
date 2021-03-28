@@ -254,7 +254,7 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
-    image: { path: "" },
+    image: { path: "ui-development.png" },
   },
 
   {

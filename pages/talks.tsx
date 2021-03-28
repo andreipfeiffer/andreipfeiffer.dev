@@ -72,7 +72,7 @@ export default function Talks() {
 
       <Grid>
         <Grid.Col span={8}>
-          <Flex as="ul" type="stack" gap="40" className={styles.list}>
+          <Flex as="ul" type="stack" gap="60" className={styles.list}>
             {talks
               .filter((talk) => talk.old === true)
               .map((talk, index) => renderOldTalk(talk, index))}
