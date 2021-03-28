@@ -198,6 +198,87 @@ export default function Talks() {
 
       <br />
 
+      <Grid>
+        <Grid.Col span={6}>
+          <Flex type="inline" gap="24" align="start">
+            <Text size="h06" as="p">
+              align <br /> align
+            </Text>
+            <Text size="h06" as="p">
+              start
+            </Text>
+          </Flex>
+
+          <br />
+
+          <Flex type="inline" gap="24" align="center">
+            <Text size="h06" as="p">
+              align <br /> align
+            </Text>
+            <Text size="h06" as="p">
+              center
+            </Text>
+          </Flex>
+
+          <br />
+
+          <Flex type="inline" gap="24" align="end">
+            <Text size="h06" as="p">
+              align <br /> align
+            </Text>
+            <Text size="h06" as="p">
+              end
+            </Text>
+          </Flex>
+
+          <br />
+
+          <Flex type="inline" gap="24" justify="start">
+            <Text size="h06" as="p">
+              justify
+            </Text>
+            <Text size="h06" as="p">
+              start
+            </Text>
+          </Flex>
+
+          <br />
+
+          <Flex type="inline" gap="24" justify="center">
+            <Text size="h06" as="p">
+              justify
+            </Text>
+            <Text size="h06" as="p">
+              center
+            </Text>
+          </Flex>
+
+          <br />
+
+          <Flex type="inline" gap="24" justify="end">
+            <Text size="h06" as="p">
+              justify
+            </Text>
+            <Text size="h06" as="p">
+              end
+            </Text>
+          </Flex>
+
+          <br />
+
+          <Flex type="inline" gap="24" justify="space-between">
+            <Text size="h06" as="p">
+              justify
+            </Text>
+            <Text size="h06" as="p">
+              space-between
+            </Text>
+          </Flex>
+        </Grid.Col>
+      </Grid>
+
+      <br />
+
       <Grid.Full>{renderPlaceholderVertical("Full")}</Grid.Full>
 
       <Grid>

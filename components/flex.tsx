@@ -11,6 +11,7 @@ type Props = {
   gap?: keyof typeof theme.space;
   className?: string;
   align?: "start" | "center" | "end";
+  justify?: "start" | "center" | "end" | "space-between";
 };
 
 export function Flex({
@@ -20,6 +21,7 @@ export function Flex({
   as = "div",
   gap,
   align = "start",
+  justify = "start",
 }: Props) {
   const css_vars = {
     ["--gap"]: gap ? `var(--space-${gap})` : "0px",
@@ -28,9 +30,14 @@ export function Flex({
   return React.createElement(
     as,
     {
-      className: classNames(className, styles[align], {
-        [styles[type]]: true,
-      }),
+      className: classNames(
+        className,
+        styles[`align-${align}`],
+        styles[`justify-${justify}`],
+        {
+          [styles[type]]: true,
+        }
+      ),
       style: css_vars,
     },
     renderChildren()
