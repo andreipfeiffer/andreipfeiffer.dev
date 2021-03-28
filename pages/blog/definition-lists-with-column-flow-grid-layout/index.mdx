@@ -17,9 +17,11 @@ export const meta = {
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-<ListBad />
+In this post, we'll examine various implementations for the layout displayed below, using both `flex` and `grid`, debating the robustness of each approach. The layout contains a horizontal list of 3 key-value pairs, the values being displayed beneath the labels.
 
-In this post, we'll examine various implementations for the above layout, using both `flex` and `grid`, debating the robustness of each approach. The layout contains a horizontal list of 3 key-value pairs, the values being displayed beneath the labels.
+<br />
+<ListBad />
+<br />
 
 **TL;DR**: in our final approach, we'll use Definition Lists with `grid-auto-flow: column`. You can [skip to the final implementation](#final-implementation) if you don't want to follow the step by step guide.
 

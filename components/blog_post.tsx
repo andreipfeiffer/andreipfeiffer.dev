@@ -5,8 +5,13 @@ import useDarkMode from "use-dark-mode";
 import readingTime from "reading-time";
 
 import { Layout } from "./layout";
+import { Text } from "./text";
+import { Grid } from "./grid";
+import { Flex } from "./flex";
 import FormattedDate from "./date";
 import { Metadata } from "../lib/blog";
+import { Spacer } from "./spacer";
+import { useBreakpoint } from "./layout/useBreakpoint";
 // import styles from "./BlogPost.module.css";
 
 type Props = {
@@ -19,6 +24,7 @@ const WEB_URL = "https://andreipfeiffer.dev";
 export default function BlogPost(props: Props) {
   const { children, meta } = props;
   const router = useRouter();
+  const { breakpoint } = useBreakpoint();
 
   // not very acccurate, but good enough
   const readTime = readingTime(getReactNodeText(children));
@@ -60,20 +66,28 @@ export default function BlogPost(props: Props) {
         <meta property="twitter:creator" content="@pfeiffer_andrei" />
       </Head>
 
-      <article>
+      {breakpoint && <Spacer vertical="100" />}
+
+      <Grid.Full as="article">
         <header>
-          <h1>{meta.title}</h1>
-          <small>
-            Written on <FormattedDate date={meta.date} />
-          </small>
-          <br />
-          <small>{readTime.text}</small>
+          <Text as="h1" size="h01">
+            {meta.title}
+          </Text>
+
+          <Spacer vertical="60" />
+
+          <Text size="m01" color="muted" display="block">
+            <FormattedDate date={meta.date} />
+          </Text>
+          <Text size="h06">{readTime.text}</Text>
         </header>
-        <br />
-        <div>{children}</div>
-        <br />
-        {renderTags(meta.tags)}
-      </article>
+
+        <Spacer vertical="140" />
+
+        {children}
+
+        <Grid.Col span={8}>{renderTags(meta.tags)}</Grid.Col>
+      </Grid.Full>
     </Layout>
   );
 

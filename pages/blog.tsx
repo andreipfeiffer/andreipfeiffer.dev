@@ -39,17 +39,6 @@ export default function Blog(props: Props) {
 
       <Spacer vertical="60" />
 
-      {/*
-      <Grid.Full>
-        <Text size="h04" as="p" display="block">
-          Blog is under construction!
-        </Text>
-        <Text as="p" display="block">
-          It will become available in the upcoming weeks...
-        </Text>
-      </Grid.Full>
-    */}
-
       <Flex as="ul" type="stack" gap="140" className={styles.list}>
         {posts.map(({ id, meta }) => (
           <Grid key={id}>
