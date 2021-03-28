@@ -3,18 +3,30 @@
  * - each post has its own folder, the folder name being the unique "id"
  * - I chose this approach because posts have their own assets (images, components, etc)
  */
-export function getAllPosts(): Post[] {
+function getAllPosts(): Post[] {
   return importAll(require.context("../pages/blog", true, /\.mdx$/));
 }
 
+export function getPublishedPosts(): Post[] {
+  return getAllPosts().filter(
+    (post) => post.meta.isPublished === true && post.meta.isArchived === false
+  );
+}
+
+export function getArchivedPosts(): Post[] {
+  return getAllPosts().filter(
+    (post) => post.meta.isPublished === true && post.meta.isArchived === true
+  );
+}
+
 export function getPostsByTag(tag: string): Post[] {
-  return getAllPosts().filter((post) =>
+  return getPublishedPosts().filter((post) =>
     post.meta.tags.map((t) => t.toLowerCase()).includes(tag.toLowerCase())
   );
 }
 
 export function getPostsByCategory(category: Category): Post[] {
-  return getAllPosts().filter(
+  return getPublishedPosts().filter(
     (post) => post.meta.category.toLowerCase() === category.toLowerCase()
   );
 }
@@ -22,7 +34,7 @@ export function getPostsByCategory(category: Category): Post[] {
 export function getAllTags(): string[] {
   const tags = new Set<string>();
 
-  getAllPosts().forEach((post) => {
+  getPublishedPosts().forEach((post) => {
     post.meta.tags.forEach((tag) => tags.add(tag));
   });
 
@@ -49,6 +61,9 @@ export type Metadata = {
   category: Category;
   /** og:image url */
   cover?: string;
+  intro: string;
+  isPublished: boolean;
+  isArchived: boolean;
 };
 
 export type Category = typeof CATEGORIES[number];

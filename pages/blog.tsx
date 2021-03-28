@@ -7,10 +7,13 @@ import { Grid } from "../components/grid";
 import { Text } from "../components/text";
 import { Spacer } from "../components/spacer";
 import FormattedDate from "../components/date";
+import { Flex } from "../components/flex";
 import { Layout, SITE_TITLE } from "../components/layout";
 import { useBreakpoint } from "../components/layout/useBreakpoint";
 
-import { getAllPosts, Post } from "../lib/blog";
+import { getPublishedPosts, Post } from "../lib/blog";
+
+import styles from "./blog.module.scss";
 
 type Props = {
   posts: Post[];
@@ -47,32 +50,33 @@ export default function Blog(props: Props) {
       </Grid.Full>
     */}
 
-      <ul>
+      <Flex as="ul" type="stack" gap="140" className={styles.list}>
         {posts.map(({ id, meta }) => (
-          <li key={id}>
-            <Link href={`/blog/${id}`}>
-              <a>{meta.title}</a>
-            </Link>{" "}
-            {meta.category && (
-              <small>
-                [
-                <Link
-                  href={`/blog/category/${encodeURI(
-                    meta.category
-                  ).toLowerCase()}`}
-                >
-                  <a>{meta.category}</a>
-                </Link>
-                ]
-              </small>
-            )}
-            <br />
-            <small>
-              <FormattedDate date={meta.date} />
-            </small>
-          </li>
+          <Grid key={id}>
+            <Grid.Col span={7}>
+              <Flex type="inline" justify="space-between">
+                {meta.category && <Text size="h06">{meta.category}</Text>}
+
+                <Text size="m02" color="muted">
+                  <FormattedDate date={meta.date} />
+                </Text>
+              </Flex>
+
+              <Spacer vertical="24" />
+
+              <Link href={`/blog/${id}`}>
+                <a className={styles.link}>
+                  <Text as="h2" size="h02">
+                    {meta.title}
+                  </Text>
+                </a>
+              </Link>
+              <Spacer vertical="32" />
+              <Text as="p">{meta.intro}</Text>
+            </Grid.Col>
+          </Grid>
         ))}
-      </ul>
+      </Flex>
     </Layout>
   );
 }
@@ -80,7 +84,7 @@ export default function Blog(props: Props) {
 export const getStaticProps: GetStaticProps<Props> = async () => {
   return {
     props: {
-      posts: getAllPosts(),
+      posts: getPublishedPosts(),
     },
   };
 };
