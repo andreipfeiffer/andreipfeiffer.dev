@@ -11,7 +11,10 @@ export type Talk = {
   type: string;
   abstract: React.ReactNode;
   old?: boolean;
-  image?: string;
+  image?: {
+    path: string;
+    bw?: boolean;
+  };
   urls?: Array<Video | Slides | Code>;
 };
 
@@ -38,6 +41,7 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    image: { path: "css-in-js.png" },
     urls: [
       {
         type: "code",
@@ -73,7 +77,7 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
-    image: "i18n-l10n.png",
+    image: { path: "i18n-l10n.png", bw: true },
     urls: [
       {
         type: "slides",
@@ -103,7 +107,7 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
-    image: "simple-vs-easy.png",
+    image: { path: "simple-vs-easy.png" },
     urls: [
       {
         type: "slides",
@@ -123,7 +127,7 @@ export const talks: Talk[] = [
         lesser known CSS properties to implement solid and flexible layouts.
       </p>
     ),
-    image: "css-grid-layouts.png",
+    image: { path: "css-grid-layouts.png" },
     urls: [
       {
         type: "code",
@@ -152,7 +156,7 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
-    image: "game-of-life.png",
+    image: { path: "game-of-life.png", bw: true },
     urls: [
       {
         type: "code",
@@ -192,7 +196,7 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
-    image: "memoization-in-react.png",
+    image: { path: "memoization-in-react.png" },
     urls: [
       {
         type: "slides",
@@ -227,6 +231,7 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
+    image: { path: "" },
   },
 
   {
@@ -244,7 +249,7 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
-    image: "isolated-components.png",
+    image: { path: "isolated-components.png" },
     urls: [
       {
         type: "slides",
@@ -270,7 +275,7 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
-    image: "javaswift.png",
+    image: { path: "javaswift.png" },
     urls: [
       { type: "video", url: "https://www.youtube.com/watch?v=0KLy6ikf0uI" },
     ],

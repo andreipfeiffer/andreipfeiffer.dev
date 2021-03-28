@@ -85,10 +85,15 @@ export default function Talks() {
   function renderTalk(talk: Talk, index: number) {
     const image = (
       <Grid.Col span={5}>
-        <figure className={styles.image}>
-          {talk.image ? (
+        <figure
+          className={classNames(
+            styles.image,
+            talk.image?.bw && styles.image_bw
+          )}
+        >
+          {talk.image && talk.image.path ? (
             <Image
-              src={`/images/talks/${talk.image}`}
+              src={`/images/talks/${talk.image.path}`}
               width={1920}
               height={1080}
               layout="responsive"

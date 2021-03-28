@@ -8,6 +8,14 @@
   position: relative;
   max-width: 100%;
   margin: 0;
+
+  [data-darkmode="true"] &.image_bw {
+    outline: 1px #ffffff22 solid;
+
+    & img {
+      filter: invert(1);
+    }
+  }
 }
 
 .image_links {
