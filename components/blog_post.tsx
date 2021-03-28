@@ -86,7 +86,9 @@ export default function BlogPost(props: Props) {
 
         {children}
 
-        <Grid.Col span={8}>{renderTags(meta.tags)}</Grid.Col>
+        <br />
+
+        {renderTags(meta.tags)}
       </Grid.Full>
     </Layout>
   );
