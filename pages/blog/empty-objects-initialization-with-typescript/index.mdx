@@ -16,18 +16,26 @@ export const meta = {
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-In the following post we'll examine multiple methods to initialize empty objects in TypeScript, which is something you'll probably have to deal with in any application that has some form of state management when:
+Any application that contains some form of state management has to deal with empty objects. This usually happens in 3 different scenarios: when **populating an empty form** for creating new content, when **resetting an object to its initial state** or an empty state, or when **passing a dummy object** in our tests.
 
-- populating a form, for creating new content;
-- resetting an object to its initial, or empty state;
-- passing a dummy object in your tests.
+In this post we'll analyse 3 different methods to initialize empty objects using TypeScript:
+
+1. using the standard approach, to define the type first and initialize the object afterwards;
+2. using **type assertions**, to make an empty object behave like a custom type;
+3. using the **`typeof` type operator**, to initialize the object first and infer its type.
 
 <br />
 
-Of course, there is a straighforward way to do this:
+**Note**: All methods have their tradeoffs, so we'll discuss them in detail in the following paragraphs.
+
+## The standard approach
+
+In most typed languages, the way we would initialize an object is a 2-step process:
 
 1. first **define the type**;
 2. then **initialize the object** based on the previously defined type.
+
+<br />
 
 ```tsx
 // define the type
@@ -47,54 +55,21 @@ const EMPTY_ARTICLE: Article = {
 
 <br />
 
-This is convenient for a few simple objects, but it might become cumbersome for more complex ones:
+This is convenient enough for a few simple objects, but it might become cumbersome for more complex ones:
 
-- you get the feeling that you write **duplicated code**, once when defining the type, second when you initialize the object;
-- **deeply nested objects** become a pain in the butt to initialize;
-
-```tsx
-type Order = {
-  id: number;
-  address: Address /* deeply nested type */;
-};
-
-type Address = {
-  country: Country /* nested type */;
-  city: City /* nested type */;
-  street: string;
-};
-
-type Country = { id: number; name: string; code: string };
-type City = { id: number; country_id: number; name: string };
-
-const EMPTY_ORDER: Order = {
-  id: 0,
-  address: {
-    country: {
-      id: 0,
-      name: "",
-      code: "",
-    },
-    city: {
-      id: 0,
-      country_id: 0,
-      name: "",
-    },
-    street: "",
-  },
-};
-```
+- we get the feeling that we write **duplicated code**, once when defining the type, second when initializing the object;
+- **deeply nested objects** become painful to initialize, because we have to fill all the required fields, even if we use them or not (for example, in tests);
+- we might end up defining **optional properties**, so we can avoid initializing them.
 
 <br />
 
-So let's examine a couple of alternative approaches, that might be easier to use:
-
-- using **type assertions**;
-- using **typeof type operator**.
-
-**Important**: To not get your hopes too high, none of these alternatives is perfect, so we'll discuss all their trade-offs in detail.
+So let's examine a couple of alternative approaches, that might be easier to use.
 
 ## Using type assertions
+
+One quick and dirty solution to our problem is to trick the type system to accept an empty object as the needed type. As tempting as it might be, because of how easy it is to use, this approach introduces some **huge problems**:
+
+<br />
 
 ```tsx
 type Article = {
@@ -106,11 +81,9 @@ type Article = {
 const EMPTY_ARTICLE = {} as Article;
 ```
 
-One quick and dirty solution to our problem is to trick the type system to accept an empty object as the needed type. As tempting as it might be, because of how easy it is to use, **this approach introduces some huge problems**:
+#### Flawed type-checking
 
-### Flawed type-checking
-
-Our code will not be properly type-checked because we're lying to our type system. We're assuring it that all expected properties are present, with their expected types, when in fact, they are missing:
+Our code will not be properly type-checked because we're lying to the type system. We're assuring it that all expected properties are present, with their expected types, when in fact, they are missing:
 
 ```tsx
 typeof EMPTY_ARTICLE.title;
@@ -118,7 +91,7 @@ typeof EMPTY_ARTICLE.title;
 // at runtime: "undefined"
 ```
 
-### Runtime exceptions
+#### Runtime exceptions
 
 Certain runtime exceptions will definitely occur, because we're not initializing our object with the expected properties. So, whenever we're trying to call any methods on the object's properties, or when accessing deeply nested properties, we'll get an error:
 
@@ -128,7 +101,9 @@ EMPTY_ARTICLE.title.length;
 // at runtime: Cannot read property "length" of undefined
 ```
 
-We might find ourselves polluting our code with defensive methods, like optional chaining, to avoid runtime errors, which is a code smell, I would say:
+<br />
+
+We might find ourselves polluting our code with defensive methods, like optional chaining, to avoid runtime errors. This is often a code smell, telling us that our types are not sturdy enough.
 
 ```tsx
 EMPTY_ARTICLE?.title?.length;
@@ -143,10 +118,10 @@ Using type assertions **is definitely not recommended**, unless you understand a
 
 ## Using the `typeof` type operator
 
-There is another approach we can use, that I've heard from [Martin Hochel](https://twitter.com/martin_hotell). Instead of defining the type first, and then perform the initialization, we can do it the other way around:
+There is another approach we can use, that [Martin Hochel](https://twitter.com/martin_hotell) told me about. Instead of defining the type first, and then perform the initialization, we can do it the other way around:
 
-1. first, **initialize the object**;
-2. then, use TypeScript's [`typeof`](https://www.typescriptlang.org/docs/handbook/2/typeof-types.html) operator to **infer the type**.
+1. first, we **initialize the object**;
+2. then, we use TypeScript's [`typeof`](https://www.typescriptlang.org/docs/handbook/2/typeof-types.html) operator to **infer the object's type**.
 
 ```tsx
 // initialize the empty object
@@ -160,13 +135,13 @@ const EMPTY_ARTICLE = {
 type Article = typeof EMPTY_ARTICLE;
 ```
 
-TypeScript is able to infer a wide range of types using this approach: **numbers**, **strings**, **classes** (built-in and custom), **enums**, **arrays** (if they are not empty), **nested object** structures.
+TypeScript is able to infer a wide range of types using this approach: **numbers**, **strings**, **classes** (built-in and custom defined as well), **enums**, **arrays** (if they are not empty), **nested object** structures.
 
-But, there are some limitations when you have to deal with more specific types.
+But, there are some limitations when we have to deal with more specific types.
 
-### Limitation 1: Union types
+#### Limitation 1: Union types
 
-**Union types** cannot be inferred, because when you initialize the object, the value that you specify is only a subset of the Union type that you expect. TypeScript has no way to guess the other values.
+**Union types** cannot be inferred, because when we initialize the object, the value that we specify is only a subset of the expected Union type. There's no way TypeScript could guess the other values.
 
 ```tsx
 const EMPTY_FILTER = {
@@ -178,7 +153,9 @@ type Filter = typeof EMPTY_FILTER;
 // inferred type: { direction: string }
 ```
 
-We can explicitly specify the type, using type assertions:
+<br />
+
+We can specify the type explicitly, using type assertions:
 
 ```tsx{2}
 const EMPTY_FILTER = {
@@ -189,11 +166,11 @@ type Filter = typeof EMPTY_FILTER;
 // inferred type: { direction: "up" | "down" }
 ```
 
-### Limitation 2: Optional types
+#### Limitation 2: Optional types
 
-Another important issue that you'll probably face, is that you cannot properly type **optional properties**. TypeScript cannot infer based on a single JavaScript value, that it can also be `undefined`.
+Another important issue that we'll probably encounter, is that we cannot properly type **optional properties**. TypeScript cannot infer based on a single JavaScript value, that it can also be `undefined`.
 
-Similar to the problem mentioned above, we can overcome this limitation by using type assertions to explicitly specifying a Union type that also contains `undefined`:
+Similar to the problem mentioned above, we can overcome this limitation by using type assertions to explicitly specify a Union type that also contains `undefined`:
 
 ```tsx
 const EMPTY_FILTER = {
@@ -201,9 +178,9 @@ const EMPTY_FILTER = {
 };
 ```
 
-### Limitation 3: Nested types
+#### Limitation 3: Nested types
 
-If you have nested types, the structure will be properly inferred, but the nested type will not.
+If we have to deal with nested types, the structure will be properly inferred, but the nested type will not.
 
 Consider the following use-case, where the `Address` contains a nested `Country`. The structure of the `Country` type will be properly inferred inside the `Address` type, but we will see the **type structure**, not the **type alias**:
 
@@ -226,9 +203,9 @@ type Address = typeof EMPTY_ADDRESS;
 
 **Note**: In this case, using a type assertion like **`country: EMPTY_COUNTRY as Country`** won't work, as the type system will not infer the nested type as expected (at least not in TypeScript 4.1).
 
-However, this limitation is not a functional problem, but more of an esthetic issue, that impacts the way you vizualize the type in your code editor. Seeing the entire list of properties can obscure the overview of complex types that contains many properties or nested structures.
+However, this limitation is not a functional problem, but more of an esthetic issue, that impacts the way we vizualize the type in our code editor. Seeing the entire list of properties can obscure the overview of complex types that contains many properties or nested structures.
 
-### Limitation 4: Array types
+#### Limitation 4: Array types
 
 Arrays are properly inferred, but only if they contain at least one element. If we use an empty Array, TypeScript cannot guess what kind of elements will the Array contain, so we need to use **type assertions** to instruct the type system:
 
@@ -241,6 +218,8 @@ const EMPTY_USER = {
 
 type User = typeof EMPTY_USER;
 ```
+
+<br />
 
 However, this does not work with custom types, that are created using the `typeof` operator. This is probably a consequence of the nested types limitation, previously mentioned:
 
@@ -258,10 +237,10 @@ type User = typeof EMPTY_USER;
 // inferred type: { address_list: { city_id: number, street: string }[] }
 ```
 
-## Recap
+## To conclude
 
-Empty objects might not be something that you use everyday. But in case you have to deal with lots of complex types, that require initialization with some sort of empty data, it's good to know what options do we have at our disposal:
+Empty objects might not be something that we use everyday. But when dealing with lots of complex types, that require initialization with some empty data, it's good to know what options do we have at our disposal:
 
 - Using **type assertions** is the easiest option, but it's **not recommended**, as it introduces flawed type-checking and runtime exceptions.
-- Using the **`typeof` operator** is a better option, but it has **some limitations**. However, it can be helpful if we deal with simpler types.
+- Using the **`typeof` operator** is a better option, because it's type-safe, but it has **some limitations**. However, it can be helpful if we deal with simpler types as it avoids the code duplication required with the standard approach.
 - Explicitly creating the empty object based on a previously defined type is more verbose than the previous options, but also the most suitable when dealing with nested types, union types, or other more specific types.
