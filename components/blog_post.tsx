@@ -7,12 +7,13 @@ import readingTime from "reading-time";
 import { Layout } from "./layout";
 import { Text } from "./text";
 import { Grid } from "./grid";
-import { Flex } from "./flex";
+// import { Flex } from "./flex";
 import FormattedDate from "./date";
 import { Metadata } from "../lib/blog";
 import { Spacer } from "./spacer";
 import { useBreakpoint } from "./layout/useBreakpoint";
-// import styles from "./BlogPost.module.css";
+
+import styles from "./blog_post.module.scss";
 
 type Props = {
   meta: Metadata;
@@ -68,7 +69,7 @@ export default function BlogPost(props: Props) {
 
       {breakpoint && <Spacer vertical="100" />}
 
-      <Grid.Full as="article">
+      <Grid.Full as="article" className={styles.post}>
         <header>
           <Text as="h1" size="h01">
             {meta.title}
