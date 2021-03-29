@@ -1,3 +1,13 @@
+@import "../styles/mixins";
+
+.h1 {
+  font-size: 100px;
+
+  @include breakpoint(md) {
+    font-size: 120px;
+  }
+}
+
 .list {
   margin: 0;
   padding: 0;

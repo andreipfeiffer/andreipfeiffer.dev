@@ -32,7 +32,7 @@ export default function Blog(props: Props) {
       {breakpoint && <Spacer vertical="100" />}
 
       <Grid.Full>
-        <Text size="h00" as="h1">
+        <Text size="h00" as="h1" className={styles.h1}>
           Blog
         </Text>
       </Grid.Full>
