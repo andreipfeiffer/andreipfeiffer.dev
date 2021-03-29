@@ -41,10 +41,14 @@ export default function Blog(props: Props) {
 
       <Flex as="ul" type="stack" gap="140" className={styles.list}>
         {posts.map(({ id, meta }) => (
-          <Grid key={id}>
+          <Grid key={id} as="li">
             <Grid.Col span={7}>
               <Flex type="inline" justify="space-between">
-                {meta.category && <Text size="h06">{meta.category}</Text>}
+                {meta.category && (
+                  <Text size="h06" as="strong">
+                    {meta.category}
+                  </Text>
+                )}
 
                 <Text size="m02" color="muted">
                   <FormattedDate date={meta.date} />
