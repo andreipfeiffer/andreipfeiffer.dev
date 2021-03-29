@@ -91,17 +91,13 @@ export default function Talks() {
             talk.image?.bw && styles.image_bw
           )}
         >
-          {talk.image && talk.image.path ? (
+          {talk.image && talk.image.path && (
             <Image
               src={`/images/talks/${talk.image.path}`}
               width={1920}
               height={1080}
               layout="responsive"
             />
-          ) : (
-            <div
-              style={{ background: "#888888", opacity: 0.1, paddingTop: "66%" }}
-            ></div>
           )}
 
           {talk.urls && (
