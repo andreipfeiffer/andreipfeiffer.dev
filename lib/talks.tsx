@@ -38,7 +38,12 @@ export const talks: Talk[] = [
         </p>
       </>
     ),
-    urls: [],
+    urls: [
+      {
+        type: "slides",
+        url: "/slides/scalable-css.pdf",
+      },
+    ],
     image: { path: "scalable-css.png" },
   },
 
@@ -65,7 +70,16 @@ export const talks: Talk[] = [
       </>
     ),
     image: { path: "css-in-js.png" },
+
     urls: [
+      {
+        type: "video",
+        url: "https://youtu.be/c7uWGhrAx9A?t=606",
+      },
+      {
+        type: "slides",
+        url: "/slides/a-thorough-analysis-of-css-in-js.pdf",
+      },
       {
         type: "code",
         url: "https://github.com/andreipfeiffer/css-in-js",
