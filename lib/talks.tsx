@@ -74,7 +74,7 @@ export const talks: Talk[] = [
     urls: [
       {
         type: "video",
-        url: "https://youtu.be/c7uWGhrAx9A?t=606",
+        url: "https://www.youtube.com/watch?v=c7uWGhrAx9A",
       },
       {
         type: "slides",
