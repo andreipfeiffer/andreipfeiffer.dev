@@ -89,9 +89,36 @@ textarea {
 }
 
 /* blog */
-.permalink::before {
-  content: "🔗";
+.permalink {
+  white-space: nowrap;
+
+  @include breakpoint(md) {
+    & {
+      visibility: hidden;
+    }
+    h2:hover &,
+    h3:hover &,
+    h4 :hover & {
+      visibility: visible;
+    }
+  }
 }
+.permalink::before {
+  content: " ";
+  opacity: 0;
+}
+.permalink::after {
+  content: "";
+  display: inline-block;
+  border: 1px currentColor solid;
+  width: 1.25em;
+  height: 1.25em;
+  border-radius: 40%;
+  margin-left: 0.35em;
+  margin-bottom: -0.15em;
+  transform: translateY(0.1em);
+}
+
 figure {
   margin: 2em 0;
   padding: 0;

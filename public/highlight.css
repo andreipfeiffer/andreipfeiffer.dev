@@ -39,7 +39,7 @@ code {
 
 /* Inline code */
 :not(pre) > code {
-  padding: 0 0.2em 0.2em 0.2em;
+  padding: 0 0.2em 0.1em 0.2em;
   border-radius: 0.3em;
   white-space: nowrap;
 }

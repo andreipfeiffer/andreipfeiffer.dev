@@ -18,6 +18,7 @@ const withMDX = require("@next/mdx")({
       [
         headings,
         {
+          behavior: "append",
           content: {
             type: "element",
             tagName: "span",

@@ -1,14 +1,15 @@
 import Head from "next/head";
 
-import { Layout, SITE_TITLE } from "../components/layout";
-import { Grid } from "../components/grid";
-import { Text } from "../components/text";
-import { Box } from "../components/box";
-import { Flex } from "../components/flex";
-import { Button } from "../components/button";
-import { Spacer } from "../components/spacer";
+import { Layout, SITE_TITLE } from "../../components/layout";
+import { Grid } from "../../components/grid";
+import { Text } from "../../components/text";
+import { Box } from "../../components/box";
+import { Flex } from "../../components/flex";
+import { Button } from "../../components/button";
+import { Spacer } from "../../components/spacer";
 
 import styles from "./style-guide.module.css";
+import { Heading } from "../../components/style-guide/heading";
 
 export default function Talks() {
   return (
@@ -18,7 +19,7 @@ export default function Talks() {
       </Head>
 
       <Grid.Full>
-        {renderHeading("Typography")}
+        <Heading text="Typography" />
 
         <Text size="h00" as="h1">
           h00 largest heading
@@ -80,7 +81,7 @@ export default function Talks() {
         <br />
         <Text size="m02">m02 smaller monospaced text</Text>
 
-        {renderHeading("Colors")}
+        <Heading text="Colors" />
 
         <div className={styles.colors_wrapper}>
           <div className={styles.color_primary}>
@@ -126,7 +127,7 @@ export default function Talks() {
           </Text>
         </Box>
 
-        {renderHeading("Spacing")}
+        <Heading text="Spacing" />
 
         <Flex type="inline">
           {renderPlaceholderHorizontal("x")}
@@ -164,7 +165,7 @@ export default function Talks() {
         <Spacer vertical="140" />
         {renderPlaceholderVertical()}
 
-        {renderHeading("Layout")}
+        <Heading text="Layout" />
 
         <Flex type="inline" gap="24">
           <Text size="h06">Inlined</Text>
@@ -307,7 +308,7 @@ export default function Talks() {
       </Grid>
 
       <Grid.Full>
-        {renderHeading("Interactive elements")}
+        <Heading text="Interactive elements" />
 
         <a href="/">Links are underlined, with inherited color</a>
 
@@ -348,18 +349,6 @@ export default function Talks() {
           {content}
         </Text>
       </Box>
-    );
-  }
-
-  function renderHeading(text: string) {
-    return (
-      <>
-        <Spacer vertical="140" />
-        <Text size="h02" as="p" color="muted">
-          {text}
-        </Text>
-        <Spacer vertical="40" />
-      </>
     );
   }
 }

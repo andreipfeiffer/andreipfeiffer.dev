@@ -4,14 +4,14 @@ import { useRouter } from "next/router";
 import useDarkMode from "use-dark-mode";
 import readingTime from "reading-time";
 
-import { Layout } from "./layout";
-import { Text } from "./text";
-import { Grid } from "./grid";
-// import { Flex } from "./flex";
-import FormattedDate from "./date";
-import { Metadata } from "../lib/blog";
-import { Spacer } from "./spacer";
-import { useBreakpoint } from "./layout/useBreakpoint";
+import { Layout } from "../layout";
+import { Text } from "../text";
+import { Grid } from "../grid";
+// import { Flex } from "../flex";
+import FormattedDate from "../date";
+import { Metadata } from "../../lib/blog";
+import { Spacer } from "../spacer";
+import { useBreakpoint } from "../layout/useBreakpoint";
 
 import styles from "./blog_post.module.scss";
 

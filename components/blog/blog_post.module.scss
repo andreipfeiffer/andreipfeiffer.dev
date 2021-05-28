@@ -1,0 +1,99 @@
+@import "../../styles/mixins";
+
+.post {
+  --content-width: 800px;
+
+  // all headings have the same top spacing
+  // we substract 2em because we also set a margin for any collapsing margins of other elements
+  // and this value is used only for padding, to accomodate the fixed header
+  --heading-spacing: calc(120px - 1em);
+
+  margin: 0 20px;
+
+  @include breakpoint(md) {
+    --heading-spacing: calc(160px - 1em);
+
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+
+  h2,
+  h3,
+  h4 {
+    margin-top: 1em;
+    margin-bottom: 40px;
+    padding-top: var(--heading-spacing);
+    line-height: 1.4;
+  }
+
+  h2 {
+    font-size: 44px;
+
+    @include breakpoint(md) {
+      font-size: 60px;
+    }
+  }
+
+  h3 {
+    font-size: 30px;
+
+    @include breakpoint(md) {
+      font-size: 44px;
+    }
+  }
+
+  h4 {
+    font-size: 22px;
+
+    @include breakpoint(md) {
+      font-size: 30px;
+    }
+  }
+
+  p {
+    margin: 1.5em 0;
+  }
+
+  blockquote {
+    font-style: italic;
+    border-left: 10px #eeeeee solid;
+    margin: 3em 0;
+    padding: 0.25em 2em;
+    font-size: 1.5em;
+  }
+
+  ol,
+  ul {
+    padding-left: 20px;
+    line-height: 1.5;
+
+    @include breakpoint(md) {
+      margin-left: 40px;
+    }
+
+    li {
+      margin: 0.75em 0;
+    }
+  }
+
+  & > ol > li {
+    padding-left: 0.5em;
+
+    &::marker {
+      font-weight: bold;
+    }
+
+    & ol {
+      list-style-type: lower-latin;
+      & li {
+        padding-left: 0.5em;
+      }
+    }
+  }
+
+  code {
+    font-size: 0.85em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+  }
+}

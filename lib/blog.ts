@@ -61,6 +61,7 @@ export type Metadata = {
   category: Category;
   /** og:image url */
   cover?: string;
+  /** text content displayed on the listing page */
   intro: string;
   isPublished: boolean;
   isArchived: boolean;
