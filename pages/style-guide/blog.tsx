@@ -128,6 +128,13 @@ export default function BlogPostPreview() {
             </ol>
           </li>
         </ol>
+
+        <blockquote>Block quote single line</blockquote>
+
+        <blockquote>
+          Block quote on multiple lines because we need to accommodate this as
+          well
+        </blockquote>
       </>
     </BlogPost>
   );

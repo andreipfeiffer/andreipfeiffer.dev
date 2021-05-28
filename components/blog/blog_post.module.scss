@@ -8,10 +8,13 @@
   // and this value is used only for padding, to accomodate the fixed header
   --heading-spacing: calc(120px - 1em);
 
+  --section-spacing: 40px;
+
   margin: 0 20px;
 
   @include breakpoint(md) {
     --heading-spacing: calc(160px - 1em);
+    --section-spacing: 80px;
 
     max-width: var(--content-width);
     margin: 0 auto;
@@ -56,10 +59,17 @@
 
   blockquote {
     font-style: italic;
-    border-left: 10px #eeeeee solid;
-    margin: 3em 0;
-    padding: 0.25em 2em;
-    font-size: 1.5em;
+    border-left: 8px var(--dark) solid;
+    margin: var(--section-spacing) 0;
+    padding: 0.5em 1em;
+    font-size: 30px;
+
+    & > p:first-child {
+      margin-top: 0;
+    }
+    & > p:last-child {
+      margin-bottom: 0;
+    }
   }
 
   ol,
