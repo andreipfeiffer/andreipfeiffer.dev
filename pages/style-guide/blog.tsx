@@ -32,7 +32,7 @@ export default function BlogPostPreview() {
         </p>
 
         <h2 id="heading2">
-          Heading 2, with some more text with to go on second line{" "}
+          Heading 2, with some more text with to go on second line
           <Permalink id="heading2" />
         </h2>
         <p>Content after heading.</p>
