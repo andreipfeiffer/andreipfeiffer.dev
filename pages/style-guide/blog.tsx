@@ -132,6 +132,8 @@ export default function BlogPostPreview() {
           </li>
         </ol>
 
+        <hr />
+
         <blockquote>Block quote single line</blockquote>
 
         <blockquote>

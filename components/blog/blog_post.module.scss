@@ -111,4 +111,33 @@
     padding-left: 0.4em;
     padding-right: 0.4em;
   }
+
+  hr {
+    margin: calc(2 * var(--section-spacing)) auto;
+    display: block;
+    border: 0;
+    height: 20px;
+    width: 10px;
+    background-color: #888;
+    transform: skewX(-18deg);
+    overflow: visible;
+    opacity: 0.25;
+
+    &::before,
+    &::after {
+      display: block;
+      content: "";
+      height: 20px;
+      width: 10px;
+      background-color: #888;
+      position: absolute;
+    }
+
+    &::before {
+      transform: translateX(-30px);
+    }
+    &::after {
+      transform: translateX(30px);
+    }
+  }
 }
