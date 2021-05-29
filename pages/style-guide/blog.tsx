@@ -1,5 +1,6 @@
 import BlogPost from "../../components/blog/blog_post";
 import { Subheading } from "../../components/blog/subheading";
+import { Note } from "../../components/blog/note";
 // import { Heading } from "../../components/style-guide/heading";
 
 export default function BlogPostPreview() {
@@ -135,6 +136,12 @@ export default function BlogPostPreview() {
           Block quote on multiple lines because we need to accommodate this as
           well
         </blockquote>
+
+        <Note>Some important facts</Note>
+        <Note title="Custom title">
+          We can pass a custom title to be customizable. However, the color is
+          currently only the yellow primary one, without any way to change it.
+        </Note>
       </>
     </BlogPost>
   );
