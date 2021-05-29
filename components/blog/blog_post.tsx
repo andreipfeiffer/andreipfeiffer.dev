@@ -69,7 +69,7 @@ export default function BlogPost(props: Props) {
 
       {breakpoint && <Spacer vertical="100" />}
 
-      <Grid.Full as="article" className={styles.post}>
+      <article className={styles.post}>
         <header>
           <Text as="h1" size="h01">
             {meta.title}
@@ -90,7 +90,7 @@ export default function BlogPost(props: Props) {
         <br />
 
         <Tags tags={meta.tags} />
-      </Grid.Full>
+      </article>
     </Layout>
   );
 }
