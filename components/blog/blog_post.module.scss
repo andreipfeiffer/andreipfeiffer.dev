@@ -62,13 +62,18 @@
     border-left: 8px var(--dark) solid;
     margin: var(--section-spacing) 0;
     padding: 0.5em 1em;
-    font-size: 30px;
 
     & > p:first-child {
       margin-top: 0;
     }
     & > p:last-child {
       margin-bottom: 0;
+    }
+
+    font-size: 24px;
+
+    @include breakpoint(md) {
+      font-size: 30px;
     }
   }
 
