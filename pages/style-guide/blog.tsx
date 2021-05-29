@@ -1,6 +1,8 @@
 import BlogPost from "../../components/blog/blog_post";
 import { Subheading } from "../../components/blog/subheading";
 import { Note } from "../../components/blog/note";
+import { Fullpage } from "../../components/blog/fullpage";
+import { Grid } from "../../components/grid";
 // import { Heading } from "../../components/style-guide/heading";
 
 export default function BlogPostPreview() {
@@ -142,6 +144,24 @@ export default function BlogPostPreview() {
           We can pass a custom title to be customizable. However, the color is
           currently only the yellow primary one, without any way to change it.
         </Note>
+
+        <Fullpage>
+          <Img body="Full page width content" />
+        </Fullpage>
+
+        <br />
+
+        <Fullpage padded>
+          <Img body="Full page content slightly padded" />
+        </Fullpage>
+
+        <br />
+
+        <Fullpage>
+          <Grid.Full>
+            <Img body="Full grid content can be composed also" />
+          </Grid.Full>
+        </Fullpage>
       </>
     </BlogPost>
   );
@@ -152,5 +172,22 @@ function Permalink({ id }: { id: string }) {
     <a href={`#${id}`} aria-hidden="true" tabIndex={-1}>
       <span className="permalink"></span>
     </a>
+  );
+}
+
+function Img({ body }: { body: string }) {
+  return (
+    <div
+      className="inversed"
+      style={{
+        // aspectRatio: "16/9",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
+      <p>{body}</p>
+    </div>
   );
 }
