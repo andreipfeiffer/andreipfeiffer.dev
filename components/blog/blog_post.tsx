@@ -89,33 +89,33 @@ export default function BlogPost(props: Props) {
 
         <br />
 
-        {renderTags(meta.tags)}
+        <Tags tags={meta.tags} />
       </Grid.Full>
     </Layout>
   );
+}
 
-  function renderTags(tags: string[]) {
-    if (!tags || tags.length === 0) {
-      return null;
-    }
-
-    const tags_list = tags.map((tag) => (
-      <Link key={tag} href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}>
-        <a>{tag}</a>
-      </Link>
-    ));
-
-    return (
-      <>
-        <strong>Tags</strong>:
-        <ul>
-          {tags_list.map((tag, i) => (
-            <li key={tags[i]}>{tag}</li>
-          ))}
-        </ul>
-      </>
-    );
+function Tags({ tags }: { tags: string[] }) {
+  if (!tags || tags.length === 0) {
+    return null;
   }
+
+  const tags_list = tags.map((tag) => (
+    <Link key={tag} href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}>
+      <a>{tag}</a>
+    </Link>
+  ));
+
+  return (
+    <>
+      <strong>Tags</strong>:
+      <ul>
+        {tags_list.map((tag, i) => (
+          <li key={tags[i]}>{tag}</li>
+        ))}
+      </ul>
+    </>
+  );
 }
 
 function getReactNodeText(node: React.ReactElement): string {
