@@ -1,0 +1,13 @@
+.tag {
+  display: flex;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    background-color: var(--tag-color);
+    width: 15px;
+    height: 15px;
+    border-radius: 6px;
+    margin-right: 0.5em;
+  }
+}

@@ -63,12 +63,12 @@ export type Metadata = {
 export type Tag = keyof typeof TAGS;
 
 export const TAGS = {
-  css: { name: "CSS" },
-  html: { name: "HTML" },
-  react: { name: "React" },
-  javascript: { name: "JavaScript" },
-  typescript: { name: "TypeScript" },
-  code_design: { name: "Code Design" },
-  ui_development: { name: "UI Development" },
-  react_native: { name: "React Native" },
+  css: { name: "CSS", color: "#3d9cd7" },
+  html: { name: "HTML", color: "#f2662b" },
+  react: { name: "React", color: "#62dafb" },
+  javascript: { name: "JavaScript", color: "#f7e014" },
+  typescript: { name: "TypeScript", color: "#047acb" },
+  code_design: { name: "Code Design", color: "#e343ff" },
+  ui_development: { name: "UI Development", color: "#ff4343" },
+  react_native: { name: "React Native", color: "#47d07c" },
 } as const;

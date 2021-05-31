@@ -8,14 +8,14 @@ import readingTime from "reading-time";
 import { Layout } from "../layout";
 import { Text } from "../text";
 import { FormattedDate } from "../date";
-import { Metadata, Tag, TAGS } from "../../lib/blog";
+import { Metadata, Tag as TagType, TAGS } from "../../lib/blog";
 import { Spacer } from "../spacer";
 import { useBreakpoint } from "../layout/useBreakpoint";
 
 import styles from "./blog_post.module.scss";
 import { useEffect } from "react";
-import { Grid } from "../grid";
 import { Button } from "../button";
+import { Tag } from "./tag";
 
 type Props = {
   meta: Metadata;
@@ -88,7 +88,8 @@ export function BlogPost(props: Props) {
 
           <div className={styles.header}>
             <div>
-              <Text size="h06">{meta.tags[0]}</Text>
+              <Tag tag={meta.tags[0]} />
+              <Spacer vertical="8" />
               <Text size="m01" color="muted" display="block">
                 <FormattedDate date={meta.date} />
               </Text>
@@ -140,7 +141,7 @@ export function BlogPost(props: Props) {
   );
 }
 
-function Tags({ tags }: { tags: Tag[] }) {
+function Tags({ tags }: { tags: TagType[] }) {
   if (!tags || tags.length === 0) {
     return null;
   }

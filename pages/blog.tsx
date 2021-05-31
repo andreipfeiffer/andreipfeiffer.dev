@@ -8,10 +8,11 @@ import { Text } from "../components/text";
 import { Spacer } from "../components/spacer";
 import { FormattedDate } from "../components/date";
 import { Flex } from "../components/flex";
-import { Layout, SITE_TITLE } from "../components/layout";
+import { Layout } from "../components/layout";
 import { useBreakpoint } from "../components/layout/useBreakpoint";
+import { Tag } from "../components/blog/tag";
 
-import { getPublishedPosts, Post, TAGS } from "../lib/blog";
+import { getPublishedPosts, Post } from "../lib/blog";
 
 import styles from "./blog.module.scss";
 
@@ -41,16 +42,10 @@ export default function Blog(props: Props) {
 
       <Flex as="ul" type="stack" gap="140" className={styles.list}>
         {posts.map(({ id, meta }) => {
-          const tag = TAGS[meta.tags[0]]?.name;
-
           return (
             <Grid key={id} as="li">
               <Grid.Col span={7}>
-                {tag && (
-                  <Text size="h06" as="strong" display="block">
-                    {tag}
-                  </Text>
-                )}
+                <Tag tag={meta.tags[0]} />
 
                 <Text size="m02" color="muted">
                   <FormattedDate date={meta.date} />
