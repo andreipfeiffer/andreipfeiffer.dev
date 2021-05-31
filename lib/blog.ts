@@ -70,4 +70,5 @@ export const TAGS = {
   typescript: { name: "TypeScript" },
   code_design: { name: "Code Design" },
   ui_development: { name: "UI Development" },
+  react_native: { name: "React Native" },
 } as const;

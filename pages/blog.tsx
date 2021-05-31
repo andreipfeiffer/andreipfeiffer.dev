@@ -11,7 +11,7 @@ import { Flex } from "../components/flex";
 import { Layout, SITE_TITLE } from "../components/layout";
 import { useBreakpoint } from "../components/layout/useBreakpoint";
 
-import { getPublishedPosts, Post } from "../lib/blog";
+import { getPublishedPosts, Post, TAGS } from "../lib/blog";
 
 import styles from "./blog.module.scss";
 
@@ -26,7 +26,7 @@ export default function Blog(props: Props) {
   return (
     <Layout>
       <Head>
-        <title>Blog: {SITE_TITLE}</title>
+        <title>Blog, Andrei Pfeiffer</title>
       </Head>
 
       {breakpoint && <Spacer vertical="100" />}
@@ -40,33 +40,37 @@ export default function Blog(props: Props) {
       <Spacer vertical="60" />
 
       <Flex as="ul" type="stack" gap="140" className={styles.list}>
-        {posts.map(({ id, meta }) => (
-          <Grid key={id} as="li">
-            <Grid.Col span={7}>
-              {meta.tags[0] && (
-                <Text size="h06" as="strong" display="block">
-                  {meta.tags[0]}
-                </Text>
-              )}
+        {posts.map(({ id, meta }) => {
+          const tag = TAGS[meta.tags[0]]?.name;
 
-              <Text size="m02" color="muted">
-                <FormattedDate date={meta.date} />
-              </Text>
-
-              <Spacer vertical="24" />
-
-              <Link href={`/blog/${id}`}>
-                <a className={styles.link}>
-                  <Text as="h2" size="h02">
-                    {meta.title}
+          return (
+            <Grid key={id} as="li">
+              <Grid.Col span={7}>
+                {tag && (
+                  <Text size="h06" as="strong" display="block">
+                    {tag}
                   </Text>
-                </a>
-              </Link>
-              <Spacer vertical="32" />
-              <Text as="p">{meta.intro}</Text>
-            </Grid.Col>
-          </Grid>
-        ))}
+                )}
+
+                <Text size="m02" color="muted">
+                  <FormattedDate date={meta.date} />
+                </Text>
+
+                <Spacer vertical="24" />
+
+                <Link href={`/blog/${id}`}>
+                  <a className={styles.link}>
+                    <Text as="h2" size="h02">
+                      {meta.title}
+                    </Text>
+                  </a>
+                </Link>
+                <Spacer vertical="32" />
+                <Text as="p">{meta.intro}</Text>
+              </Grid.Col>
+            </Grid>
+          );
+        })}
       </Flex>
     </Layout>
   );
