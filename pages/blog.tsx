@@ -43,17 +43,15 @@ export default function Blog(props: Props) {
         {posts.map(({ id, meta }) => (
           <Grid key={id} as="li">
             <Grid.Col span={7}>
-              <Flex type="inline" justify="space-between">
-                {meta.category && (
-                  <Text size="h06" as="strong">
-                    {meta.category}
-                  </Text>
-                )}
-
-                <Text size="m02" color="muted">
-                  <FormattedDate date={meta.date} />
+              {meta.category && (
+                <Text size="h06" as="strong" display="block">
+                  {meta.category}
                 </Text>
-              </Flex>
+              )}
+
+              <Text size="m02" color="muted">
+                <FormattedDate date={meta.date} />
+              </Text>
 
               <Spacer vertical="24" />
 
