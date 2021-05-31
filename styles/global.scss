@@ -89,7 +89,7 @@ textarea {
 }
 
 /* blog */
-.permalink {
+.headinglink {
   white-space: nowrap;
 
   @include breakpoint(md) {
@@ -102,21 +102,35 @@ textarea {
       visibility: visible;
     }
   }
-}
-.permalink::before {
-  content: " ";
-  opacity: 0;
-}
-.permalink::after {
-  content: "";
-  display: inline-block;
-  border: 1px currentColor solid;
-  width: 1.25em;
-  height: 1.25em;
-  border-radius: 40%;
-  margin-left: 0.35em;
-  margin-bottom: -0.15em;
-  transform: translateY(0.1em);
+
+  &::before {
+    content: " ";
+    opacity: 0;
+  }
+
+  &::after {
+    background-image: url("/images/headinglink.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50%;
+
+    content: "";
+    display: inline-block;
+    width: 1.25em;
+    height: 1.25em;
+    border-radius: 40%;
+    margin-bottom: -0.15em;
+    transform: translateY(0.1em);
+
+    @include breakpoint(md) {
+      border: 1px var(--dark) solid;
+      margin-left: 0.35em;
+    }
+
+    [data-darkmode="true"] & {
+      filter: invert(1);
+    }
+  }
 }
 
 figure {
@@ -130,6 +144,15 @@ figure img {
 
 code {
   font-family: "Roboto Mono", monospace;
+}
+
+.light-mode {
+  --color: var(--dark);
+  --background: var(--light);
+}
+.dark-mode {
+  --color: var(--light);
+  --background: var(--dark);
 }
 
 .light-mode,

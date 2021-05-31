@@ -2,6 +2,7 @@ import BlogPost from "../../components/blog/blog_post";
 import { Subheading } from "../../components/blog/subheading";
 import { Note } from "../../components/blog/note";
 import { Fullpage } from "../../components/blog/fullpage";
+import { SideBySide } from "../../components/blog/sidebyside";
 import { Grid } from "../../components/grid";
 // import { Heading } from "../../components/style-guide/heading";
 
@@ -33,19 +34,19 @@ export default function BlogPostPreview() {
 
         <h2 id="heading2">
           Heading 2, with some more text with to go on second line
-          <Permalink id="heading2" />
+          <Headinglink id="heading2" />
         </h2>
         <p>Content after heading.</p>
 
         <h3 id="heading3">
-          Heading 3, with some more text to go on second line with
-          <Permalink id="heading3" />
+          Heading 3, with some more text to go on second line
+          <Headinglink id="heading3" />
         </h3>
         <p>Content after heading.</p>
 
         <h4 id="heading4">
-          Heading 4, with some more text to go on second line with
-          <Permalink id="heading4" />
+          Heading 4, with some more text to go on second line
+          <Headinglink id="heading4" />
         </h4>
         <p>Content after heading.</p>
 
@@ -164,15 +165,50 @@ export default function BlogPostPreview() {
             <Img body="Full grid content can be composed also" />
           </Grid.Full>
         </Fullpage>
+
+        <SideBySide>
+          <div>
+            <pre>
+              <code>
+                {`<dl class="container">
+  <dt class="label">Posts</dt>
+  <dd class="value">123</dd>
+
+  <dt class="label">Followers</dt>
+  <dd class="value">456</dd>
+
+  <dt class="label">Likes</dt>
+  <dd class="value">9999</dd>
+</dl>`}
+              </code>
+            </pre>
+          </div>
+          <div>
+            <pre>
+              <code>
+                {`.container {
+  display: grid;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  grid-auto-flow: column;
+}
+
+.value {
+  margin: 0;
+}`}
+              </code>
+            </pre>
+          </div>
+        </SideBySide>
       </>
     </BlogPost>
   );
 }
 
-function Permalink({ id }: { id: string }) {
+function Headinglink({ id }: { id: string }) {
   return (
     <a href={`#${id}`} aria-hidden="true" tabIndex={-1}>
-      <span className="permalink"></span>
+      <span className="headinglink"></span>
     </a>
   );
 }

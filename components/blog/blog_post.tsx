@@ -6,14 +6,13 @@ import readingTime from "reading-time";
 
 import { Layout } from "../layout";
 import { Text } from "../text";
-import { Grid } from "../grid";
-// import { Flex } from "../flex";
 import FormattedDate from "../date";
 import { Metadata } from "../../lib/blog";
 import { Spacer } from "../spacer";
 import { useBreakpoint } from "../layout/useBreakpoint";
 
 import styles from "./blog_post.module.scss";
+import { useEffect } from "react";
 
 type Props = {
   meta: Metadata;
@@ -31,22 +30,25 @@ export default function BlogPost(props: Props) {
   const readTime = readingTime(getReactNodeText(children));
 
   const darkMode = useDarkMode(false);
-  const theme = darkMode.value ? "highlight-dark" : "highlight-light";
+  const theme = darkMode.value ? "dark" : "light";
+
+  // copy url to clipboard when clicking headings link icon
+  useEffect(() => {
+    document.querySelectorAll(".headinglink").forEach((span) => {
+      span.addEventListener("click", () => {
+        setTimeout(() => {
+          copyToClipboard(window.location.href);
+        }, 100);
+      });
+    });
+  }, []);
 
   return (
     <Layout>
       <Head>
         <title>{meta.title}</title>
-        {/* <link
-          rel="stylesheet"
-          // this could be included only when needed, like pass a boolean to <BlogPost />
-          href={`https://highlightjs.org/static/demo/styles/${theme}.css`}
-        /> */}
-        <link
-          rel="stylesheet"
-          // this could be included only when needed, like pass a boolean to <BlogPost />
-          href={`/${theme}.css`}
-        />
+        <link rel="stylesheet" href={`/highlight.css`} />
+        <link rel="stylesheet" href={`/highlight-${theme}.css`} />
 
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
@@ -127,4 +129,13 @@ function getReactNodeText(node: React.ReactElement): string {
   if (["string", "number"].includes(typeof node)) return String(node);
 
   return "";
+}
+
+function copyToClipboard(text: string) {
+  const input = document.body.appendChild(document.createElement("input"));
+  input.value = text;
+  input.select();
+  document.execCommand("copy");
+  input.parentNode?.removeChild(input);
+  console.log({ text });
 }

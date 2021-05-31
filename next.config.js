@@ -22,7 +22,7 @@ const withMDX = require("@next/mdx")({
           content: {
             type: "element",
             tagName: "span",
-            properties: { className: ["permalink"] },
+            properties: { className: ["headinglink"] },
           },
         },
       ],

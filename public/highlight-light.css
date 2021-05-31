@@ -1,158 +1,113 @@
-@import "./highlight.css";
+/*
+Name:   Base2Tone-Lake Light
+Author: by Bram de Haan, adapted from DuoTone themes by Simurai (http://simurai.com/projects/2016/01/01/duotone-themes)
 
-/* Inline code */
-:not(pre) > code {
-  background-color: #edeff1;
+http://atelierbram.github.io/Base2Tone-prism/demo/evening/light/
+Prism template for Base2Tone by Bram de Haan (http://atelierbram.github.io/syntax-highlighting/prism/)
+Generated with Base16 Builder (https://github.com/base16-builder/base16-builder)
+*/
+
+code[class*="language-"],
+pre[class*="language-"] {
+  background: #f3f3f0;
+  color: #499fbc;
 }
 
-.remark-highlight {
-  background: #f1f1ee;
+pre[class*="language-"]::-moz-selection,
+pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection,
+code[class*="language-"] ::-moz-selection {
+  text-shadow: none;
+  background: #c0e1ec;
 }
-.remark-highlight-code-line {
-  background: #e4e4de;
-}
-/* Code blocks */
-.token.script,
-.remark-highlight > pre {
-  color: #3e3e3b;
+
+pre[class*="language-"]::selection,
+pre[class*="language-"] ::selection,
+code[class*="language-"]::selection,
+code[class*="language-"] ::selection {
+  text-shadow: none;
+  background: #c0e1ec;
 }
 
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #b7b6ae;
+  color: #c2c1b7;
   font-style: italic;
 }
 
-/* JS constant SOME_CONSTANT */
-.token.constant {
-  color: #3f51b5;
-}
-/* any punctuation, faded */
 .token.punctuation {
-  color: #92918c;
-}
-/* JS template strings interpolation delimitators */
-.token.interpolation-punctuation {
-  /* custom */
-  color: #f55966;
+  color: #c2c1b7;
 }
 
-/* JS logical operators, also ":" */
-.token.operator {
-  /* custom */
-  color: #0184bc;
-}
-
-/* JS object property access: "obj.prop" */
-.token.property-access {
-  color: #000000;
-}
-
-/* CSS property name */
-.token.property,
-/* JS const, let, function, any reserved keyword */
-.token.keyword {
-  color: #c14ec0;
-}
-/* HTML tag name */
-.token.tag {
-  color: #e85e6a;
-}
-
-/* CSS default selector, by tag */
-.token.selector {
-  color: #ff3f4f;
-}
-/* CSS selector class */
-.token.class {
-  color: #bba656;
-}
-/* CSS ids */
-.token.id {
-  color: #ff2fe5;
-}
-
-/* JS boolean */
-.token.boolean {
-  color: #0d54f7;
-}
-
-/* CSS units */
-.token.unit,
-/* JS/CSS numbers */
-.token.number {
-  color: #fd8200;
-}
-
-/* JS/CSS strings */
-.token.string,
-/* html attribute value */
-.token.attr-value,
-.token.char,
-.token.builtin,
-.token.inserted {
-  color: #0da70b;
-}
-
-/* CSS @ rules: @media, @keyframes, etc (including any identifiers) */
-.token.atrule {
-  color: #e88c2c;
-}
-
-/* TS types usage (not definition), probably anything Capitalized, like "ReactNode" */
-.token.maybe-class-name,
-/* TS types definition, classes, React components usage */
-.token.class-name,
-/* CSS @rules: @media, @keyframes (only the @rule) */
-.token.rule {
-  color: #d47e00;
-}
-
-/* CSS pseudo elements */
-.token.pseudo-element,
-/* CSS pseudo classes */
-.token.pseudo-class,
-/* HTML/JSX attributes */
-.token.attr-name,
-/* SJ function and methods name definition & call() */
-.token.function {
-  color: #04a0e2;
-}
-
-/* DOM native objects */
-.token.dom {
-  color: #5f5def;
-  font-style: italic;
-}
-
-/* === UNCHAGED === */
-
-.namespace {
+.token.namespace {
   opacity: 0.7;
 }
 
-.token.symbol,
+.token.tag,
+.token.operator,
+.token.number {
+  color: #2f7289;
+}
+
+.token.property,
+.token.function {
+  color: #b7a21a;
+}
+
+.token.tag-id,
+.token.selector,
+.token.atrule-id {
+  color: #84740b;
+}
+
+.class-name,
+.maybe-class-name {
+  color: #8c7c04;
+}
+
+code.language-javascript,
+.token.attr-name {
+  color: #b7a21a;
+}
+
+code.language-css,
+code.language-scss,
+.token.boolean,
+.token.string,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.language-scss .token.string,
+.style .token.string,
+.token.attr-value,
+.token.keyword,
+.token.control,
+.token.directive,
+.token.unit,
+.token.statement,
+.token.regex,
+.token.atrule {
+  color: #074b61;
+}
+
+.token.placeholder,
+.token.variable {
+  color: #7dc2d9;
+}
+
 .token.deleted {
-  color: #f92672;
+  text-decoration: line-through;
 }
 
-.token.entity {
-  color: #ffffb6;
-  cursor: help;
+.token.inserted {
+  border-bottom: 1px dotted #84740b;
+  text-decoration: none;
 }
 
-.token.url {
-  color: #96cbfe;
-}
-
-.token.regex {
-  color: #e9c062;
-}
-
-.token.important {
-  color: #fd971f;
+.token.italic {
+  font-style: italic;
 }
 
 .token.important,
@@ -160,6 +115,36 @@
   font-weight: bold;
 }
 
-.token.italic::after {
-  font-style: italic;
+.token.important {
+  color: #b7a21a;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+pre > code.highlight {
+  outline: 0.4em solid #b7a21a;
+  outline-offset: 0.4em;
+}
+
+/* overrides color-values for the Line Numbers plugin
+ * http://prismjs.com/plugins/line-numbers/
+ */
+.line-numbers .line-numbers-rows {
+  border-right-color: #e8e7e3;
+}
+
+.line-numbers-rows > span:before {
+  color: #d5d4cd;
+}
+
+/* overrides color-values for the Line Highlight plugin
+ * http://prismjs.com/plugins/line-highlight/
+ * alpha transparency in 8 digits hex notation coming to a browser near you soon:
+ * https://drafts.csswg.org/css-color/#hex-notation
+ */
+.remark-highlight-code-line {
+  background: #84740b1c;
+  border-color: #dca908;
 }

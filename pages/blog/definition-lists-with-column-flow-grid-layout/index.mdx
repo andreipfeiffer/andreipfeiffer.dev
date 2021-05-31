@@ -1,7 +1,8 @@
 import BlogPost from "../../../components/blog/blog_post";
+import { SideBySide } from "../../../components/blog/sidebyside";
+
 import ListBad from "./ListBad";
 import ListGood from "./ListGood";
-import SideBySide from "./SideBySide";
 
 export const meta = {
   title: "Definition lists with column flow grid layout",
@@ -260,7 +261,7 @@ Below you can see the final implementation:
 
 <SideBySide>
 
-```html
+```html{2,3}
 <dl class="container">
   <dt class="label">Posts</dt>
   <dd class="value">123</dd>

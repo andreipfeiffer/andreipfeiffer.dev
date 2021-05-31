@@ -1,0 +1,21 @@
+@import "../../styles/mixins";
+
+.container {
+  display: grid;
+  gap: 10px;
+
+  @include breakpoint(sm) {
+    grid-template-columns: 1fr 1fr;
+    padding: 0 10px;
+  }
+}
+
+.container > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.container pre {
+  flex: 1;
+}
