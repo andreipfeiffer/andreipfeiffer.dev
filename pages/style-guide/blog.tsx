@@ -1,10 +1,9 @@
-import BlogPost from "../../components/blog/blog_post";
+import { BlogPost } from "../../components/blog/blog_post";
 import { Subheading } from "../../components/blog/subheading";
 import { Note } from "../../components/blog/note";
 import { Fullpage } from "../../components/blog/fullpage";
 import { SideBySide } from "../../components/blog/sidebyside";
 import { Grid } from "../../components/grid";
-// import { Heading } from "../../components/style-guide/heading";
 
 export default function BlogPostPreview() {
   return (

@@ -6,7 +6,7 @@ import readingTime from "reading-time";
 
 import { Layout } from "../layout";
 import { Text } from "../text";
-import FormattedDate from "../date";
+import { FormattedDate } from "../date";
 import { Metadata } from "../../lib/blog";
 import { Spacer } from "../spacer";
 import { useBreakpoint } from "../layout/useBreakpoint";
@@ -21,7 +21,7 @@ type Props = {
 
 const WEB_URL = "https://andreipfeiffer.dev";
 
-export default function BlogPost(props: Props) {
+export function BlogPost(props: Props) {
   const { children, meta } = props;
   const router = useRouter();
   const { breakpoint } = useBreakpoint();

@@ -6,7 +6,7 @@ import { GetStaticProps } from "next";
 import { Grid } from "../components/grid";
 import { Text } from "../components/text";
 import { Spacer } from "../components/spacer";
-import FormattedDate from "../components/date";
+import { FormattedDate } from "../components/date";
 import { Flex } from "../components/flex";
 import { Layout, SITE_TITLE } from "../components/layout";
 import { useBreakpoint } from "../components/layout/useBreakpoint";

@@ -4,7 +4,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function Code({ children }: Props) {
+export function Code({ children }: Props) {
   return (
     <div className="remark-highlight">
       <pre className="language-custom">

@@ -4,7 +4,7 @@ type Props = {
   date: string;
 };
 
-export default function FormattedDate({ date }: Props) {
+export function FormattedDate({ date }: Props) {
   try {
     const formatted = new Intl.DateTimeFormat("en-US", {
       year: "numeric",
