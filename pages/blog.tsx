@@ -43,9 +43,9 @@ export default function Blog(props: Props) {
         {posts.map(({ id, meta }) => (
           <Grid key={id} as="li">
             <Grid.Col span={7}>
-              {meta.category && (
+              {meta.tags[0] && (
                 <Text size="h06" as="strong" display="block">
-                  {meta.category}
+                  {meta.tags[0]}
                 </Text>
               )}
 

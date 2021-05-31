@@ -186,6 +186,23 @@
   }
 }
 
+.tags {
+  display: flex;
+  margin-top: var(--section-spacing);
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 1em;
+    display: flex;
+
+    li {
+      margin: 0;
+    }
+  }
+}
+
 .subscribe {
   border-top: 1px var(--color) solid;
   margin-top: var(--section-spacing);

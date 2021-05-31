@@ -8,13 +8,14 @@ import readingTime from "reading-time";
 import { Layout } from "../layout";
 import { Text } from "../text";
 import { FormattedDate } from "../date";
-import { Metadata } from "../../lib/blog";
+import { Metadata, Tag, TAGS } from "../../lib/blog";
 import { Spacer } from "../spacer";
 import { useBreakpoint } from "../layout/useBreakpoint";
 
 import styles from "./blog_post.module.scss";
 import { useEffect } from "react";
 import { Grid } from "../grid";
+import { Button } from "../button";
 
 type Props = {
   meta: Metadata;
@@ -68,7 +69,6 @@ export function BlogPost(props: Props) {
         <meta property="og:url" content={`${WEB_URL}${router.pathname}`} />
         <meta property="og:article:published_time" content={meta.date} />
         <meta property="og:article:author" content="Andrei Pfeiffer" />
-        <meta property="og:article:section" content={meta.category} />
         <meta property="og:article:tag" content={meta.tags.join(",")} />
         {!!meta.cover && (
           <meta property="og:image" content={`${WEB_URL}${meta.cover}`} />
@@ -88,7 +88,7 @@ export function BlogPost(props: Props) {
 
           <div className={styles.header}>
             <div>
-              <Text size="h06">{meta.category}</Text>
+              <Text size="h06">{meta.tags[0]}</Text>
               <Text size="m01" color="muted" display="block">
                 <FormattedDate date={meta.date} />
               </Text>
@@ -140,26 +140,31 @@ export function BlogPost(props: Props) {
   );
 }
 
-function Tags({ tags }: { tags: string[] }) {
+function Tags({ tags }: { tags: Tag[] }) {
   if (!tags || tags.length === 0) {
     return null;
   }
 
   const tags_list = tags.map((tag) => (
     <Link key={tag} href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}>
-      <a>{tag}</a>
+      <Button as="a" href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}>
+        {TAGS[tag].name}
+      </Button>
     </Link>
   ));
 
   return (
-    <>
-      <strong>Tags</strong>:
+    <div className={styles.tags}>
+      <Text size="h04" as="strong">
+        Tags:
+      </Text>
+
       <ul>
         {tags_list.map((tag, i) => (
           <li key={tags[i]}>{tag}</li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 

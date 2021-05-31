@@ -25,14 +25,8 @@ export function getPostsByTag(tag: string): Post[] {
   );
 }
 
-export function getPostsByCategory(category: Category): Post[] {
-  return getPublishedPosts().filter(
-    (post) => post.meta.category.toLowerCase() === category.toLowerCase()
-  );
-}
-
-export function getAllTags(): string[] {
-  const tags = new Set<string>();
+export function getAllTags(): Tag[] {
+  const tags = new Set<Tag>();
 
   getPublishedPosts().forEach((post) => {
     post.meta.tags.forEach((tag) => tags.add(tag));
@@ -57,8 +51,7 @@ export type Post = {
 export type Metadata = {
   date: string;
   title: string;
-  tags: string[];
-  category: Category;
+  tags: Tag[];
   /** og:image url */
   cover?: string;
   /** text content displayed on the listing page */
@@ -67,12 +60,14 @@ export type Metadata = {
   isArchived: boolean;
 };
 
-export type Category = typeof CATEGORIES[number];
+export type Tag = keyof typeof TAGS;
 
-export const CATEGORIES = [
-  "mobile",
-  "javascript",
-  "css",
-  "development",
-  "non-technical",
-] as const;
+export const TAGS = {
+  css: { name: "CSS" },
+  html: { name: "HTML" },
+  react: { name: "React" },
+  javascript: { name: "JavaScript" },
+  typescript: { name: "TypeScript" },
+  code_design: { name: "Code Design" },
+  ui_development: { name: "UI Development" },
+} as const;

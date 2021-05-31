@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { Layout } from "../../../components/layout";
-import { getPostsByTag, getAllTags, Post } from "../../../lib/blog";
+import { getPostsByTag, getAllTags, Post, TAGS, Tag } from "../../../lib/blog";
 // import styles from "./post.module.css";
 
 type Props = {
@@ -13,16 +13,18 @@ type Props = {
 
 export default function PostsByTag(props: Props) {
   const router = useRouter();
-  const { tag } = router.query;
   const { posts: articles } = props;
+
+  const tag = router.query.tag as Tag;
+  const tag_name = TAGS[tag].name;
 
   return (
     <Layout>
       <Head>
-        <title>Articles containing {tag} tag</title>
+        <title>Articles containing {tag_name} tag</title>
       </Head>
 
-      <h1>Articles containing "{tag}" tag</h1>
+      <h1>{tag_name} articles</h1>
 
       <ul>
         {articles.map((article) => (

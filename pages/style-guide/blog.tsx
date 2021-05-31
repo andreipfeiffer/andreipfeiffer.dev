@@ -10,9 +10,8 @@ export default function BlogPostPreview() {
     <BlogPost
       meta={{
         title: "Blog post with a pretty long title on more than one line",
-        category: "javascript",
         date: "2020-12-22",
-        tags: ["tag 1", "tag 2"],
+        tags: ["javascript", "css"],
         cover: undefined,
         isArchived: false,
         isPublished: false,
