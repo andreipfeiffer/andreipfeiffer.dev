@@ -20,6 +20,7 @@ type Props = {
 };
 
 const WEB_URL = "https://andreipfeiffer.dev";
+const MAX_READ_TIME = 10;
 
 export function BlogPost(props: Props) {
   const { children, meta } = props;
@@ -28,6 +29,7 @@ export function BlogPost(props: Props) {
 
   // not very acccurate, but good enough
   const readTime = readingTime(getReactNodeText(children));
+  const readTimePercent = (Math.ceil(readTime.minutes) * 100) / MAX_READ_TIME;
 
   const darkMode = useDarkMode(false);
   const theme = darkMode.value ? "dark" : "light";
@@ -36,6 +38,7 @@ export function BlogPost(props: Props) {
   useEffect(() => {
     document.querySelectorAll(".headinglink").forEach((span) => {
       span.addEventListener("click", () => {
+        // the timeout is needed so we read the location after the browser have set the anchor
         setTimeout(() => {
           copyToClipboard(window.location.href);
         }, 100);
@@ -79,10 +82,22 @@ export function BlogPost(props: Props) {
 
           <Spacer vertical="60" />
 
-          <Text size="m01" color="muted" display="block">
-            <FormattedDate date={meta.date} />
-          </Text>
-          <Text size="h06">{readTime.text}</Text>
+          <div className={styles.header}>
+            <div>
+              <Text size="h06">{meta.category}</Text>
+              <Text size="m01" color="muted" display="block">
+                <FormattedDate date={meta.date} />
+              </Text>
+            </div>
+            <div className={styles.readtime}>
+              <div className={styles.meter}>
+                <span style={{ width: `${readTimePercent}%` }}></span>
+              </div>
+              <Text size="m01" color="muted" align="end">
+                {readTime.text}
+              </Text>
+            </div>
+          </div>
         </header>
 
         <Spacer vertical="140" />
