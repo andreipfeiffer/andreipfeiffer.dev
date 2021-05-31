@@ -1,3 +1,4 @@
+import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,6 +14,7 @@ import { useBreakpoint } from "../layout/useBreakpoint";
 
 import styles from "./blog_post.module.scss";
 import { useEffect } from "react";
+import { Grid } from "../grid";
 
 type Props = {
   meta: Metadata;
@@ -33,6 +35,8 @@ export function BlogPost(props: Props) {
 
   const darkMode = useDarkMode(false);
   const theme = darkMode.value ? "dark" : "light";
+
+  const [email, setEmail] = React.useState("");
 
   // copy url to clipboard when clicking headings link icon
   useEffect(() => {
@@ -107,6 +111,30 @@ export function BlogPost(props: Props) {
         <br />
 
         <Tags tags={meta.tags} />
+
+        <footer className={styles.subscribe}>
+          <Text size="h03">Subscribe for updates</Text>
+
+          <form
+            action="https://dev.us2.list-manage.com/subscribe/post"
+            method="GET"
+          >
+            <input
+              aria-label="Your email"
+              placeholder="Your email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              name="EMAIL"
+              className={styles.subscribe_input}
+            />
+            <button type="submit" className={styles.subscribe_submit}>
+              <span>Subscribe</span>
+            </button>
+            <input type="hidden" name="u" value="a7ac7926ed477a5e810ed46f7" />
+            <input type="hidden" name="id" value="51b196576b" />{" "}
+          </form>
+        </footer>
       </article>
     </Layout>
   );
