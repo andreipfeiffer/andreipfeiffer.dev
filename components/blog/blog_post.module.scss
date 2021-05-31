@@ -192,9 +192,12 @@
   padding-top: var(--section-spacing);
 
   form {
-    width: 50%;
     position: relative;
     margin-top: 1em;
+
+    @include breakpoint(sm) {
+      width: 50%;
+    }
   }
 }
 
