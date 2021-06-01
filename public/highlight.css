@@ -9,7 +9,7 @@
 }
 
 .remark-highlight > pre {
-  margin: var(--section-spacing) 0;
+  margin: 0;
 
   direction: ltr;
   text-align: left;
