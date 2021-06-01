@@ -2,10 +2,10 @@ import { BlogPost } from "../../components/blog/blog_post";
 import { Subheading } from "../../components/blog/subheading";
 import { Note } from "../../components/blog/note";
 import { Fullpage } from "../../components/blog/fullpage";
-import { SideBySide } from "../../components/blog/sidebyside";
 import { Tag } from "../../components/blog/tag";
 import { Grid } from "../../components/grid";
 import { Flex } from "../../components/flex";
+import { Figure } from "../../components/blog/figure";
 
 export default function BlogPostPreview() {
   return (
@@ -166,6 +166,18 @@ export default function BlogPostPreview() {
           </Grid.Full>
         </Fullpage>
 
+        <Figure caption="Content width figure caption">
+          <Img body="Content width figure" />
+        </Figure>
+
+        <Figure width="grid" caption="Grid width figure caption">
+          <Img body="Grid width figure" />
+        </Figure>
+
+        <Figure width="page" caption="Page width figure caption">
+          <Img body="Page width figure" />
+        </Figure>
+
         <Flex type="stack" gap="8">
           <Tag tag="html" />
           <Tag tag="css" />
@@ -192,9 +204,8 @@ function Headinglink({ id }: { id: string }) {
 function Img({ body }: { body: string }) {
   return (
     <div
-      className="inversed"
       style={{
-        // aspectRatio: "16/9",
+        backgroundColor: "#88888844",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
