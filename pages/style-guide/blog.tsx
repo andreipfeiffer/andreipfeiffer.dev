@@ -3,7 +3,9 @@ import { Subheading } from "../../components/blog/subheading";
 import { Note } from "../../components/blog/note";
 import { Fullpage } from "../../components/blog/fullpage";
 import { SideBySide } from "../../components/blog/sidebyside";
+import { Tag } from "../../components/blog/tag";
 import { Grid } from "../../components/grid";
+import { Flex } from "../../components/flex";
 
 export default function BlogPostPreview() {
   return (
@@ -164,40 +166,16 @@ export default function BlogPostPreview() {
           </Grid.Full>
         </Fullpage>
 
-        <SideBySide>
-          <div>
-            <pre>
-              <code>
-                {`<dl class="container">
-  <dt class="label">Posts</dt>
-  <dd class="value">123</dd>
-
-  <dt class="label">Followers</dt>
-  <dd class="value">456</dd>
-
-  <dt class="label">Likes</dt>
-  <dd class="value">9999</dd>
-</dl>`}
-              </code>
-            </pre>
-          </div>
-          <div>
-            <pre>
-              <code>
-                {`.container {
-  display: grid;
-  grid-template-rows: auto auto;
-  justify-items: center;
-  grid-auto-flow: column;
-}
-
-.value {
-  margin: 0;
-}`}
-              </code>
-            </pre>
-          </div>
-        </SideBySide>
+        <Flex type="stack" gap="8">
+          <Tag tag="html" />
+          <Tag tag="css" />
+          <Tag tag="javascript" />
+          <Tag tag="typescript" />
+          <Tag tag="react" />
+          <Tag tag="react_native" />
+          <Tag tag="code_design" />
+          <Tag tag="ui_development" />
+        </Flex>
       </>
     </BlogPost>
   );
