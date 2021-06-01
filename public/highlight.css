@@ -1,6 +1,7 @@
 .remark-highlight {
   overflow: auto;
   font-size: 0.85em;
+  max-width: calc(100vw - 2px);
 
   /* This might be helpful for large & many blocks of code */
   /* PROS: faster initial rendering */
