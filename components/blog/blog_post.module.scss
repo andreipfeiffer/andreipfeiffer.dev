@@ -242,7 +242,7 @@
 
 .subscribe_submit {
   font-size: 16px;
-  padding: 1em 0.5em;
+  padding: 1em;
   position: absolute;
   bottom: 1px;
   right: 0;
@@ -252,7 +252,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.3s;
+  transform: translateX(0.5em);
 
   span {
     text-indent: -9999em;
@@ -266,6 +266,7 @@
     height: 1px;
     background-color: var(--color);
     margin-right: -5px;
+    transition: transform 0.3s;
   }
 
   &::after {
@@ -277,10 +278,17 @@
     border-left: 0;
     border-bottom: 0;
     transform: rotate(45deg);
+    transition: transform 0.3s;
   }
 
-  &:hover,
-  &:focus {
+  &:hover::before,
+  &:focus::before {
+    height: 2px;
     transform: translateX(0.5em);
+  }
+  &:hover::after,
+  &:focus::after {
+    transform: translateX(0.5em) rotate(45deg);
+    border-width: 2px;
   }
 }
