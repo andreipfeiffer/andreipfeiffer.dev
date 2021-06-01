@@ -90,7 +90,7 @@ export function BlogPost(props: Props) {
             <div>
               <Tag tag={meta.tags[0]} />
               <Spacer vertical="8" />
-              <Text size="m01" color="muted" display="block">
+              <Text size="m02" color="muted" display="block">
                 <FormattedDate date={meta.date} />
               </Text>
             </div>
@@ -98,7 +98,7 @@ export function BlogPost(props: Props) {
               <div className={styles.meter}>
                 <span style={{ width: `${readTimePercent}%` }}></span>
               </div>
-              <Text size="m01" color="muted" align="end">
+              <Text size="m02" color="muted" align="end">
                 {readTime.text}
               </Text>
             </div>
