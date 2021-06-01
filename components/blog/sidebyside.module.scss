@@ -2,18 +2,57 @@
 
 .container {
   display: grid;
-  gap: 10px;
+  gap: 20px;
+  padding: 0 21px;
 
   @include breakpoint(sm) {
+    gap: 60px;
     grid-template-columns: 1fr 1fr;
-    padding: 0 10px;
+  }
+  @include breakpoint(md) {
+    gap: 20px;
   }
 }
 
-.container > div {
+.header {
+  font-size: 14px;
+  font-family: "Roboto Mono", monospace;
+  padding: 0.25em 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 0 -20px;
+
+  @include breakpoint(md) {
+    margin: 0;
+  }
+
+  background-color: #e4e4d1;
+
+  [data-darkmode="true"] & {
+    background-color: #2a3f46;
+  }
+}
+
+.side,
+.side > div {
   flex: 1;
   display: flex;
   flex-direction: column;
+}
+
+.lang {
+  background-color: #ffffffaa;
+  transform: translateX(0.5em);
+  padding: 3px 0.5em 3px;
+  border-radius: 3px;
+  line-height: 1;
+  // font-weight: bold;
+
+  [data-darkmode="true"] & {
+    background-color: #00000044;
+  }
 }
 
 .container pre {
