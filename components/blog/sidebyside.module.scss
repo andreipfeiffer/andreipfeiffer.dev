@@ -5,12 +5,9 @@
   gap: 20px;
   padding: 0 21px;
 
-  @include breakpoint(sm) {
-    gap: 60px;
-    grid-template-columns: 1fr 1fr;
-  }
   @include breakpoint(md) {
     gap: 20px;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
