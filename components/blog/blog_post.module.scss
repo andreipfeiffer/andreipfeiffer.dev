@@ -63,10 +63,11 @@
     margin-bottom: 40px;
     padding-top: var(--heading-spacing);
     line-height: 1.4;
+    hyphens: auto;
   }
 
   h2 {
-    font-size: 44px;
+    font-size: 40px;
 
     @include breakpoint(md) {
       font-size: 60px;
