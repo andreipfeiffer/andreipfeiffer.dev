@@ -1,5 +1,6 @@
 import { BlogPost } from "../../../components/blog/blog_post";
 import { SideBySide } from "../../../components/blog/sidebyside";
+import { Note } from "../../../components/blog/note";
 
 import ListBad from "./ListBad";
 import ListGood from "./ListGood";
@@ -245,11 +246,13 @@ However, we can control the flow of the cells by settings `grid-auto-flow`'s val
 This way, the cells will be distributed by columns:
 
 - they will fill the entire first column;
-- a new column will be added for the 3rd and 5th element, because we've only defined 2 rows with `grid-template-rows`;
+- a new column will be added for the 3rd and 5th element, because we've only defined 2 rows with `grid-template-rows`.
 
-<br />
-
-**IMPORTANT**: it's mandatory to define the `grid-template-rows` in this case, to tell the grid that "we need to have 2 rows", otherwise it will fit all the cells on 1 row only, by default.
+<Note title="Important">
+  It's mandatory to define the <code>grid-template-rows</code> in this case, to
+  tell the grid that <i>"we need to have 2 rows"</i>, otherwise it will fit all
+  the cells on 1 row only, by default.
+</Note>
 
 <ListGood flow="column" />
 
