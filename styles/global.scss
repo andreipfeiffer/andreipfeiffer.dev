@@ -112,14 +112,14 @@ textarea {
     background-image: url("/images/headinglink.svg");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 50%;
+    background-size: 0.5em;
+    background-color: #ff000044;
 
     content: "";
     display: inline-block;
-    width: 1.25em;
-    height: 1.25em;
+    width: 1em;
+    height: 1em;
     border-radius: 40%;
-    margin-bottom: -0.15em;
     transform: translateY(0.1em);
 
     @include breakpoint(md) {
