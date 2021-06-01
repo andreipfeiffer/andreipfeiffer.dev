@@ -8,6 +8,14 @@
   /* content-visibility: auto; */
 }
 
+@media (max-width: 999px) {
+  .remark-highlight {
+    margin-left: -20px;
+    margin-right: -20px;
+    font-size: 0.75em;
+  }
+}
+
 .remark-highlight > pre {
   margin: 0;
 
@@ -29,8 +37,15 @@
 
 /* Code blocks */
 pre[class*="language-"] {
-  padding: 1em;
+  --spacing: 2em;
+  padding: calc(var(--spacing) * 0.75) var(--spacing);
   overflow: auto;
+}
+
+@media (max-width: 999px) {
+  pre[class*="language-"] {
+    --spacing: 20px;
+  }
 }
 
 /* highlight for each spotlight line */
@@ -38,11 +53,11 @@ pre[class*="language-"] {
   padding-top: 0.05em;
   padding-bottom: 0.2em;
 
-  margin-right: -1em;
-  margin-left: -1em;
-  padding-right: 1em;
-  padding-left: 0.75em;
-  border-left: 0.25em solid var(--primary);
+  margin-right: calc(var(--spacing) * -1);
+  margin-left: calc(var(--spacing) * -1);
+  padding-right: calc(var(--spacing));
+  padding-left: calc(var(--spacing) - 3px);
+  border-left: 3px solid var(--primary);
 }
 
 /* Gutter for line numbers when the line-numbers plugin is active */
