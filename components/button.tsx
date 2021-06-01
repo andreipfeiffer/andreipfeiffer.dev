@@ -11,31 +11,34 @@ type Props = {
   as?: "button" | "a";
 };
 
-export function Button({ children, href, onClick, as = "button" }: Props) {
-  if (as === "a" && !href) {
-    throw Error("`href` prop needs to be provided for `a` elements");
+export const Button = React.forwardRef(
+  ({ children, href, onClick, as = "button" }: Props, ref) => {
+    if (as === "a" && !href) {
+      throw Error("`href` prop needs to be provided for `a` elements");
+    }
+
+    if (as === "button" && !onClick) {
+      throw Error("`onClick` prop needs to be provided for `button` elements");
+    }
+
+    const _default = typeof children === "string";
+
+    return React.createElement(
+      as,
+      {
+        className: styles.button,
+        href,
+        onClick,
+        ref,
+      },
+      <div
+        className={classNames(
+          styles.button_inner,
+          _default && styles.button_default
+        )}
+      >
+        {_default ? <Text size="m02">{children}</Text> : children}
+      </div>
+    );
   }
-
-  if (as === "button" && !onClick) {
-    throw Error("`onClick` prop needs to be provided for `button` elements");
-  }
-
-  const _default = typeof children === "string";
-
-  return React.createElement(
-    as,
-    {
-      className: styles.button,
-      href,
-      onClick,
-    },
-    <div
-      className={classNames(
-        styles.button_inner,
-        _default && styles.button_default
-      )}
-    >
-      {_default ? <Text size="m02">{children}</Text> : children}
-    </div>
-  );
-}
+);

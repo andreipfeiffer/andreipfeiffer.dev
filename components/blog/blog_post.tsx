@@ -147,10 +147,8 @@ function Tags({ tags }: { tags: TagType[] }) {
   }
 
   const tags_list = tags.map((tag) => (
-    <Link key={tag} href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}>
-      <Button as="a" href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}>
-        {TAGS[tag].name}
-      </Button>
+    <Link passHref key={tag} href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}>
+      <Button as="a">{TAGS[tag].name}</Button>
     </Link>
   ));
 
