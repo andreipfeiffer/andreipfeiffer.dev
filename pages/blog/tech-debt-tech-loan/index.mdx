@@ -1,4 +1,5 @@
 import { BlogPost } from "../../../components/blog/blog_post";
+import { Subheading } from "../../../components/blog/subheading";
 
 export const meta = {
   title: "Tech Debt or Tech Loan?",
@@ -46,15 +47,15 @@ Personally, I've seen 3 major levels of code when it comes to software design:
   - **no associated tests**, which makes the code impossible to refactor, in order to fix the problems above;
   - **scary code**, which we don't touch, by fear of breaking something.
 
-We should all aim towards writing well-designed code, even if we are only able to reach a good enough level.
+<br />
 
-Needless to say, it's the poorly designed code that we should stay away from. It has a tendency to [**rot**](https://en.wikipedia.org/wiki/Software_rot), which can potentially make our code unsalvageable.
+We should all aim towards writing well-designed code, even if we are only able to reach a good enough level. Needless to say, it's the poorly designed code that we should stay away from. It has a [**tendency to rot**](https://en.wikipedia.org/wiki/Software_rot), which can potentially make our code unsalvageable.
 
 ## Why do we write poorly designed code?
 
-I'm pretty sure nobody writes "bad code" on purpose. There are various reasons why we do this, and next, we will cover the ones that are understandable and skip _negligence_ or _not giving a damn_.
+I'm pretty sure nobody writes "bad code" on purpose. There are various reasons why we do this, and next, we will cover the ones that are understandable, skipping _negligence_ or _not giving a damn_.
 
-### Ignorance
+<Subheading>Ignorance</Subheading>
 
 During the first years of experience it can be very difficult, if not impossible, to identify any potential design flaws. We've all been through this phase, and will probably find ourselves there again and again, when dealing with new challenges.
 
@@ -79,7 +80,7 @@ control if not addressed.
 
 If we don't learn from others' teachings, we should at least learn from our own mistakes. -->
 
-### Deprioritization
+<Subheading>Deprioritization</Subheading>
 
 Through experience, we'll be able to understand the trade-offs, and we’ll probably feel the urge to fix them. We might even:
 
@@ -88,14 +89,12 @@ Through experience, we'll be able to understand the trade-offs, and we’ll prob
 - mark it with a `@todo` comment;
 - write it down in our notebook or on a whiteboard.
 
-However, none of the above helps if we don't actually _fix the problem_. Even worse, if the trade-off "works", we might be forced to
+However, none of the above helps if we don't actually _fix the problem_. Even worse, if the trade-off _"works as it is"_, we might be forced to
 move on to other, more important tasks or features.
 
-Eventually, this will lead to [broken windows](https://blog.codinghorror.com/the-broken-window-theory/), which will incur Technical Debt. We might even believe that "we did our part", because we have acknowledged the problem, and now it's time for somebody else to prioritize the refactoring.
+Eventually, this will lead to [broken windows](https://blog.codinghorror.com/the-broken-window-theory/), which will incur Technical Debt. We might even believe that _"we did our part"_, because we have acknowledged the problem, and now it's time for somebody else to prioritize the refactoring.
 
-> Acknowledging a problem, but not fixing it, doesn't really solve anything.
-
-Sooner or later, we'll learn it the hard way.
+> Acknowledging a problem, but not fixing it, doesn't actually solve the problem.
 
 ## The technical nature of the debt
 
@@ -103,26 +102,25 @@ It's true that Technical Debt has a huge impact on the product as well, not only
 developers, need to understand that we are the ones that made that choice.
 
 There's a reason why it's called **Technical** Debt. Even if the cause is not technical, the code which includes the
-Technical Debt is written by us, developers, and we are the only ones that are able to "pay the debt".
+Technical Debt is written by us, developers, and we are the only ones that are able to _"pay the debt"_.
 
 We need to take responsibility for the code that we write. We need to do whatever is necessary to fix the trade-offs that we
 know will become big problems later on, for the development team and consequently for the product itself.
 
 ## Introducing Technical Loan
 
-The problem with **debt** is not the trade-off itself, but the **interest** that we have to pay over and over.
+The problem with **debt** is not the trade-off itself, but the **interest** that we have to pay over and over. A **loan**, on the other hand, implies the same trade-off, but **without any interest**.
 
-A **loan**, on the other hand, implies the same trade-off, but **without any interest**. Think of it like borrowing
-money from a friend for a short period of time. We'll still need to return the money, but we won't pay any additional interest.
+Think of it like borrowing money from a friend for a short period of time. We'll still need to return the money, but we won't pay any additional interest.
 
 We can apply the same mindset to technical trade-offs: as soon as we are aware of a trade-off that could turn into
 technical debt, we must **address it right away**.
 
-### Discuss it
+<Subheading>Discuss it</Subheading>
 
 Bring it up for discussion during the next meeting. Explain the problem, and come up with solution/s. If we don't have a proper fix, we should ask our teammates for help.
 
-### Take initiative
+<Subheading>Take initiative</Subheading>
 
 Instead of saying _"Let's do this"_, we should say _**"Let me do this"**_.
 
@@ -130,7 +128,7 @@ Remember the last time you met an old friend on the street and you said _"We sho
 
 Instead, you could have said, _"We should have a coffee. How about next Monday?"_. I bet that would have turned out completely different.
 
-### Make it a priority
+<Subheading>Make it a priority</Subheading>
 
 It's important not to start working on new features before fixing the outstanding trade-offs. Depending on the management, or the development process, there are various ways to approach this:
 
@@ -143,7 +141,7 @@ It's important not to start working on new features before fixing the outstandin
 
 <br />
 
-Always keep a balance between refactoring the existing code, and releasing new features:
+But we need to keep a balance between refactoring the existing code, and releasing new features:
 
 - allocate 1-2 team members to focus on the refactoring, while the rest of the team develops new features;
 - if the entire team is required to focus on the refactoring, we can allocate only part of the sprint for it and the other part for new features.
