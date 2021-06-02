@@ -44,7 +44,7 @@ export default function Blog(props: Props) {
         {posts.map(({ id, meta }) => {
           return (
             <Grid key={id} as="li">
-              <Grid.Col span={7}>
+              <Grid.Col span={breakpoint === "md" ? 10 : 8}>
                 <Tag tag={meta.tags[0]} />
 
                 <Text size="m02" color="muted">
