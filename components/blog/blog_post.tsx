@@ -39,6 +39,8 @@ export function BlogPost(props: Props) {
 
   const [email, setEmail] = React.useState("");
 
+  const meta_tags = meta.tags.map((t) => t.replace(/_/g, " ")).join(",");
+
   // copy url to clipboard when clicking headings link icon
   useEffect(() => {
     document.querySelectorAll(".headinglink").forEach((span) => {
@@ -69,7 +71,7 @@ export function BlogPost(props: Props) {
         <meta property="og:url" content={`${WEB_URL}${router.pathname}`} />
         <meta property="og:article:published_time" content={meta.date} />
         <meta property="og:article:author" content="Andrei Pfeiffer" />
-        <meta property="og:article:tag" content={meta.tags.join(",")} />
+        <meta property="og:article:tag" content={meta_tags} />
         {!!meta.cover && (
           <meta property="og:image" content={`${WEB_URL}${meta.cover}`} />
         )}
@@ -146,11 +148,27 @@ function Tags({ tags }: { tags: TagType[] }) {
     return null;
   }
 
-  const tags_list = tags.map((tag) => (
-    <Link passHref key={tag} href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}>
-      <Button as="a">{TAGS[tag].name}</Button>
-    </Link>
-  ));
+  const tags_list = tags
+    .map((tag) => {
+      const tag_name = TAGS[tag]?.name;
+
+      // some tags might not be added as separate pages
+      // we'll exclude them from the listing, but they will appear in the head for SEO
+      if (!tag_name) {
+        return null;
+      }
+
+      return (
+        <Link
+          passHref
+          key={tag}
+          href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}
+        >
+          <Button as="a">{tag_name}</Button>
+        </Link>
+      );
+    })
+    .filter((tag) => tag != null);
 
   return (
     <div className={styles.tags}>
