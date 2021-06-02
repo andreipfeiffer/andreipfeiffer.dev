@@ -7,7 +7,7 @@ export const meta = {
   tags: ["react_native"],
   intro:
     "Most of the Objective-C Macros from React Native that you have to use when bridging native code are self-explanatory and easy to use. But there is something weird about RCT_EXTERN_METHOD at first sight.",
-  isPublished: true,
+  isPublished: false,
   isArchived: false,
 };
 
@@ -23,11 +23,12 @@ It took me quite some time to understand how it works. There’s no detailed doc
 
 As the name implies, these Macros enable us to expose a native method to React Native’s bridge. It has the following syntax:
 
-```
+```objc
 RCT_EXTERN_METHOD(
-  methodName:         (paramType1)internalParamName1
-  externalParamName2: (paramType2)internalParamName2
-  externalParamName3: (paramType3)internalParamName3
+  methodName:         (paramType1) internalParamName1
+  externalParamName2: (paramType2) internalParamName2
+  externalParamName3: (paramType3) internalParamName3
+  ...
 )
 ```
 
