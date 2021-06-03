@@ -1,11 +1,11 @@
 import React from "react";
-import s from "./ListGood.module.scss";
+import s from "./ListGrid.module.scss";
 
 type Props = {
   flow: "row" | "column";
 };
 
-export default function List(props: Props) {
+export function ListGrid(props: Props) {
   const { flow = "row" } = props;
 
   return (

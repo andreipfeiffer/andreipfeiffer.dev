@@ -1,7 +1,7 @@
 import React from "react";
-import s from "./ListBad.module.scss";
+import s from "./ListFlex.module.scss";
 
-export default function List() {
+export function ListFlex() {
   return (
     <div className={s.list}>
       <div className={s.group}>

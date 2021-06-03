@@ -1,9 +1,10 @@
 import { BlogPost } from "../../../components/blog/blog_post";
 import { SideBySide } from "../../../components/blog/sidebyside";
 import { Note } from "../../../components/blog/note";
+import { Figure } from "../../../components/blog/figure";
 
-import ListBad from "./ListBad";
-import ListGood from "./ListGood";
+import { ListFlex } from "./ListFlex";
+import { ListGrid } from "./ListGrid";
 
 export const meta = {
   title: "Definition lists with column flow grid layout",
@@ -21,7 +22,13 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 In this post, we'll examine various implementations for the layout displayed below, using both `flex` and `grid`, debating the robustness of each approach. The layout is a simple horizontal list of 3 key-value pairs, the values being displayed beneath the labels.
 
 <br />
-<ListBad />
+<Figure
+  background
+  width="grid"
+  caption="3 key-value pairs implemented with a flex layout"
+>
+  <ListFlex />
+</Figure>
 <br />
 
 **TL;DR**: in our final approach, we'll use Definition Lists with `grid-auto-flow: column`. You can [skip to the final implementation](#final-implementation) if you don't want to follow the step by step guide.
@@ -229,7 +236,20 @@ The problem is that the grid cells are not displayed as we would expect, because
 
 This happens because the [`grid-auto-flow`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow) property is set to `row` by default.
 
-<ListGood flow="row" />
+<br />
+<Figure
+  background
+  width="grid"
+  caption={
+    <>
+      3 key-value pairs implemented using a grid layout with the default{" "}
+      <strong>grid-auto-flow:&nbsp;row</strong>, which breaks the visual result
+    </>
+  }
+>
+  <ListGrid flow="row" />
+</Figure>
+<br />
 
 However, we can control the flow of the cells by settings `grid-auto-flow`'s value' to `column`:
 
@@ -254,7 +274,20 @@ This way, the cells will be distributed by columns:
   the cells on 1 row only, by default.
 </Note>
 
-<ListGood flow="column" />
+<br />
+<Figure
+  background
+  width="grid"
+  caption={
+    <>
+      3 key-value pairs implemented using a grid layout with{" "}
+      <strong>grid-auto-flow:&nbsp;column</strong>
+    </>
+  }
+>
+  <ListGrid flow="column" />
+</Figure>
+<br />
 
 ## Final implementation
 
