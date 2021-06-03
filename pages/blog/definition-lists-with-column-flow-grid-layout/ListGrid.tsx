@@ -5,7 +5,7 @@ type Props = {
   flow: "row" | "column";
 };
 
-export function ListGrid(props: Props) {
+export default function ListGrid(props: Props) {
   const { flow = "row" } = props;
 
   return (
