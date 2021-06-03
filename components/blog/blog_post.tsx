@@ -115,8 +115,12 @@ export function BlogPost(props: Props) {
 
         <Tags tags={meta.tags} />
 
-        <footer className={styles.subscribe}>
+        <aside className={styles.subscribe}>
           <Text size="h03">Subscribe for updates</Text>
+          <br />
+          <Text color="muted">
+            Get new blog posts in your email as soon as they get published:
+          </Text>
 
           <form
             action="https://dev.us2.list-manage.com/subscribe/post"
@@ -137,7 +141,7 @@ export function BlogPost(props: Props) {
             <input type="hidden" name="u" value="a7ac7926ed477a5e810ed46f7" />
             <input type="hidden" name="id" value="51b196576b" />{" "}
           </form>
-        </footer>
+        </aside>
       </article>
     </Layout>
   );
@@ -171,7 +175,7 @@ function Tags({ tags }: { tags: TagType[] }) {
     .filter((tag) => tag != null);
 
   return (
-    <div className={styles.tags}>
+    <aside className={styles.tags}>
       <Text size="h04" as="strong">
         Tags:
       </Text>
@@ -181,7 +185,7 @@ function Tags({ tags }: { tags: TagType[] }) {
           <li key={tags[i]}>{tag}</li>
         ))}
       </ul>
-    </div>
+    </aside>
   );
 }
 
