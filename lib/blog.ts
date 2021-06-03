@@ -29,7 +29,9 @@ export function getAllTags(): Tag[] {
   const tags = new Set<Tag>();
 
   getPublishedPosts().forEach((post) => {
-    post.meta.tags.forEach((tag) => tags.add(tag));
+    post.meta.tags
+      .filter((tag) => TAGS[tag] !== undefined)
+      .forEach((tag) => tags.add(tag));
   });
 
   return [...tags];
