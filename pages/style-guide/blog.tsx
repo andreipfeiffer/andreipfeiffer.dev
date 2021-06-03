@@ -5,6 +5,7 @@ import { Fullpage } from "../../components/blog/fullpage";
 import { Tag } from "../../components/blog/tag";
 import { Grid } from "../../components/grid";
 import { Flex } from "../../components/flex";
+import { Text } from "../../components/text";
 import { Figure } from "../../components/blog/figure";
 
 export default function BlogPostPreview() {
@@ -176,6 +177,14 @@ export default function BlogPostPreview() {
 
         <Figure width="page" caption="Page width figure caption">
           <Img body="Page width figure" />
+        </Figure>
+
+        <Figure background>
+          <Text>Figure with default background</Text>
+        </Figure>
+
+        <Figure background="#fbc311aa">
+          <Text>Figure with custom background</Text>
         </Figure>
 
         <Flex type="stack" gap="8">

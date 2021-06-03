@@ -9,12 +9,26 @@ type Props = {
   caption?: React.ReactNode;
   /** "content" -> default content width; "grid" -> 12 columns grid width; "page" -> full page width */
   width?: "content" | "grid" | "page";
+  background?: string | boolean;
 };
 
-export function Figure({ children, caption, width = "content" }: Props) {
+export function Figure({
+  children,
+  caption,
+  width = "content",
+  background,
+}: Props) {
+  const backgroundColor = background
+    ? background === true
+      ? "#88888822"
+      : background
+    : undefined;
+
   const content = (
     <figure>
-      {children}
+      <div className={styles.content} style={{ backgroundColor }}>
+        {children}
+      </div>
 
       {!!caption && (
         <Text
