@@ -37,7 +37,7 @@ export function getAllTags(): Tag[] {
   return [...tags];
 }
 
-function importAll(r: any /* __WebpackModuleApi.RequireContext */) {
+function importAll(r: __WebpackModuleApi.RequireContext) {
   return r.keys().map((fileName: string) => ({
     // not the most solid approach to get the folder name
     // id: fileName.replace(/\/(index.page).mdx/gi, ""),
