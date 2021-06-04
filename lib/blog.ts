@@ -8,15 +8,19 @@ function getAllPosts(): Post[] {
 }
 
 export function getPublishedPosts(): Post[] {
-  return getAllPosts().filter(
-    (post) => post.meta.isPublished === true && post.meta.isArchived === false
-  );
+  return getAllPosts()
+    .filter(
+      (post) => post.meta.isPublished === true && post.meta.isArchived === false
+    )
+    .sort(sortPosts);
 }
 
 export function getArchivedPosts(): Post[] {
-  return getAllPosts().filter(
-    (post) => post.meta.isPublished === true && post.meta.isArchived === true
-  );
+  return getAllPosts()
+    .filter(
+      (post) => post.meta.isPublished === true && post.meta.isArchived === true
+    )
+    .sort(sortPosts);
 }
 
 export function getPostsByTag(tag: string): Post[] {
@@ -44,6 +48,10 @@ function importAll(r: __WebpackModuleApi.RequireContext) {
     id: fileName.replace("/index.page.mdx", ""),
     meta: r(fileName).meta as Metadata,
   }));
+}
+
+function sortPosts(a: Post, b: Post) {
+  return new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime();
 }
 
 export type Post = {
