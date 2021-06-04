@@ -9,17 +9,13 @@ function getAllPosts(): Post[] {
 
 export function getPublishedPosts(): Post[] {
   return getAllPosts()
-    .filter(
-      (post) => post.meta.isPublished === true && post.meta.isArchived === false
-    )
+    .filter((post) => isPublished(post) && post.meta.isArchived === false)
     .sort(sortPosts);
 }
 
 export function getArchivedPosts(): Post[] {
   return getAllPosts()
-    .filter(
-      (post) => post.meta.isPublished === true && post.meta.isArchived === true
-    )
+    .filter((post) => isPublished(post) && post.meta.isArchived === true)
     .sort(sortPosts);
 }
 
@@ -52,6 +48,14 @@ function importAll(r: __WebpackModuleApi.RequireContext) {
 
 function sortPosts(a: Post, b: Post) {
   return new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime();
+}
+
+function isPublished(post: Post) {
+  // in development, display WIP articles also
+  if (process.env.NODE_ENV === "development") {
+    return true;
+  }
+  return post.meta.isPublished === true;
 }
 
 export type Post = {
