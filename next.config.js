@@ -33,7 +33,8 @@ const withMDX = require("@next/mdx")({
 });
 
 module.exports = withPlugins([
-  [withMDX, { pageExtensions: ["ts", "tsx", "mdx"] }],
+  // https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions
+  [withMDX, { pageExtensions: ["page.ts", "page.tsx", "page.mdx"] }],
   [optimizedImages, { optipng: { optimizeImagesInDev: true } }],
   {
     images: {

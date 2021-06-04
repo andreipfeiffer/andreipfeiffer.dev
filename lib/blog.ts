@@ -40,7 +40,8 @@ export function getAllTags(): Tag[] {
 function importAll(r: any /* __WebpackModuleApi.RequireContext */) {
   return r.keys().map((fileName: string) => ({
     // not the most solid approach to get the folder name
-    id: fileName.replace("/index.mdx", ""),
+    // id: fileName.replace(/\/(index.page).mdx/gi, ""),
+    id: fileName.replace("/index.page.mdx", ""),
     meta: r(fileName).meta as Metadata,
   }));
 }
