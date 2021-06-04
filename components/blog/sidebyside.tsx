@@ -30,10 +30,11 @@ export function SideBySide({ children, left, right }: Props) {
     if (!header) {
       return null;
     }
+
     return (
       <header className={s.header}>
         <span className={s.file}>{header.file}</span>
-        <span className={s.lang}>{header.lang}</span>
+        {!!header.lang && <span className={s.lang}>{header.lang}</span>}
       </header>
     );
   }
