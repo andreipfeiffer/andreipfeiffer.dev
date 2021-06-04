@@ -4,7 +4,7 @@
  * - I chose this approach because posts have their own assets (images, components, etc)
  */
 function getAllPosts(): Post[] {
-  return importAll(require.context("../pages/blog", true, /\.mdx$/));
+  return importAll(require.context("../pages/blog", true, /\.page.mdx$/));
 }
 
 export function getPublishedPosts(): Post[] {
