@@ -4,26 +4,34 @@ import s from "./sidebyside.module.scss";
 
 type Header = { lang?: string; file?: string };
 
-type Props = {
+type SideBySideProps = {
   children: JSX.Element[];
   left?: Header;
   right?: Header;
 };
 
-export function SideBySide({ children, left, right }: Props) {
+export function SideBySide({ children, left, right }: SideBySideProps) {
   return (
     <Fullpage>
       <div className={s.container}>
-        <div className={s.side}>
-          {renderHeader(left)}
-          {children[0]}
-        </div>
-        <div className={s.side}>
-          {renderHeader(right)}
-          {children[1]}
-        </div>
+        <Side header={left}>{children[0]}</Side>
+        <Side header={right}>{children[1]}</Side>
       </div>
     </Fullpage>
+  );
+}
+
+type SideProps = {
+  children: JSX.Element;
+  header?: Header;
+};
+
+export function Side({ children, header }: SideProps) {
+  return (
+    <div className={s.side}>
+      {renderHeader(header)}
+      {children}
+    </div>
   );
 
   function renderHeader(header?: Header) {
