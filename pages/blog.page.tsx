@@ -1,16 +1,13 @@
 import React from "react";
 import Head from "next/head";
-import Link from "next/link";
 import { GetStaticProps } from "next";
 
 import { Grid } from "../components/grid";
 import { Text } from "../components/text";
 import { Spacer } from "../components/spacer";
-import { FormattedDate } from "../components/date";
 import { Flex } from "../components/flex";
 import { Layout } from "../components/layout";
 import { useBreakpoint } from "../components/layout/useBreakpoint";
-import { Tag } from "../components/blog/tag";
 
 import { getPublishedPosts, Post } from "../lib/blog";
 
