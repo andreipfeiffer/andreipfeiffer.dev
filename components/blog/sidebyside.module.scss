@@ -32,6 +32,12 @@
   }
 }
 
+.side {
+  @include breakpoint(md) {
+    overflow: auto;
+  }
+}
+
 .side,
 .side > div {
   flex: 1;
