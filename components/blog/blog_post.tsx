@@ -10,7 +10,7 @@ import { FormattedDate } from "../date";
 import { Spacer } from "../spacer";
 import { Tag } from "./tag";
 import { useBreakpoint } from "../layout/useBreakpoint";
-import { Metadata, Tag as TagType } from "../../lib/blog";
+import { Metadata, Tag as TagType, TAGS } from "../../lib/blog";
 
 import styles from "./blog_post.module.scss";
 import { TagsList } from "./tags_list";
@@ -39,7 +39,9 @@ export function BlogPost(props: Props) {
 
   const [email, setEmail] = React.useState("");
 
-  const meta_tags = meta.tags.map((t) => t.replace(/_/g, " ")).join(",");
+  const meta_tags = meta.tags
+    .map((t) => (TAGS[t] ? TAGS[t].name : t))
+    .join(",");
 
   // copy url to clipboard when clicking headings link icon
   useEffect(() => {
