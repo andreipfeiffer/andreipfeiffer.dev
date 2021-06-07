@@ -39,6 +39,16 @@
   }
 }
 
+.side > div {
+  margin-left: calc(var(--gap) * -1);
+  margin-right: calc(var(--gap) * -1);
+
+  @include breakpoint(md) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 .side,
 .side > div {
   flex: 1;
