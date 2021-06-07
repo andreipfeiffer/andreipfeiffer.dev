@@ -158,7 +158,7 @@
   }
 
   hr {
-    margin: calc(2 * var(--section-spacing)) auto;
+    margin: var(--section-spacing) auto;
     display: block;
     border: 0;
     height: 20px;
