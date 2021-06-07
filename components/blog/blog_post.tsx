@@ -14,6 +14,8 @@ import { Metadata, Tag as TagType } from "../../lib/blog";
 
 import styles from "./blog_post.module.scss";
 import { TagsList } from "./tags_list";
+import { Fullpage } from "./fullpage";
+import { Grid } from "../grid";
 
 type Props = {
   meta: Metadata;
@@ -80,11 +82,19 @@ export function BlogPost(props: Props) {
 
       <article className={styles.post}>
         <header>
-          <Text as="h1" size="h01">
-            {meta.title}
-          </Text>
+          <Fullpage>
+            <Grid.Full>
+              <Text
+                as="h1"
+                size="h01"
+                align={["md", "lg"].includes(breakpoint) ? "center" : "start"}
+              >
+                {meta.title}
+              </Text>
+            </Grid.Full>
+          </Fullpage>
 
-          <Spacer vertical="60" />
+          <Spacer vertical="140" />
 
           <div className={styles.header}>
             <div>
@@ -103,9 +113,8 @@ export function BlogPost(props: Props) {
               </Text>
             </div>
           </div>
+          <Spacer vertical="16" />
         </header>
-
-        <Spacer vertical="140" />
 
         {children}
 

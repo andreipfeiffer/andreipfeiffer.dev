@@ -32,7 +32,7 @@ export function BlogItem({ post }: Props) {
 
         <Link href={`/blog/${id}`}>
           <a className={styles.link}>
-            <Text as="h2" size="h02">
+            <Text as="h2" size="h02_5">
               {meta.title}
             </Text>
           </a>

@@ -39,11 +39,11 @@ export default function Blog(props: Props) {
         </Text>
       </Grid.Full>
 
-      <Spacer vertical="60" />
+      <Spacer vertical="100" />
 
-      <Flex as="ul" type="stack" gap="140" className={styles.list}>
+      <Flex as="ul" type="stack" gap={"100"} className={styles.list}>
         {posts.map((post) => (
-          <BlogItem post={post} />
+          <BlogItem post={post} key={post.id} />
         ))}
       </Flex>
     </Layout>
