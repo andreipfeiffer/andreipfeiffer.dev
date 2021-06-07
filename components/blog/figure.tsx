@@ -3,10 +3,14 @@ import { Grid } from "../grid";
 import { Text } from "../text";
 import { Fullpage } from "./fullpage";
 import styles from "./figure.module.scss";
+import classNames from "classnames";
+
+type Status = "ok" | "err" | undefined;
 
 type Props = {
   children: React.ReactNode;
   caption?: React.ReactNode;
+  status?: Status;
   /** "content" -> default content width; "grid" -> 12 columns grid width; "page" -> full page width */
   width?: "content" | "grid" | "page";
   background?: string | boolean;
@@ -17,6 +21,7 @@ export function Figure({
   caption,
   width = "content",
   background,
+  status,
 }: Props) {
   const backgroundColor = background
     ? background === true
@@ -26,7 +31,10 @@ export function Figure({
 
   const content = (
     <figure>
-      <div className={styles.content} style={{ backgroundColor }}>
+      <div
+        className={classNames(backgroundColor && styles.content)}
+        style={{ backgroundColor }}
+      >
         {children}
       </div>
 
@@ -37,7 +45,7 @@ export function Figure({
           as="figcaption"
           className={styles.caption}
         >
-          {caption}
+          {renderStatus(status)} {caption}
         </Text>
       )}
     </figure>
@@ -56,5 +64,20 @@ export function Figure({
 
     default:
       return content;
+  }
+
+  function renderStatus(status: Status) {
+    if (!status) {
+      return null;
+    }
+
+    return (
+      <span
+        className={classNames(styles.status, {
+          [styles.status_ok]: status === "ok",
+          [styles.status_err]: status === "err",
+        })}
+      ></span>
+    );
   }
 }

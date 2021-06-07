@@ -187,6 +187,14 @@ export default function BlogPostPreview() {
           <Text>Figure with custom background</Text>
         </Figure>
 
+        <Figure caption="Caption with OK status" status="ok">
+          <Img body="Status ok" />
+        </Figure>
+
+        <Figure caption="Caption with ERR status" status="err">
+          <Img body="Status err" />
+        </Figure>
+
         <Flex type="stack" gap="8">
           <Tag tag="html" />
           <Tag tag="css" />
@@ -221,7 +229,7 @@ function Img({ body }: { body: string }) {
         flexDirection: "column",
       }}
     >
-      <p>{body}</p>
+      <div style={{ padding: "1em" }}>{body}</div>
     </div>
   );
 }

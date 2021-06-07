@@ -240,10 +240,11 @@ This happens because the [`grid-auto-flow`](https://developer.mozilla.org/en-US/
 <Figure
   background
   width="grid"
+  status="err"
   caption={
     <>
-      3 key-value pairs implemented using a grid layout with the default{" "}
-      <strong>grid-auto-flow:&nbsp;row</strong>, which breaks the visual result
+      Using a grid layout with the default{" "}
+      <strong>"grid-auto-flow:&nbsp;row"</strong> breaks the visual appearance
     </>
   }
 >
@@ -278,10 +279,11 @@ This way, the cells will be distributed by columns:
 <Figure
   background
   width="grid"
+  status="ok"
   caption={
     <>
-      3 key-value pairs implemented using a grid layout with{" "}
-      <strong>grid-auto-flow:&nbsp;column</strong>
+      Using <strong>"grid-auto-flow:&nbsp;column"</strong> fixes the visual
+      appearance
     </>
   }
 >
