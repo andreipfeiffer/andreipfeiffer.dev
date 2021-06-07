@@ -1,12 +1,13 @@
 @import "../../styles/mixins";
 
 .container {
+  --gap: 20px;
+
   display: grid;
-  gap: 20px;
+  gap: var(--gap);
   padding: 0 21px;
 
   @include breakpoint(md) {
-    gap: 20px;
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -19,7 +20,7 @@
   justify-content: space-between;
   align-items: center;
 
-  margin: 0 -20px;
+  margin: 0 calc(var(--gap) * -1);
 
   @include breakpoint(md) {
     margin: 0;

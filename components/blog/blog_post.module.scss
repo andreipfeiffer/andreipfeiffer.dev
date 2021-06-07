@@ -38,6 +38,7 @@
 
 .post {
   --content-width: 800px;
+  --content-spacing: 20px;
 
   // all headings have the same top spacing
   // we substract 2em because we also set a margin for any collapsing margins of other elements
@@ -46,14 +47,18 @@
 
   --section-spacing: 40px;
 
-  margin: 0 20px;
+  margin: 0 var(--content-spacing);
+
+  @include breakpoint(sm) {
+    --content-spacing: 40px;
+  }
 
   @include breakpoint(md) {
     --heading-spacing: calc(160px - 1em);
     --section-spacing: 80px;
+    --content-spacing: auto;
 
     max-width: var(--content-width);
-    margin: 0 auto;
   }
 
   h2,

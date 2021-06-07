@@ -11,8 +11,8 @@
 
 @media (max-width: 999px) {
   .remark-highlight {
-    margin-left: -20px;
-    margin-right: -20px;
+    margin-left: calc(var(--content-spacing) * -1);
+    margin-right: calc(var(--content-spacing) * -1);
     font-size: 0.75em;
   }
 }

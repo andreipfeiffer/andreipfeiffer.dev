@@ -2,7 +2,8 @@
 
 .full {
   width: 100vw;
-  margin-left: -20px;
+  margin-left: calc(var(--content-spacing) * -1);
+  margin-right: calc(var(--content-spacing) * -1);
 
   @include breakpoint(md) {
     margin-left: calc((100vw - var(--content-width)) / 2 * -1);
