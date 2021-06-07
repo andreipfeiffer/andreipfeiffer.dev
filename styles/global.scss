@@ -112,7 +112,7 @@ textarea {
     background-image: url("/images/headinglink.svg");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 0.5em;
+    background-size: 0.75em;
 
     content: "";
     display: inline-block;
@@ -122,8 +122,10 @@ textarea {
     transform: translateY(0.1em);
 
     @include breakpoint(md) {
+      background-size: 0.5em;
       border: 1px var(--dark) solid;
-      margin-left: 0.35em;
+      margin-left: 0.25em;
+      transform: translateY(0.15em);
     }
 
     [data-darkmode="true"] & {
