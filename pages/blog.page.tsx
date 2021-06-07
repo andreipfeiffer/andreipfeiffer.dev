@@ -15,6 +15,7 @@ import { Tag } from "../components/blog/tag";
 import { getPublishedPosts, Post } from "../lib/blog";
 
 import styles from "./blog.module.scss";
+import { BlogItem } from "../components/blog/blog_item";
 
 type Props = {
   posts: Post[];
@@ -41,31 +42,9 @@ export default function Blog(props: Props) {
       <Spacer vertical="60" />
 
       <Flex as="ul" type="stack" gap="140" className={styles.list}>
-        {posts.map(({ id, meta }) => {
-          return (
-            <Grid key={id} as="li">
-              <Grid.Col span={breakpoint === "md" ? 10 : 8}>
-                <Tag tag={meta.tags[0]} />
-
-                <Text size="m02" color="muted">
-                  <FormattedDate date={meta.date} />
-                </Text>
-
-                <Spacer vertical="24" />
-
-                <Link href={`/blog/${id}`}>
-                  <a className={styles.link}>
-                    <Text as="h2" size="h02">
-                      {meta.title}
-                    </Text>
-                  </a>
-                </Link>
-                <Spacer vertical="32" />
-                <Text as="p">{meta.intro}</Text>
-              </Grid.Col>
-            </Grid>
-          );
-        })}
+        {posts.map((post) => (
+          <BlogItem post={post} />
+        ))}
       </Flex>
     </Layout>
   );

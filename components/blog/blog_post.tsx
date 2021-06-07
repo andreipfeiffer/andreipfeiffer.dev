@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import useDarkMode from "use-dark-mode";
 import readingTime from "reading-time";
@@ -8,14 +7,13 @@ import readingTime from "reading-time";
 import { Layout } from "../layout";
 import { Text } from "../text";
 import { FormattedDate } from "../date";
-import { Metadata, Tag as TagType, TAGS } from "../../lib/blog";
 import { Spacer } from "../spacer";
+import { Tag } from "./tag";
 import { useBreakpoint } from "../layout/useBreakpoint";
+import { Metadata, Tag as TagType } from "../../lib/blog";
 
 import styles from "./blog_post.module.scss";
-import { useEffect } from "react";
-import { Button } from "../button";
-import { Tag } from "./tag";
+import { TagsList } from "./tags_list";
 
 type Props = {
   meta: Metadata;
@@ -152,39 +150,13 @@ function Tags({ tags }: { tags: TagType[] }) {
     return null;
   }
 
-  const tags_list = tags
-    .map((tag) => {
-      const tag_name = TAGS[tag]?.name;
-
-      // some tags might not be added as separate pages
-      // we'll exclude them from the listing, but they will appear in the head for SEO
-      if (!tag_name) {
-        return null;
-      }
-
-      return (
-        <Link
-          passHref
-          key={tag}
-          href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}
-        >
-          <Button as="a">{tag_name}</Button>
-        </Link>
-      );
-    })
-    .filter((tag) => tag != null);
-
   return (
     <aside className={styles.tags}>
       <Text size="h04" as="strong">
         Tags:
       </Text>
-
-      <ul>
-        {tags_list.map((tag, i) => (
-          <li key={tags[i]}>{tag}</li>
-        ))}
-      </ul>
+      <Spacer horizontal={"16"} />
+      <TagsList tags={tags} />
     </aside>
   );
 }

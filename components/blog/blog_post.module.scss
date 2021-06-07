@@ -190,21 +190,6 @@
 .tags {
   display: flex;
   margin-top: var(--section-spacing);
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    margin-left: 1em;
-    display: flex;
-    flex-wrap: wrap;
-
-    li {
-      margin: 0;
-      margin-bottom: 0.5em;
-      white-space: nowrap;
-    }
-  }
 }
 
 .subscribe {

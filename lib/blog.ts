@@ -75,15 +75,65 @@ export type Metadata = {
   isArchived: boolean;
 };
 
-export type Tag = keyof typeof TAGS;
+// export type Tag = keyof typeof TAGS;
+export type Tag =
+  | "css"
+  | "html"
+  | "react"
+  | "javascript"
+  | "typescript"
+  | "code_design";
+// | "ui_development"
+// | "react_native";
 
-export const TAGS = {
-  css: { name: "CSS", color: "#3d9cd7" },
-  html: { name: "HTML", color: "#f2662b" },
-  react: { name: "React", color: "#62dafb" },
-  javascript: { name: "JavaScript", color: "#f7e014" },
-  typescript: { name: "TypeScript", color: "#047acb" },
-  code_design: { name: "Code Design", color: "#e343ff" },
-  ui_development: { name: "UI Development", color: "#ff4343" },
-  react_native: { name: "React Native", color: "#47d07c" },
-} as const;
+type TagDetails = {
+  name: string;
+  color: string;
+  description: string;
+};
+
+export const TAGS: { [key in Tag]: TagDetails } = {
+  css: {
+    name: "CSS",
+    color: "#3d9cd7",
+    description:
+      "Articles related to styling using either the plain CSS language, pre or post processors, tools, frameworks or methologies.",
+  },
+  html: {
+    name: "HTML",
+    color: "#f2662b",
+    description: "Articles related to web content, semantics or accessibility.",
+  },
+  react: {
+    name: "React",
+    color: "#62dafb",
+    description:
+      "Articles related to any part of the React ecosystem, such as UI components design, JSX syntax, state management, or libraries and frameworks built on top of React.",
+  },
+  javascript: {
+    name: "JavaScript",
+    color: "#f7e014",
+    description:
+      "Articles related to ECMAScript language features, DOM / Node.js, libraries & frameworks or practices applied in UI and Front-End Development.",
+  },
+  typescript: {
+    name: "TypeScript",
+    color: "#047acb",
+    description:
+      "Articles related to TypeScript features or type systems in general",
+  },
+  code_design: {
+    name: "Code Design",
+    color: "#e343ff",
+    description:
+      "Articles related to software development and design, principles and practices that apply, not bound to a specific language or tehnology.",
+  },
+  // ui_development: { name: "UI Development", color: "#ff4343" },
+  // react_native: { name: "React Native", color: "#47d07c" },
+  // tutorial
+  // how_to
+  // opinions
+  // analysis
+};
+
+// Unions of object keys in TypeScript

@@ -1,0 +1,15 @@
+.tags {
+  .list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .item {
+    margin: 0;
+    margin-bottom: 0.75em;
+    white-space: nowrap;
+  }
+}

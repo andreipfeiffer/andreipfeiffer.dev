@@ -1,40 +1,60 @@
+import React from "react";
 import { GetStaticProps, GetStaticPaths } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
+import { BlogItem } from "../../../components/blog/blog_item";
+import { Flex } from "../../../components/flex";
+import { Text } from "../../../components/text";
+import { Grid } from "../../../components/grid";
 import { Layout } from "../../../components/layout";
+import { Spacer } from "../../../components/spacer";
+import { useBreakpoint } from "../../../components/layout/useBreakpoint";
 import { getPostsByTag, getAllTags, Post, TAGS, Tag } from "../../../lib/blog";
-// import styles from "./post.module.css";
+
+import styles from "./tag.page.module.scss";
+import { TagsList } from "../../../components/blog/tags_list";
 
 type Props = {
   posts: Post[];
+  tags: Tag[];
 };
 
 export default function PostsByTag(props: Props) {
+  const { breakpoint } = useBreakpoint();
   const router = useRouter();
-  const { posts: articles } = props;
+  const { posts, tags } = props;
 
   const tag = router.query.tag as Tag;
-  const tag_name = TAGS[tag].name;
+  const { name, description } = TAGS[tag];
 
   return (
     <Layout>
       <Head>
-        <title>Articles containing {tag_name} tag</title>
+        <title>Articles containing {name} tag</title>
       </Head>
 
-      <h1>{tag_name} articles</h1>
+      {breakpoint && <Spacer vertical="100" />}
 
-      <ul>
-        {articles.map((article) => (
-          <li key={article.id}>
-            <Link href={`/blog/${article.id}`}>
-              <a>{article.meta.title}</a>
-            </Link>
-          </li>
+      <Grid.Full>
+        <Text size="h00" as="h1">
+          Tag: {name}
+        </Text>
+        <br />
+        <Text as="p">{description}</Text>
+
+        <Spacer vertical="32" />
+
+        <TagsList tags={tags} />
+      </Grid.Full>
+
+      <Spacer vertical="60" />
+
+      <Flex as="ul" type="stack" gap="140" className={styles.list}>
+        {posts.map((post) => (
+          <BlogItem post={post} key={post.id} />
         ))}
-      </ul>
+      </Flex>
     </Layout>
   );
 }
@@ -56,9 +76,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const posts = getPostsByTag(params?.tag as string);
+  const tags = getAllTags();
+
   return {
     props: {
       posts,
+      tags,
     },
   };
 };
