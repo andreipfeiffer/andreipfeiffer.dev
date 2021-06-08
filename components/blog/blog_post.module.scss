@@ -64,8 +64,10 @@
   h1 {
     font-size: 50px;
     line-height: 1.15;
+    hyphens: auto;
 
     @include breakpoint(sm) {
+      hyphens: none;
       font-size: 80px;
     }
     @include breakpoint(md) {
@@ -81,7 +83,11 @@
     margin-bottom: 20px;
     padding-top: var(--heading-spacing);
     line-height: 1.25;
-    hyphens: manual;
+    hyphens: auto;
+
+    @include breakpoint(sm) {
+      hyphens: none;
+    }
 
     @include breakpoint(md) {
       margin-bottom: 40px;

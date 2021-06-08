@@ -86,10 +86,7 @@ export function BlogPost(props: Props) {
         <header>
           <Fullpage>
             <Grid.Full>
-              <h1
-                dangerouslySetInnerHTML={{ __html: meta.title }}
-                className={styles.h1}
-              ></h1>
+              <h1 className={styles.h1}>{meta.title}</h1>
             </Grid.Full>
           </Fullpage>
 

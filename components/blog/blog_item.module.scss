@@ -8,8 +8,10 @@
   line-height: 1.13;
   font-size: 35px;
   font-weight: bold;
+  hyphens: auto;
 
   @include breakpoint(sm) {
+    hyphens: none;
     font-size: 44px;
   }
 }
