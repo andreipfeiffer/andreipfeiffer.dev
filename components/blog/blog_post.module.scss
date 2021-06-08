@@ -61,18 +61,36 @@
     max-width: var(--content-width);
   }
 
+  h1 {
+    font-size: 50px;
+    line-height: 1.15;
+
+    @include breakpoint(sm) {
+      font-size: 80px;
+    }
+    @include breakpoint(md) {
+      font-size: 100px;
+      text-align: center;
+    }
+  }
+
   h2,
   h3,
   h4 {
     margin-top: 1em;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     padding-top: var(--heading-spacing);
     line-height: 1.25;
     hyphens: manual;
+
+    @include breakpoint(md) {
+      margin-bottom: 40px;
+      font-size: 60px;
+    }
   }
 
   h2 {
-    font-size: 40px;
+    font-size: 35px;
 
     @include breakpoint(md) {
       font-size: 60px;
@@ -80,7 +98,7 @@
   }
 
   h3 {
-    font-size: 30px;
+    font-size: 28px;
 
     @include breakpoint(md) {
       font-size: 44px;
