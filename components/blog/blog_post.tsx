@@ -86,13 +86,10 @@ export function BlogPost(props: Props) {
         <header>
           <Fullpage>
             <Grid.Full>
-              <Text
-                as="h1"
-                size="h01"
-                align={["md", "lg"].includes(breakpoint) ? "center" : "start"}
-              >
-                {meta.title}
-              </Text>
+              <h1
+                dangerouslySetInnerHTML={{ __html: meta.title }}
+                className={styles.h1}
+              ></h1>
             </Grid.Full>
           </Fullpage>
 
