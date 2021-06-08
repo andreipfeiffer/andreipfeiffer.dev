@@ -127,7 +127,7 @@ export function BlogPost(props: Props) {
         <aside className={styles.subscribe}>
           <Text size="h03">Subscribe for updates</Text>
           <br />
-          <Text color="muted">
+          <Text color="muted" as="p" className={styles.subscribe_desc}>
             Get new blog posts in your email as soon as they get published:
           </Text>
 
