@@ -3,3 +3,13 @@
 .link:any-link {
   text-decoration: none;
 }
+
+.title {
+  line-height: 1.13;
+  font-size: 35px;
+  font-weight: bold;
+
+  @include breakpoint(sm) {
+    font-size: 44px;
+  }
+}

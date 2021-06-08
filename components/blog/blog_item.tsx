@@ -32,9 +32,10 @@ export function BlogItem({ post }: Props) {
 
         <Link href={`/blog/${id}`}>
           <a className={styles.link}>
-            <Text as="h2" size="h02_5">
-              {meta.title}
-            </Text>
+            <h2
+              dangerouslySetInnerHTML={{ __html: meta.title }}
+              className={styles.title}
+            />
           </a>
         </Link>
         <Spacer vertical="32" />
