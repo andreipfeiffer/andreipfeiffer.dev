@@ -186,5 +186,4 @@ function copyToClipboard(text: string) {
   input.select();
   document.execCommand("copy");
   input.parentNode?.removeChild(input);
-  console.log({ text });
 }
