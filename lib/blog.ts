@@ -37,18 +37,18 @@ export function getAllTags(): Tag[] {
   return [...tags];
 }
 
-const POST_PER_PAGE = 2;
+const POSTS_PER_PAGE = 2;
 
 export function getPostsForPage(page: number): Post[] {
   return getPublishedPosts().filter(
     (_, index) =>
-      index >= (page - 1) * POST_PER_PAGE && index < page * POST_PER_PAGE
+      index >= (page - 1) * POSTS_PER_PAGE && index < page * POSTS_PER_PAGE
   );
 }
 
 export function getTotalPages(): number {
   const totalPosts = getPublishedPosts();
-  const totalPages = Math.ceil(totalPosts.length / POST_PER_PAGE);
+  const totalPages = Math.ceil(totalPosts.length / POSTS_PER_PAGE);
   return totalPages;
 }
 
