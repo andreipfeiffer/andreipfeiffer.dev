@@ -97,7 +97,8 @@ export type Tag =
   | "react"
   | "javascript"
   | "typescript"
-  | "code_design";
+  | "code_design"
+  | "misc";
 // | "ui_development"
 // | "react_native";
 
@@ -142,6 +143,11 @@ export const TAGS: { [key in Tag]: TagDetails } = {
     color: "#e343ff",
     description:
       "Articles related to software development and design, principles and practices that apply, not bound to a specific language or tehnology.",
+  },
+  misc: {
+    name: "Miscellaneous",
+    color: "#888888",
+    description: "Articles that don't fall under any specific category.",
   },
   // ui_development: { name: "UI Development", color: "#ff4343" },
   // react_native: { name: "React Native", color: "#47d07c" },
