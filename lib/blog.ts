@@ -58,12 +58,12 @@ function isPublished(post: Post) {
   return post.meta.isPublished === true;
 }
 
-export type Post = {
+export interface Post {
   id: string;
   meta: Metadata;
-};
+}
 
-export type Metadata = {
+export interface Metadata {
   date: string;
   title: string;
   tags: Tag[];
@@ -73,7 +73,7 @@ export type Metadata = {
   intro: string;
   isPublished: boolean;
   isArchived: boolean;
-};
+}
 
 // export type Tag = keyof typeof TAGS;
 export type Tag =
@@ -86,11 +86,11 @@ export type Tag =
 // | "ui_development"
 // | "react_native";
 
-type TagDetails = {
+interface TagDetails {
   name: string;
   color: string;
   description: string;
-};
+}
 
 export const TAGS: { [key in Tag]: TagDetails } = {
   css: {
