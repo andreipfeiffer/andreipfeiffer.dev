@@ -1,4 +1,4 @@
-@import "../styles/mixins";
+@import "../../styles/mixins";
 
 .h1 {
   font-size: 100px;
@@ -13,4 +13,13 @@
   padding: 0;
   list-style-type: none;
   align-items: stretch;
+}
+
+.page_nav {
+  display: flex;
+  justify-content: space-between;
+
+  @include breakpoint(md) {
+    justify-content: flex-start;
+  }
 }

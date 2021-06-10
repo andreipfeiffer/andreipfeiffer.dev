@@ -32,16 +32,27 @@ const withMDX = require("@next/mdx")({
   },
 });
 
+const nextConfig = {
+  trailingSlash: false,
+  images: {
+    deviceSizes: [320, 768, 1024, 1200, 1900],
+  },
+
+  async redirects() {
+    return [
+      {
+        source: "/blog/page/1",
+        destination: "/blog",
+        permanent: false,
+      },
+    ];
+  },
+};
+
 module.exports = withPlugins([
   // https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions
   [withMDX, { pageExtensions: ["page.ts", "page.tsx", "page.mdx"] }],
   [optimizedImages, { optipng: { optimizeImagesInDev: true } }],
-  {
-    images: {
-      deviceSizes: [320, 768, 1024, 1200, 1900],
-    },
-  },
-  {
-    trailingSlash: true,
-  },
+
+  nextConfig,
 ]);

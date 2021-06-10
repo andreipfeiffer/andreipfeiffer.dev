@@ -37,6 +37,21 @@ export function getAllTags(): Tag[] {
   return [...tags];
 }
 
+const POST_PER_PAGE = 2;
+
+export function getPostsForPage(page: number): Post[] {
+  return getPublishedPosts().filter(
+    (_, index) =>
+      index >= (page - 1) * POST_PER_PAGE && index < page * POST_PER_PAGE
+  );
+}
+
+export function getTotalPages(): number {
+  const totalPosts = getPublishedPosts();
+  const totalPages = Math.ceil(totalPosts.length / POST_PER_PAGE);
+  return totalPages;
+}
+
 function importAll(r: __WebpackModuleApi.RequireContext) {
   return r.keys().map((fileName: string) => ({
     // not the most solid approach to get the folder name
