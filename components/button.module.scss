@@ -1,6 +1,7 @@
 .button {
   --height: 36px;
   --cutoff: calc(var(--height) / 3);
+  --spacing: 24px;
   border: 0;
   padding: 0;
   margin: 0;
@@ -19,8 +20,8 @@
   display: inline-flex;
   color: var(--dark) !important;
   align-items: center;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: var(--spacing);
+  padding-right: var(--spacing);
   // for better visual centering
   clip-path: polygon(
     var(--cutoff) 0,
@@ -29,18 +30,19 @@
     0 100%
   );
 
-  transition: clip-path 0.2s;
+  transition: transform 0.3s;
 
   &:hover {
-    clip-path: polygon(
-      calc(var(--cutoff) + 5px) 0,
-      calc(100% - 5px) 0,
-      calc(100% - var(--cutoff) - 5px) 100%,
-      5px 100%
-    );
+    transform: translate(1px, -3px);
   }
 }
 
 .button_default {
   padding-bottom: 2px;
+}
+
+.button_large {
+  --height: 60px;
+  --cutoff: calc(var(--height) / 3);
+  --spacing: 40px;
 }

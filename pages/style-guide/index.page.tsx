@@ -328,6 +328,20 @@ export default function Talks() {
             </Text>
           </Button>
         </Flex>
+
+        <br />
+
+        <Flex type="inline">
+          <Button size="large" onClick={() => alert("clicked")}>
+            Large button
+          </Button>
+
+          <Button size="large" onClick={() => alert("clicked")}>
+            <Text size="h05" as="div">
+              Custom large
+            </Text>
+          </Button>
+        </Flex>
       </Grid.Full>
     </Layout>
   );
