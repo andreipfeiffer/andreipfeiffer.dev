@@ -93,6 +93,10 @@
       margin-bottom: 40px;
       font-size: 60px;
     }
+
+    & code {
+      padding: 0 0.4em 0.1em 0.4em !important;
+    }
   }
 
   h2 {
@@ -175,7 +179,8 @@
   /* Inline code */
   :not(pre) > code {
     font-size: 0.85em;
-    padding: 0 0.4em 0.1em 0.4em;
+    padding: 0.1em 0.6em 0.2em 0.6em;
+    margin: 0 0.2em;
     border-radius: 0.3em;
     white-space: nowrap;
 
@@ -184,6 +189,8 @@
     [data-darkmode="true"] & {
       background-color: #2f2f2e;
     }
+
+    transition: background-color 0.3s;
   }
 
   hr {

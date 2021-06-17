@@ -64,16 +64,16 @@ export default function BlogPostPreview() {
         </p>
 
         <h2>
-          Heading 2, with <code>code</code> and some more <code>code</code> text
-          with <code>code</code> to go on second line
+          Heading 2, with <code>js code</code> and some more <code>code</code>{" "}
+          text with <code>code</code> to go on second line
         </h2>
         <h3>
-          Heading 3, with <code>code</code> and some more <code>code</code> text
-          to go on second line with <code>code</code>
+          Heading 3, with <code>js code</code> and some more <code>code</code>{" "}
+          text to go on second line with <code>code</code>
         </h3>
         <h4>
-          Heading 4, with <code>code</code> and some more <code>code</code> text
-          to go on second line with <code>code</code>
+          Heading 4, with <code>js code</code> and some more <code>code</code>{" "}
+          text to go on second line with <code>code</code>
         </h4>
 
         <p>
