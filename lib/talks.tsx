@@ -150,6 +150,10 @@ export const talks: Talk[] = [
         type: "slides",
         url: "/slides/simple-vs-easy.pdf",
       },
+      {
+        type: "video",
+        url: "https://www.youtube.com/watch?v=erfvf7vHhDY",
+      },
     ],
   },
 
