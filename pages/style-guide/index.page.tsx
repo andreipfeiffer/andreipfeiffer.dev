@@ -10,6 +10,7 @@ import { Spacer } from "../../components/spacer";
 
 import styles from "./style-guide.module.css";
 import { Heading } from "../../components/style-guide/heading";
+import { Arrow } from "../../components/arrow";
 
 export default function Talks() {
   return (
@@ -340,6 +341,24 @@ export default function Talks() {
             <Text size="h05" as="div">
               Custom large
             </Text>
+            <Spacer horizontal="16" />
+            <Arrow />
+          </Button>
+
+          <Button size="large" onClick={() => alert("clicked")}>
+            <Arrow />
+          </Button>
+
+          <Button size="large" onClick={() => alert("clicked")}>
+            <Arrow direction="left" />
+          </Button>
+
+          <Button size="large" onClick={() => alert("clicked")}>
+            <Arrow direction="up" />
+          </Button>
+
+          <Button size="large" onClick={() => alert("clicked")}>
+            <Arrow direction="down" />
           </Button>
         </Flex>
       </Grid.Full>
