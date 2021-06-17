@@ -14,6 +14,7 @@
 }
 
 .button_inner {
+  position: relative;
   height: var(--height);
   background-color: var(--primary);
   text-decoration: none !important;
@@ -30,10 +31,22 @@
     0 100%
   );
 
-  transition: transform 0.3s;
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -1em;
+    bottom: -1em;
+    left: -1em;
+    pointer-events: none;
+    background-color: #ffffffaa;
+    width: 1em;
+    transform: rotate(18.5deg);
+  }
 
-  &:hover {
-    transform: translate(1px, -3px);
+  &:hover::after {
+    transition: left 0.5s;
+    left: 100%;
   }
 }
 
