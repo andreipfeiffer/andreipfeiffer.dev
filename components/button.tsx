@@ -10,11 +10,12 @@ type Props = {
   onClick?(): void;
   as?: "button" | "a";
   size?: "regular" | "large";
+  title?: string;
 };
 
 export const Button = React.forwardRef(
   (
-    { children, href, onClick, as = "button", size = "regular" }: Props,
+    { children, href, onClick, as = "button", size = "regular", title }: Props,
     ref
   ) => {
     if (as === "a" && !href) {
@@ -35,6 +36,7 @@ export const Button = React.forwardRef(
         href,
         onClick,
         ref,
+        title,
       },
       <div
         className={classNames(
