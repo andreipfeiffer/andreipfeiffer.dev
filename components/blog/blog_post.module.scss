@@ -252,11 +252,12 @@
 .subscribe_input {
   border: 0;
   border-bottom: 1px var(--color) solid;
+  color: var(--color);
   font-family: "Roboto Mono", monospace;
   font-style: italic;
   background-color: transparent;
   font-size: 16px;
-  padding: 1em 0.5em;
+  padding: 1em 0;
   width: 100%;
 
   &::placeholder {
@@ -273,6 +274,7 @@
   padding: 1em;
   position: absolute;
   bottom: 1px;
+  top: 1px;
   right: 0;
   border: 0;
   background: transparent;
@@ -280,43 +282,11 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  transform: translateX(0.5em);
+  transform: translateX(calc(1em - 1px));
 
-  span {
-    text-indent: -9999em;
-    display: block;
-  }
-
-  &::before {
-    content: "";
-    display: block;
-    width: 18px;
-    height: 1px;
-    background-color: var(--color);
-    margin-right: -5px;
-    transition: transform 0.3s;
-  }
-
-  &::after {
-    content: "";
-    display: block;
-    width: 4px;
-    height: 4px;
-    border: 1px var(--color) solid;
-    border-left: 0;
-    border-bottom: 0;
-    transform: rotate(45deg);
-    transition: transform 0.3s;
-  }
-
-  &:hover::before,
-  &:focus::before {
-    height: 2px;
-    transform: translateX(0.5em);
-  }
-  &:hover::after,
-  &:focus::after {
-    transform: translateX(0.5em) rotate(45deg);
-    border-width: 2px;
+  &:focus .subscribe_arrow,
+  &:hover .subscribe_arrow {
+    transform: translateX(calc(0.5em));
+    --size: 2px;
   }
 }

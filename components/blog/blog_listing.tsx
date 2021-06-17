@@ -14,6 +14,7 @@ import { Post } from "../../lib/blog";
 
 import styles from "./blog_listing.module.scss";
 import { BlogItem } from "../blog/blog_item";
+import { Arrow } from "../arrow";
 
 export interface BlogListingProps {
   posts: Post[];
@@ -49,7 +50,7 @@ export function BlogListing(props: BlogListingProps) {
 
       <Spacer vertical="100" />
 
-      <Grid.Full className={styles.page_nav}>
+      <Grid.Full>
         {renderPrevPage()}
         {renderNextPage()}
       </Grid.Full>
@@ -58,6 +59,16 @@ export function BlogListing(props: BlogListingProps) {
 
   function renderPrevPage() {
     if (current_page > 1) {
+      const content =
+        current_page === total_pages ? (
+          <>
+            <Spacer horizontal="16" />
+            <Text size="m01">Previous</Text>
+          </>
+        ) : null;
+
+      const arrow_text = current_page === total_pages ? "" : "Previous";
+
       return (
         <Link
           passHref
@@ -65,23 +76,39 @@ export function BlogListing(props: BlogListingProps) {
             current_page - 1 === 1 ? `/blog` : `/blog/page/${current_page - 1}`
           }
         >
-          <Button as="a">&lt; Prev page</Button>
+          <Button size="large" as="a" title="Previous page">
+            <Arrow direction="left" text={arrow_text} color="dark" />
+            {content}
+          </Button>
         </Link>
       );
     }
 
-    return <span></span>;
+    return null;
   }
 
   function renderNextPage() {
     if (current_page < total_pages) {
+      const content =
+        current_page === 1 ? (
+          <>
+            <Text size="m01">Next</Text>
+            <Spacer horizontal="16" />
+          </>
+        ) : null;
+
+      const arrow_text = current_page === 1 ? "" : "Next";
+
       return (
         <Link passHref href={`/blog/page/${current_page + 1}`}>
-          <Button as="a">Next page &gt;</Button>
+          <Button size="large" as="a" title="Next page">
+            {content}
+            <Arrow direction="right" text={arrow_text} color="dark" />
+          </Button>
         </Link>
       );
     }
 
-    return <span></span>;
+    return null;
   }
 }
