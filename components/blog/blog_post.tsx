@@ -16,6 +16,7 @@ import styles from "./blog_post.module.scss";
 import { TagsList } from "./tags_list";
 import { Fullpage } from "./fullpage";
 import { Grid } from "../grid";
+import { Arrow } from "../arrow";
 
 type Props = {
   meta: Metadata;
@@ -139,7 +140,7 @@ export function BlogPost(props: Props) {
               className={styles.subscribe_input}
             />
             <button type="submit" className={styles.subscribe_submit}>
-              <span>Subscribe</span>
+              <Arrow className={styles.subscribe_arrow} text="Subscribe" />
             </button>
             <input type="hidden" name="u" value="a7ac7926ed477a5e810ed46f7" />
             <input type="hidden" name="id" value="51b196576b" />{" "}
