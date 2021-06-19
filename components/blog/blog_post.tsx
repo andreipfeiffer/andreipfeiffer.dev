@@ -103,7 +103,9 @@ export function BlogPost(props: Props) {
             </div>
             <div className={styles.readtime}>
               <div className={styles.meter}>
-                <span style={{ width: `${readTimePercent}%` }}></span>
+                <span
+                  style={{ width: `${Math.min(readTimePercent, 100)}%` }}
+                ></span>
               </div>
               <Text size="m02" color="muted" align="end">
                 {readTime.text}
