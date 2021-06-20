@@ -2,6 +2,23 @@
 
 .link:any-link {
   text-decoration: none;
+  display: block;
+
+  & > h2,
+  & > p {
+    transition: all 0.5s;
+  }
+}
+
+@media (hover: hover) {
+  .link:hover {
+    & > h2 {
+      transform: translateY(-10px);
+    }
+    & > p {
+      transform: translateY(-20px);
+    }
+  }
 }
 
 .title {
