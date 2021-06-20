@@ -17,6 +17,8 @@ import { TagsList } from "./tags_list";
 import { Fullpage } from "./fullpage";
 import { Grid } from "../grid";
 import { Arrow } from "../arrow";
+import Link from "next/link";
+import { Flex } from "../flex";
 
 type Props = {
   meta: Metadata;
@@ -81,12 +83,23 @@ export function BlogPost(props: Props) {
         <meta property="twitter:creator" content="@pfeiffer_andrei" />
       </Head>
 
-      {breakpoint && <Spacer vertical="100" />}
+      {breakpoint && <Spacer vertical="80" />}
 
       <article className={styles.post}>
         <header>
           <Fullpage>
-            <Grid.Full>
+            <Grid.Full className={styles.title}>
+              <Link href="/blog">
+                <a onClick={() => router.back()} className={styles.back}>
+                  <Flex type="inline" gap="16" align="center" as="span">
+                    <Arrow direction={"left"} />
+                    <Text size="m01">Back to Articles</Text>
+                  </Flex>
+                </a>
+              </Link>
+
+              <Spacer vertical={breakpoint ? "40" : "24"} />
+
               <h1 className={styles.h1}>{meta.title}</h1>
             </Grid.Full>
           </Fullpage>
