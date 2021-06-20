@@ -3,15 +3,8 @@ import { Subheading } from "../../../components/blog/subheading";
 import { Note } from "../../../components/blog/note";
 import { SideBySide, Side } from "../../../components/blog/sidebyside";
 
-export const meta = {
-  title: "Distinguishing between pages and components in Next.js",
-  date: "2021-06-04",
-  tags: ["javascript", "react", "Next.js"],
-  intro:
-    "In Next.js we can customize what file extensions should be considered as pages. This enables us to create components inside the pages folder without generating unneeded routes.",
-  isPublished: true,
-  isArchived: false,
-};
+import { meta } from "./meta";
+export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 

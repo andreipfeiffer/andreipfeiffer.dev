@@ -6,16 +6,8 @@ import { Figure } from "../../../components/blog/figure";
 import { ListFlex } from "./ListFlex";
 import { ListGrid } from "./ListGrid";
 
-export const meta = {
-  title: "Definition lists with grid layout",
-  date: "2020-11-06",
-  tags: ["css", "html", "layout", "grid", "flex"],
-  cover: "/images/blog/cover-definition-lists-with-column-flow-grid-layout.png",
-  intro:
-    "In this post, we'll examine various implementations for a given layout, using both flex and grid, debating the robustness of each approach. The layout contains a horizontal list of 3 key-value pairs, the values being displayed beneath the labels.",
-  isPublished: true,
-  isArchived: false,
-};
+import { meta } from "./meta";
+export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 

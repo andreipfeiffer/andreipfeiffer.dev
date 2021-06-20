@@ -3,24 +3,8 @@ import { Note } from "../../../components/blog/note";
 import { Subheading } from "../../../components/blog/subheading";
 import Link from "next/link";
 
-export const meta = {
-  title: "Empty objects initialization with TypeScript",
-  date: "2020-12-27",
-  tags: [
-    "typescript",
-    "javascript",
-    "objects",
-    "arrays",
-    "types",
-    "empty objects",
-  ],
-  // @todo add cover
-  // cover: "/images/blog/cover-definition-lists-with-column-flow-grid-layout.png",
-  intro:
-    "We'll examine multiple methods to initialize empty objects in TypeScript, which is something you'll probably have to deal with in any application that has some form of state management.",
-  isPublished: true,
-  isArchived: false,
-};
+import { meta } from "./meta";
+export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 

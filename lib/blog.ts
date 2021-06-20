@@ -82,6 +82,7 @@ export interface Metadata {
   date: string;
   title: string;
   tags: Tag[];
+  tags_extra: string[];
   /** og:image url */
   cover?: string;
   /** text content displayed on the listing page */
