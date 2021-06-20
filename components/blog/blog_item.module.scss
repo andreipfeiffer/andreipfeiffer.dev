@@ -8,15 +8,24 @@
   & > p {
     transition: all 0.5s;
   }
+
+  & > h2 {
+    background-image: linear-gradient(var(--color), var(--color));
+    background-size: 0% 2px;
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    display: inline;
+    padding-bottom: 2px;
+  }
 }
 
 @media (hover: hover) {
   .link:hover {
     & > h2 {
-      transform: translateY(-10px);
+      background-size: 100% 2px;
     }
     & > p {
-      transform: translateY(-20px);
+      transform: translateY(-10px);
     }
   }
 }
