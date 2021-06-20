@@ -1,3 +1,5 @@
+const POSTS_PER_PAGE = 25;
+
 /**
  * Blog posts are read from the file system:
  * - each post has its own folder, the folder name being the unique "id"
@@ -36,8 +38,6 @@ export function getAllTags(): Tag[] {
 
   return [...tags];
 }
-
-const POSTS_PER_PAGE = 2;
 
 export function getPostsForPage(page: number): Post[] {
   return getPublishedPosts().filter(
