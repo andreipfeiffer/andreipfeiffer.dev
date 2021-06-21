@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import useDarkMode from "use-dark-mode";
 import readingTime from "reading-time";
@@ -17,8 +18,8 @@ import { TagsList } from "./tags_list";
 import { Fullpage } from "./fullpage";
 import { Grid } from "../grid";
 import { Arrow } from "../arrow";
-import Link from "next/link";
 import { Flex } from "../flex";
+import { Box } from "../box";
 
 type Props = {
   meta: Metadata;
@@ -135,10 +136,10 @@ export function BlogPost(props: Props) {
 
         <Tags tags={meta.tags} />
 
-        <aside className={styles.subscribe}>
+        <Box bg="primary" as="aside" className={styles.subscribe}>
           <Text size="h03">Subscribe for updates</Text>
           <br />
-          <Text color="muted" as="p" className={styles.subscribe_desc}>
+          <Text as="p" className={styles.subscribe_desc}>
             Get new blog posts in your email as soon as they get published:
           </Text>
 
@@ -156,12 +157,16 @@ export function BlogPost(props: Props) {
               className={styles.subscribe_input}
             />
             <button type="submit" className={styles.subscribe_submit}>
-              <Arrow className={styles.subscribe_arrow} text="Subscribe" />
+              <Arrow
+                className={styles.subscribe_arrow}
+                color="dark"
+                text="Subscribe"
+              />
             </button>
             <input type="hidden" name="u" value="a7ac7926ed477a5e810ed46f7" />
             <input type="hidden" name="id" value="51b196576b" />{" "}
           </form>
-        </aside>
+        </Box>
       </article>
     </Layout>
   );
