@@ -1,5 +1,6 @@
-.tag {
+.tag:any-link {
   display: flex;
+  text-decoration: none;
 
   &::before {
     content: "";
@@ -9,5 +10,9 @@
     height: 15px;
     border-radius: 6px;
     margin-right: 0.5em;
+  }
+
+  &:hover {
+    text-decoration: underline;
   }
 }

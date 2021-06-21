@@ -116,6 +116,7 @@ export function BlogPost(props: Props) {
                 <FormattedDate date={meta.date} />
               </Text>
             </div>
+
             <div className={styles.readtime}>
               <div className={styles.meter}>
                 <span

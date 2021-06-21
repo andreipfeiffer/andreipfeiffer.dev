@@ -1,4 +1,6 @@
+import Link from "next/link";
 import React from "react";
+
 import { Text } from "../../components/text";
 import { TAGS, Tag as TagType } from "../../lib/blog";
 
@@ -13,10 +15,12 @@ export function Tag({ tag }: Props) {
   const tag_style = { ["--tag-color"]: color } as React.CSSProperties;
 
   return (
-    <div style={tag_style} className={styles.tag}>
-      <Text size="h06" as="strong" display="block" color="default">
-        <span>{name}</span>
-      </Text>
-    </div>
+    <Link href={`/blog/tag/${tag}`}>
+      <a style={tag_style} className={styles.tag}>
+        <Text size="h06" as="strong" display="block" color="default">
+          <span>{name}</span>
+        </Text>
+      </a>
+    </Link>
   );
 }
