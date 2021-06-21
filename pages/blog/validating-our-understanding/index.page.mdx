@@ -1,0 +1,35 @@
+import { BlogPost } from "../../../components/blog/blog_post";
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+There are various levels of understanding a specific concept. We might _really understand it_ or we might _think we understand it_, depending on where we fit in regard to the [circle of competence](https://en.wikipedia.org/wiki/Circle_of_competence).
+
+There is no absolute measurement tool or technique to determine our level of understanding. However, there
+are some heuristics that could help figuring out where we fit, which I find to be quite precise.
+
+## Keeping it short
+
+Whenever I have to use many words to explain something, it usually means that I'm not understanding it very thouroughly. Being able to explain shortly, clearly and concise can be a useful metric to evaluate our level of understanding.
+
+For instance, a few years ago I would probably explain "refactoring" like so:
+
+> Refactoring is the process of changing our code, sometimes moving it around or even deleting parts of it, but without changing the implementation of features and the actual functionality of the code. Doing this will help us to extend it more easily in the future, while also becoming easier to understand by any developer.
+
+Currently I could rephrase the above explanation more concisely:
+
+> Refactoring is the process of restructuring our code, without affecting it's behaviour, making it more maintainable.
+
+If we're able to explain something in a concise way, we could always elaborate and go into more details. The opposite however, is not always true.
+
+## Using an analogy
+
+We could go one step further and try to explain something using a metaphor or an analogy. This method is a powerful hint that we really understand a specific topic. It's also very useful for the other persons, because they can better relate and understand our explanation.
+
+> **Refactoring is similar to home maintenance**: we have daily duties such as washing the dishes, weekly duties such as taking the trash out, or less frequent duties such as repaiting the walls.
+
+---
+
+It's worth mentioning that understading is an interative process that requires a lot of practice until we [_get it_](https://www.youtube.com/watch?v=MFzDaBzBlL0). A more formal process that we can use is the [The Feynman Technique](https://fs.blog/2021/02/feynman-learning-technique/).
