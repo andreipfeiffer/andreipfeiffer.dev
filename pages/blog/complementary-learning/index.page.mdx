@@ -1,0 +1,179 @@
+import { BlogPost } from "../../../components/blog/blog_post";
+import { Note } from "../../../components/blog/note";
+import { Subheading } from "../../../components/blog/subheading";
+import { Figure } from "../../../components/blog/figure";
+
+import img from "./complementary-learning.png";
+import Image from "next/image";
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+There are many standard methods for learning. For example, we can take **full courses** that help us learn the basics of a programming language, a framework, or a library. Attending **workshops** is better suited for more advanced, but narrower topics. There are tons of **articles** which are useful for very focused problems. Or we can **read books** which usually cover broad topics, in a comprehensive fashion.
+
+The next step is to practice what we've learned. **A lot of practice**. Similar to playing any musical instrument or training for a physical activity, practicing takes the majority of the effort, not learning the basics. But still, there's a limited amount of knowledge that we can achieve, even if we combine the theory with the practice.
+
+<br />
+
+<Figure
+  caption="Complementary learning depicted as the underwater part of an aisberg"
+  background={"#fff"}
+>
+
+  <Image src={img} width="1920" height="1080" />
+</Figure>
+
+<br />
+
+Below is a non-comprehensive and random list of techniques that we can use to continue and complement our learning process. They apply equally to any level, from beginner to expert. Also, most of them are not strictly related to software development or the tech industry and could be applied to any domain.
+
+## Asking questions
+
+Most people feel that asking questions makes them feel stupid. To be honest, it's ok to feel stupid. I even encourage it. I'm stupid, [Simon Sinek is an idiot](https://www.youtube.com/watch?v=FopnEc213Vc).
+
+Feeling stupid only means that I have a lot to learn. That's why I ask lots of questions, which often end up in deep and insightful conversations.
+
+> Asking a question is an invitation to a dialogue
+
+Here are some of the questions that I often raise either during meetings or while coding:
+
+- What does [...] mean?
+- You said that [...] What do you mean by that?
+- No, I don't understand. Could you please explain it again slower?
+- How would you have implemented this?
+- Do you find something wrong with this code?
+- Can you please review and give me some feedback on this? I spent too much time and I cannot see it objectively.
+- I'm out of ideas, can you please help me out a bit?
+
+<br />
+
+Learning the **what** and **how** are without a doubt important steps in our learning. The next step is to understand the **why**:
+
+- Why do we need this here?
+- Why have you used that approach?
+- Why is this better than the other?
+- Why is it so important to do that?
+- Please remind me again: why do we need this feature?
+
+Answering the **why** plays a crucial role in understanding the work that we do, the tools that we use, and the software that we build.
+
+<Note>
+  To get an explicit answer, we must ask precise questions. Abstract questions
+  will always lead to vague answers.
+</Note>
+
+## Reading others' code
+
+Writting code is necessary to become comfortable with a specific language, or framework. But we can even more by observing how do others write code.
+
+- Whenever I end up on a website that has an interesting piece of interface, I inpect it, **analyse the source code**, and try to understand how it was implemented.
+- When I analyze the source code of a webpage, I **search for HTML tags or a CSS properties that I don't know about**, to learn what they do. They might not be useful at that moment, but knowing about them could play an important role in the future.
+- When I decide that I want to use some open source code or a tiny library, I look at the code, trying to understand how it solves the problem that I'm facing.
+- Whenever a teammate add any code to the repository we're working on, I **look at the commits**. It helps me stay up-to-date with the code updates, while also practising code reading.
+
+Keep in mind that we usually read a lot more code than we write, so getting comfortable with reading code is a valuable trait to have.
+
+## Exercising our brain
+
+Similar to how athletes exercise regularly so they don't get out of shape or artists that practice their skills, we as software developers should apply the same tactic.
+
+<Subheading>Code Katas</Subheading>
+
+Code Katas are short exercises that we can perform multiple times, often ending up with different solutions. They can range from algorithms, data processing using strings, lists or more complex data structures, performance or logical challenges.
+
+[codewars.com](https://www.codewars.com/) is a great place to start as it provides a wide range of katas, structured by difficulty and available in countless programming languages.
+
+<Subheading>One problem, multiple solutions</Subheading>
+
+Almost any problem we'll encounter will have multiple solutions, solving the same problem, but in different ways and with different drawbacks. Exercising more than one approach to the same problem will help us improve our skillset, achieving multilateral views, questioning solutions, and finding the best one for a particular problem.
+
+- Implementing the same code using different paradigms, like imperative, object-oriented, or functional.
+- Using two or more similar libraries to implement the same code. Comparing their performance or analyzing their strong and weak points could be a follow-up.
+- Refactoring our teammates code to explore if we can simplify it.
+
+<Subheading>Playing around</Subheading>
+
+We can learn a lot by working on silly projects that no one will ever use, or simply just doing something _fun_.
+
+- Inventing a language to understand how parsers work.
+- Building a tiny game such as Game of Life, Tic-Tac-Toe, or [others](https://inventwithpython.com/blog/2012/02/20/i-need-practice-programming-49-ideas-for-game-clones-to-code/).
+
+## Reinventing the wheel
+
+We're often told to avoid reinventing the wheel, because it's a waste of time and that we should reuse as much code as possible. In application development this holds true in the majority of situations.
+
+But when the purpose is learning, reinventing the wheel is a tremendous valuable practice. I don't think there's a better way to fully understand how something works internally until we actually try building it ourselves. The purpose is not to build a better solution, but to understand how an existing one works:
+
+- Using plain vanilla code and native APIs, without any libraries or frameworks, to re-implement a simple library.
+- Building from scratch a simplified version of more complex libraries.
+
+## Understanding the cause
+
+We'll often have to deal with bugs or issues in our code. We could fix them and move on, even if we don't fully understand what exactly caused them. This is a job only half done and also a missed learning opportunity.
+
+The same applies when we treat the symptons and not the cause of a disease. It works on the short term, but the same symptoms will most probably occur again in the future.
+
+Understanding why a problem occured or what actually caused it could be a very long journey. It could take hours, days, or even weeks. But the benefit will be proportional with the effort. Not only will we [understand more profoundly the system](https://staltz.com/the-single-tip-that-made-me-a-better-programmer.html) we're working on, but all the experiences during our research will further enrich our knowledge. It's a unique learning opportunity that we shouldn't ignore.
+
+## Finding our mentors
+
+Learning from our own experience is absolutely necessary. But our time is limited, so we must also learn from others' experiences as well. And what better way to do that than finding someone that can influence and guide our learning further.
+
+There are many types of [mentorship](https://en.wikipedia.org/wiki/Mentorship). There's the _formal mentorship_, when we get a dedicated mentor to guide us. And there's the _informal mentorship_, when we choose our own mentor.
+
+There's no recipe or de-facto approach to this, but here are some guidelines:
+
+- The first and most important thing is to **find a person that inspires us**, that we look up to, that has a lot of wisdom to offer. It could be a friend, a colleague, a friend of a friend, someone we saw at a local meetup, or a speaker we heard at a conference.
+- The next step is to **get in touch with them**, but avoiding straightforward questions like _Would you be my mentor?_ Depending on the person, there are various, more subtle ways to get their attention: ask them for feedback about a project we're working on; ask them for professional opinions; be curious about a particular project they're working on.
+- If the mentor is involved in any particular activity where we could contribute, we should take any available opportunity to volunteer. The goal is to **spend time with our mentor**, observe how they work, how they think, how they act, and absorbing any valuable insights.
+
+<Subheading>Can't find a nearby mentor?</Subheading>
+
+An alternative would be to look for them online. Even if we can't get in touch with the people that inspire us, they surely write or talk about it, so we should absorb all the wisdom that they share.
+
+I had my own _remote mentors_ that I never met and don't even know that I exist: Nicholas Zakas, Lea Verou, Robert C. Martin, Sandi Metz, or Simon Synek just to name a few.
+
+## Learning by teaching
+
+Have you ever felt unable to explain a particular concept to somebody else, even though you thought you understand it? It happened to me countless times. I was probably out my [circle of competence](https://en.wikipedia.org/wiki/Circle_of_competence).
+
+I guess there's a difference between _knowing_ about something and actually _feeling_ it. For example, I know about _polymorphism_. I've read the theory and I've even applied it a couple of times in the past. But if were to explain it to somebody else, it wouldn't be easy. If I were to apply today, it wouldn't come naturally to me. If I were to identify it in the code, I would probably scratch my head. This occurs because **I lack the practice**. I'm not really feeling it and I'm not comfortable using it. **We're acquaintances, but not close friends.**
+
+So, if I don't fully understand polymorphism how could I teach it to somebody else? Trying to teach it, or to explain it verbally will force us to practice it, experiment with it, understand it better, and eventually become close friends.
+
+<br />
+
+There are various ways we can approach teaching:
+
+- **Writting about it** can help in putting our thoughts in order. We could start writting on a private document, but we could also publish it on our personal website or on the company blog.
+
+- **Preparing a presentation** is quite different than writting about something. Personally, I'm more comfortable to talk about a topic, than writting about it. We could start with small presentations inside our company, having our colleagues as audience. Next, we could attend local meetups, which are a friendly environment, always looking for speakers, and IMHO the best way to practice.
+
+- **Hands-on workshops or trainings** are a bit more involved than presentations, because they are usually longer, so they also take more time to prepare. They also dive deeper into the topic than a presentation or article, so preparing for a workshop will force us to gain even more understanding on the topic.
+
+- **Mentoring an intern or a junior colleague** is probably the ultimate and most thourough teaching method. It usually takes weeks or months, being the longest form of teaching.
+
+<Note>
+  Formal mentorships usually involve a small number of mentees, enabling two-way
+  communication easily, thus having a low{" "}
+  <a href="https://en.wikipedia.org/wiki/Efficiency#:~:text=Efficiency%20is%20very%20often%20confused%20with%20effectiveness.">
+    efficiency
+  </a>
+  , but a high <a href="https://en.wikipedia.org/wiki/Effectiveness">
+    effectiveness
+  </a>.
+  <br />
+  <br />
+  All other types of teaching are mostly communicated one-way, because it's
+  practical impossible to have dialogs with everybody in the audience.
+</Note>
+
+Teaching is a powerful method to continue our learning journey. Trying to teach will force us to re-learn the topic, expand our knowledge, and get a deeper and wider understanding.
+
+---
+
+There is no particular order or a certain frequency regarding the practice of the above learning techniques. We don't have to do it everyday. We have the freedom to decide what and how we want to learn.
+
+Learning is a neverending journey. There is no finish line...
