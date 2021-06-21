@@ -143,7 +143,7 @@ export const TAGS: { [key in Tag]: TagDetails } = {
     name: "Software entropy",
     color: "#e343ff",
     description:
-      "Personal thoughts related to software development and design, principles and practices, not bound to a specific language or tehnology, on fighting software entropy and code rot.",
+      "Personal thoughts on fighting software entropy: principles, practices, code design and more.",
   },
   misc: {
     name: "Miscellaneous",
