@@ -45,7 +45,7 @@ export default function PostsByTag(props: Props) {
 
         <Spacer vertical="32" />
 
-        <TagsList tags={tags} />
+        <TagsList tags={tags} activeTag={tag} />
       </Grid.Full>
 
       <Spacer vertical="60" />

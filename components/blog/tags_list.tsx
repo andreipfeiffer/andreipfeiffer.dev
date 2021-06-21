@@ -8,12 +8,13 @@ import styles from "./tags_list.module.scss";
 
 type Props = {
   tags: TagType[];
+  activeTag?: TagType;
 };
 
-export function TagsList({ tags }: Props) {
+export function TagsList({ tags, activeTag }: Props) {
   const tags_list = tags
     .map((tag) => {
-      const tag_name = TAGS[tag]?.name;
+      const tag_name = TAGS[tag].name;
 
       // some tags might not be added as separate pages
       // we'll exclude them from the listing, but they will appear in the head for SEO
@@ -27,7 +28,7 @@ export function TagsList({ tags }: Props) {
           key={tag}
           href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}
         >
-          <Button as="a" bg="muted">
+          <Button as="a" bg={activeTag === tag ? "primary" : "muted"}>
             {tag_name}
           </Button>
         </Link>
