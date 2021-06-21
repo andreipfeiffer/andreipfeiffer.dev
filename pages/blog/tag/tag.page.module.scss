@@ -5,3 +5,13 @@
   padding: 0;
   list-style-type: none;
 }
+
+.back:any-link {
+  text-decoration: none;
+  padding: 1em 0;
+  display: inline-block;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

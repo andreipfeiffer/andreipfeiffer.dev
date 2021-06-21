@@ -2,6 +2,7 @@ import React from "react";
 import { GetStaticProps, GetStaticPaths } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { BlogItem } from "../../../components/blog/blog_item";
 import { Flex } from "../../../components/flex";
@@ -14,6 +15,7 @@ import { getPostsByTag, getAllTags, Post, TAGS, Tag } from "../../../lib/blog";
 
 import styles from "./tag.page.module.scss";
 import { TagsList } from "../../../components/blog/tags_list";
+import { Arrow } from "../../../components/arrow";
 
 type Props = {
   posts: Post[];
@@ -37,6 +39,17 @@ export default function PostsByTag(props: Props) {
       {breakpoint && <Spacer vertical="100" />}
 
       <Grid.Full>
+        <Link href="/blog">
+          <a className={styles.back}>
+            <Flex type="inline" gap="16" align="center" as="span">
+              <Arrow direction={"left"} />
+              <Text size="m01">Back to Blog</Text>
+            </Flex>
+          </a>
+        </Link>
+
+        <Spacer vertical={breakpoint ? "40" : "24"} />
+
         <Text size="h00" as="h1">
           Tag: {name}
         </Text>
