@@ -98,7 +98,7 @@ export type Tag =
   | "react"
   | "javascript"
   | "typescript"
-  | "thoughts"
+  | "entropy"
   | "misc";
 // | "ui_development"
 // | "react_native";
@@ -139,11 +139,11 @@ export const TAGS: { [key in Tag]: TagDetails } = {
     description:
       "Articles related to TypeScript features or type systems in general",
   },
-  thoughts: {
-    name: "Thoughts",
+  entropy: {
+    name: "Software entropy",
     color: "#e343ff",
     description:
-      "Personal thoughts related to software development and design, principles and practices, not bound to a specific language or tehnology.",
+      "Personal thoughts related to software development and design, principles and practices, not bound to a specific language or tehnology, on fighting software entropy and code rot.",
   },
   misc: {
     name: "Miscellaneous",

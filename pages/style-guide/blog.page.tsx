@@ -202,8 +202,8 @@ export default function BlogPostPreview() {
           <Tag tag="javascript" />
           <Tag tag="typescript" />
           <Tag tag="react" />
-          <Tag tag="thoughts" />
-          {/* <Tag tag="react_native" /> */}
+          <Tag tag="entropy" />
+          <Tag tag="misc" />
           {/* <Tag tag="ui_development" /> */}
         </Flex>
       </>
