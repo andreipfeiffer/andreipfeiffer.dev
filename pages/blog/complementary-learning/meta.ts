@@ -7,6 +7,6 @@ export const meta: Metadata = {
   tags_extra: ["learning", "asking", "understanding"],
   intro:
     "We took some courses, attended a few workshops and read a ton of articles. We have even worked on a couple of projects. What's next?",
-  isPublished: true,
+  isPublished: false,
   isArchived: false,
 };
