@@ -2,6 +2,8 @@
   --height: 36px;
   --cutoff: calc(var(--height) / 3);
   --spacing: 24px;
+  --bg: var(--primary);
+
   border: 0;
   padding: 0;
   margin: 0;
@@ -16,7 +18,7 @@
 .button_inner {
   position: relative;
   height: var(--height);
-  background-color: var(--primary);
+  background-color: var(--bg);
   text-decoration: none !important;
   display: inline-flex;
   color: var(--dark) !important;
@@ -58,4 +60,13 @@
   --height: 60px;
   --cutoff: calc(var(--height) / 3);
   --spacing: 40px;
+}
+
+.button_muted {
+  --bg: #12121222;
+
+  [data-darkmode="true"] & {
+    --bg: #ffffff66;
+    // color: white !important;
+  }
 }

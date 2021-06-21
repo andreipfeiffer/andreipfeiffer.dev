@@ -11,11 +11,20 @@ type Props = {
   as?: "button" | "a";
   size?: "regular" | "large";
   title?: string;
+  bg?: "primary" | "muted";
 };
 
 export const Button = React.forwardRef(
   (
-    { children, href, onClick, as = "button", size = "regular", title }: Props,
+    {
+      children,
+      href,
+      onClick,
+      as = "button",
+      size = "regular",
+      title,
+      bg = "primary",
+    }: Props,
     ref
   ) => {
     if (as === "a" && !href) {
@@ -44,6 +53,7 @@ export const Button = React.forwardRef(
           _default && styles.button_default,
           {
             [styles.button_large]: size === "large",
+            [styles.button_muted]: bg === "muted",
           }
         )}
       >

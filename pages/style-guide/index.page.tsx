@@ -328,6 +328,10 @@ export default function Talks() {
               Custom
             </Text>
           </Button>
+
+          <Button onClick={() => alert("clicked")} bg="muted">
+            Muted
+          </Button>
         </Flex>
 
         <br />

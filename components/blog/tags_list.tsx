@@ -27,7 +27,9 @@ export function TagsList({ tags }: Props) {
           key={tag}
           href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}
         >
-          <Button as="a">{tag_name}</Button>
+          <Button as="a" bg="muted">
+            {tag_name}
+          </Button>
         </Link>
       );
     })
