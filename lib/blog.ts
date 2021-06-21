@@ -91,7 +91,6 @@ export interface Metadata {
   isArchived: boolean;
 }
 
-// export type Tag = keyof typeof TAGS;
 export type Tag =
   | "css"
   | "html"
@@ -100,8 +99,6 @@ export type Tag =
   | "typescript"
   | "entropy"
   | "misc";
-// | "ui_development"
-// | "react_native";
 
 interface TagDetails {
   name: string;
@@ -150,12 +147,4 @@ export const TAGS: { [key in Tag]: TagDetails } = {
     color: "#888888",
     description: "Articles that don't fall under any specific category.",
   },
-  // ui_development: { name: "UI Development", color: "#ff4343" },
-  // react_native: { name: "React Native", color: "#47d07c" },
-  // tutorial
-  // how_to
-  // opinions
-  // analysis
 };
-
-// Unions of object keys in TypeScript
