@@ -184,3 +184,11 @@ code {
 .bg-primary .muted {
   opacity: 0.7;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  :focus {
+    transition: outline-offset 0.25s ease;
+    outline-offset: 5px;
+    outline-color: dodgerblue;
+  }
+}
