@@ -61,7 +61,7 @@ export default function PostsByTag(props: Props) {
 
       <Spacer vertical="60" />
 
-      <Flex as="ul" type="stack" gap="140" className={styles.list}>
+      <Flex as="ul" type="stack" gap="100" className={styles.list}>
         {posts.map((post) => (
           <BlogItem post={post} key={post.id} />
         ))}
