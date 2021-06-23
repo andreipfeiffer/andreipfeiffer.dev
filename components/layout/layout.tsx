@@ -10,6 +10,8 @@ import { Footer } from "./footer";
 import styles from "./layout.module.scss";
 
 export const SITE_TITLE = "Andrei Pfeiffer, personal website & blog";
+export const SITE_DESCR =
+  "Hi, I'm Andrei Pfeiffer, an Ecletic Code Designer, UI developer for Web and Mobile, Organizer of revo.js conference &amp; tim.js meetup";
 
 type Props = {
   className?: string;
@@ -53,10 +55,7 @@ export function Layout(props: Props) {
         ></meta>
 
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="Andrei Pfeiffer, Ecletic Code Designer, UI developer for Web and Mobile, Organizer of revo.js conference &amp; tim.js meetup"
-        />
+        <meta name="description" content={SITE_DESCR} />
         {/* <meta
           property="og:image"
           content={`https://og-image.now.sh/${encodeURI(
