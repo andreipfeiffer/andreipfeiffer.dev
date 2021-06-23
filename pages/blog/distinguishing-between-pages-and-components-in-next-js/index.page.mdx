@@ -30,7 +30,7 @@ For example, the above structure will create 3 routes: `/blog`, `/BlogPost` and 
   </code> extensions.
 </Note>
 
-<br />
+<Subheading>Named exports are invalid</Subheading>
 
 Another thing to keep in mind is that any component inside the `/pages` folder must define a `default export`. Otherwise, we'll get a build error:
 
@@ -117,9 +117,9 @@ app/
 
 ... the build step will only generate the `/blog` route for the `blog.page.tsx` and skip any components that don't match the `page.tsx` extension.
 
-<br />
+<Subheading>Named exports are valid</Subheading>
 
-Another minor benefit we get with this approach is that we can safely **use named exports** from our components because the build system will not treat them as pages anymore.
+Another minor benefit we get with this approach is that we can safely **use named exports** from our components because the build system will not treat them as pages anymore. Keep in mind that we do need to use default exports for any of the files that we have configured to be rendered as pages, like `blog.page.tsx` for example.
 
 <hr />
 
