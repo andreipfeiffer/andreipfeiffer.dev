@@ -32,12 +32,14 @@
 
 @font-face {
   font-family: "Soehne";
-  src: url("/fonts/soehne-test-buch.woff") format("woff");
+  src: url("/fonts/soehne-web-buch.woff2") format("woff2"),
+    url("/fonts/soehne-web-buch.woff") format("woff");
   font-display: swap;
 }
 @font-face {
   font-family: "Soehne";
-  src: url("/fonts/soehne-test-dreiviertelfett.woff") format("woff");
+  src: url("/fonts/soehne-web-dreiviertelfett.woff2") format("woff2"),
+    url("/fonts/soehne-web-dreiviertelfett.woff") format("woff");
   font-weight: bold;
   font-display: swap;
 }
