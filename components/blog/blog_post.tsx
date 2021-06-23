@@ -73,16 +73,24 @@ export function BlogPost(props: Props) {
         ></link>
 
         <meta property="og:title" content={meta.title} />
+        <meta property="og:description" content={meta.intro} />
         <meta property="og:site_name" content="andreipfeiffer.dev" />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`${WEB_URL}${router.pathname}`} />
         <meta property="og:article:published_time" content={meta.date} />
         <meta property="og:article:author" content="Andrei Pfeiffer" />
         <meta property="og:article:tag" content={meta_tags} />
         {!!meta.cover && (
-          <meta property="og:image" content={`${WEB_URL}${meta.cover}`} />
+          <>
+            <meta property="og:image" content={`${WEB_URL}${meta.cover}`} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta name="twitter:image" content={`${WEB_URL}${meta.cover}`} />
+          </>
         )}
-        <meta property="twitter:creator" content="@pfeiffer_andrei" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.intro} />
+        <meta name="twitter:creator" content="@pfeiffer_andrei" />
       </Head>
 
       {breakpoint && <Spacer vertical="80" />}
