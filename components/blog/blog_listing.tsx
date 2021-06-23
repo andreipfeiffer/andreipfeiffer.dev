@@ -48,7 +48,7 @@ export function BlogListing(props: BlogListingProps) {
 
       <Spacer vertical="100" />
 
-      <Grid.Full>
+      <Grid.Full className={styles.page_nav}>
         {renderPrevPage()}
         {renderNextPage()}
       </Grid.Full>

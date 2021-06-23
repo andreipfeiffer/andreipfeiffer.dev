@@ -17,9 +17,9 @@
 
 .page_nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 
-  @include breakpoint(md) {
+  @include breakpoint(sm) {
     justify-content: flex-start;
   }
 }
