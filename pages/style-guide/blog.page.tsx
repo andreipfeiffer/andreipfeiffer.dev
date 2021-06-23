@@ -156,15 +156,9 @@ export default function BlogPostPreview() {
 
         <br />
 
-        <Fullpage padded>
-          <Img body="Full page content slightly padded" />
-        </Fullpage>
-
-        <br />
-
         <Fullpage>
           <Grid.Full>
-            <Img body="Full grid content can be composed also" />
+            <Img body="Full grid content can be composed" />
           </Grid.Full>
         </Fullpage>
 

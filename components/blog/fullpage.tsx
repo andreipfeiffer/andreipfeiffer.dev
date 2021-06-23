@@ -4,17 +4,8 @@ import styles from "./fullpage.module.scss";
 
 type Props = {
   children: React.ReactNode;
-  padded?: boolean;
 };
 
-export function Fullpage({ children, padded = false }: Props) {
-  return (
-    <div
-      className={classNames(styles.full, {
-        [styles.padded]: padded,
-      })}
-    >
-      {children}
-    </div>
-  );
+export function Fullpage({ children }: Props) {
+  return <div className={classNames(styles.full)}>{children}</div>;
 }
