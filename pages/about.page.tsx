@@ -1,15 +1,16 @@
-import Head from "next/head";
-import { Layout, SITE_TITLE } from "../components/layout";
+import React from "react";
 import Link from "next/link";
-import styles from "./about.module.css";
+
+import { Layout } from "../components/layout";
+import { MetaTags, META_TITLE } from "../components/meta_tags";
 import { getAge } from "../lib/utils";
+
+import styles from "./about.module.css";
 
 export default function About() {
   return (
     <Layout className={styles.about}>
-      <Head>
-        <title>About me: {SITE_TITLE}</title>
-      </Head>
+      <MetaTags title={`About me: ${META_TITLE}`} />
 
       <h1>About me</h1>
       <p>I'm {getAge()} years old, living in Timişoara, Romania.</p>

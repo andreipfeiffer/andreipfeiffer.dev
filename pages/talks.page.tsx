@@ -1,15 +1,15 @@
 import React from "react";
-import Head from "next/head";
 import Image from "next/image";
 import classNames from "classnames";
 
-import { Layout, SITE_TITLE } from "../components/layout";
+import { Layout } from "../components/layout";
 import { useBreakpoint } from "../components/layout/useBreakpoint";
 import { Grid } from "../components/grid";
 import { Text } from "../components/text";
 import { Spacer } from "../components/spacer";
 import { Flex } from "../components/flex";
 import { Button } from "../components/button";
+import { MetaTags, META_TITLE } from "../components/meta_tags";
 
 import { talks, Talk } from "../lib/talks";
 
@@ -20,9 +20,7 @@ export default function Talks() {
 
   return (
     <Layout>
-      <Head>
-        <title>Talks and Live coding: {SITE_TITLE}</title>
-      </Head>
+      <MetaTags title={`Talks and Live coding: ${META_TITLE}`} />
 
       {breakpoint && <Spacer vertical="100" />}
 

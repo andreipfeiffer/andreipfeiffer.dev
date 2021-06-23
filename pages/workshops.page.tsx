@@ -1,20 +1,18 @@
 import React from "react";
-import Head from "next/head";
 
 import { Grid } from "../components/grid";
 import { Text } from "../components/text";
 import { Spacer } from "../components/spacer";
-import { Layout, SITE_TITLE } from "../components/layout";
+import { Layout } from "../components/layout";
 import { useBreakpoint } from "../components/layout/useBreakpoint";
+import { MetaTags, META_TITLE } from "../components/meta_tags";
 
 export default function Workshops() {
   const { breakpoint } = useBreakpoint();
 
   return (
     <Layout>
-      <Head>
-        <title>Workshops and Trainings: {SITE_TITLE}</title>
-      </Head>
+      <MetaTags title={`Workshops and Trainings: ${META_TITLE}`} />
 
       {breakpoint && <Spacer vertical="100" />}
 

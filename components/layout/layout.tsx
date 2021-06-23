@@ -8,10 +8,7 @@ import { Nav } from "./nav";
 import { Footer } from "./footer";
 
 import styles from "./layout.module.scss";
-
-export const SITE_TITLE = "Andrei Pfeiffer, personal website & blog";
-export const SITE_DESCR =
-  "Hi, I'm Andrei Pfeiffer, an Ecletic Code Designer, UI developer for Web and Mobile, Organizer of revo.js conference &amp; tim.js meetup";
+import { MetaTags } from "../meta_tags";
 
 type Props = {
   className?: string;
@@ -55,16 +52,6 @@ export function Layout(props: Props) {
         ></meta>
 
         <link rel="icon" href="/favicon.ico" />
-        <meta name="description" content={SITE_DESCR} />
-        {/* <meta
-          property="og:image"
-          content={`https://og-image.now.sh/${encodeURI(
-            siteTitle
-          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
-        /> */}
-        <meta property="og:title" content={SITE_TITLE} />
-        <meta property="og:type" content="website" />
-        <meta property="twitter:card" content="summary_large_image" />
 
         <link
           rel="apple-touch-icon"
@@ -93,6 +80,8 @@ export function Layout(props: Props) {
           rel="stylesheet"
         />
       </Head>
+
+      <MetaTags />
 
       {/* use this to have a static element before main, so we can center align main using flex */}
       <div style={{ height: "80px" }}>

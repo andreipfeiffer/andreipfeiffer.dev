@@ -1,24 +1,20 @@
-import Head from "next/head";
+import React from "react";
 
-import { Layout, SITE_TITLE } from "../../components/layout";
+import { Layout } from "../../components/layout";
 import { Grid } from "../../components/grid";
 import { Text } from "../../components/text";
 import { Box } from "../../components/box";
 import { Flex } from "../../components/flex";
 import { Button } from "../../components/button";
 import { Spacer } from "../../components/spacer";
+import { Arrow } from "../../components/arrow";
+import { Heading } from "../../components/style-guide/heading";
 
 import styles from "./style-guide.module.css";
-import { Heading } from "../../components/style-guide/heading";
-import { Arrow } from "../../components/arrow";
 
 export default function Talks() {
   return (
     <Layout>
-      <Head>
-        <title>Style Guide: {SITE_TITLE}</title>
-      </Head>
-
       <Grid.Full>
         <Heading text="Typography" />
 

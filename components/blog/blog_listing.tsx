@@ -1,5 +1,4 @@
 import React from "react";
-import Head from "next/head";
 import Link from "next/link";
 
 import { Grid } from "../grid";
@@ -15,6 +14,7 @@ import { Post } from "../../lib/blog";
 import styles from "./blog_listing.module.scss";
 import { BlogItem } from "../blog/blog_item";
 import { Arrow } from "../arrow";
+import { MetaTags } from "../meta_tags";
 
 export interface BlogListingProps {
   posts: Post[];
@@ -28,9 +28,7 @@ export function BlogListing(props: BlogListingProps) {
 
   return (
     <Layout>
-      <Head>
-        <title>Blog, Andrei Pfeiffer</title>
-      </Head>
+      <MetaTags title={`Blog, by Andrei Pfeiffer`} />
 
       {breakpoint && <Spacer vertical="100" />}
 

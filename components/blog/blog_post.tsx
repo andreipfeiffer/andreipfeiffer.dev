@@ -20,13 +20,13 @@ import { Grid } from "../grid";
 import { Arrow } from "../arrow";
 import { Flex } from "../flex";
 import { Box } from "../box";
+import { MetaTags } from "../meta_tags";
 
 type Props = {
   meta: Metadata;
   children: React.ReactElement;
 };
 
-const WEB_URL = "https://andreipfeiffer.dev";
 const MAX_READ_TIME = 10;
 
 export function BlogPost(props: Props) {
@@ -34,7 +34,7 @@ export function BlogPost(props: Props) {
   const router = useRouter();
   const { breakpoint } = useBreakpoint();
 
-  // not very acccurate, but good enough
+  // not very accurate, but good enough
   const readTime = readingTime(getReactNodeText(children));
   const readTimePercent = (Math.ceil(readTime.minutes) * 100) / MAX_READ_TIME;
 
@@ -43,11 +43,7 @@ export function BlogPost(props: Props) {
 
   const [email, setEmail] = React.useState("");
 
-  const meta_tags = meta.tags
-    .map((t) => TAGS[t].name)
-    .concat(meta.tags_extra)
-    .join(",");
-
+  const meta_tags = meta.tags.map((t) => TAGS[t].name).concat(meta.tags_extra);
   // copy url to clipboard when clicking headings link icon
   useEffect(() => {
     document.querySelectorAll(".headinglink").forEach((span) => {
@@ -66,32 +62,18 @@ export function BlogPost(props: Props) {
         <title>{meta.title}</title>
         <link rel="stylesheet" href={`/highlight.css`} />
         <link rel="stylesheet" href={`/highlight-${theme}.css`} />
-
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
           rel="stylesheet"
         ></link>
-
-        <meta property="og:title" content={meta.title} />
-        <meta property="og:description" content={meta.intro} />
-        <meta property="og:site_name" content="andreipfeiffer.dev" />
-        <meta property="og:type" content="article" />
-        <meta property="og:article:published_time" content={meta.date} />
-        <meta property="og:article:author" content="Andrei Pfeiffer" />
-        <meta property="og:article:tag" content={meta_tags} />
-        {!!meta.cover && (
-          <>
-            <meta property="og:image" content={`${WEB_URL}${meta.cover}`} />
-            <meta property="og:image:width" content="1200" />
-            <meta property="og:image:height" content="630" />
-            <meta name="twitter:image" content={`${WEB_URL}${meta.cover}`} />
-          </>
-        )}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={meta.title} />
-        <meta name="twitter:description" content={meta.intro} />
-        <meta name="twitter:creator" content="@pfeiffer_andrei" />
       </Head>
+
+      <MetaTags
+        title={meta.title}
+        description={meta.intro}
+        image={meta.cover}
+        article={{ tags: meta_tags, published_time: meta.date }}
+      />
 
       {breakpoint && <Spacer vertical="80" />}
 

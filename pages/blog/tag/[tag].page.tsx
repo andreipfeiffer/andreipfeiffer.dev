@@ -1,6 +1,5 @@
 import React from "react";
 import { GetStaticProps, GetStaticPaths } from "next";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -16,6 +15,7 @@ import { getPostsByTag, getAllTags, Post, TAGS, Tag } from "../../../lib/blog";
 import styles from "./tag.page.module.scss";
 import { TagsList } from "../../../components/blog/tags_list";
 import { Arrow } from "../../../components/arrow";
+import { MetaTags } from "../../../components/meta_tags";
 
 type Props = {
   posts: Post[];
@@ -32,9 +32,7 @@ export default function PostsByTag(props: Props) {
 
   return (
     <Layout>
-      <Head>
-        <title>Articles containing {name} tag</title>
-      </Head>
+      <MetaTags title={`Articles containing the ${name} tag`} />
 
       {breakpoint && <Spacer vertical="100" />}
 

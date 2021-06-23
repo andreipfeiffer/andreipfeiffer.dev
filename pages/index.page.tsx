@@ -1,7 +1,7 @@
-import Head from "next/head";
+import React from "react";
 // import Link from "next/link";
 
-import { Layout, SITE_TITLE } from "../components/layout";
+import { Layout } from "../components/layout";
 import { Text } from "../components/text";
 import { Grid } from "../components/grid";
 import { Spacer } from "../components/spacer";
@@ -9,10 +9,6 @@ import { Spacer } from "../components/spacer";
 export default function Home() {
   return (
     <Layout>
-      <Head>
-        <title>{SITE_TITLE}</title>
-      </Head>
-
       <Grid.Full>
         <Text size="h01" as="h1">
           Andrei Pfeiffer
