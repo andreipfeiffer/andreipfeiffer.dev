@@ -18,7 +18,7 @@ export function Tag({ tag }: Props) {
     <Link href={`/blog/tag/${tag}`}>
       <a style={tag_style} className={styles.tag}>
         <Text size="h06" as="strong" display="block" color="default">
-          <span>{name}</span>
+          {name}
         </Text>
       </a>
     </Link>
