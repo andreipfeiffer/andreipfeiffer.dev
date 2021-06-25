@@ -103,48 +103,56 @@ export type Tag =
 interface TagDetails {
   name: string;
   color: string;
+  text: "dark" | "light";
   description: string;
 }
 
 export const TAGS: { [key in Tag]: TagDetails } = {
   css: {
     name: "CSS",
-    color: "#3d9cd7",
+    color: "#3434FF",
+    text: "light",
     description:
       "Articles related to styling using either the plain CSS language, pre or post processors, tools, frameworks or methologies.",
   },
   html: {
     name: "HTML",
-    color: "#f2662b",
+    color: "#FF7829",
+    text: "light",
     description: "Articles related to web content, semantics or accessibility.",
   },
   react: {
     name: "React",
-    color: "#62dafb",
+    color: "#61DAFB",
+    text: "dark",
     description:
       "Articles related to any part of the React ecosystem, such as UI components design, JSX syntax, state management, or libraries and frameworks built on top of React.",
   },
   javascript: {
     name: "JavaScript",
-    color: "#f7e014",
+    color: "#F7DF1E",
+    text: "dark",
     description:
       "Articles related to ECMAScript language features, DOM / Node.js, libraries & frameworks or practices applied in UI and Front-End Development.",
   },
   typescript: {
     name: "TypeScript",
-    color: "#047acb",
+    color: "#1C8FDC",
+    text: "light",
     description:
       "Articles related to TypeScript features or type systems in general",
   },
   entropy: {
     name: "Software entropy",
-    color: "#e343ff",
+    color: "#9163FF",
+    text: "light",
     description:
       "Personal thoughts on fighting software entropy: principles, practices, code design and more.",
   },
   misc: {
     name: "Miscellaneous",
     color: "#888888",
+    text: "light",
     description: "Articles that don't fall under any specific category.",
   },
-};
+} as const;
