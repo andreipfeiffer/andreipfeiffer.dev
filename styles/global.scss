@@ -51,6 +51,9 @@ body {
   font-family: "Soehne", Arial, Helvetica, sans-serif;
   line-height: 1.65;
   font-size: 19px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 #__next {
