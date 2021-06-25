@@ -249,22 +249,23 @@
 }
 
 .subscribe {
-  margin-top: var(--section-spacing);
+  margin: calc(2 * var(--section-spacing)) 0;
   padding: 40px;
+  padding-bottom: 60px;
+
+  @include breakpoint(sm) {
+    max-width: 650px;
+  }
 
   form {
     position: relative;
     margin-top: 2em;
-
-    @include breakpoint(sm) {
-      width: 75%;
-    }
   }
+}
 
-  .subscribe_desc {
-    margin: 0.5em 0;
-    line-height: 1.3;
-  }
+.subscribe_desc {
+  margin: 0.5em 0;
+  line-height: 1.3;
 }
 
 .subscribe_input {
