@@ -1,17 +1,18 @@
 import React from "react";
 import Link from "next/link";
 
-import { Button } from "../button";
 import { TAGS, Tag as TagType } from "../../lib/blog";
+import { Tag } from "./tag";
 
 import styles from "./tags_list.module.scss";
 
 type Props = {
   tags: TagType[];
   activeTag?: TagType;
+  filled?: boolean;
 };
 
-export function TagsList({ tags, activeTag }: Props) {
+export function TagsList({ tags, activeTag, filled = false }: Props) {
   const tags_list = tags
     .map((tag) => {
       const tag_name = TAGS[tag].name;
@@ -28,9 +29,11 @@ export function TagsList({ tags, activeTag }: Props) {
           key={tag}
           href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}
         >
-          <Button as="a" bg={activeTag === tag ? "primary" : "muted"}>
-            {tag_name}
-          </Button>
+          <Tag
+            tag={tag}
+            type={filled ? "filled" : "lg"}
+            active={activeTag === tag}
+          />
         </Link>
       );
     })

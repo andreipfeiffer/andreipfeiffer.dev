@@ -100,7 +100,7 @@ export function BlogPost(props: Props) {
 
           <div className={styles.header}>
             <div>
-              <Tag tag={meta.tags[0]} size="sm" />
+              <Tag tag={meta.tags[0]} type="sm" />
               <Spacer vertical="8" />
               <Text size="m02" color="muted" display="block">
                 <FormattedDate date={meta.date} />
@@ -170,10 +170,9 @@ function Tags({ tags }: { tags: TagType[] }) {
 
   return (
     <aside className={styles.tags}>
-      <Text size="h04" as="strong">
+      <Text size="h04" as="strong" display="block">
         Tags:
       </Text>
-      <Spacer horizontal={"16"} />
       <TagsList tags={tags} />
     </aside>
   );

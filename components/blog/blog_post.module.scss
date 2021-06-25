@@ -245,7 +245,17 @@
 
 .tags {
   display: flex;
+  flex-direction: column;
+  gap: 1em;
   margin-top: var(--section-spacing);
+
+  & > :first-child {
+    margin-top: 3px;
+  }
+
+  @include breakpoint(md) {
+    flex-direction: row;
+  }
 }
 
 .subscribe {

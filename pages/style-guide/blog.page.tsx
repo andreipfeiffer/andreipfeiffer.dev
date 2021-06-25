@@ -194,7 +194,7 @@ export default function BlogPostPreview() {
 
         <Flex type="stack" gap="8">
           {Object.keys(TAGS).map((tag) => (
-            <Tag tag={tag as TagType} size="sm" />
+            <Tag tag={tag as TagType} type="sm" />
           ))}
         </Flex>
 
@@ -202,7 +202,15 @@ export default function BlogPostPreview() {
 
         <Flex type="stack" gap="8">
           {Object.keys(TAGS).map((tag) => (
-            <Tag tag={tag as TagType} size="lg" />
+            <Tag tag={tag as TagType} type="lg" />
+          ))}
+        </Flex>
+
+        <br />
+
+        <Flex type="stack" gap="8">
+          {Object.keys(TAGS).map((tag) => (
+            <Tag tag={tag as TagType} type="filled" />
           ))}
         </Flex>
       </>

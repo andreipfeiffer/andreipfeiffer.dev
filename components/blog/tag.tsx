@@ -9,10 +9,11 @@ import styles from "./tag.module.scss";
 
 type Props = {
   tag: TagType;
-  size: "sm" | "lg";
+  type: "sm" | "lg" | "filled";
+  active?: boolean;
 };
 
-export function Tag({ tag, size }: Props) {
+export function Tag({ tag, type, active }: Props) {
   const { name, color, text } = TAGS[tag];
   const tag_style = { ["--tag-color"]: color } as React.CSSProperties;
 
@@ -21,8 +22,10 @@ export function Tag({ tag, size }: Props) {
       <a
         style={tag_style}
         className={classNames(styles.tag, {
-          [styles.large]: size === "lg",
+          [styles.large]: type !== "sm",
           [styles.inverted]: text === "light",
+          [styles.filled]: type === "filled",
+          [styles.active]: active,
         })}
       >
         <Text size="h06" as="strong" display="block" color="default">

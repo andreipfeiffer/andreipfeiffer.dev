@@ -22,7 +22,7 @@ export function BlogItem({ post }: Props) {
   return (
     <Grid key={id} as="li">
       <Grid.Col span={breakpoint === "md" ? 10 : 8}>
-        <Tag tag={meta.tags[0]} size="sm" />
+        <Tag tag={meta.tags[0]} type="sm" />
 
         <Text size="m02" color="muted" display="block">
           <FormattedDate date={meta.date} />

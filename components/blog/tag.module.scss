@@ -9,7 +9,6 @@
   text-decoration: none;
   align-items: center;
 
-  border: 1px transparent solid;
   position: relative;
   height: var(--height);
   padding-left: calc(var(--size) + var(--gap));
@@ -17,19 +16,19 @@
 
   & strong {
     transition: all 0.5s;
+    z-index: 1;
   }
 
   &::before {
     position: absolute;
     left: 0;
-    top: calc(var(--height) / 2 - var(--size) / 2 - 1px);
+    top: calc(var(--height) / 2 - var(--size) / 2);
     content: "";
     background-color: var(--tag-color);
     width: var(--size);
     height: var(--size);
     border-radius: var(--radius);
     transition: all 0.5s;
-    z-index: -1;
   }
 
   &:hover strong {
@@ -59,7 +58,50 @@
 }
 
 .inverted:any-link {
+  &.active strong,
   &:hover strong {
     color: var(--light);
+  }
+}
+
+.filled:any-link {
+  --size: 0px;
+  --gap: 0px;
+  --spacing: 16px;
+
+  border-radius: 16px;
+  padding-left: var(--spacing);
+  overflow: hidden;
+
+  box-shadow: inset 0 0 0px 1px var(--color);
+
+  &::before {
+    position: absolute;
+    left: -10px;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    transition: all 0.5s;
+    transform: skewX(-13deg) translateX(-100%);
+  }
+
+  &.active,
+  &:hover {
+    box-shadow: none;
+  }
+  &.active strong,
+  &:hover strong {
+    transform: none;
+  }
+  &.active::before,
+  &:hover::before {
+    --radius: 0px;
+    left: -10px;
+    right: -10px;
+    width: calc(100% + 10px);
+    height: auto;
+    transform: skewX(-13deg) translateX(5px);
   }
 }

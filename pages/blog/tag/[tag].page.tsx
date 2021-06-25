@@ -32,36 +32,42 @@ export default function PostsByTag(props: Props) {
 
   return (
     <Layout>
-      <MetaTags title={`Articles containing the ${name} tag`} />
+      <MetaTags title={`${name} articles`} />
 
-      {breakpoint && <Spacer vertical="100" />}
+      <Grid>
+        <Grid.Col span={12}>
+          <Link href="/blog">
+            <a className={styles.back}>
+              <Flex type="inline" gap="16" align="center" as="span">
+                <Arrow direction={"left"} />
+                <Text size="m01">Back to Blog</Text>
+              </Flex>
+            </a>
+          </Link>
 
-      <Grid.Full>
-        <Link href="/blog">
-          <a className={styles.back}>
-            <Flex type="inline" gap="16" align="center" as="span">
-              <Arrow direction={"left"} />
-              <Text size="m01">Back to Blog</Text>
-            </Flex>
-          </a>
-        </Link>
+          <Spacer vertical={breakpoint ? "60" : "40"} />
+          <TagsList tags={tags} activeTag={tag} filled={true} />
+          <Spacer vertical={breakpoint ? "60" : "40"} />
 
-        <Spacer vertical={breakpoint ? "40" : "24"} />
+          <Text size="h00" as="h1">
+            {name} articles
+          </Text>
+        </Grid.Col>
 
-        <Text size="h00" as="h1">
-          Tag: {name}
-        </Text>
-        <br />
-        <Text as="p">{description}</Text>
+        <Grid.Col span={breakpoint === "md" ? 10 : 8}>
+          <Spacer vertical="16" />
+          <Text as="p">{description}</Text>
+        </Grid.Col>
+      </Grid>
 
-        <Spacer vertical="32" />
+      <Spacer vertical={breakpoint ? "80" : "40"} />
 
-        <TagsList tags={tags} activeTag={tag} />
-      </Grid.Full>
-
-      <Spacer vertical="60" />
-
-      <Flex as="ul" type="stack" gap="100" className={styles.list}>
+      <Flex
+        as="ul"
+        type="stack"
+        gap={breakpoint ? "80" : "40"}
+        className={styles.list}
+      >
         {posts.map((post) => (
           <BlogItem post={post} key={post.id} />
         ))}

@@ -38,9 +38,14 @@ export function BlogListing(props: BlogListingProps) {
         </Text>
       </Grid.Full>
 
-      <Spacer vertical="100" />
+      <Spacer vertical={breakpoint ? "80" : "40"} />
 
-      <Flex as="ul" type="stack" gap={"100"} className={styles.list}>
+      <Flex
+        as="ul"
+        type="stack"
+        gap={breakpoint ? "80" : "40"}
+        className={styles.list}
+      >
         {posts.map((post) => (
           <BlogItem post={post} key={post.id} />
         ))}
