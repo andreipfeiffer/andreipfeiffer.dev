@@ -24,17 +24,11 @@ export function TagsList({ tags, activeTag, filled = false }: Props) {
       }
 
       return (
-        <Link
-          passHref
-          key={tag}
-          href={`/blog/tag/${encodeURI(tag.toLowerCase())}`}
-        >
-          <Tag
-            tag={tag}
-            type={filled ? "filled" : "lg"}
-            active={activeTag === tag}
-          />
-        </Link>
+        <Tag
+          tag={tag}
+          type={filled ? "filled" : "lg"}
+          active={activeTag === tag}
+        />
       );
     })
     .filter((tag) => tag != null);
