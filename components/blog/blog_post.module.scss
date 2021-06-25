@@ -1,5 +1,9 @@
 @import "../../styles/mixins";
 
+.blog_main {
+  padding-top: 0;
+}
+
 .title {
   @include breakpoint(md) {
     text-align: center;

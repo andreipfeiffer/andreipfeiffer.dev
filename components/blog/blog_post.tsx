@@ -57,7 +57,7 @@ export function BlogPost(props: Props) {
   }, []);
 
   return (
-    <Layout>
+    <Layout className={styles.blog_main}>
       <Head>
         <title>{meta.title}</title>
         <link rel="stylesheet" href={`/highlight.css`} />
@@ -75,7 +75,7 @@ export function BlogPost(props: Props) {
         article={{ tags: meta_tags, published_time: meta.date }}
       />
 
-      {breakpoint && <Spacer vertical="80" />}
+      {breakpoint && <Spacer vertical="60" />}
 
       <article className={styles.post}>
         <header>
