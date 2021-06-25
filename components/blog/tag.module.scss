@@ -1,15 +1,19 @@
 .tag:any-link {
   --height: 25px;
   --size: 15px;
+  --radius: 6px;
+  --spacing: 0px;
+  --gap: 8px;
 
-  display: flex;
+  display: inline-flex;
   text-decoration: none;
   align-items: center;
 
   border: 1px transparent solid;
   position: relative;
   height: var(--height);
-  padding-left: calc(var(--size) + 0.5em);
+  padding-left: calc(var(--size) + var(--gap));
+  padding-right: var(--spacing);
 
   & strong {
     transition: all 0.5s;
@@ -20,26 +24,42 @@
     left: 0;
     top: calc(var(--height) / 2 - var(--size) / 2 - 1px);
     content: "";
-    display: inline-block;
     background-color: var(--tag-color);
     width: var(--size);
     height: var(--size);
-    border-radius: 6px;
+    border-radius: var(--radius);
     transition: all 0.5s;
     z-index: -1;
   }
 
   &:hover strong {
-    color: white;
-    transform: translateX(-1em);
+    color: var(--dark);
+    transform: translateX(
+      calc(var(--spacing) / 2 - var(--size) / 2 - var(--gap) / 2)
+    );
   }
   &:hover::before {
-    border-radius: 9px;
+    --radius: 9px;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
     width: 100%;
     height: 100%;
+  }
+}
+
+.large:any-link {
+  --height: 40px;
+  --spacing: 10px;
+
+  &:hover::before {
+    --radius: 16px;
+  }
+}
+
+.inverted:any-link {
+  &:hover strong {
+    color: var(--light);
   }
 }

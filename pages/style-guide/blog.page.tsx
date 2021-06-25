@@ -7,6 +7,8 @@ import { Grid } from "../../components/grid";
 import { Flex } from "../../components/flex";
 import { Text } from "../../components/text";
 import { Figure } from "../../components/blog/figure";
+import { TAGS } from "../../lib/blog";
+import type { Tag as TagType } from "../../lib/blog";
 
 export default function BlogPostPreview() {
   return (
@@ -191,14 +193,17 @@ export default function BlogPostPreview() {
         </Figure>
 
         <Flex type="stack" gap="8">
-          <Tag tag="html" />
-          <Tag tag="css" />
-          <Tag tag="javascript" />
-          <Tag tag="typescript" />
-          <Tag tag="react" />
-          <Tag tag="entropy" />
-          <Tag tag="misc" />
-          {/* <Tag tag="ui_development" /> */}
+          {Object.keys(TAGS).map((tag) => (
+            <Tag tag={tag as TagType} size="sm" />
+          ))}
+        </Flex>
+
+        <br />
+
+        <Flex type="stack" gap="8">
+          {Object.keys(TAGS).map((tag) => (
+            <Tag tag={tag as TagType} size="lg" />
+          ))}
         </Flex>
       </>
     </BlogPost>

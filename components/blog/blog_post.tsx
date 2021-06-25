@@ -100,7 +100,7 @@ export function BlogPost(props: Props) {
 
           <div className={styles.header}>
             <div>
-              <Tag tag={meta.tags[0]} />
+              <Tag tag={meta.tags[0]} size="sm" />
               <Spacer vertical="8" />
               <Text size="m02" color="muted" display="block">
                 <FormattedDate date={meta.date} />
