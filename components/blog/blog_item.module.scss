@@ -11,7 +11,7 @@
 
   & > h2 {
     background-image: linear-gradient(var(--color), var(--color));
-    background-size: 0% 2px;
+    background-size: 0% 1px;
     background-position: 0% 100%;
     background-repeat: no-repeat;
     display: inline;
@@ -22,7 +22,7 @@
 @media (hover: hover) {
   .link:hover {
     & > h2 {
-      background-size: 100% 2px;
+      background-size: 100% 1px;
     }
     & > p {
       transform: translateY(-10px);
