@@ -98,6 +98,7 @@ export type Tag =
   | "javascript"
   | "typescript"
   | "entropy"
+  | "learning"
   | "misc";
 
 interface TagDetails {
@@ -154,5 +155,12 @@ export const TAGS: { [key in Tag]: TagDetails } = {
     color: "#888888",
     text: "light",
     description: "Articles that don't fall under any specific category.",
+  },
+  learning: {
+    name: "Learning",
+    color: "#cddc39",
+    text: "dark",
+    description:
+      "Articles that touch upon continuous learning, teaching techniques, or knowledge sharing.",
   },
 } as const;
