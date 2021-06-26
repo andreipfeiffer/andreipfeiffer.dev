@@ -50,7 +50,7 @@ export default function PostsByTag(props: Props) {
           <Spacer vertical={breakpoint ? "60" : "40"} />
 
           <Text size="h00" as="h1">
-            {name} articles
+            {name} <Text color="muted">articles</Text>
           </Text>
         </Grid.Col>
 
