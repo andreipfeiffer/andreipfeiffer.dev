@@ -79,7 +79,7 @@ export function BlogListing(props: BlogListingProps) {
             current_page - 1 === 1 ? `/blog` : `/blog/page/${current_page - 1}`
           }
         >
-          <Button size="large" as="a" title="Previous page">
+          <Button size="large" as="a" title="Previous page" direction="left">
             <Arrow direction="left" text={arrow_text} color="dark" />
             {content}
           </Button>
@@ -104,7 +104,7 @@ export function BlogListing(props: BlogListingProps) {
 
       return (
         <Link passHref href={`/blog/page/${current_page + 1}`}>
-          <Button size="large" as="a" title="Next page">
+          <Button size="large" as="a" title="Next page" direction="right">
             {content}
             <Arrow direction="right" text={arrow_text} color="dark" />
           </Button>
