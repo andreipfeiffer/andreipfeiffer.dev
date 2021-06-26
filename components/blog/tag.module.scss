@@ -31,6 +31,7 @@
     transition: all 0.5s;
   }
 
+  &.active strong,
   &:hover strong {
     color: var(--dark);
     transform: translateX(
