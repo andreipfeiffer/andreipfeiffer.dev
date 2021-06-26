@@ -12,6 +12,7 @@ type Props = {
   size?: "regular" | "large";
   title?: string;
   bg?: "primary" | "muted";
+  direction?: "right" | "left";
 };
 
 export const Button = React.forwardRef(
@@ -24,6 +25,7 @@ export const Button = React.forwardRef(
       size = "regular",
       title,
       bg = "primary",
+      direction = "right",
     }: Props,
     ref
   ) => {
@@ -54,6 +56,7 @@ export const Button = React.forwardRef(
           {
             [styles.button_large]: size === "large",
             [styles.button_muted]: bg === "muted",
+            [styles.hover_left]: direction === "left",
           }
         )}
       >

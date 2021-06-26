@@ -349,16 +349,12 @@ export default function Talks() {
             <Arrow />
           </Button>
 
-          <Button size="large" onClick={() => alert("clicked")}>
+          <Button
+            size="large"
+            onClick={() => alert("clicked")}
+            direction="left"
+          >
             <Arrow direction="left" />
-          </Button>
-
-          <Button size="large" onClick={() => alert("clicked")}>
-            <Arrow direction="up" />
-          </Button>
-
-          <Button size="large" onClick={() => alert("clicked")}>
-            <Arrow direction="down" />
           </Button>
         </Flex>
       </Grid.Full>

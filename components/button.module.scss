@@ -33,22 +33,28 @@
     0 100%
   );
 
-  &::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: -1em;
-    bottom: -1em;
-    left: -1em;
-    pointer-events: none;
-    background-color: #ffffff66;
-    width: 1em;
-    transform: rotate(18.5deg);
-  }
+  @media (hover: hover) {
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      background-color: #ffffff66;
+      transform: skewX(-18.5deg) translateX(-100%);
+      transition: transform 0.5s;
+      z-index: -1;
+    }
+    &.hover_left::before {
+      transform: skewX(-18.5deg) translateX(100%);
+    }
 
-  &:hover::after {
-    transition: left 0.5s;
-    left: 100%;
+    &:hover::before {
+      transform: skewX(-18.5deg) translateX(0);
+    }
   }
 }
 
