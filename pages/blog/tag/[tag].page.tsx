@@ -45,9 +45,9 @@ export default function PostsByTag(props: Props) {
             </a>
           </Link>
 
-          <Spacer vertical={breakpoint ? "60" : "40"} />
+          <Spacer vertical={breakpoint ? "40" : "24"} />
           <TagsList tags={tags} activeTag={tag} filled={true} />
-          <Spacer vertical={breakpoint ? "60" : "40"} />
+          <Spacer vertical={breakpoint ? "80" : "60"} />
 
           <Text size="h00" as="h1">
             {name} <Text color="muted">articles</Text>
@@ -55,7 +55,7 @@ export default function PostsByTag(props: Props) {
         </Grid.Col>
 
         <Grid.Col span={breakpoint === "md" ? 10 : 8}>
-          <Spacer vertical="16" />
+          <Spacer vertical="8" />
           <Text as="p">{description}</Text>
         </Grid.Col>
       </Grid>

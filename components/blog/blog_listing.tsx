@@ -27,7 +27,7 @@ export function BlogListing(props: BlogListingProps) {
   const { breakpoint } = useBreakpoint();
 
   return (
-    <Layout>
+    <Layout className={styles.blog_listing}>
       <MetaTags title={`Blog, by Andrei Pfeiffer`} />
 
       {breakpoint && <Spacer vertical="100" />}

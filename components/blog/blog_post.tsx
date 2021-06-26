@@ -96,7 +96,7 @@ export function BlogPost(props: Props) {
             </Grid.Full>
           </Fullpage>
 
-          <Spacer vertical="140" />
+          <Spacer vertical={breakpoint ? "140" : "60"} />
 
           <div className={styles.header}>
             <div>
