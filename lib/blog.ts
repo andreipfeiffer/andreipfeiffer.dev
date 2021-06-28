@@ -114,13 +114,14 @@ export const TAGS: { [key in Tag]: TagDetails } = {
     color: "#3434FF",
     text: "light",
     description:
-      "Articles related to styling using either the plain CSS language, pre or post processors, tools, frameworks or methologies.",
+      "Articles related to styling using either the plain CSS language, pre or post processors, tools, frameworks, or methologies.",
   },
   html: {
     name: "HTML",
     color: "#FF7829",
     text: "light",
-    description: "Articles related to web content, semantics or accessibility.",
+    description:
+      "Articles related to web content, markup, semantics, or accessibility.",
   },
   react: {
     name: "React",
@@ -134,7 +135,7 @@ export const TAGS: { [key in Tag]: TagDetails } = {
     color: "#F7DF1E",
     text: "dark",
     description:
-      "Articles related to ECMAScript language features, DOM / Node.js, libraries & frameworks or practices applied in UI and Front-End Development.",
+      "Articles related to ECMAScript language features, DOM / Node.js, libraries, frameworks, or practices applied in UI and Front-End Development.",
   },
   typescript: {
     name: "TypeScript",
