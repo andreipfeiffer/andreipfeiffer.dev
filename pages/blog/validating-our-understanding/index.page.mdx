@@ -5,31 +5,46 @@ export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-There are various levels of understanding a specific concept. We might _really understand it_ or we might _think we understand it_, depending on where we fit in regard to the [circle of competence](https://en.wikipedia.org/wiki/Circle_of_competence).
+There are various levels of understanding a specific concept. We might _**really understand it**_ or we might _**think we understand it**_.
 
 There is no absolute measurement tool or technique to determine our level of understanding. However, there
 are some heuristics that could help figuring out where we fit, which I find to be quite precise.
 
-## Keeping it short
+## Step 1: Explaining
 
-Whenever I have to use many words to explain something, it usually means that I'm not understanding it very thouroughly. Being able to explain shortly, clearly and concise can be a useful metric to evaluate our level of understanding.
+To confirm that we understand a specific topic, we should try explaining it to somebody else, preferably a person that doesn't know anything about the topic. If we find it difficult to explain, we might have some gaps in our understanding that we would need to fill.
 
-For instance, a few years ago I would probably explain "refactoring" like so:
+Also, a vague explanation is not very useful, as it might not share any actual insight. Let's consider the practice of **"refactoring"**, for example. I could try and explain it as follows:
+
+> Refactoring is when we re-write code to make it better.
+
+It doesn't say a lot, does it? It doesn't explain _**what** does better mean_ or _**why** would we re-write_ it. Is it a full or partial re-write? Do we change anything about it's behavior? There are many answered questions. A less vague explanation would be:
 
 > Refactoring is the process of changing our code, sometimes moving it around or even deleting parts of it, but without changing the implementation of features and the actual functionality of the code. Doing this will help us to extend it more easily in the future, while also becoming easier to understand by any developer.
 
-Currently I could rephrase the above explanation more concisely:
+This technique is also helpful when I'm having a hard time figuring out a solution in my head:
+
+- Explaining my problem to a colleague will force me to put my thoughts in order, to see things more clearly, and most of the times to actually verbalize the solution out loud.
+- Sometimes it helps just to speak loudly, or to explain it to an imaginary person or an inanimate object, like a [rubber duck](https://en.wikipedia.org/wiki/Rubber_duck_debugging).
+
+## Step 2: Simplifying
+
+Whenever I have to use many words to explain something, it usually means that I'm not understanding it very thouroughly. Being able to explain shortly, clearly and concise can be another metric to evaluate our level of understanding.
+
+Albert Einstein also said that _**"If you can't explain it simply, you don't understand it well enough"**_. So, iterating on the refactoring explanation, we could simplify it as:
 
 > Refactoring is the process of restructuring our code, without affecting it's behaviour, making it more maintainable.
 
-If we're able to explain something in a concise way, we could always elaborate and go into more details. The opposite however, is not always true.
+The same information is conveyed as in the previous variant, but using less words. If we're able to explain something in a concise way, we could always elaborate and go into more details. The opposite however, is not always true.
 
-## Using an analogy
+## Step 3: Metaphorizing
 
-We could go one step further and try to explain something using a metaphor or an analogy. This method is a powerful hint that we really understand a specific topic. It's also very useful for the other persons, because they can better relate and understand our explanation.
+We could go one step further and try to explain something using a metaphor or an analogy. This method could be a powerful hint that we deeply understand a specific topic.
 
 > **Refactoring is similar to home maintenance**: we have daily duties such as washing the dishes, weekly duties such as taking the trash out, or less frequent duties such as repaiting the walls.
 
+It's also worthmentioning that this approach is very useful when teaching, because the others' can better relate and understand our explanation.
+
 ---
 
-It's worth mentioning that understading is an interative process that requires a lot of practice until we [_get it_](https://www.youtube.com/watch?v=MFzDaBzBlL0). A more formal process that we can use is the [The Feynman Technique](https://fs.blog/2021/02/feynman-learning-technique/).
+It's worth mentioning that understading is an iterative process that requires a lot of practice until we [_get it_](https://www.youtube.com/watch?v=MFzDaBzBlL0). A more formal process that we can use is the [The Feynman Technique](https://fs.blog/2021/02/feynman-learning-technique/).
