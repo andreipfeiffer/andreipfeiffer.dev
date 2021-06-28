@@ -4,20 +4,20 @@ import { Grid } from "../components/grid";
 import { Text } from "../components/text";
 import { Spacer } from "../components/spacer";
 import { Layout } from "../components/layout";
-import { useBreakpoint } from "../components/layout/useBreakpoint";
+// import { useBreakpoint } from "../components/layout/useBreakpoint";
 import { MetaTags, META_TITLE } from "../components/meta_tags";
 
+import styles from "./workshops.module.scss";
+
 export default function Workshops() {
-  const { breakpoint } = useBreakpoint();
+  // const { breakpoint } = useBreakpoint();
 
   return (
     <Layout>
       <MetaTags title={`Workshops and Trainings: ${META_TITLE}`} />
 
-      {breakpoint && <Spacer vertical="100" />}
-
       <Grid.Full>
-        <Text size="h00" as="h1">
+        <Text size="h00" as="h1" className={styles.title}>
           Workshops and Trainings
         </Text>
       </Grid.Full>

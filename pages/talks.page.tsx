@@ -22,10 +22,8 @@ export default function Talks() {
     <Layout>
       <MetaTags title={`Talks and Live coding: ${META_TITLE}`} />
 
-      {breakpoint && <Spacer vertical="100" />}
-
       <Grid.Full>
-        <Text size="h00" as="h1">
+        <Text size="h00" as="h1" className={styles.title}>
           Talks &amp; <Text nowrap={!!breakpoint}>Live coding</Text>
         </Text>
       </Grid.Full>
