@@ -1,93 +1,146 @@
 import React from "react";
 import Link from "next/link";
 
-import { Layout } from "../components/layout";
 import { MetaTags, META_TITLE } from "../components/meta_tags";
+import { Layout } from "../components/layout";
+import { Grid } from "../components/grid";
+import { Spacer } from "../components/spacer";
+import { Text } from "../components/text";
 import { getAge } from "../lib/utils";
+import { useBreakpoint } from "../components/layout/useBreakpoint";
 
-import styles from "./about.module.css";
+import styles from "./about.module.scss";
+import { Button } from "../components/button";
 
 export default function About() {
+  const { breakpoint } = useBreakpoint();
+
   return (
     <Layout className={styles.about}>
       <MetaTags title={`About me: ${META_TITLE}`} />
 
-      <h1>About me</h1>
-      <p>I'm {getAge()} years old, living in Timişoara, Romania.</p>
+      {breakpoint && <Spacer vertical="100" />}
 
-      <p>
-        I've been designing &amp; developing websites and web apps since 2000
-        and went through all the stages: from HTML3/jQuery to HTML5/ES6 and
-        beyond. I like to think of myself as an{" "}
-        <strong>eclectic code designer</strong>.
-      </p>
+      <Grid.Full>
+        <Text size="h00" as="h1">
+          Hi, I'm Andrei
+        </Text>
+      </Grid.Full>
 
-      <p>
-        <strong>Eclectic</strong> because I don't follow a specific technology
-        or a school of thought in a dogmatic way. Instead, I apply various
-        practices and technologies that suit the problem I'm facing, in a
-        pragmatic fashion.
-      </p>
+      <Spacer vertical="60" />
 
-      <p>
-        <strong>Code designer</strong> has a double meaning. First of all, I'm
-        very keen about code design and maintaining a clean code base. But I'm
-        also a hybrid between designer and developer, because I enjoy
-        aesthetics, animations, interactions and everything related to{" "}
-        <strong>design</strong>.
-      </p>
+      <Grid>
+        <Grid.Col span={8}>
+          <p>I'm {getAge()} years old, living in Timişoara, Romania.</p>
 
-      <section>
-        <h2>UI Engineer for web &amp; mobile</h2>
-        <p>
-          I'm currently working as <strong>UI Engineer</strong> switching
-          between <strong>web and mobile</strong> at{" "}
-          <a href="https://www.e-spres-oh.com/">[e-spres-oh]</a>.
-        </p>
-        <p>
-          My everyday battles revolve around Clean Code Design, User &amp;
-          Developer Experience, UI Interaction &amp; Design, and fighting
-          software entropy through constant Refactoring, Code Reviews, Unit
-          Tests and Team Collaboration.
-        </p>
-        <p>
-          My current preferred tech stack include React/React Native,
-          TypeScript, MobX, Jest, React Styleguidist and Next.js.
-        </p>
-        <p>
-          <a href="/andrei-pfeiffer-resume-v4.pdf">View full resumee</a>
-        </p>
-      </section>
+          <p>
+            I've been designing &amp; developing websites and web apps since
+            2000 and went through all the stages: from HTML3/jQuery to HTML5/ES6
+            and beyond. I like to think of myself as an{" "}
+            <strong>eclectic code designer</strong>.
+          </p>
 
-      <section>
-        <h2>Community involvement</h2>
+          <Spacer vertical="100" />
 
-        <p>
-          Together with an wonderful team, we're organizing{" "}
-          <a href="http://revojs.ro">revo.js</a>, an annual not-for-profit,
-          community driven, JavaScript conference.
-        </p>
-        <p>
-          Since 2013, I've been involved in the local JavaScript community,
-          co-organizing <a href="http://timjs.ro">tim.js</a>, a monthly meetup
-          dedicated to the entire JavaScript ecosystem.
-        </p>
-        <p>
-          I enjoy sharing my knowledge during meetup and conference{" "}
-          <Link href="/talks">
-            <a>talks</a>
-          </Link>
-          , hands-on{" "}
-          <Link href="/workshops">
-            <a>workshops and trainings</a>
-          </Link>
-          , or in written{" "}
-          <Link href="/blog">
-            <a>articles</a>
-          </Link>
-          .
-        </p>
-      </section>
+          <section>
+            <Text size="h02" as="h2">
+              Eclectic Code Designer
+            </Text>
+
+            <p>
+              <strong>Eclectic</strong> because I don't follow a specific
+              technology or a school of thought in a dogmatic way. Instead, I
+              apply various practices and technologies that suit the problem I'm
+              facing, in a pragmatic fashion.
+            </p>
+
+            <p>
+              <strong>Code designer</strong> has a double meaning. First of all,
+              I'm very keen about <strong>code design</strong> and maintaining a
+              clean code base. But I'm also a hybrid between designer and
+              developer, having a passion for aesthetics, animations,
+              interaction and everything related to <strong>design</strong> in a
+              broad sense.
+            </p>
+          </section>
+
+          <Spacer vertical="100" />
+
+          <section>
+            <Text size="h02" as="h2">
+              UI Engineering
+            </Text>
+
+            <p>
+              I'm currently mainly working as an{" "}
+              <strong>User Interface Developer</strong> switching between{" "}
+              <strong>web</strong> and <strong>mobile</strong>.
+            </p>
+            <p>
+              My everyday battles revolve around Clean Code Design, User &amp;
+              Developer Experience, UI Interaction &amp; Design, and{" "}
+              <strong>fighting software entropy</strong> through constant
+              Refactoring, Code Reviews and Team Collaboration.
+            </p>
+            <p>
+              My primary tech stack currently include React/React Native,
+              TypeScript and Next.js.
+            </p>
+
+            <br />
+
+            <Button as="a" href="/andrei-pfeiffer-resume-v4.pdf" size="large">
+              View full resumee
+            </Button>
+          </section>
+
+          <Spacer vertical="100" />
+
+          <section>
+            <Text size="h02" as="h2">
+              Community involvement
+            </Text>
+
+            <p>
+              Since 2013, I've been involved in the local JavaScript community
+              co-organizing{" "}
+              <a href="http://timjs.ro">
+                <strong>tim.js</strong>
+              </a>
+              , a monthly meetup dedicated to the entire JavaScript ecosystem.
+            </p>
+            <p>
+              Together with an wonderful team, we're organizing{" "}
+              <a href="http://revojs.ro">
+                <strong>revo.js</strong>
+              </a>
+              , an annual not-for-profit and community driven JavaScript
+              conference.
+            </p>
+            <p>
+              I enjoy sharing my knowledge during meetup and conference{" "}
+              <Link href="/talks">
+                <a>
+                  <strong>talks</strong>
+                </a>
+              </Link>
+              , hands-on{" "}
+              <Link href="/workshops">
+                <a>
+                  <strong>workshops and trainings</strong>
+                </a>
+              </Link>
+              , or in written{" "}
+              <Link href="/blog">
+                <a>
+                  <strong>articles</strong>
+                </a>
+              </Link>
+              .
+            </p>
+          </section>
+        </Grid.Col>
+      </Grid>
     </Layout>
   );
 }
