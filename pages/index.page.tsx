@@ -19,13 +19,11 @@ export default function Home() {
         <Text size="h03" as="p">
           Eclectic Code Designer
         </Text>
-        <Spacer vertical="8" />
+
+        <Spacer vertical="16" />
+
         <Text size="h03" as="p">
-          UI Engineer, web &amp; mobile
-        </Text>
-        <Spacer vertical="8" />
-        <Text size="h03" as="p">
-          Organizer of <a href="http://revojs.ro">revo.js</a> conf &amp;{" "}
+          Organizer of <a href="http://revojs.ro">revo.js</a> conference &amp;{" "}
           <a href="http://timjs.ro">tim.js</a> meetup
         </Text>
       </Grid.Full>
