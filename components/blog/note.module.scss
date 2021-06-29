@@ -1,0 +1,13 @@
+@import "../../styles/mixins";
+
+.note {
+  border-left: 8px var(--primary) solid;
+  margin: var(--section-spacing) 0;
+  padding: 24px;
+}
+
+.title {
+  text-transform: uppercase;
+  font-weight: bold;
+  display: block;
+}

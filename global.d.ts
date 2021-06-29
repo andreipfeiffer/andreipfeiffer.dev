@@ -17,3 +17,5 @@ declare module "remark-autolink-headings" {
   const html: any;
   export default html;
 }
+
+declare module "*.mdx";

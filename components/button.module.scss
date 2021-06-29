@@ -1,6 +1,9 @@
 .button {
   --height: 36px;
   --cutoff: calc(var(--height) / 3);
+  --spacing: 24px;
+  --bg: var(--primary);
+
   border: 0;
   padding: 0;
   margin: 0;
@@ -13,14 +16,15 @@
 }
 
 .button_inner {
+  position: relative;
   height: var(--height);
-  background-color: var(--primary);
+  background-color: var(--bg);
   text-decoration: none !important;
   display: inline-flex;
   color: var(--dark) !important;
   align-items: center;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: var(--spacing);
+  padding-right: var(--spacing);
   // for better visual centering
   clip-path: polygon(
     var(--cutoff) 0,
@@ -29,18 +33,46 @@
     0 100%
   );
 
-  transition: clip-path 0.2s;
+  @media (hover: hover) {
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      background-color: #ffffff66;
+      transform: skewX(-18.5deg) translateX(-100%);
+      transition: transform 0.5s;
+      z-index: -1;
+    }
+    &.hover_left::before {
+      transform: skewX(-18.5deg) translateX(100%);
+    }
 
-  &:hover {
-    clip-path: polygon(
-      calc(var(--cutoff) + 5px) 0,
-      calc(100% - 5px) 0,
-      calc(100% - var(--cutoff) - 5px) 100%,
-      5px 100%
-    );
+    &:hover::before {
+      transform: skewX(-18.5deg) translateX(0);
+    }
   }
 }
 
 .button_default {
   padding-bottom: 2px;
+}
+
+.button_large {
+  --height: 60px;
+  --cutoff: calc(var(--height) / 3);
+  --spacing: 40px;
+}
+
+.button_muted {
+  --bg: #12121222;
+
+  [data-darkmode="true"] & {
+    --bg: #ffffff66;
+    // color: white !important;
+  }
 }

@@ -1,0 +1,187 @@
+import { BlogPost } from "../../../components/blog/blog_post";
+import { Subheading } from "../../../components/blog/subheading";
+import { Note } from "../../../components/blog/note";
+import { SideBySide, Side } from "../../../components/blog/sidebyside";
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+Next.js uses a very basic [**file system routing**](https://nextjs.org/docs/routing/introduction). Any files and folders that we create within the `/pages` subfolder will be used as the routes for our application. This approach is very convenient because we don't have to maintain huge configuration files and it's straightforward for anyone to understand.
+
+However, one caveat of this approach is that when we extract subcomponents in external files, we have to move them outside the `/pages` folder, typically in a separate `/components` folder. Otherwise, Next.js will create a route for each of the component files:
+
+```git
+app/
+└─ pages/
+   ├─ blog.tsx
+   ├─ BlogPost.tsx
+   └─ SubscribeForm.tsx
+```
+
+For example, the above structure will create 3 routes: `/blog`, `/BlogPost` and `/SubscribeForm`, even if our intention is to use `BlogPost.tsx` and `SubscribeForm.tsx` only as subcomponents of `blog.tsx`.
+
+<Note>
+  I'm using the <code>.tsx</code> extension for React components because I use
+  <strong>TypeScript</strong>, but everything in this article equally applies to{" "}
+  <strong>JavaScript</strong> pages as well, so you can use <code>.js</code> or <code>
+    .jsx
+  </code> extensions.
+</Note>
+
+<Subheading>Named exports are invalid</Subheading>
+
+Another thing to keep in mind is that any component inside the `/pages` folder must define a `default export`. Otherwise, we'll get a build error:
+
+<br />
+
+<SideBySide left={{lang: "JS", file: "pages/BlogPost.tsx"}}  right={{file: "output of `next build`"}}>
+
+```jsx
+// using a named export, without a default export
+export function BlogPost() {
+  // ...
+}
+```
+
+```powershell
+> Build error occurred
+
+Error: Build optimization failed:
+  found page without a React Component as default export
+  in pages/BlogPost
+```
+
+</SideBySide>
+
+## Separate components folder
+
+Generally speaking, there's nothing wrong with moving the components to a separate `/components` folder, especially when we want to reuse them. But surely we'll also have to deal with **components that are used only on a specific page**. This brings up 2 annoying aspects.
+
+<Subheading>1. Folder structure duplication</Subheading>
+
+As our application gets bigger, we'll need to figure out how to structure the growing number of components. One way would be to replicate the `/pages` structure inside the `/components` folder:
+
+```
+app/
+├─ components/
+│  ├─ shared/
+│  ├─ index/
+│  └─ blog/
+│
+└─ pages/
+   ├─ index.tsx
+   └─ blog.tsx
+```
+
+But you know that names are not set in stone and they will change in time. At some point, we'll need to **manually rename multiple files and folders** just to make sure that their names are in sync. It's not a deal-breaker, but it requires a constant mainteinance effort.
+
+<Subheading>2. Potential orphan components</Subheading>
+
+Another downside is that when deleting a page, the components that are used only on that particular page won't get deleted by default. It's not trivial to figure out which components are not needed anymore and could be safely removed. Most likely they will remain in the codebase.
+
+The bundle size won't be negatively affected, because the unused components won't be included in any other component. But anyone looking at them will always ask the question:
+
+> Do we still need this component or not?
+
+<br />
+
+There's a workaround we can use to avoid the above shortcomings which I find to improve maintainability, at least in some situations.
+
+## Custom page extensions
+
+The fundamental reason that we get the above limitations is that by default, Next.js cannot distinguish between **pages** that translate to routes and **components** that are used in pages, because both are defined as regular React components.
+
+Fortunately, we can customize _what should be considered a page_ using the [`pageExtensions`](https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions) setting inside our `next.config.js` file. For instance, if we use:
+
+<Side header={{ file: "next.config.js", lang: "JS" }}>
+
+```js
+module.exports = {
+  pageExtensions: ["page.tsx"],
+};
+```
+
+</Side>
+
+... and rename our `blog.tsx` to `blog.page.tsx`:
+
+```git{3}
+app/
+└─ pages/
+   ├─ blog.page.tsx
+   ├─ BlogPost.tsx
+   └─ SubscribeForm.tsx
+```
+
+... the build step will only generate the `/blog` route for the `blog.page.tsx` and skip any components that don't match the `page.tsx` extension.
+
+<Subheading>Named exports are valid</Subheading>
+
+Another minor benefit we get with this approach is that we can safely **use named exports** from our components because the build system will not treat them as pages anymore. Keep in mind that we do need to use default exports for any of the files that we have configured to be rendered as pages, like `blog.page.tsx` for example.
+
+<hr />
+
+With this setting, we can co-locate the subcomponents specific to a single page, by moving them in the same folder:
+
+- renaming the route won't affect the structure of the components;
+- deleting the route will also remove any components used by that route.
+
+<br />
+
+```git{3}
+app/
+└─ pages/
+   └─ blog/
+      ├─ index.page.tsx
+      ├─ BlogPost.tsx
+      └─ SubscribeForm.tsx
+```
+
+<br />
+
+We can create any arbitrary subfolders to better structure and separate our components, without generating unneeded routes:
+
+```git{4}
+app/
+└─ pages/
+   └─ blog/
+      ├─ components/
+      │  ├─ BlogPost.tsx
+      │  └─ SubscribeForm.tsx
+      └─ index.page.tsx
+```
+
+### Practical use case
+
+I found this approach very useful for complex blog posts, especially the ones that contain custom UI components because it helps me to encapsulate all the files required for a blog post within the same folder. This means that I can:
+
+- **safely delete a blog post**, without worrying that there might be some other files that I should remove because they are used only in that particular blog post;
+- **rename, move or refactor a blog post**, without worrying that I have to rename anything else in other parts of the application.
+
+## Criticism
+
+One downside of this approach is that the routing is somewhat obscured by the additional components that are not rendered as routes. While there is a distinction in the filename between pages and components because pages have the `page.tsx` extension, it might not be obvious at first glance.
+
+So, in the end, the question is:
+
+> What is more important to us? **Routing readability**? Or **page content encapsulation**?
+
+<Subheading>Routing readability</Subheading>
+
+The default approach of separating pages and components in different folders is convenient when 1) our application has a large number of routes that should be easy to understand, or 2) the pages reuse mostly the same components and don't have a large number of custom components that we have to figure out how to organize them.
+
+<Subheading>Page content encapsulation</Subheading>
+
+Using custom page extensions can be useful when 1) our application has a smaller number of routes, 2) most pages are custom, containing a fair amount of non-reusable components, or 3) we simply prefer to have all files related to a specific route being co-located within the same folder.
+
+<hr />
+
+If you think about it, we use encapsulation and co-location in day-to-day code:
+
+- we usually [define variables close to their usage](https://wiki.c2.com/?DeclareVariablesAtFirstUse) to provide a hint related to the scope of the variable;
+- we create local functions or private methods when they are not needed elsewhere, being encapsulated and co-located within the class or module that uses them;
+- most CSS-in-JS libraries apply the same principle to styles, co-locating them within the component that uses those styles.
+
+Since files and folders are just another way to organize our code, we can also apply the encapsulation approach when deciding how to organize our components.

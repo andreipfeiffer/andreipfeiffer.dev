@@ -1,0 +1,29 @@
+@import "../../styles/mixins";
+
+.blog_listing {
+  padding-top: 0;
+}
+
+.h1 {
+  font-size: 100px;
+
+  @include breakpoint(md) {
+    font-size: 120px;
+  }
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  align-items: stretch;
+}
+
+.page_nav {
+  display: flex;
+  justify-content: center;
+
+  @include breakpoint(sm) {
+    justify-content: flex-start;
+  }
+}

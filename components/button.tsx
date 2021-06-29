@@ -9,33 +9,59 @@ type Props = {
   href?: string;
   onClick?(): void;
   as?: "button" | "a";
+  size?: "regular" | "large";
+  title?: string;
+  bg?: "primary" | "muted";
+  direction?: "right" | "left";
 };
 
-export function Button({ children, href, onClick, as = "button" }: Props) {
-  if (as === "a" && !href) {
-    throw Error("`href` prop needs to be provided for `a` elements");
-  }
-
-  if (as === "button" && !onClick) {
-    throw Error("`onClick` prop needs to be provided for `button` elements");
-  }
-
-  const _default = typeof children === "string";
-
-  return React.createElement(
-    as,
+export const Button = React.forwardRef(
+  (
     {
-      className: styles.button,
+      children,
       href,
       onClick,
-    },
-    <div
-      className={classNames(
-        styles.button_inner,
-        _default && styles.button_default
-      )}
-    >
-      {_default ? <Text size="m02">{children}</Text> : children}
-    </div>
-  );
-}
+      as = "button",
+      size = "regular",
+      title,
+      bg = "primary",
+      direction = "right",
+    }: Props,
+    ref
+  ) => {
+    if (as === "a" && !href) {
+      throw Error("`href` prop needs to be provided for `a` elements");
+    }
+
+    if (as === "button" && !onClick) {
+      throw Error("`onClick` prop needs to be provided for `button` elements");
+    }
+
+    const _default = typeof children === "string";
+    const _default_size = size === "large" ? "m01" : "m02";
+
+    return React.createElement(
+      as,
+      {
+        className: styles.button,
+        href,
+        onClick,
+        ref,
+        title,
+      },
+      <div
+        className={classNames(
+          styles.button_inner,
+          _default && styles.button_default,
+          {
+            [styles.button_large]: size === "large",
+            [styles.button_muted]: bg === "muted",
+            [styles.hover_left]: direction === "left",
+          }
+        )}
+      >
+        {_default ? <Text size={_default_size}>{children}</Text> : children}
+      </div>
+    );
+  }
+);

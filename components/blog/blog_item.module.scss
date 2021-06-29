@@ -1,0 +1,43 @@
+@import "../../styles/mixins";
+
+.link:any-link {
+  text-decoration: none;
+  display: block;
+
+  & > h2,
+  & > p {
+    transition: all 0.5s;
+  }
+
+  & > h2 {
+    background-image: linear-gradient(var(--color), var(--color));
+    background-size: 0% 1px;
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    display: inline;
+    padding-bottom: 2px;
+  }
+}
+
+@media (hover: hover) {
+  .link:hover {
+    & > h2 {
+      background-size: 100% 1px;
+    }
+    & > p {
+      transform: translateY(-10px);
+    }
+  }
+}
+
+.title {
+  line-height: 1.13;
+  font-size: 35px;
+  font-weight: bold;
+  hyphens: auto;
+
+  @include breakpoint(sm) {
+    hyphens: none;
+    font-size: 44px;
+  }
+}

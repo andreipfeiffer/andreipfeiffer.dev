@@ -1,7 +1,7 @@
 .remark-highlight {
   overflow: auto;
-  /* border-radius: 0.3em; */
-  margin: 1em 0;
+  font-size: 0.85em;
+  max-width: calc(100vw - 2px);
 
   /* This might be helpful for large & many blocks of code */
   /* PROS: faster initial rendering */
@@ -9,14 +9,15 @@
   /* content-visibility: auto; */
 }
 
-code {
-  font-family: "Roboto Mono", monospace;
+@media (max-width: 999px) {
+  .remark-highlight {
+    margin-left: calc(var(--content-spacing) * -1);
+    margin-right: calc(var(--content-spacing) * -1);
+    font-size: 0.75em;
+  }
 }
 
 .remark-highlight > pre {
-  float: left;
-  min-width: 100%;
-  padding: 1.5em;
   margin: 0;
 
   direction: ltr;
@@ -24,34 +25,40 @@ code {
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
-  line-height: 1.5;
 
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
 
   -webkit-hyphens: none;
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  /* color: #d6d6bf; */
 }
 
-/* Inline code */
-:not(pre) > code {
-  padding: 0 0.2em 0.2em 0.2em;
-  border-radius: 0.3em;
-  white-space: nowrap;
+/* Code blocks */
+pre[class*="language-"] {
+  --spacing: 2em;
+  padding: calc(var(--spacing) * 0.75) var(--spacing);
+  overflow: auto;
+}
+
+@media (max-width: 999px) {
+  pre[class*="language-"] {
+    --spacing: 20px;
+  }
 }
 
 /* highlight for each spotlight line */
 .remark-highlight-code-line {
-  display: block;
-  margin-right: -1.5em;
-  margin-left: -1.5em;
-  padding-right: 1.5em;
-  padding-left: 1.25em;
-  border-left: 0.25em solid var(--primary);
+  padding-top: 0.05em;
+  padding-bottom: 0.2em;
+
+  margin-right: calc(var(--spacing) * -1);
+  margin-left: calc(var(--spacing) * -1);
+  padding-right: calc(var(--spacing));
+  padding-left: calc(var(--spacing) - 3px);
+  border-left: 3px solid var(--primary);
 }
 
 /* Gutter for line numbers when the line-numbers plugin is active */

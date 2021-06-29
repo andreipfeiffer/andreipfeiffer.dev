@@ -1,11 +1,14 @@
-import BlogPost from "../../../components/blog_post";
-import Code from "../../../components/code";
+import { BlogPost } from "../../../components/blog/blog_post";
+import { Code } from "../../../components/blog/code";
 
 export const meta = {
   title: "React Native’s RCT_EXTERN_METHOD",
   date: "2019-10-19",
-  tags: ["React Native", "Swift", "Objective-C", "Bridge"],
-  category: "mobile",
+  tags: ["react_native"],
+  intro:
+    "Most of the Objective-C Macros from React Native that you have to use when bridging native code are self-explanatory and easy to use. But there is something weird about RCT_EXTERN_METHOD at first sight.",
+  isPublished: false,
+  isArchived: false,
 };
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
@@ -20,11 +23,12 @@ It took me quite some time to understand how it works. There’s no detailed doc
 
 As the name implies, these Macros enable us to expose a native method to React Native’s bridge. It has the following syntax:
 
-```
+```objc
 RCT_EXTERN_METHOD(
-  methodName:         (paramType1)internalParamName1
-  externalParamName2: (paramType2)internalParamName2
-  externalParamName3: (paramType3)internalParamName3
+  methodName:         (paramType1) internalParamName1
+  externalParamName2: (paramType2) internalParamName2
+  externalParamName3: (paramType3) internalParamName3
+  ...
 )
 ```
 
@@ -115,7 +119,7 @@ If you want to learn more about using Swift code in React Native, you should che
 
 For the 1st argument, the [`above rules`](https://upsidedown.ro) apply. Starting with the second argument, This is `const btn = inlineCode(prop)`. the external and internal names map as we would expect.
 
-```js{1-3,6}
+```js{1,3-5}
 import ResizeObserver from "@juggle/resize-observer";
 
 const btn = document.getElementById("btn");

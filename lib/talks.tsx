@@ -1,11 +1,21 @@
 import React from "react";
 import { Text } from "../components/text";
 
-type Video = { type: "video"; url: string };
-type Slides = { type: "slides"; url: string };
-type Code = { type: "code"; url: string; label: string };
+interface Video {
+  type: "video";
+  url: string;
+}
+interface Slides {
+  type: "slides";
+  url: string;
+}
+interface Code {
+  type: "code";
+  url: string;
+  label: string;
+}
 
-export type Talk = {
+export interface Talk {
   title: React.ReactNode;
   date: string;
   type: string;
@@ -16,7 +26,7 @@ export type Talk = {
     bw?: boolean;
   };
   urls?: Array<Video | Slides | Code>;
-};
+}
 
 export const talks: Talk[] = [
   {

@@ -32,12 +32,14 @@
 
 @font-face {
   font-family: "Soehne";
-  src: url("/fonts/soehne-test-buch.woff") format("woff");
+  src: url("/fonts/soehne-web-buch.woff2") format("woff2"),
+    url("/fonts/soehne-web-buch.woff") format("woff");
   font-display: swap;
 }
 @font-face {
   font-family: "Soehne";
-  src: url("/fonts/soehne-test-dreiviertelfett.woff") format("woff");
+  src: url("/fonts/soehne-web-dreiviertelfett.woff2") format("woff2"),
+    url("/fonts/soehne-web-dreiviertelfett.woff") format("woff");
   font-weight: bold;
   font-display: swap;
 }
@@ -49,6 +51,9 @@ body {
   font-family: "Soehne", Arial, Helvetica, sans-serif;
   line-height: 1.65;
   font-size: 19px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 #__next {
@@ -89,9 +94,51 @@ textarea {
 }
 
 /* blog */
-.permalink::before {
-  content: "🔗";
+.headinglink {
+  white-space: nowrap;
+
+  @include breakpoint(md) {
+    & {
+      visibility: hidden;
+    }
+    h2:hover &,
+    h3:hover &,
+    h4:hover & {
+      visibility: visible;
+    }
+  }
+
+  &::before {
+    content: " ";
+    opacity: 0;
+  }
+
+  &::after {
+    background-image: url("/images/headinglink.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 0.75em;
+
+    content: "";
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border-radius: 40%;
+    transform: translateY(0.1em);
+
+    @include breakpoint(md) {
+      background-size: 0.5em;
+      border: 1px var(--dark) solid;
+      margin-left: 0.25em;
+      transform: translateY(0.15em);
+    }
+
+    [data-darkmode="true"] & {
+      filter: invert(1);
+    }
+  }
 }
+
 figure {
   margin: 2em 0;
   padding: 0;
@@ -101,8 +148,18 @@ figure img {
   margin: 0;
 }
 
+.code,
 code {
   font-family: "Roboto Mono", monospace;
+}
+
+.light-mode {
+  --color: var(--dark);
+  --background: var(--light);
+}
+.dark-mode {
+  --color: var(--light);
+  --background: var(--dark);
 }
 
 .light-mode,
@@ -125,11 +182,19 @@ code {
 }
 
 .light-mode .muted {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 .dark-mode .muted {
-  opacity: 0.6;
+  opacity: 0.5;
 }
 .bg-primary .muted {
-  opacity: 0.7;
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :focus {
+    transition: outline-offset 0.25s ease;
+    outline-offset: 5px;
+    outline-color: dodgerblue;
+  }
 }

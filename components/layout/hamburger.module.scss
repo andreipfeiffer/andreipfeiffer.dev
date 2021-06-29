@@ -24,10 +24,6 @@
   }
 }
 
-.hamburger:focus {
-  outline: none;
-}
-
 .hamburger_inner::before,
 .hamburger_inner::after {
   position: absolute;
