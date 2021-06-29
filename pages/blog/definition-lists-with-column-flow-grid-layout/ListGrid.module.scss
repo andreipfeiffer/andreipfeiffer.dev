@@ -10,15 +10,12 @@
   grid-template-rows: auto auto;
   justify-items: center;
 
+  padding: 1em;
+
   @include breakpoint(md) {
     font-size: 2em;
   }
 }
-
-/* .group {
-  flex: 1;
-  text-align: center;
-} */
 
 .label {
   color: grey;

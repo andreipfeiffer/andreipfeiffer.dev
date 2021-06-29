@@ -18,7 +18,7 @@ export function ListGrid(props: Props) {
       <dd className={styles.value}>456</dd>
 
       <dt className={styles.label}>Likes</dt>
-      <dd className={styles.value}>9999</dd>
+      <dd className={styles.value}>7890</dd>
     </dl>
   );
 }

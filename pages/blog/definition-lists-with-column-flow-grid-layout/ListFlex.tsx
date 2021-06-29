@@ -17,7 +17,7 @@ export function ListFlex() {
 
       <div className={styles.group}>
         <span className={styles.label}>Likes</span>
-        <span className={styles.value}>9999</span>
+        <span className={styles.value}>7890</span>
       </div>
     </div>
   );
