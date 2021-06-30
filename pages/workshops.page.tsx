@@ -14,7 +14,10 @@ export default function Workshops() {
 
   return (
     <Layout>
-      <MetaTags title={`Workshops and Trainings: ${META_TITLE}`} />
+      <MetaTags
+        title={`Workshops and Trainings: ${META_TITLE}`}
+        image="/images/share/workshops.png"
+      />
 
       <Grid.Full>
         <Text size="h00" as="h1" className={styles.title}>

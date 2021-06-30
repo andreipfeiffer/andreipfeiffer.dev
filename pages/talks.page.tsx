@@ -20,7 +20,10 @@ export default function Talks() {
 
   return (
     <Layout>
-      <MetaTags title={`Talks and Live coding: ${META_TITLE}`} />
+      <MetaTags
+        title={`Talks and Live coding: ${META_TITLE}`}
+        image="/images/share/talks.png"
+      />
 
       <Grid.Full>
         <Text size="h00" as="h1" className={styles.title}>

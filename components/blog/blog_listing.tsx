@@ -28,7 +28,10 @@ export function BlogListing(props: BlogListingProps) {
 
   return (
     <Layout className={styles.blog_listing}>
-      <MetaTags title={`Blog, by Andrei Pfeiffer`} />
+      <MetaTags
+        title={`Blog, by Andrei Pfeiffer`}
+        image="/images/share/blog.png"
+      />
 
       {breakpoint && <Spacer vertical="100" />}
 
