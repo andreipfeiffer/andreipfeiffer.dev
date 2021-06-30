@@ -162,7 +162,7 @@ export function BlogPost(props: Props) {
     </Layout>
   );
 
-  function goBack(e: MouseEvent) {
+  function goBack(e: React.MouseEvent<HTMLAnchorElement>) {
     // check if there is something in history to go back to
     // otherwise (when opening this page directly) fallback to href
     if (window.history.state.idx > 0) {
