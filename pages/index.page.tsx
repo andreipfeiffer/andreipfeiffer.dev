@@ -23,8 +23,14 @@ export default function Home() {
         <Spacer vertical="16" />
 
         <Text size="h03" as="p">
-          Organizer of <a href="http://revojs.ro">revo.js</a> conference &amp;{" "}
-          <a href="http://timjs.ro">tim.js</a> meetup
+          Organizer of{" "}
+          <Text nowrap>
+            <a href="http://revojs.ro">revo.js</a> conference
+          </Text>{" "}
+          &amp;{" "}
+          <Text nowrap>
+            <a href="http://timjs.ro">tim.js</a> meetup
+          </Text>
         </Text>
       </Grid.Full>
     </Layout>
