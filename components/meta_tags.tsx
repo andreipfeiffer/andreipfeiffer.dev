@@ -39,8 +39,8 @@ export function MetaTags(props: Partial<MetaTags>) {
       {!!meta.image && (
         <>
           <meta property="og:image" content={`${WEB_URL}${meta.image}`} />
-          <meta property="og:image:width" content="1200" />
-          <meta property="og:image:height" content="630" />
+          <meta property="og:image:width" content="2400" />
+          <meta property="og:image:height" content="1260" />
           <meta name="twitter:image" content={`${WEB_URL}${meta.image}`} />
         </>
       )}
