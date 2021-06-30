@@ -60,5 +60,5 @@ const DEFAULT_META_TAGS: MetaTags = {
   description:
     "Hi, I'm Andrei Pfeiffer, an Eclectic Code Designer, UI developer for Web and Mobile and Organizer of revo.js conference and tim.js meetup",
   type: "website",
-  image: "",
+  image: "/images/share/andreipfeiffer.dev.png",
 };
