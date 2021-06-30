@@ -11,4 +11,5 @@ export const meta: Metadata = {
     "We'll examine multiple methods to initialize empty objects in TypeScript, which is something you'll probably have to deal with in any application that has some form of state management.",
   isPublished: true,
   isArchived: false,
+  cover: "/images/share/empty-objects-initialization-with-typescript.png",
 };

@@ -9,4 +9,6 @@ export const meta: Metadata = {
     "In Next.js we can customize what file extensions should be rendered as pages. This enables us to create components inside the pages folder without generating unneeded routes.",
   isPublished: true,
   isArchived: false,
+  cover:
+    "/images/share/distinguishing-between-pages-and-components-in-next-js.png",
 };
