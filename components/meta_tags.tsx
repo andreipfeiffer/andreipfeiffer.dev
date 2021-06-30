@@ -19,6 +19,9 @@ export function MetaTags(props: Partial<MetaTags>) {
 
   return (
     <Head>
+      <title>{meta.title}</title>
+      <meta name="author" content="Andrei Pfeiffer" />
+      <meta name="description" content={meta.description} />
       <meta property="og:title" content={meta.title} key="og_title" />
       <meta property="og:description" content={meta.description} />
       <meta property="og:site_name" content="andreipfeiffer.dev" />
@@ -34,6 +37,7 @@ export function MetaTags(props: Partial<MetaTags>) {
             property="og:article:tag"
             content={meta.article.tags.join(", ")}
           />
+          <meta name="keywords" content={meta.article.tags.join(", ")} />
         </>
       )}
       {!!meta.image && (
