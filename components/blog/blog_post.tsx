@@ -82,7 +82,7 @@ export function BlogPost(props: Props) {
           <Fullpage>
             <Grid.Full className={styles.title}>
               <Link href="/blog">
-                <a onClick={() => router.back()} className={styles.back}>
+                <a onClick={goBack} className={styles.back}>
                   <Flex type="inline" gap="16" align="center" as="span">
                     <Arrow direction={"left"} />
                     <Text size="m01">Back to Articles</Text>
@@ -161,6 +161,15 @@ export function BlogPost(props: Props) {
       </article>
     </Layout>
   );
+
+  function goBack(e: MouseEvent) {
+    // check if there is something in history to go back to
+    // otherwise (when opening this page directly) fallback to href
+    if (window.history.state.idx > 0) {
+      e.preventDefault();
+      router.back();
+    }
+  }
 }
 
 function Tags({ tags }: { tags: TagType[] }) {
