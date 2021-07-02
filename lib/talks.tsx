@@ -36,7 +36,7 @@ export const talks: Talk[] = [
     abstract: (
       <>
         <p>
-          CSS in easy to learn, but difficult to master, even at small scale.
+          CSS is easy to learn, but difficult to master, even at small scale.
           Developing and maintaining a large CSS code base requires a lot of
           effort, strict rules and proper tooling.
         </p>
