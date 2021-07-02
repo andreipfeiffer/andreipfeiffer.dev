@@ -198,3 +198,8 @@ code {
     outline-color: dodgerblue;
   }
 }
+
+::selection {
+  background-color: #f3db8b;
+  color: var(--dark);
+}
