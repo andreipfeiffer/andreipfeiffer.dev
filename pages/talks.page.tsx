@@ -62,7 +62,7 @@ export default function Talks() {
       <Spacer vertical="140" />
 
       <Grid.Full>
-        <Text as="h2" size="h02">
+        <Text as="h2" size="h02" className={styles.old_title}>
           Old and discontinued talks
         </Text>
 

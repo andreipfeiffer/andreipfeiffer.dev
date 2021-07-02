@@ -69,3 +69,9 @@
   font-weight: bold;
   letter-spacing: -2px;
 }
+
+.old_title {
+  @include breakpoint(md, max) {
+    hyphens: auto;
+  }
+}
