@@ -1,0 +1,164 @@
+import { BlogPost } from "../../../components/blog/blog_post";
+import { Subheading } from "../../../components/blog/subheading";
+import { Status } from "../../../components/blog/status";
+import { Figure } from "../../../components/blog/figure";
+
+import img1 from "./ui-api1.png";
+import img2 from "./ui-api2.png";
+import img3 from "./ui-api3.png";
+import img4 from "./ui-api4.png";
+import Image from "next/image";
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+Almost all User Interfaces that I've developed, with a few exceptions, dealt with data served from an HTTP server, usually a RESTful or a GraphQL API.
+
+There are multiple methods we could use during development to connect our UIs to their corresponding APIs. Let's debate them along with their strong points and limitations.
+
+<Figure background={"#fff"}>
+  <Image
+    src={img1}
+    width="1818"
+    height="511"
+    alt="Typically, User Interfaces manage data using web APIs"
+  />
+</Figure>
+
+## Remote dev server
+
+Having a remote development server to connect to is probably the most convenient method for a UI/Front-End developer, because it requires the least amount of effort. The API is deployed to a secured URL and locally we're running only the UI. The entire effort relies on the infrastructure team.
+
+It's important to understand that this lack of effort also means lack of control. We're relying solely on external resources beyond our control.
+
+<Figure background={"#fff"}>
+  <Image
+    src={img2}
+    width="1818"
+    height="870"
+    alt="A User Interface connected to a remove development server"
+  />
+</Figure>
+
+<Subheading>
+  <Status type="ok" /> No local setup required
+</Subheading>
+
+It doesn't get any easier than this. The only thing we need to do as UI developers using this approach is to **point the outgoing requests to the remote API url**. No local setup required, so we can focus exclusively on the UI.
+
+<Subheading>
+  <Status type="ok" /> Shared data
+</Subheading>
+
+Another benefit of this approach is that all the **stored data is shared with all the team members** working with that API. This means that other developers or testers can easily reproduce our own application state, validating a certain behavior.
+
+Keep in mind that this also means that anyone could mingle with "our data", changing it or even removing it, so communication between team members is necessary.
+
+<Subheading>
+  <Status type="err" /> Infrastructure dependent
+</Subheading>
+
+One limitation of this approach is that it's not trivial to **deploy different branches** on the same server. Changing the deployed branch would be confusing, especially with large teams. Supporting multiple deployed branches at once requires additional servers and infrastructure management.
+
+<Subheading>
+  <Status type="err" /> Doesn't work offline
+</Subheading>
+
+Last but not least, **we need a stable internet connection** during development. This also means that if the development server is offline, we're unable to do anything.
+
+## Local setup
+
+To overcome the limitations mentioned above, we could run the entire API locally. Using a containerization method, like Docker, made this a lot easier, allowing us to have complex infrastructure running locally in just a few minutes.
+
+<Figure background={"#fff"}>
+  <Image
+    src={img3}
+    width="1818"
+    height="870"
+    alt="A User Interface connected to a local API"
+  />
+</Figure>
+
+<Subheading>
+  <Status type="ok" /> Works offline
+</Subheading>
+
+Since we're running everything locally, we **don't require an internet connection**.
+
+<Subheading>
+  <Status type="ok" /> Easily switch branches
+</Subheading>
+
+We have **full control over the versioning system**, so we can run any branch or tag. This allows us to test any feature under development, or to reproduce bugs with previous versions.
+
+<Subheading>
+  <Status type="err" /> Cumbersome data sharing
+</Subheading>
+
+One limitation with running everything locally is that we **can't easily share application state** with other team members. Sharing data requires us to either:
+
+<ul>
+  <li>
+    export the database, send it to our colleague and have them import it in
+    their own system;
+  </li>
+  <li>
+    or tell them all the steps they need to perform to get to the same
+    application state.
+  </li>
+</ul>
+
+<Subheading>
+  <Status type="err" /> Additional effort required
+</Subheading>
+
+It's true that containerization made this approach a whole lot easier, but with real world applications, the **setup and system updates are not always simple**:
+
+<ul>
+  <li>different operating systems usually require specific handling;</li>
+  <li>
+    working with certain 3rd party APIs, like payment gateways, might require
+    mocking;
+  </li>
+  <li>
+    not to mention that we'll have to perform all the required database
+    migrations, dependencies setup and so on.
+  </li>
+</ul>
+
+## Fake API
+
+A third method we could use is to short-circuit the web API altogether, using some sort of proxy mock server or a local fake API. The one that I've used in the past with success is [json-server](https://github.com/typicode/json-server), but there are many more solutions available.
+
+<Figure background={"#fff"}>
+  <Image
+    src={img4}
+    width="1818"
+    height="870"
+    alt="A User Interface connected to a local Fake API"
+  />
+</Figure>
+
+<Subheading>
+  <Status type="ok" /> Easy data stubbing
+</Subheading>
+
+The biggest benefit of this approach is probably the **lack of effort required to stub specific data**. With the previous methods we cannot directly control the endpoints output. Instead, we have to bring the system to a certain state so that the endpoints respond with the desired output.
+
+Having typed API requests helps a lot to ensure that we're including all the required data.
+
+<Subheading>
+  <Status type="err" /> Manual schema updates
+</Subheading>
+
+Probably the biggest drawback is that we'll have to **manually update the endpoints response** whenever the real API changes, which incurs a maintenance cost.
+
+---
+
+As we can see, like any engineering problem, there is no silver bullet. Each of the above methods works best in a specific situation:
+
+- using a **fake API** works great for prototyping or during early development stages when we don't have a fully working web API;
+- integrating with a **remote development server** proves very convenient, especially in teams where development is split between dedicated UI/Front-End and API/Back-End developers;
+- having a **local setup of the API** provides a high degree of flexibility and control, useful in full-stack development, where developers work both on UI and API.
