@@ -2,15 +2,15 @@ import React from "react";
 import { Grid } from "../grid";
 import { Text } from "../text";
 import { Fullpage } from "./fullpage";
+import { Status, StatusType } from "./status";
+
 import styles from "./figure.module.scss";
 import classNames from "classnames";
-
-type Status = "ok" | "err" | undefined;
 
 type Props = {
   children: React.ReactNode;
   caption?: React.ReactNode;
-  status?: Status;
+  status?: StatusType;
   /** "content" -> default content width; "grid" -> 12 columns grid width; "page" -> full page width */
   width?: "content" | "grid" | "page";
   background?: string | boolean;
@@ -45,7 +45,8 @@ export function Figure({
           as="figcaption"
           className={styles.caption}
         >
-          {renderStatus(status)} {caption}
+          {status && <Status type={status} className={styles.status} />}{" "}
+          {caption}
         </Text>
       )}
     </figure>
@@ -64,20 +65,5 @@ export function Figure({
 
     default:
       return content;
-  }
-
-  function renderStatus(status: Status) {
-    if (!status) {
-      return null;
-    }
-
-    return (
-      <span
-        className={classNames(styles.status, {
-          [styles.status_ok]: status === "ok",
-          [styles.status_err]: status === "err",
-        })}
-      ></span>
-    );
   }
 }

@@ -1,0 +1,52 @@
+@import "../../styles/mixins";
+
+.status {
+  display: inline-block;
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  position: relative;
+}
+.status_ok {
+  background-color: #58c306;
+
+  &::after,
+  &::before {
+    content: "";
+    display: block;
+    top: 0;
+    left: 0;
+    background-color: white;
+    height: 2px;
+  }
+  &::before {
+    width: 5px;
+    transform: translate(7px, 12px) rotate(45deg);
+  }
+  &::after {
+    width: 9px;
+    transform: translate(9px, 9px) rotate(-45deg);
+  }
+}
+.status_err {
+  background-color: #ff3636;
+
+  &::after,
+  &::before {
+    content: "";
+    display: block;
+    top: 0;
+    left: 0;
+    background-color: white;
+    height: 2px;
+  }
+  &::before {
+    width: 10px;
+    transform: translate(7px, 11px) rotate(45deg);
+  }
+  &::after {
+    width: 10px;
+    transform: translate(7px, 9px) rotate(-45deg);
+  }
+}
