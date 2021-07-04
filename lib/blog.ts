@@ -99,7 +99,8 @@ export type Tag =
   | "typescript"
   | "entropy"
   | "learning"
-  | "misc";
+  | "misc"
+  | "ui";
 
 interface TagDetails {
   name: string;
@@ -163,5 +164,12 @@ export const TAGS: { [key in Tag]: TagDetails } = {
     text: "dark",
     description:
       "Articles that touch upon continuous learning, teaching techniques, or knowledge sharing.",
+  },
+  ui: {
+    name: "User Interface",
+    color: "#0dec71",
+    text: "dark",
+    description:
+      "Articles that cover any engineering or design aspects of UI development.",
   },
 } as const;
