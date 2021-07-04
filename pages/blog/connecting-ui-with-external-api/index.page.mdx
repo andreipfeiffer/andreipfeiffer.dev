@@ -14,9 +14,7 @@ export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-Almost all User Interfaces that I've developed, with a few exceptions, dealt with data served from an HTTP server, usually a RESTful or a GraphQL API.
-
-There are multiple methods we could use during development to connect our UIs to their corresponding APIs. Let's debate them along with their strong points and limitations.
+Almost all user interfaces that I've developed, with a few exceptions, dealt with data served from an HTTP server, usually a RESTful or a GraphQL API.
 
 <Figure background={"#fff"}>
   <Image
@@ -27,11 +25,21 @@ There are multiple methods we could use during development to connect our UIs to
   />
 </Figure>
 
-## Remote dev server
+During development, there are multiple methods to connect these interfaces with their corresponding APIs. The ones that I've used so far are:
 
-Having a remote development server to connect to is probably the most convenient method for a UI/Front-End developer, because it requires the least amount of effort. The API is deployed to a secured URL and locally we're running only the UI. The entire effort relies on the infrastructure team.
+- connecting to a [**remote development server**](#remote-development-server)
+- setting up a [**local development environment**](#local-setup)
+- configuring a local [**fake API**](#fake-api)
 
-It's important to understand that this lack of effort also means lack of control. We're relying solely on external resources beyond our control.
+<br />
+
+Let's explore each of them in more detail to discover their strong points and limitations.
+
+## Remote development server
+
+Connecting to a remote development server is probably the most convenient method for a UI/Front-End developer because it requires no effort on their side. The entire effort relies on the infrastructure team, which has to deploy the API on a secured public URL.
+
+It's important to understand that this lack of effort also means a lack of flexibility. We're relying solely on external resources beyond our control.
 
 <Figure background={"#fff"}>
   <Image
@@ -46,15 +54,15 @@ It's important to understand that this lack of effort also means lack of control
   <Status type="ok" /> No local setup required
 </Subheading>
 
-It doesn't get any easier than this. The only thing we need to do as UI developers using this approach is to **point the outgoing requests to the remote API url**. No local setup required, so we can focus exclusively on the UI.
+It doesn't get any easier than this. The only thing we need to do as UI developers using this approach is to **point the outgoing requests to the remote API address**. No local setup is required, so we can focus exclusively on the UI.
 
 <Subheading>
   <Status type="ok" /> Shared data
 </Subheading>
 
-Another benefit of this approach is that all the **stored data is shared with all the team members** working with that API. This means that other developers or testers can easily reproduce our own application state, validating a certain behavior.
+Another benefit is that all the **stored data is shared with all the team members** working with that API. This means that all team members work with the same application state, being able to easily reproduce any potential bug.
 
-Keep in mind that this also means that anyone could mingle with "our data", changing it or even removing it, so communication between team members is necessary.
+Keep in mind that changing or removing any data will impact anyone using that API, so communication between team members is essential.
 
 <Subheading>
   <Status type="err" /> Infrastructure dependent
@@ -66,11 +74,11 @@ One limitation of this approach is that it's not trivial to **deploy different b
   <Status type="err" /> Doesn't work offline
 </Subheading>
 
-Last but not least, **we need a stable internet connection** during development. This also means that if the development server is offline, we're unable to do anything.
+Last but not least, **we need a stable internet connection** during development. This also means that if the development server is offline, we're unable to get any work done.
 
 ## Local setup
 
-To overcome the limitations mentioned above, we could run the entire API locally. Using a containerization method, like Docker, made this a lot easier, allowing us to have complex infrastructure running locally in just a few minutes.
+To overcome the limitations of a shared development server, we could run the entire API locally. Using a containerization method, like Docker, made this a lot easier, allowing us to have complex infrastructure running locally in just a few minutes.
 
 <Figure background={"#fff"}>
   <Image
@@ -91,30 +99,29 @@ Since we're running everything locally, we **don't require an internet connectio
   <Status type="ok" /> Easily switch branches
 </Subheading>
 
-We have **full control over the versioning system**, so we can run any branch or tag. This allows us to test any feature under development, or to reproduce bugs with previous versions.
+We have **complete control over the versioning system**, meaning that we can run any branch or tag. This allows us to test any feature under development, or to reproduce bugs using previous versions of the API.
 
 <Subheading>
   <Status type="err" /> Cumbersome data sharing
 </Subheading>
 
-One limitation with running everything locally is that we **can't easily share application state** with other team members. Sharing data requires us to either:
+One limitation with running everything locally is that we **can't easily share the application state** with other team members. Sharing data requires either:
 
 <ul>
   <li>
-    export the database, send it to our colleague and have them import it in
-    their own system;
+    exporting the database, sending it to our colleagues, and have them import
+    it into their API;
   </li>
   <li>
-    or tell them all the steps they need to perform to get to the same
-    application state.
+    or tell them all the required steps to reach the desired application state.
   </li>
 </ul>
 
 <Subheading>
-  <Status type="err" /> Additional effort required
+  <Status type="err" /> Additional maintenance effort
 </Subheading>
 
-It's true that containerization made this approach a whole lot easier, but with real world applications, the **setup and system updates are not always simple**:
+Containerization indeed made this approach a whole lot easier, but with real-world applications, the **initial setup and subsequent updates are not always simple**:
 
 <ul>
   <li>different operating systems usually require specific handling;</li>
@@ -123,14 +130,14 @@ It's true that containerization made this approach a whole lot easier, but with 
     mocking;
   </li>
   <li>
-    not to mention that we'll have to perform all the required database
-    migrations, dependencies setup and so on.
+    not to mention that each team member will have to perform all the required
+    database migrations, dependencies setup, and so on.
   </li>
 </ul>
 
 ## Fake API
 
-A third method we could use is to short-circuit the web API altogether, using some sort of proxy mock server or a local fake API. The one that I've used in the past with success is [json-server](https://github.com/typicode/json-server), but there are many more solutions available.
+A third method we could use is to short-circuit the web API altogether, using some sort of proxy mock server or a local fake API. The one that I've used in the past with success is [json-server](https://github.com/typicode/json-server), but there are many other solutions available.
 
 <Figure background={"#fff"}>
   <Image
@@ -145,7 +152,7 @@ A third method we could use is to short-circuit the web API altogether, using so
   <Status type="ok" /> Easy data stubbing
 </Subheading>
 
-The biggest benefit of this approach is probably the **lack of effort required to stub specific data**. With the previous methods we cannot directly control the endpoints output. Instead, we have to bring the system to a certain state so that the endpoints respond with the desired output.
+The biggest benefit of this approach is probably the **lack of effort required to stub specific data**. With the previous methods, we cannot directly control the endpoints' output. Instead, we have to bring the system to a certain state so that the endpoints respond with the desired output.
 
 Having typed API requests helps a lot to ensure that we're including all the required data.
 
@@ -153,11 +160,13 @@ Having typed API requests helps a lot to ensure that we're including all the req
   <Status type="err" /> Manual schema updates
 </Subheading>
 
-Probably the biggest drawback is that we'll have to **manually update the endpoints response** whenever the real API changes, which incurs a maintenance cost.
+Probably the biggest drawback is that we'll have to **manually update the endpoints' response** whenever the real API changes, which incurs a maintenance cost.
+
+Without a solid collaboration between the UI engineers responsible for the fake API and the maintainers of the real API, this could turn into a serios issue.
 
 ---
 
-As we can see, like any engineering problem, there is no silver bullet. Each of the above methods works best in a specific situation:
+So, like any engineering problem, there is no silver bullet. None of the methods is perfect, but each of them shines in different situations:
 
 - using a **fake API** works great for prototyping or during early development stages when we don't have a fully working web API;
 - integrating with a **remote development server** proves very convenient, especially in teams where development is split between dedicated UI/Front-End and API/Back-End developers;
