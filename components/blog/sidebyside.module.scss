@@ -15,7 +15,7 @@
 .header {
   font-size: 14px;
   font-family: "Roboto Mono", monospace;
-  padding: 0.25em 1em;
+  padding: 0.25em 0.75em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -58,7 +58,7 @@
 
 .lang {
   background-color: #ffffffaa;
-  transform: translateX(0.5em);
+  transform: translateX(0.25em);
   padding: 3px 0.5em 3px;
   border-radius: 3px;
   line-height: 1;

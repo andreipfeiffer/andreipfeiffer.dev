@@ -1,5 +1,6 @@
 import React from "react";
 import { Fullpage } from "./fullpage";
+import { useBreakpoint } from "../layout/useBreakpoint";
 import s from "./sidebyside.module.scss";
 
 type Header = { lang?: string; file?: string };
@@ -14,8 +15,12 @@ export function SideBySide({ children, left, right }: SideBySideProps) {
   return (
     <Fullpage>
       <div className={s.container}>
-        <Side header={left}>{children[0]}</Side>
-        <Side header={right}>{children[1]}</Side>
+        <Side fullwidth={false} header={left}>
+          {children[0]}
+        </Side>
+        <Side fullwidth={false} header={right}>
+          {children[1]}
+        </Side>
       </div>
     </Fullpage>
   );
@@ -24,15 +29,25 @@ export function SideBySide({ children, left, right }: SideBySideProps) {
 type SideProps = {
   children: JSX.Element;
   header?: Header;
+  fullwidth?: boolean;
 };
 
-export function Side({ children, header }: SideProps) {
-  return (
+export function Side({ children, header, fullwidth = true }: SideProps) {
+  const { breakpoint } = useBreakpoint();
+
+  const content = (
     <div className={s.side}>
       {renderHeader(header)}
       {children}
     </div>
   );
+
+  // spread this single side on the entire width when on mobile
+  if (fullwidth && (!breakpoint || breakpoint === "sm")) {
+    return <Fullpage>{content}</Fullpage>;
+  }
+
+  return content;
 
   function renderHeader(header?: Header) {
     if (!header) {
