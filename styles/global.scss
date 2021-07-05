@@ -179,6 +179,10 @@ code {
 .bg-primary {
   background-color: var(--primary);
   color: var(--dark);
+
+  ::selection {
+    background-color: #ffffffaa;
+  }
 }
 
 .light-mode .muted {
