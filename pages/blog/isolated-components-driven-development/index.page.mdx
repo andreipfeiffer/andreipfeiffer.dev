@@ -1,0 +1,125 @@
+import { BlogPost } from "../../../components/blog/blog_post";
+import { Subheading } from "../../../components/blog/subheading";
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+Before I begin, let me get something out of the way: this is NOT a new development methodology like TDD, BDD, or ATDD.
+
+Isolated components driven development is a technique I've been using for years, during development or debugging, which proved to be incredibly powerful, and in some particular scenarios even necessary.
+
+It is not a novel technique. We're used to develop code in isolation in unit testing, where we execute a function or method outside the application that uses it.
+
+<br />
+
+```js
+Component -> f(props)
+```
+
+If we think of a UI Component as being a _"function of props"_, we can apply the same approach as in unit testing and **render components in isolation**, outside the application that uses them.
+
+## Use cases
+
+There are multiple scenarios in which this technique proves useful. Let's explore different use cases which I have personally experienced in the past.
+
+<Subheading>Building a UI components library</Subheading>
+
+A UI components library is a collection of reusable components that's used in one or multiple applications, but it's usually developed separately. Being developed separately, they have to be rendered outside the application(s) that will eventually use them.
+
+So, in this situation, the technique is required.
+
+<Subheading>Working with read-only UIs</Subheading>
+
+Typically, most UIs include all [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations. That allows us to add data, which is needed to build UI components during development. Without the data, we could only render empty states, which is required, but insufficient.
+
+But some UIs, like Google Analytics charts or Github diff view are mostly read-only. They read and display existing data, but we cannot add new data from the UI. Instead, the source of the data is different than the destination that works with it.
+
+Even if we have access to the data source in development, to add some test data and have a integrated development environment, it's usually cumbersome.
+
+So, a much convenient solution would be to render the UI components in isolation, which allows us to bypass all data sources and pass any arbitrary props.
+
+<Subheading>Working with unstable APIs</Subheading>
+
+There are multiple methods to [connect the UI to their web API](/blog/developing-uis-connected-to-web-apis), each of them having some strong points and limitations as well. But sometimes the APIs that we integrate with might be unstable for various reasons: they might be under development, changing frequently, or being offline when we need them most.
+
+Decoupling the UI components from their data source could greatly improve the development experience, because it removes the dependency on unstable APIs.
+
+<Subheading>Working with deeply nested data-dependent components</Subheading>
+
+Let's consider the favorable scenario, where we don't have to deal with a read-only user interface, we're not building a components library, and we're working with a very stable API.
+
+Working on a new UI component, might require a few steps to get the application in the desired state:
+
+1. boot up the entire application;
+2. navigate to the required route;
+3. fetch the data for that route, which passes it down to other components;
+4. trigger some events that fetch more data;
+5. and eventually display the new component that we should be working on.
+
+Repeting this process over and over again could be counter productive and also annoying.
+
+Not to mention that we might have to debug a component using a specific state that might be cumbersome or difficult to replicate.
+
+Decoupling UI components from the application and data provider containers proves to **improve the development of new UI components**, but also providing e **better experience when debugging existing components**.
+
+## Tooling
+
+To begin with, we don't necessarily need special tooling for this technique. For very simple applications we can have separate page(s) where we render the components that we want to develop or debug. For instance, this entire website was built only after I had implemented all the required building blocks rendering them on this [**style guide**](/style-guide) page.
+
+However, for more serios applications we would probably need more features, and there a many existing solutions that we can choose. The focus of this article is not on the how-to part of this technique, so I'll only mention the tools that I've personally used:
+
+- [**React Styleguidist**](https://react-styleguidist.js.org/) is built specifically for React. It's pretty simple and basic, so it's a good choice as a starting point.
+- [**Storybook**](https://storybook.js.org/) is another popular tool with implementations for most JS frameworks. It's more complex and extensible through its plugin system.
+
+There are other less popular tools that I haven't tried yet, also built for React, namely [**Docz**](https://www.docz.site/) which is focused on _documentation_ and [**React Cosmos**](https://reactcosmos.org/) which focuses on _component development_.
+
+All of them provide great documentation and examples so I won't dive into the details, as the focus of this article is the general approach of isolated component development, not so much on the details on how to do it.
+
+## Incremental adoption
+
+One important thing to keep in mind is that this technique is not an all-or-nothing decision. We can try it out on a small scale and gradually incorporate it if it proves useful:
+
+1. **Having a local development setup** is a great first step and use it only when it helps to isolate a component during development or debugging;
+
+2. **Sharing it with the team** would the following step, where other team members could also benefit of the documented components and contribute with their own components;
+
+3. **Publishing a static build** could even benefit testers or designers, allowing them to browse and experience the actual components' implementation.
+
+## Added benefits
+
+As we saw, isolating the rendering of the components is a powerful technique that helps during the development and the debugging stage. But it's worthmentioning that there are other secondary valuable benefits that should be taken into consideration.
+
+<Subheading>Documentation</Subheading>
+
+Having all the component states rendered in a separate UI provides great documentation. Having all the reusable components displayed in one place is also valuable for anyone working on that project, allowing them to discover the existing components and their usage.
+
+This really helps to avoid reinventing the wheel and creating similar components, which might be prevalent in lengthy projects with larger teams.
+
+Not to mention that most previously mentioned tool automatically generate a list of available props/input based on the type definitions of the components.
+
+<Subheading>Interactive playground</Subheading>
+
+Seeing the rendered components is great, but without proper tooling we would have to look at the source code to find out how to use them.
+
+Fortunately, all the above tools generate an interactive UI where we can:
+
+- see the code that generates a specific component state;
+- change the props and get instant component update;
+
+<Subheading>
+  Encourages container/presentational component separation
+</Subheading>
+
+Data dependent components are not that trivial to render in isolation. We might have to create mocks/stubs for API requests, inject data stores, and include services or data providers.
+
+A common pattern is to decouple the **component that fetches** the data which is typically called a smart component or a container, from the **component the displays** the data, typically called a dumb or presentational component.
+
+This way, we can easily render only the presentational component, passing it any arbitrary data, without worrying about external data sources.
+
+<Subheading>Component API focus</Subheading>
+
+A strange thing happens when we develop components in isolation, because we're putting ourselves in the consumer shoes. We get to experience the component's API usage in all its states variations. This helps to spot inproper names or types.
+
+To see the city skyline we have to go out of the city and to see what the Matrix is we have to step out of the Matrix. The same is true for components' API design.
