@@ -1,6 +1,9 @@
 import React from "react";
-import { Fullpage } from "./fullpage";
+
 import { useBreakpoint } from "../layout/useBreakpoint";
+
+import { Fullpage } from "./fullpage";
+
 import s from "./sidebyside.module.scss";
 
 type Header = { lang?: string; file?: string };

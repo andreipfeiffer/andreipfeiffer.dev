@@ -1,11 +1,11 @@
 import React from "react";
 
 import { Grid } from "../components/grid";
-import { Text } from "../components/text";
-import { Spacer } from "../components/spacer";
 import { Layout } from "../components/layout";
 import { useBreakpoint } from "../components/layout/useBreakpoint";
 import { MetaTags } from "../components/meta_tags";
+import { Spacer } from "../components/spacer";
+import { Text } from "../components/text";
 
 export default function Contact() {
   const { breakpoint } = useBreakpoint();

@@ -1,10 +1,10 @@
-import React from "react";
 import Link from "next/link";
+import React from "react";
 
 import { Grid } from "../components/grid";
-import { Text } from "../components/text";
 import { Layout } from "../components/layout";
 import { MetaTags } from "../components/meta_tags";
+import { Text } from "../components/text";
 
 export default function Contact() {
   return (

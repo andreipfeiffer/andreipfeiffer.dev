@@ -1,12 +1,13 @@
 import { BlogPost } from "../../components/blog/blog_post";
-import { Subheading } from "../../components/blog/subheading";
-import { Note } from "../../components/blog/note";
-import { Fullpage } from "../../components/blog/fullpage";
-import { Tag } from "../../components/blog/tag";
-import { Grid } from "../../components/grid";
-import { Flex } from "../../components/flex";
-import { Text } from "../../components/text";
 import { Figure } from "../../components/blog/figure";
+import { Fullpage } from "../../components/blog/fullpage";
+import { Note } from "../../components/blog/note";
+import { Subheading } from "../../components/blog/subheading";
+import { Tag } from "../../components/blog/tag";
+import { Flex } from "../../components/flex";
+import { Grid } from "../../components/grid";
+import { Text } from "../../components/text";
+
 import { TAGS } from "../../lib/blog";
 import type { Tag as TagType } from "../../lib/blog";
 

@@ -1,7 +1,8 @@
-import React from "react";
 import classNames from "classnames";
+import React from "react";
 
 import { theme } from "./theme";
+
 import styles from "./flex.module.scss";
 
 type Props = {

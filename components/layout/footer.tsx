@@ -1,13 +1,13 @@
-import React from "react";
 import classNames from "classnames";
+import React from "react";
 
-import { Text } from "../text";
+import { getCurrentYear, SUBSCRIBE_URL } from "../../lib/utils";
 import { Box } from "../box";
 import { Flex } from "../flex";
-import { getCurrentYear, SUBSCRIBE_URL } from "../../lib/utils";
+import { Text } from "../text";
 
-import { pages } from "./pages";
 import { MainLink } from "./main_link";
+import { pages } from "./pages";
 import { useBreakpoint } from "./useBreakpoint";
 
 import styles from "./footer.module.scss";

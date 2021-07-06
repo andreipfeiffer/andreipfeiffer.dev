@@ -1,15 +1,15 @@
-import React from "react";
 import classNames from "classnames";
+import React from "react";
 
-import { Text } from "../text";
 import { Box } from "../box";
+import { Text } from "../text";
 
-import { Hamburger } from "./hamburger";
 import { DarkModeToggle } from "./darkmode_toggle";
+import { Hamburger } from "./hamburger";
 import { MainLink } from "./main_link";
-import styles from "./nav.module.scss";
-
 import { pages } from "./pages";
+
+import styles from "./nav.module.scss";
 
 export function Nav() {
   const [showMenu, toggleMenu] = React.useState(false);

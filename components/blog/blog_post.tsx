@@ -1,26 +1,27 @@
-import React, { useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import useDarkMode from "use-dark-mode";
+import React, { useEffect } from "react";
 import readingTime from "reading-time";
+import useDarkMode from "use-dark-mode";
 
-import { Layout } from "../layout";
-import { Text } from "../text";
-import { FormattedDate } from "../date";
-import { Spacer } from "../spacer";
-import { Tag } from "./tag";
-import { useBreakpoint } from "../layout/useBreakpoint";
 import { Metadata, Tag as TagType, TAGS } from "../../lib/blog";
+import { Arrow } from "../arrow";
+import { Box } from "../box";
+import { FormattedDate } from "../date";
+import { Flex } from "../flex";
+import { Grid } from "../grid";
+import { Layout } from "../layout";
+import { useBreakpoint } from "../layout/useBreakpoint";
+import { MetaTags } from "../meta_tags";
+import { Spacer } from "../spacer";
+import { Text } from "../text";
+
+import { Fullpage } from "./fullpage";
+import { Tag } from "./tag";
+import { TagsList } from "./tags_list";
 
 import styles from "./blog_post.module.scss";
-import { TagsList } from "./tags_list";
-import { Fullpage } from "./fullpage";
-import { Grid } from "../grid";
-import { Arrow } from "../arrow";
-import { Flex } from "../flex";
-import { Box } from "../box";
-import { MetaTags } from "../meta_tags";
 
 type Props = {
   meta: Metadata;

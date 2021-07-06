@@ -1,7 +1,8 @@
-import React from "react";
 import Link from "next/link";
+import React from "react";
 
 import { TAGS, Tag as TagType } from "../../lib/blog";
+
 import { Tag } from "./tag";
 
 import styles from "./tags_list.module.scss";

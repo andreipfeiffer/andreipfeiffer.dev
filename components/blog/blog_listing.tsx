@@ -1,20 +1,19 @@
-import React from "react";
 import Link from "next/link";
-
-import { Grid } from "../grid";
-import { Text } from "../text";
-import { Spacer } from "../spacer";
-import { Flex } from "../flex";
-import { Layout } from "../layout";
-import { Button } from "../button";
-import { useBreakpoint } from "../layout/useBreakpoint";
+import React from "react";
 
 import { Post } from "../../lib/blog";
+import { Arrow } from "../arrow";
+import { BlogItem } from "../blog/blog_item";
+import { Button } from "../button";
+import { Flex } from "../flex";
+import { Grid } from "../grid";
+import { Layout } from "../layout";
+import { useBreakpoint } from "../layout/useBreakpoint";
+import { MetaTags } from "../meta_tags";
+import { Spacer } from "../spacer";
+import { Text } from "../text";
 
 import styles from "./blog_listing.module.scss";
-import { BlogItem } from "../blog/blog_item";
-import { Arrow } from "../arrow";
-import { MetaTags } from "../meta_tags";
 
 export interface BlogListingProps {
   posts: Post[];

@@ -1,14 +1,14 @@
 import React from "react";
 
-import { Layout } from "../../components/layout";
-import { Grid } from "../../components/grid";
-import { Text } from "../../components/text";
-import { Box } from "../../components/box";
-import { Flex } from "../../components/flex";
-import { Button } from "../../components/button";
-import { Spacer } from "../../components/spacer";
 import { Arrow } from "../../components/arrow";
+import { Box } from "../../components/box";
+import { Button } from "../../components/button";
+import { Flex } from "../../components/flex";
+import { Grid } from "../../components/grid";
+import { Layout } from "../../components/layout";
+import { Spacer } from "../../components/spacer";
 import { Heading } from "../../components/style-guide/heading";
+import { Text } from "../../components/text";
 
 import styles from "./style-guide.module.css";
 

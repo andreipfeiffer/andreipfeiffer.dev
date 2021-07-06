@@ -1,14 +1,15 @@
-import React from "react";
-import Head from "next/head";
 import classNames from "classnames";
+import Head from "next/head";
+import React from "react";
 import useDarkMode from "use-dark-mode";
 
+import { MetaTags } from "../meta_tags";
+
+import { Footer } from "./footer";
 import { MainLink } from "./main_link";
 import { Nav } from "./nav";
-import { Footer } from "./footer";
 
 import styles from "./layout.module.scss";
-import { MetaTags } from "../meta_tags";
 
 type Props = {
   className?: string;

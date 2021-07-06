@@ -1,13 +1,14 @@
-import React from "react";
 import Link from "next/link";
+import React from "react";
 
+import { Post } from "../../lib/blog";
 import { FormattedDate } from "../date";
 import { Grid } from "../grid";
+import { useBreakpoint } from "../layout/useBreakpoint";
 import { Spacer } from "../spacer";
 import { Text } from "../text";
+
 import { Tag } from "./tag";
-import { Post } from "../../lib/blog";
-import { useBreakpoint } from "../layout/useBreakpoint";
 
 import styles from "./blog_item.module.scss";
 

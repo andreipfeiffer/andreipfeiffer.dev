@@ -1,4 +1,5 @@
 import React from "react";
+
 import styles from "./note.module.scss";
 
 type Props = {

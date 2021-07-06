@@ -1,11 +1,13 @@
+import classNames from "classnames";
 import React from "react";
+
 import { Grid } from "../grid";
 import { Text } from "../text";
+
 import { Fullpage } from "./fullpage";
 import { Status, StatusType } from "./status";
 
 import styles from "./figure.module.scss";
-import classNames from "classnames";
 
 type Props = {
   children: React.ReactNode;

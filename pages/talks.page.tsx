@@ -1,15 +1,15 @@
-import React from "react";
-import Image from "next/image";
 import classNames from "classnames";
+import Image from "next/image";
+import React from "react";
 
+import { Button } from "../components/button";
+import { Flex } from "../components/flex";
+import { Grid } from "../components/grid";
 import { Layout } from "../components/layout";
 import { useBreakpoint } from "../components/layout/useBreakpoint";
-import { Grid } from "../components/grid";
-import { Text } from "../components/text";
-import { Spacer } from "../components/spacer";
-import { Flex } from "../components/flex";
-import { Button } from "../components/button";
 import { MetaTags, META_TITLE } from "../components/meta_tags";
+import { Spacer } from "../components/spacer";
+import { Text } from "../components/text";
 
 import { talks, Talk } from "../lib/talks";
 

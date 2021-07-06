@@ -1,16 +1,17 @@
-import React from "react";
 import Link from "next/link";
+import React from "react";
 
-import { MetaTags, META_TITLE } from "../components/meta_tags";
-import { Layout } from "../components/layout";
+import { Button } from "../components/button";
 import { Grid } from "../components/grid";
+import { Layout } from "../components/layout";
+import { useBreakpoint } from "../components/layout/useBreakpoint";
+import { MetaTags, META_TITLE } from "../components/meta_tags";
 import { Spacer } from "../components/spacer";
 import { Text } from "../components/text";
+
 import { getAge } from "../lib/utils";
-import { useBreakpoint } from "../components/layout/useBreakpoint";
 
 import styles from "./about.module.scss";
-import { Button } from "../components/button";
 
 export default function About() {
   const { breakpoint } = useBreakpoint();

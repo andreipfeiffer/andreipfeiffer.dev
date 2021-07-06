@@ -1,13 +1,12 @@
-import React from "react";
 import { GetStaticProps } from "next";
-
-import {
-  getPostsForPage,
-  // getPublishedPosts,
-  getTotalPages,
-} from "../lib/blog";
+import React from "react";
 
 import { BlogListing, BlogListingProps } from "../components/blog/blog_listing";
+
+import {
+  getPostsForPage, // getPublishedPosts,
+  getTotalPages,
+} from "../lib/blog";
 
 export default function Blog(props: BlogListingProps) {
   return <BlogListing {...props} />;

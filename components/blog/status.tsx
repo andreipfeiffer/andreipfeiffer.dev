@@ -1,6 +1,7 @@
-import React from "react";
-import styles from "./status.module.scss";
 import classNames from "classnames";
+import React from "react";
+
+import styles from "./status.module.scss";
 
 export type StatusType = "ok" | "err";
 

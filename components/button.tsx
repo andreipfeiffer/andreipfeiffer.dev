@@ -1,7 +1,8 @@
-import React from "react";
 import classNames from "classnames";
+import React from "react";
 
 import { Text } from "../components/text";
+
 import styles from "./button.module.scss";
 
 type Props = {

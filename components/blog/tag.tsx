@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 import { Text } from "../../components/text";
+
 import { TAGS, Tag as TagType } from "../../lib/blog";
 
 import styles from "./tag.module.scss";

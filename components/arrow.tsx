@@ -1,7 +1,8 @@
-import React from "react";
 import classNames from "classnames";
+import React from "react";
 
 import { SRonly } from "./sr_only";
+
 import styles from "./arrow.module.scss";
 
 type Props = {

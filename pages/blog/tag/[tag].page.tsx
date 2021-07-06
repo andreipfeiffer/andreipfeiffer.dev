@@ -1,21 +1,22 @@
-import React from "react";
 import { GetStaticProps, GetStaticPaths } from "next";
-import { useRouter } from "next/router";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
 
+import { Arrow } from "../../../components/arrow";
 import { BlogItem } from "../../../components/blog/blog_item";
+import { TagsList } from "../../../components/blog/tags_list";
 import { Flex } from "../../../components/flex";
-import { Text } from "../../../components/text";
 import { Grid } from "../../../components/grid";
 import { Layout } from "../../../components/layout";
-import { Spacer } from "../../../components/spacer";
 import { useBreakpoint } from "../../../components/layout/useBreakpoint";
+import { MetaTags } from "../../../components/meta_tags";
+import { Spacer } from "../../../components/spacer";
+import { Text } from "../../../components/text";
+
 import { getPostsByTag, getAllTags, Post, TAGS, Tag } from "../../../lib/blog";
 
 import styles from "./tag.page.module.scss";
-import { TagsList } from "../../../components/blog/tags_list";
-import { Arrow } from "../../../components/arrow";
-import { MetaTags } from "../../../components/meta_tags";
 
 type Props = {
   posts: Post[];

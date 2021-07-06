@@ -1,10 +1,10 @@
 import React from "react";
-// import Link from "next/link";
 
-import { Layout } from "../components/layout";
-import { Text } from "../components/text";
 import { Grid } from "../components/grid";
+// import Link from "next/link";
+import { Layout } from "../components/layout";
 import { Spacer } from "../components/spacer";
+import { Text } from "../components/text";
 
 export default function Home() {
   return (
