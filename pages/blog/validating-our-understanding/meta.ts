@@ -2,7 +2,7 @@ import { Metadata } from "../../../lib/blog";
 
 export const meta: Metadata = {
   title: "Validating our understanding",
-  date: "2021-07-09",
+  date: "2021-07-15",
   tags: ["learning"],
   tags_extra: ["knowledge", "measure", "understanding", "analogy"],
   intro:
