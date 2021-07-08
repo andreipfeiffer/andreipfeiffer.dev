@@ -38,25 +38,23 @@ type SideProps = {
 export function Side({ children, header, fullwidth = true }: SideProps) {
   const { breakpoint } = useBreakpoint();
 
-  const content = (
-    <div className={s.side}>
-      {renderHeader(header)}
-      {children}
-    </div>
-  );
-
   // spread this single side on the entire width when on mobile
   if (fullwidth && (!breakpoint || breakpoint === "sm")) {
-    return <Fullpage>{content}</Fullpage>;
+    return <Fullpage>{renderContent()}</Fullpage>;
   }
 
-  return content;
+  return renderContent();
 
-  function renderHeader(header?: Header) {
-    if (!header) {
-      return null;
-    }
+  function renderContent() {
+    return (
+      <div className={s.side}>
+        {header && renderHeader(header)}
+        {children}
+      </div>
+    );
+  }
 
+  function renderHeader(header: Header) {
     return (
       <header className={s.header}>
         <span className={s.file}>{header.file}</span>
