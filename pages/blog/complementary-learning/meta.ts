@@ -6,7 +6,7 @@ export const meta: Metadata = {
   tags: ["learning"],
   tags_extra: ["asking", "understanding"],
   intro:
-    "We took some courses, attended a few workshops, read a ton of articles and one or two books. We have even worked on a couple of projects. Ok, what's next?",
+    "We took some courses, attended a few workshops, read a ton of articles, and probably one or two books too. We have even worked on a couple of personal projects. Ok, what's next?",
   isPublished: false,
   isArchived: false,
   cover: "/images/share/complementary-learning.png",
