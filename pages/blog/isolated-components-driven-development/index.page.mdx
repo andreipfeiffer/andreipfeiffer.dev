@@ -1,5 +1,11 @@
 import { BlogPost } from "../../../components/blog/blog_post";
 import { Subheading } from "../../../components/blog/subheading";
+import { Figure } from "../../../components/blog/figure";
+
+import crud_ui from "./crud-ui.png";
+import read_only_ui from "./read-only-ui.png";
+import component from "./component.png";
+import Image from "next/image";
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -32,7 +38,15 @@ So, in this situation, the technique is required because we're implicitly develo
 
 Typically, most UIs include all [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations. That allows us to add data, which is needed to build UI components during development. Without the data, we could only render the empty states.
 
+<Figure background={"#fff"}>
+  <Image src={crud_ui} width="1396" height="633" />
+</Figure>
+
 However, some UIs, like Google Analytics charts or Github diff view, are primarily read-only. They read and display existing data, but we cannot add new data from the UI. The source of the data is different than the destination that displays it.
+
+<Figure background={"#fff"}>
+  <Image src={read_only_ui} width="1396" height="633" />
+</Figure>
 
 Even if we have access to the data source in development, adding test data or having an integrated development environment might be cumbersome to use.
 
@@ -47,6 +61,10 @@ Decoupling the UI components from their data source could significantly improve 
 <Subheading>Working with deeply nested data-dependent components</Subheading>
 
 Let's consider the favorable scenario. We don't have to deal with a read-only user interface. We're not building a components library, and we're working with a very stable API.
+
+<Figure background={"#fff"}>
+  <Image src={component} width="1831" height="858" />
+</Figure>
 
 Working on a deeply nested component might require a few steps to get the application in the desired state:
 
