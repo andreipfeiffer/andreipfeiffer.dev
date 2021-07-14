@@ -307,6 +307,10 @@ export const talks: Talk[] = [
         type: "slides",
         url: "/slides/isolated-components-driven-development.pdf",
       },
+      {
+        type: "video",
+        url: "https://www.youtube.com/watch?v=tOjA7pBvxbE",
+      },
     ],
   },
 
