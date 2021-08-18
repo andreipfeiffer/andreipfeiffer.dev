@@ -12,6 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 2em;
 
   --color: var(--dark);
 
@@ -31,7 +32,6 @@
   height: 2px;
   background-color: var(--color);
   transition: transform 0.3s;
-  transition-delay: 0.2s;
 }
 
 .hamburger_inner {
@@ -40,10 +40,6 @@
   width: 100%;
   height: 100%;
   transition: transform 0.2s;
-
-  .active & {
-    transform: rotate(90deg);
-  }
 }
 
 .hamburger_inner::before {

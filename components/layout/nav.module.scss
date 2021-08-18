@@ -4,7 +4,6 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 1em;
 }
 
 .menu {
@@ -30,6 +29,7 @@
     min-height: auto;
     position: static;
     transform: none;
+    margin-right: 1em;
   }
 }
 
