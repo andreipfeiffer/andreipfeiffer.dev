@@ -195,10 +195,8 @@ type PreviewButtonProps = {
 function PreviewButton({ url, type, children }: PreviewButtonProps) {
   return (
     <Button as="a" href={url}>
-      <Text
-        size="m02"
-        className={classNames(styles.button, styles[`button_${type}`])}
-      >
+      <Text size="m02" className={styles.button}>
+        <span className={styles[`button_${type}`]}></span>
         {children}
       </Text>
     </Button>
