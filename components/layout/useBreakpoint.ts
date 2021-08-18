@@ -35,16 +35,24 @@ export const useBreakpoint = () => {
       e.matches && setBreakpoint("lg");
     }
 
-    mq_xs && mq_xs.addEventListener("change", handleXS);
-    mq_sm && mq_sm.addEventListener("change", handleSM);
-    mq_md && mq_md.addEventListener("change", handleMD);
-    mq_lg && mq_lg.addEventListener("change", handleLG);
+    try {
+      mq_xs && mq_xs.addEventListener("change", handleXS);
+      mq_sm && mq_sm.addEventListener("change", handleSM);
+      mq_md && mq_md.addEventListener("change", handleMD);
+      mq_lg && mq_lg.addEventListener("change", handleLG);
+    } catch (e) {
+      console.warn(e);
+    }
 
     return () => {
-      mq_xs && mq_xs.removeEventListener("change", handleXS);
-      mq_sm && mq_sm.removeEventListener("change", handleSM);
-      mq_md && mq_md.removeEventListener("change", handleMD);
-      mq_lg && mq_lg.removeEventListener("change", handleLG);
+      try {
+        mq_xs && mq_xs.removeEventListener("change", handleXS);
+        mq_sm && mq_sm.removeEventListener("change", handleSM);
+        mq_md && mq_md.removeEventListener("change", handleMD);
+        mq_lg && mq_lg.removeEventListener("change", handleLG);
+      } catch (e) {
+        console.warn(e);
+      }
     };
   }, []);
 
