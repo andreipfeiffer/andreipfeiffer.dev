@@ -8,7 +8,7 @@ import styles from "./box.module.scss";
 type Props = {
   children: React.ReactNode;
   as?: string;
-  bg?: "none" | "theme" | "primary" | "inversed";
+  bg?: "none" | "theme" | "primary" | "secondary" | "inversed";
   padded?: keyof Pick<typeof theme.space, "8" | "16" | "24" | "32">;
   className?: string;
 };
@@ -31,6 +31,7 @@ export function Box({
         [styles.padded]: !!padded,
         // from globals
         "bg-primary": bg === "primary",
+        "bg-secondary": bg === "secondary",
         theme: bg === "theme",
         inversed: bg === "inversed",
       }),

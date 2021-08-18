@@ -3,7 +3,9 @@ import vars from "../styles/theme.module.scss";
 const {
   light,
   dark,
-  primary,
+  yellow,
+  blue,
+  blue_light,
   breakpoint_sm,
   breakpoint_md,
   breakpoint_lg,
@@ -26,7 +28,9 @@ export const theme = {
   color: {
     dark,
     light,
-    primary,
+    yellow,
+    blue,
+    blue_light,
   },
 
   breakpoint: {

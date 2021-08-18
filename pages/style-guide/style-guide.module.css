@@ -1,6 +1,6 @@
 .colors_wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   /* grid-template-rows: auto; */
   column-gap: 30px;
 }
@@ -11,6 +11,16 @@
 .color_primary {
   background-color: var(--primary);
   color: var(--dark);
+}
+
+.color_blue {
+  background-color: var(--blue);
+  color: var(--light);
+}
+
+.color_blue_light {
+  background-color: var(--blue-light);
+  color: var(--light);
 }
 
 .color_dark {

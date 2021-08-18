@@ -4,7 +4,9 @@
 :root {
   --dark: #{$dark};
   --light: #{$light};
-  --primary: #{$primary};
+  --primary: #{$yellow};
+  --blue: #{$blue};
+  --blue-light: #{$blue_light};
 
   --space-8: calc(#{$space} / 2);
   --space-16: #{$space};
@@ -182,6 +184,14 @@ code {
 
   ::selection {
     background-color: #ffffffaa;
+  }
+}
+.bg-secondary {
+  background-color: var(--blue);
+  color: var(--light);
+
+  .dark-mode & {
+    background-color: var(--blue-light);
   }
 }
 

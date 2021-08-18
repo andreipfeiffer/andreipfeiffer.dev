@@ -3,6 +3,7 @@
   --cutoff: calc(var(--height) / 3);
   --spacing: 24px;
   --bg: var(--primary);
+  --color: var(--dark);
 
   border: 0;
   padding: 0;
@@ -14,6 +15,11 @@
   // display: block;
   line-height: 1;
   -webkit-tap-highlight-color: transparent;
+
+  :hover {
+    --color: var(--light);
+    color: var(--light) !important;
+  }
 }
 
 .button_inner {
@@ -44,7 +50,7 @@
       left: 0;
       right: 0;
       pointer-events: none;
-      background-color: #ffffff66;
+      background-color: var(--blue);
       transform: skewX(-18.5deg) translateX(-100%);
       transition: transform 0.5s;
       z-index: -1;
@@ -74,6 +80,5 @@
 
   [data-darkmode="true"] & {
     --bg: #ffffff66;
-    // color: white !important;
   }
 }

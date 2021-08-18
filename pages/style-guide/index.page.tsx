@@ -86,6 +86,16 @@ export default function Talks() {
               Primary
             </Text>
           </div>
+          <div className={styles.color_blue}>
+            <Text size="h06" as="div">
+              Blue
+            </Text>
+          </div>
+          <div className={styles.color_blue_light}>
+            <Text size="h06" as="div">
+              Blue light
+            </Text>
+          </div>
           <div className={styles.color_dark}>
             <Text size="h06" as="div">
               Dark
@@ -121,6 +131,17 @@ export default function Talks() {
           </Text>
           <Text size="m02" as="p" color="muted">
             Muted primary background text
+          </Text>
+        </Box>
+
+        <br />
+
+        <Box bg="secondary" padded="24">
+          <Text size="h06" as="p">
+            Secondary color background
+          </Text>
+          <Text size="m02" as="p" color="muted">
+            Muted secondary background text
           </Text>
         </Box>
 

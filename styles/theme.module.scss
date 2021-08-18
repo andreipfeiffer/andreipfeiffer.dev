@@ -1,6 +1,8 @@
 $dark: "#121212";
 $light: "#ffffff";
-$primary: "#fbc311";
+$yellow: "#fbc311";
+$blue: "#2572de";
+$blue_light: "#398cff";
 
 // 16px from 19px base
 $space: "0.84rem";
@@ -14,7 +16,9 @@ $breakpoint-lg: 1200px;
 :export {
   dark: #{$dark};
   light: #{$light};
-  primary: #{$primary};
+  yellow: #{$yellow};
+  blue: #{$blue};
+  blue_light: #{$blue_light};
 
   space: #{$space};
   space_block: #{$space_block};
