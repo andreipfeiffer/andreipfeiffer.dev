@@ -243,6 +243,16 @@
   }
 }
 
+.content {
+  a:any-link {
+    color: var(--blue);
+
+    [data-darkmode="true"] & {
+      color: var(--blue-light);
+    }
+  }
+}
+
 .tags {
   display: flex;
   flex-direction: column;
