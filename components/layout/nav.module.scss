@@ -116,10 +116,36 @@
   }
 }
 
-.menuitem:hover,
-.menuitem:focus,
 .menuitem_active {
   background-color: var(--primary);
   color: var(--dark) !important;
   outline: 0;
+}
+
+.menuitem:not(.menuitem_active) {
+  position: relative;
+  transition: color 0.5s;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    background-color: var(--primary);
+    transform: skewX(-18.5deg) translateX(-100%);
+    transition: transform 0.5s;
+    z-index: -1;
+  }
+  &:focus,
+  &:hover {
+    color: var(--dark);
+
+    &::before {
+      transform: skewX(-18.5deg) translateX(0);
+    }
+  }
 }
