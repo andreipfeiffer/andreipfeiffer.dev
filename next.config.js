@@ -1,5 +1,4 @@
 const withPlugins = require("next-compose-plugins");
-const optimizedImages = require("next-optimized-images");
 
 const html = require("remark-html");
 const prism = require("remark-prism");
@@ -52,7 +51,6 @@ const nextConfig = {
 module.exports = withPlugins([
   // https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions
   [withMDX, { pageExtensions: ["page.ts", "page.tsx", "page.mdx"] }],
-  [optimizedImages, { optipng: { optimizeImagesInDev: true } }],
 
   nextConfig,
 ]);
