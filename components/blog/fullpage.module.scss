@@ -1,11 +1,11 @@
 @import "../../styles/mixins";
 
 .full {
-  width: 100vw;
   margin-left: calc(var(--content-spacing) * -1);
   margin-right: calc(var(--content-spacing) * -1);
 
   @include breakpoint(md) {
-    margin-left: calc((100vw - var(--content-width)) / 2 * -1);
+    margin-left: calc((100vw - var(--content-width)) / 2 * -1 + 8px);
+    margin-right: calc((100vw - var(--content-width)) / 2 * -1 + 8px);
   }
 }
