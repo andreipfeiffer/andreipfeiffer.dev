@@ -205,8 +205,8 @@ This section usually contains all the variables used at the component level, def
   </li>
   <li>
     <strong>Hooks</strong>, either custom hooks, framework-specific, or built-in
-    hooks like <code>useState</code>, <code>useCallback</code> or{" "}
-    <code>useMemo</code>;
+    hooks like <code>useState</code>, <code>useReducer</code>,{" "}
+    <code>useRef</code>, <code>useCallback</code> or <code>useMemo</code>;
   </li>
   <li>
     <strong>Processed data</strong> used throughout the component, computed by
@@ -218,6 +218,48 @@ This section usually contains all the variables used at the component level, def
   Variables should be defined as close as possible to their usage. For example,
   if a variable is only used inside a nested function, it should be defined
   there, not in this top section of the component.
+</Note>
+
+<Subheading>Grouping variables</Subheading>
+
+Some larger components will definitely have a lot more variables declared in this section. In such cases I tend to group them based on their initialization method.
+
+```tsx
+// framework hooks
+const router = useRouter();
+// custom hooks
+const user = useLoggedUser();
+const theme = useTheme();
+
+// destructured data from props
+const { id, title, meta, content, onSubscribe, tags } = props;
+const { image, author, date } = meta;
+
+// local state
+const [email, setEmail] = React.useState("");
+const [showMenu, toggleMenu] = React.useState(false);
+const [activeTag, dispatch] = React.useReducer(reducer, tags);
+
+// memoized values
+const subscribe = React.useCallback(onSubscribe, [id]);
+const summary = React.useMemo(() => getSummary(content), [content]);
+
+// refs
+const sideMenuRef = useRef<HTMLDivElement>(null);
+const subscribeRef = useRef<HTMLButtonElement>(null);
+
+// computed local data
+const initials = getInitials(author);
+const formattedDate = getDate(date);
+```
+
+The grouping method is very contextual. It depends on the number and types of variables and can differ quite a lot from component to component.
+
+The key takeaway is that **related variables should stay together**. Adding an empty line between these groups helps, even more, the readability of the code.
+
+<Note>
+  The code comments in the example are only used to describe the variable
+  groups. I don't use them in my actual code.
 </Note>
 
 ## Effects
@@ -432,7 +474,7 @@ export function Article(props: Props) {
 
 It's worth mentioning that:
 
-- I always use [**function declarations**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) instead of [function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function) because they are [hoisted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function#function_declaration_hoisting), which allows us to define them after their usage so that we can place them after the `return` statement;
+- I always use [**function declarations**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) instead of [function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function) because they are [hoisted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function#function_declaration_hoisting), which allows me to define them after their usage so that I can place them after the `return` statement;
 - If a function calls another function, I always place the **caller** before the **callee**;
 - I usually put these functions in the order of their usage.
 
@@ -504,9 +546,19 @@ interface Props {
 export function Article(props: Props) {
 
   // 4️⃣ variables declarations
-  const { name, title } = props;
+  const router = useRouter();
+  const theme = useTheme();
+
+  const { id, title, content, onSubscribe } = props;
+  const { image, author, date } = meta;
+
   const [email, setEmail] = React.useState("");
-  const initials = getInitials(name);
+  const [showMenu, toggleMenu] = React.useState(false);
+
+  const summary = React.useMemo(() => getSummary(content), [content]);
+
+  const initials = getInitials(author);
+  const formattedDate = getDate(date);
 
   // 5️⃣ effects
   React.useEffect(() => {
