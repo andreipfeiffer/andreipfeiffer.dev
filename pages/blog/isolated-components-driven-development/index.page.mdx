@@ -1,6 +1,7 @@
 import { BlogPost } from "../../../components/blog/blog_post";
 import { Subheading } from "../../../components/blog/subheading";
 import { Figure } from "../../../components/blog/figure";
+import { Status } from "../../../components/blog/status";
 
 import crud_ui from "./crud-ui.png";
 import read_only_ui from "./read-only-ui.png";
@@ -38,15 +39,25 @@ So, the technique is required in this situation because we're implicitly develop
 
 Typically, most UIs include all [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations. That allows us to add data, which is needed to build UI components during development. Without the data, we could only render the empty states.
 
-<Figure background={"#fff"}>
+<Figure
+  background={"#fff"}
+  caption="CRUD user interfaces allow both 'read' and 'write' operations"
+>
   <Image src={crud_ui} width="1396" height="633" />
 </Figure>
 
+<br />
+
 However, some UIs, like Google Analytics charts or Github diff view, are primarily read-only. They read and display existing data, but we cannot add new data from the UI because the data source is different from the destination that displays it.
 
-<Figure background={"#fff"}>
+<Figure
+  background={"#fff"}
+  caption="Read-only user interfaces only 'read' data that's 'written' by an external source"
+>
   <Image src={read_only_ui} width="1396" height="633" />
 </Figure>
+
+<br />
 
 Even if we have access to the data source in development, adding test data or having an integrated development environment might be cumbersome to use.
 
@@ -81,7 +92,7 @@ Decoupling UI components from the entire application and data provider container
 
 ## Tooling
 
-To begin with, we don't necessarily need special tooling for this technique. For simple applications, we can use separate page(s) to render the required components. For example, I hadn't built a single page of this website before all the required building blocks were implemented and rendered in this [**style guide**](/style-guide) page.
+To begin with, we don't necessarily need special tooling for this technique. For simple applications, we can use separate page(s) to render the required components. For example, I hadn't built a single page of this website before all the required building blocks were implemented and rendered in an isolated [style guide](/style-guide) page.
 
 But for larger applications we would probably need more advanced features, and there are several existing solutions that we can choose from. I've personally used two different libraries in the past with great success:
 
@@ -94,23 +105,27 @@ Both of them provide high-quality documentation and examples, so I won't dive in
 
 As we saw, isolating components is beneficial during development and debugging. But there are additional valuable benefits that are worth mentioning.
 
-<Subheading>Documentation</Subheading>
+<Subheading>
+  <Status type="ok" /> Documentation
+</Subheading>
 
 Having all the component states rendered in a separate UI provides excellent documentation for anyone working on the project, quickly discovering the existing components and their usage. It also helps avoid reinventing the wheel and creating similar components, prevalent in lengthy projects with larger teams.
 
 Both previously mentioned [tools](#tooling) **automatically generate a list of available props based on the type definitions** of the components.
 
-<Subheading>Interactive playground</Subheading>
+<Subheading>
+  <Status type="ok" /> Interactive playground
+</Subheading>
 
 Seeing the rendered components is helpful, but we would have to look at the source code to find out how to use them without proper tooling.
 
-Fortunately, dedicated [tools](#tooling) generate an interactive UI where we can:
+Fortunately, both [React Styleguidist](https://react-styleguidist.js.org/examples/basic/) and [Storybook](https://next--storybookjs.netlify.app/official-storybook/) generate an interactive UI where we can:
 
 - see the code that produces a specific component state;
 - change the props and get an instant component update;
 
 <Subheading>
-  Encourages container/presentational component separation
+  <Status type="ok" /> Encourages container/presentational component separation
 </Subheading>
 
 Data-dependent components are not that trivial to render in isolation. We might have to create mocks/stubs for API requests, inject data stores, and include services or data providers.
@@ -119,11 +134,15 @@ A common pattern is to decouple the **component that fetches** the data, typical
 
 This way, we can easily render only the presentational component, passing any arbitrary data, without worrying about external data sources.
 
-<Subheading>Focus on the Component's API</Subheading>
+<Subheading>
+  <Status type="ok" /> Focus on the component's public interface
+</Subheading>
 
 A strange thing happens when we develop components in isolation because we're putting ourselves in the consumer's shoes. We get to experience the component's API usage in all its state variations, helping us spot improper names or types.
 
-To see the city skyline, we'd have to go out of the city. Likewise, to see what the Matrix is, we'd have to step out of the Matrix. The same applies to component API design.
+> To see the city skyline, we'd have to go out of the city. Likewise, to see what the Matrix is, we'd have to step out of the Matrix.
+>
+> The same applies to component API design.
 
 ## Incremental adoption
 
