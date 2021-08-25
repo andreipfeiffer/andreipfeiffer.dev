@@ -2,7 +2,7 @@ import { Metadata } from "../../../lib/blog";
 
 export const meta: Metadata = {
   title: "The anatomy of React component files",
-  date: "2021-08-18",
+  date: "2021-09-18",
   tags: ["react", "javascript", "typescript"],
   tags_extra: ["structure", "functions", "components", "imports"],
   intro:
