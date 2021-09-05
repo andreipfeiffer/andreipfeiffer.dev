@@ -20,7 +20,7 @@ With CSS-in-JS, we define the styles inside our JavaScript files. The browser, h
 - [**Runtime stylesheets**](#runtime-stylesheets), used by the large majority of CSS-in-JS libraries, or;
 - [**Static CSS extraction**](#static-css-extraction), used only by a handful of libraries.
 
-This article will look at how these approaches work, debate their strong points and tradeoffs, and conclude when to [consider one or the other](#to-conclude).
+This article will look at how these approaches work, debate their strong points and tradeoffs, and [conclude](#to-conclude) when to consider one or the other.
 
 ## Runtime stylesheets
 
@@ -60,7 +60,7 @@ Now, there are two worth mentioning issues with this method:
   <Status type="err" /> Runtime library overhead
 </Subheading>
 
-As mentioned before, additional code needs to be shipped to the browser to inject and update the stylesheets at runtime. The size of this code could vary quite a lot between `1KB` and `18KB` minified.
+As mentioned before, additional code needs to be shipped to the browser to inject and update the stylesheets at runtime. The size of this code could vary quite a lot between `1KB` and `18KB` minified, based on my [analysis](https://github.com/andreipfeiffer/css-in-js#overview).
 
 It's essential to keep in mind that the runtime code is required with **CSR** (Client-Side Rendering) and **SSR** (Server-Side Rendering) as well.
 
@@ -133,22 +133,22 @@ To answer this question, we'll have to look at the HTTP requests that a browser 
   background={"#fff"}
   caption="Even though runtime stylesheets are usually larger in file size, they could load faster than Static CSS extraction"
 >
-  <Image src={loading_time} width="1650" height="850" />
+  <Image src={loading_time} width="1650" height="790" />
 </Figure>
 
 <br />
 
-Since **static CSS extraction** implies a regular `.css` file to be included as any other stylesheet in the document's `<head>`, the loading waterfall is slightly different:
+Since **static CSS extraction** implies a regular `.css` file to be included as any other stylesheet in the document's `<head>`, the loading waterfall might look familiar:
 
 1. the browser will download and parse the HTML file;
-2. during parsing, the browser will encounter the .css file reference, so it will make another request to fetch the `styles.css` file, an action that **blocks rendering**;
+2. during parsing, the browser will encounter the `.css` file reference, so it will make another request to fetch the `styles.css` file, an action that **blocks rendering**;
 3. after downloading and parsing the `.css` file, the browser can continue downloading other resources included in the `<body>`.
 
 Presuming that we include the `.js` files at the end of the document's `<body>`, the browser cannot start painting the page until the entire `.css` file is downloaded and parsed. So, static CSS introduces a [render-blocking CSS resource](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css).
 
 <br />
 
-In the case of **runtime stylesheets**, the following steps will occur:
+In the case of **runtime stylesheets**, the loading waterfall is slightly different:
 
 1. the browser will download and parse the HTML file;
 2. then, it will download the JavaScript files, namely `bundle.js` and `library_runtime.js`.
