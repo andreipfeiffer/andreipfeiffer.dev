@@ -8,6 +8,8 @@ import file_size from "./file-size.png";
 import loading_time from "./loading-time.png";
 import runtime_code from "./runtime-code.png";
 import duplicated_styles from "./styles-shipped-twice.png";
+import http_1 from "./http.png";
+import http_2 from "./http-connection.png";
 import Image from "next/image";
 
 import { meta } from "./meta";
@@ -15,9 +17,9 @@ export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-With CSS-in-JS, we define the styles inside our JavaScript files. The browser, however, doesn't know how to deal with them in this form, so they need to reach the browser eventually in standard CSS syntax. There are two different, mutually exclusive methods to achieve this:
+With CSS-in-JS, we define the styles in JavaScript files. The browser, however, doesn't know how to deal with them in this form, so they need to reach the browser eventually in standard CSS syntax. There are two different, mutually exclusive methods to achieve this:
 
-- [**Runtime stylesheets**](#runtime-stylesheets), used by the large majority of CSS-in-JS libraries, or;
+- [**Runtime stylesheets**](#runtime-stylesheets), used by the large majority of CSS-in-JS libraries;
 - [**Static CSS extraction**](#static-css-extraction), used only by a handful of libraries.
 
 This article will look at how these approaches work, debate their strong points and tradeoffs, and [conclude](#to-conclude) when to consider one or the other.
@@ -33,7 +35,7 @@ Regardless of what tools we use to build our applications or what specific CSS-i
 
 <br />
 
-Since browsers don't know how to handle the styles included in JavaScript files, some additional **runtime library** code is required. The runtime is included by default in the bundle at build time, and its purpose is to:
+Since browsers don't know how to handle the styles included in JavaScript files, an additional **runtime library** is required. The runtime code is included by default in the bundle at build time, and its purpose is to:
 
 - read the styles from the JavaScript bundle;
 - inject the styles into the DOM;
@@ -47,14 +49,14 @@ Since browsers don't know how to handle the styles included in JavaScript files,
 
 <br />
 
-Most CSS-in-JS libraries implement this method to output the CSS styles to the browser. In addition, there are various methods to inject and update the styles:
+Most CSS-in-JS libraries implement this method to output the CSS styles to the browser. As a side note, there are various methods to inject and update the styles:
 
 - Appending one or more `<style>` tag(s) usually in the document's `<head>` using the DOM API. This method is predominantly used in development as it provides better debuggability.
 - Managing the stylesheets directly on the CSSOM using the [`CSSStyleSheet`](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet) API. This is the preferred method for production builds, as it appears to be [more performant](https://youtu.be/75kmPj_iUOA?t=849) than manipulating `<style>` tags within the DOM.
 
 <br />
 
-Now, there are two worth mentioning issues with this method:
+Now, there are two worth mentioning issues with runtime stylesheets:
 
 <Subheading>
   <Status type="err" /> Runtime library overhead
@@ -119,19 +121,44 @@ Without a doubt, extracting static CSS files will generate smaller bundles, thus
 
 <br />
 
-Static CSS extraction offers zero-runtime cost. The end result is similar to using non-CSS-in-JS solutions like plain CSS, pre-processors, or CSS modules, sharing all the benefits and downsides of CSS stylesheets.
+**Static CSS extraction usually offers zero-runtime cost** unless it requires some runtime code to handle dynamic styles. The end result is similar to using non-CSS-in-JS solutions like plain CSS, pre-processors, or CSS modules, sharing all the benefits and downsides of CSS stylesheets.
 
-## But what about time?
+## What about time?
 
 **Size** is only one of the metrics that we can analyze, **time** being another relevant one. So, there's an important question that we need to ask:
 
-> Does a smaller page size implies faster loading times as well?
+> Does a smaller page size imply faster loading times as well?
 
-To answer this question, we'll have to look at the HTTP requests that a browser will send to the server to fetch the page's resources. So, let's see how a loading waterfall chart looks for a typical but minimal web page, using both methods mentioned above.
+To answer this question, we'll have to look at the **HTTP requests** that a browser will send to the server to fetch the page's resources. There is a multitude of [phases](https://developer.chrome.com/docs/devtools/network/reference/#timing-preview) that each HTTP request has to go through, but two of them are relevant and play a significant role when studying page load performance:
+
+1. [**Time to First Byte (TTFB)**](https://developer.mozilla.org/en-US/docs/Glossary/time_to_first_byte) which depends on networking conditions (DNS, TCP, SSL), latency, and server response;
+2. **Content Download** time which depends on the size of the resource and the bandwidth of the internet connection.
+
+<Figure background={"#fff"}>
+  <Image
+    src={http_1}
+    width="1650"
+    height="158"
+    alt="HTTP requests contains 2 important phases: Time to First Byte and Content Download"
+  />
+</Figure>
+
+One of the limiting factors that we cannot control as software developers is the bandwidth of our users. Some of them might visit the page from a fast Wi-Fi, while others could be using a slow 3G mobile connection.
 
 <Figure
   background={"#fff"}
-  caption="Even though runtime stylesheets are usually larger in file size, they could load faster than Static CSS extraction"
+  caption="The bandwidth can dramatically influence the proportion between the TTFB and Content Download time."
+>
+  <Image src={http_2} width="1650" height="452" />
+</Figure>
+
+---
+
+So, let's see how a loading waterfall chart looks for a typical but minimal web page, using both methods mentioned above. Usually, the HTTP requests for static resources will have similar TTFB, the big difference being reflected in the Content Download phase, based on the file size.
+
+<Figure
+  background={"#fff"}
+  caption="Even though runtime stylesheets are usually larger in file size, they could provide faster First Paint metrics than Static CSS extraction"
 >
   <Image src={loading_time} width="1650" height="790" />
 </Figure>
@@ -142,7 +169,7 @@ Since **static CSS extraction** implies a regular `.css` file to be included as 
 
 1. the browser will download and parse the HTML file;
 2. during parsing, the browser will encounter the `.css` file reference, so it will make another request to fetch the `styles.css` file, an action that **blocks rendering**;
-3. after downloading and parsing the `.css` file, the browser can continue downloading other resources included in the `<body>`.
+3. after downloading and parsing the `.css` file, if there are no other resources referenced in the `<head>`, the browser can start rendering the page.
 
 Presuming that we include the `.js` files at the end of the document's `<body>`, the browser cannot start painting the page until the entire `.css` file is downloaded and parsed. So, static CSS introduces a [render-blocking CSS resource](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css).
 
@@ -159,7 +186,12 @@ If we include the `.js` files at the end of the document's `<body>`, and there a
   <Status type="ok" /> Faster Paint Time with Runtime Stylesheets
 </Subheading>
 
-Excluding any other optimization techniques, the runtime stylesheets offer faster [First Paint metrics](https://developer.mozilla.org/en-US/docs/Glossary/First_paint), because it doesn't require an additional HTTP request for the external CSS file.
+Excluding any other optimization techniques, the runtime stylesheets should offer faster [First Paint metrics](https://developer.mozilla.org/en-US/docs/Glossary/First_paint) because it doesn't require an additional HTTP request for the external CSS file.
+
+Large `.css` files could become problematic in large applications because they tend to grow continuously, becoming very large and increasing First Paint metrics as time goes by. That's why we have various optimization techniques to overcome this problem:
+
+- [Inlining critical CSS](https://web.dev/extract-critical-css/) eliminates that extra HTTP request and loads only a small part of the entire stylesheet upfront;
+- [Atomic CSS](https://sebastienlorber.com/atomic-css-in-js) limits the amount of CSS code, having a logarithmic growing curve instead of a linear one.
 
 <Note title="Notes">
   <p>It's worth mentioning that{" "}
@@ -185,7 +217,8 @@ Without a doubt, both runtime stylesheets and static CSS extraction are valid op
 **Runtime stylesheets** seem to fit better with highly dynamic solutions such as [Single Page Applications (SPAs)](https://en.wikipedia.org/wiki/Single-page_application), which usually make use of [Client-Side Rendering (CSR)](https://developers.google.com/web/updates/2019/02/rendering-on-the-web#csr):
 
 - we don't need Critical CSS extraction, thus avoiding shipping part of our styles twice to the browser;
-- they benefit from faster Paint Times to show loading indicators because the data is usually fetched Client-Side in such applications.
+- they benefit from faster Paint Times to show loading indicators because the data is usually fetched Client-Side in such applications;
+- most JavaScript frameworks that are usually used in SPAs offer trivial methods to lazy-load components, which also contain their styles.
 
 <br />
 
