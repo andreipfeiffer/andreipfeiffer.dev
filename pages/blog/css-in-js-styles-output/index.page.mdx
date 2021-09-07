@@ -231,8 +231,11 @@ Without a doubt, both runtime stylesheets and static CSS extraction are valid op
 
 ---
 
-It's important to understand that the above conclusions are only general guidelines. For example, some applications require hybrid rendering, combining SSR/CSR/SSG. Also, there are other considerations to think about, especially with large applications:
+It's important to understand that the above conclusions are only general guidelines. For example, some applications require hybrid rendering, combining SSR/CSR/SSG.
+
+Also, there are other considerations to think about, especially with large applications:
 
 - Do we want to optimize for first-time users or returning visitors?
 - How often do we release new builds, thus invalidating the cache?
-- What do we change more often: styles or component/application code?
+- What do we change more often: styles or components/application code?
+- Do we have to optimize for (low-end) mobile devices?
