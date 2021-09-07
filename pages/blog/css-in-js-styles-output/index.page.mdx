@@ -112,6 +112,8 @@ The JavaScript bundle will only contain the components and the application logic
 
 Without a doubt, extracting static CSS files will generate smaller bundles, thus shipping fewer bytes to the browsers. Also, with **SSR**, we don't require additional **Critical CSS** either, thus saving even more bytes.
 
+Note that **Critical CSS** could also be used with Static CSS extraction as an additional optimization technique. [Critters](https://github.com/GoogleChromeLabs/critters) extracts critical CSS, similar to what CSS-in-JS libraries with runtime stylesheets do, while [Critical](https://github.com/addyosmani/critical) extracts the critical-path (above-the-fold) CSS.
+
 <Figure
   background={"#fff"}
   caption="Static CSS extraction offers smaller builds compared to Runtime stylesheets during Server-Side Rendering"
