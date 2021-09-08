@@ -93,7 +93,14 @@ export function BlogPost(props: Props) {
 
               <Spacer vertical={breakpoint ? "40" : "24"} />
 
-              <h1 className={styles.h1}>{meta.title}</h1>
+              <h1>
+                {meta.title}
+                {meta.subtitle && (
+                  <Text color="muted" className={styles.subtitle}>
+                    {meta.subtitle}
+                  </Text>
+                )}
+              </h1>
             </Grid.Full>
           </Fullpage>
 

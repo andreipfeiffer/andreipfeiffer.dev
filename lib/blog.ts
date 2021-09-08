@@ -81,6 +81,7 @@ export interface Post {
 export interface Metadata {
   date: string;
   title: string;
+  subtitle?: string;
   tags: Tag[];
   tags_extra: string[];
   /** og:image url */

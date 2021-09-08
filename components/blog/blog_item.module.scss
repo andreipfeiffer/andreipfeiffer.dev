@@ -41,3 +41,13 @@
     font-size: 44px;
   }
 }
+
+.subtitle {
+  margin-top: 0.25em;
+  display: block;
+  font-size: 22px;
+
+  @include breakpoint(sm) {
+    font-size: 25px;
+  }
+}

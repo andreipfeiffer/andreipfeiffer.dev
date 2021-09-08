@@ -33,7 +33,14 @@ export function BlogItem({ post }: Props) {
 
         <Link href={`/blog/${id}`}>
           <a className={styles.link}>
-            <h2 className={styles.title}>{meta.title}</h2>
+            <h2 className={styles.title}>
+              {meta.title}
+              {meta.subtitle && (
+                <Text color="muted" className={styles.subtitle}>
+                  {meta.subtitle}
+                </Text>
+              )}
+            </h2>
             <Spacer vertical="24" />
             <Text as="p">{meta.intro}</Text>
           </a>

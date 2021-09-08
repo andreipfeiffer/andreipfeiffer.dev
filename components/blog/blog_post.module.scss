@@ -10,6 +10,21 @@
   }
 }
 
+.subtitle {
+  margin-top: 0.5em;
+  font-size: 30px;
+  display: block;
+
+  @include breakpoint(sm) {
+    font-size: 40px;
+  }
+
+  @include breakpoint(md) {
+    font-size: 50px;
+    text-align: center;
+  }
+}
+
 .back:any-link {
   text-decoration: none;
   padding: 1em 0;
