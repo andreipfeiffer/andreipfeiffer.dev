@@ -1,0 +1,28 @@
+import { BlogPost } from "../../../components/blog/blog_post";
+import { Subheading } from "../../../components/blog/subheading";
+import { SideBySide } from "../../../components/blog/sidebyside";
+import { Status } from "../../../components/blog/status";
+import { Note } from "../../../components/blog/note";
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+I've been writting CSS since 2000. A lot has changed since then regarding what we're able to achieve with CSS.
+
+One thing I came to understand is that there's a significant difference between the CSS code we write for **small websites** or the one developed for **large applications**. A single developer working on a project that will end in a few months can write CSS in any way they like. Poorly written code will probably not impact the success of the project. But when we think about teams with multiple developers during the course of many years, poorly written CSS can hugely influence the project's development.
+
+CSS features were always years behind the current needs of the community. That's something that will probably never change. To combat CSS limitations, developers had to invent all sorts of tools to help them write CSS at scale.
+
+In this series of posts we'll look at how these tools evolved over time and what is the current state of writting scalable CSS.
+
+## Long story short
+
+1. CSS has a lot of limitations and [**scalability issues**](./scalable-css-evolution/part1-scalability-issues) that made it hard to develop large and long term applications, the most significant ones being zombie code, naming collisions, specificity wars, source order precedence, selector duplication and lack of type-safety.
+2. [**Preprocessors**](./scalable-css-evolution/part2-preprocessors) were one small step forward, fixing the selector duplication issue, improving the maintenance of our source code;
+3. Many [**good practices**](./scalable-css-evolution/part3-good-practices) were introduced by a variety of thought leaders, which helped us to manage our code to some extend;
+4. Various [**methodologies**](./scalable-css-evolution/part4-methologies-and-frameworks) have emerged, trying to bring together a set of good practices in a concise set of rules to follow, while **frameworks** took a more strict approach, trying to enforce the practices;
+5. [**CSS encapsulation**](./scalable-css-evolution/part5-encapsulation) resolved all the problems regarding CSS class naming and became an industry standard;
+6. [**CSS-in-JS**](./scalable-css-evolution/part6-css-in-js) was introduced to fix the zombie code issue and enable easier design tokens sharing;
+7. Putting TypeScript on top of CSS-in-JS adds [**type-safety**](./scalable-css-evolution/part7-type-safety) to styling, enabling us to have a fully type-safe codebase: logic (JS/TS), markup (HTML/JSX), and styling.

@@ -1,0 +1,376 @@
+import { BlogPost } from "../../../../components/blog/blog_post";
+import { Subheading } from "../../../../components/blog/subheading";
+import { SideBySide } from "../../../../components/blog/sidebyside";
+import { Status } from "../../../../components/blog/status";
+import { Note } from "../../../../components/blog/note";
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+To overcome the problems with CSS maintainability, many good (and better, and best) practices were defined by various thought leaders.
+
+Let's go through some of the essential practices that are quoted in any book, article, or conference talk. This is not at all a comprehensive list as this is a huge topic in itself.
+
+Also, as their name suggest, these are **practices**, not dogmas. Even if you treat them like rules, there are always **exceptions**.
+
+## Keep specificity low
+
+The [specificity war](???) is one of the most dreadful problems to face as a UI developer. To (try to) avoid it, we must keep it as low as possible.
+
+Sometimes we tend to be overzealous when writting CSS selectors, instead of keeping them simple. Defining **overly specific CSS selectors** by abusing [descendant combinators](https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator) will result in high specificity, while also coupling the targeted element with the HTML structure:
+
+<!-- prettier-ignore-start -->
+```css
+/* ❌ BAD: overspecific selector */
+.header .main_menu ul li.item a.link {}
+```
+<!-- prettier-ignore-end -->
+
+Let's analyze this code for a second:
+
+- If there is a single `.main_menu` then `.header` is not necessary at all. If there are more, we could use a different class name, like `.header_main_menu`.
+- The descendants `ul li.item` should not be necessary, if the `a.link` elements are placed only inside the `ul`. Otherwise, if we have them outside as well, and we need different styles, it means they are different elements, so they should have different class name.
+- Last but not least, nobody should care that the `.link` is also an `a` element.
+
+<br />
+
+<!-- prettier-ignore-start -->
+```css
+/* 👍 GOOD: less specific selector */
+.main_menu .link {}
+
+/* ✅ BEST: simple selector */
+.main_menu_link {}
+```
+<!-- prettier-ignore-end -->
+
+<br />
+
+With CSS preprocessors it's even more easier to create high specificity, thanks to their nesting feature. We often use **excessive nesting**, which is way too overused and creates significant scalability problems.
+
+<SideBySide left={{lang: "SCSS", file: "style.scss (source)"}}  right={{lang: "CSS", file: "style.css (output)"}}>
+
+```scss
+// ❌ excessive nesting
+.main_menu {
+  ul {
+    li {
+      .link {
+      }
+    }
+  }
+}
+
+// 👍 less nesting
+.main_menu {
+  ul {
+  }
+  li {
+  }
+  a.link {
+  }
+}
+```
+
+```scss
+// ❌ overspecific CSS output
+.main_menu {
+}
+.main_menu ul {
+}
+.main_menu ul li {
+}
+.main_menu ul li a.link {
+}
+
+// ✅ lower specificity output
+.main_menu {
+  ul {
+  }
+  li {
+  }
+  a.link {
+  }
+}
+```
+
+</SideBySide>
+
+<br />
+
+<Subheading>How low is low?</Subheading>
+
+Keeping specificity low is definitely going to be helpful on the long run. But what exactly does "low" mean? How "low" should we keep it and when does it become "high"?
+
+A rule of thumb used to say that _CSS selectors should not have more than 2 descendants or levels of nesting_. Thus, it's common sense to say that:
+
+- use **a single CSS class** as the goto option: `.main_menu_link`;
+- use **1 descendant** when overriding is necessary: `.dark-theme .main_menu_link`;
+- use **2 descendants only in extreme scenarios** when the previous rules don't apply.
+
+## Prefix class names
+
+We talked about potential naming collitions in the previous part of this series. Adding a prefix related to the project would help a lot by reducing the collition chance with external styles.
+
+The prefix should be short and concise. To give an example, I could use `pf-`, the first 2 letters from my last name, as a prefix for the class names defined for this website.
+
+<!-- prettier-ignore-start -->
+```css
+/* ❌ could be potentially overridden */
+.header {}
+
+/* ✅ less likely to be overridden */
+.pf-header {}
+```
+<!-- prettier-ignore-end -->
+
+<Subheading>Exceptions</Subheading>
+
+There are many situations where prefixing is not necessary or should even be avoided:
+
+<!-- prettier-ignore-start -->
+```css
+/* ✅ utility classes */
+.rounded {}
+
+/* ✅ nesting elements */
+.pf-header .logo {}
+```
+<!-- prettier-ignore-end -->
+
+<Note>
+  Well-written libraries use prefixes for their styles to avoid naming
+  collisions when included in actual projects.
+</Note>
+
+## Avoid applying styles on IDs
+
+Sometimes _we might think_ that a block of HTML will only be displayed once on the page, so we could be inclined to use [ID selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors) for styling. Such examples might include the **page's header**, the **contact form**, or the **product details page**.
+
+There are two major problems that could occur when we apply styles on ID selectors:
+
+<Subheading>1. Accidentally overriden styles</Subheading>
+
+**Styles might get accidentally overridden** when including other reusable components with a lower specificity. This could easily happen when the included component is not used from the beginning, but introduced later in the project. This means that the included component behaves differently, depending on where it is used.
+
+<SideBySide left={{lang: "HTML", file: "page.html"}}  right={{lang: "CSS", file: "style.css"}}>
+
+```html
+<div id="product-details">
+  <img src="..." class="image" />
+
+  <div class="card">
+    <img src="..." class="image" />
+  </div>
+</div>
+```
+
+```css
+#product-details .image {
+  border: 10px grey solid;
+}
+
+/* we include a re-usable product block */
+.card .image {
+  border: 1px black solid;
+}
+```
+
+</SideBySide>
+
+<Subheading>2. Lack of reusability</Subheading>
+
+Last time I checked, humans are unable to predict the future. My own experience enforces this theory as well. It happened to me so many times to think that _"we'll never have more than one Contact Form"_. But one week later, we needed to add a _Subscribe Form_, which had to look exactly the same as the _Contact Form_.
+
+<!-- prettier-ignore-start -->
+```css
+/* ❌ code smell which proves that we cannot foresee the usage of code blocks */
+#contact-form,
+#subscribe-form {}
+```
+<!-- prettier-ignore-end -->
+
+<br />
+
+So, to avoid any of the problems mentioned above, it's so much easier to avoid applying styles on ID selectors and use classes instead:
+
+<!-- prettier-ignore-start -->
+```css
+/* ❌ avoid using ID selectors in CSS */
+#contact-form {}
+
+/* ✅ use classes instead */
+.contact-form {}
+```
+<!-- prettier-ignore-end -->
+
+<Note>
+  It's ok to use IDs for other purposes, like anchoring links or for e2e tests.
+</Note>
+
+## Avoid type selectors
+
+CSS [type selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors) match HTML elements by their tag name. The problem is that using this approach will **create a coupling between the markup and the styles**. Changing the markup will break the styles in an unexpected way.
+
+Let's consider the following scenario:
+
+- we have a `.card` element, that contains a title placed inside an `h2`;
+- we apply the styles using the `.card h2` selector;
+- for some reason, somebody needs to replace the `h2` with an `h3`, which apparently is a trivial change and it shouldn't break anything;
+- debugging such a problem can become a serious issue, because the styles are applied implicitly, not explicitly.
+
+Thus, the styles will be coupled with the markup. We cannot change the markup without updating the styles as well. Whenever we a have a tight coupling between parts of code that should be modified independently, without affecting one-other, we have a scalability problem.
+
+<!-- prettier-ignore-start -->
+```css
+/* ❌ avoid HTML tag names */
+.card h2 {}
+
+/* ✅ classes are way more flexible */
+.card .title {}
+```
+<!-- prettier-ignore-end -->
+
+The solution is very simple: avoid targetting HTML tags in CSS. Use a class name instead. This will create an explicit dependency between the styles and the markup, being easy to debug. In addition, changing the markup will not affect the styles.
+
+<Subheading>Exceptions</Subheading>
+
+I'd like to mention that I still follow this rule pretty strictly, even nowadays. However, there are a few exceptions where I find type selectors to be helpful:
+
+1. **Resetting or normalizing CSS** implicit styles;
+
+2. **Dealing with dynamic content from a headless CMS** where we get plain HTML content without any class names, so we must target elements by their type, for instance `.blog_post h2`.
+
+## Avoid mimicking HTML structure
+
+Sometimes we might be inclined to define CSS selectors based on an existing HTML structure. Similar to the previously described problem, mimicking the HTML structure in our CSS code will once again couple the markup with its styles, thus producing **rigid CSS code**.
+
+<!-- prettier-ignore-start -->
+```scss
+// ❌ BAD: unneeded "nav" ancestor
+.main_menu nav .link {}
+
+// 👍 GOOD: less structure dependent
+.main_menu .link {}
+
+// ✅ BETTER: using a single class
+.main_menu_link {}
+```
+<!-- prettier-ignore-end -->
+
+Another common scenario to mimic the HTML structure is using **strict combinator selectors** such as [child combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) or [adjacent sibling combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator) when it's not appropiate:
+
+<!-- prettier-ignore-start -->
+```css
+/* ❌ What if we need to wrap the logo in a <div />? */
+.header > .logo {}
+
+/* ❌ What if we need to display the label first? */
+.checkbox + .label {}
+```
+<!-- prettier-ignore-end -->
+
+## Avoid repetition
+
+Before the concept of components became popular, we had much more repetition in our code, CSS making no exception. The tendency is to add the required CSS rules for a specific feature, without looking back and analysing whether an abstraction could be extracted and reused. For instance:
+
+```css{4,9,17}
+.product-card {
+  border-radius: 10px;
+  border: 1px #aaa solid;
+  padding: 16px;
+  background: #fafafa;
+}
+
+.contact-form {
+  padding: 32px;
+  border-radius: 10px;
+  border: 1px #aaa solid;
+  background: #fafafa;
+}
+
+.shopping-cart-list {
+  border-radius: 10px;
+  padding: 24px;
+  border: 1px #aaa solid;
+  background: #fafafa;
+}
+```
+
+The only thing that is different on these 3 CSS rules is the `padding`, while everything else is the same. So, to avoid this repetition and to reuse these styles, we can extract the common styles into a separate, more abstract class, employing the DRY principle:
+
+```css{1-5}
+.box {
+  border-radius: 10px;
+  border: 1px #aaa solid;
+  background: #fafafa;
+}
+
+.product-card {
+  padding: 16px;
+}
+
+.contact-form {
+  padding: 32px;
+}
+
+.shopping-cart-list {
+  padding: 24px;
+}
+```
+
+The `.box` class can be easily composed with other classes, making it **more flexible**. In addition, there's only one source of truth, so whenever we need to change the styles, we'll update a single class.
+
+<br />
+
+We could go a bit further and create a bunch of **utility classes**, like generic styles for [accessible hidden content](https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html), or custom styles that could encapsulate even a single CSS rule:
+
+<!-- prettier-ignore-start -->
+
+```css
+.rounded {
+  border-radius: 10px;
+}
+.bordered {
+  border: 1px #aaa solid;
+}
+
+.color-primary {}
+.color-secondary {}
+```
+<!-- prettier-ignore-end -->
+
+Such utility classes are still widely used today in most CSS frameworks. They also gave birth to dogmatic approaches such as [**Atomic CSS**](https://css-tricks.com/lets-define-exactly-atomic-css/), which takes the practice of _one CSS rule per class_ to the extreme.
+
+## Avoid using `!important`
+
+The last covered good practice, but not the least important one, is to avoid using the `!important` as an atempt to fix the specificity wars. Many of us tried, none of us succedeed. It's a loosing battle. Even [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity#the_!important_exception) documents it as a **bad practice**.
+
+If we end up using `!important` to fix the specificity wars, it won't take long until the **!important wars** will start. It is guaranteed that at some point we'll need to override already `!important` rules. It's possible, but it's disastrous.
+
+> When we end up overriding an `!important` CSS rule, we hit rock bottom regarding CSS maintainability!
+
+<Subheading>Exceptions</Subheading>
+
+Imagine the irony: even such an important good practice, to avoid using `!important`, has a few important exceptions worth mentioning:
+
+1. **Overriding 3rd party styles** when they have high specificity cumbersome to override using conventional methods.
+
+2. **Defining abstract utility classes** such as `.bold` or `.align-center`, because they could be easily overriden accidentally.
+
+---
+
+## The problems with good practices
+
+Once we learn and understand these good practices it should be fairly easy to apply them, right? Unfortuntely, it's not a trivial task at all.
+
+- There is **no official comprehensive guide** on how to write maintainable CSS. I've only covered a few of the most important good practices, but there are so many more.
+- Some of the **good practices don't apply equally** on every project, with every team. Also, developers tend to be very opinionanted, so we rarely reach consensus regarding a specific set of rules.
+- Being so many practices and most of them quite debatable, they are **cumbersome to learn and teach**. That's why most of the times there there are 1 or 2 persons called _"the front-end gurus"_ that hold the resistance as much as they can.
+- Most of the important good practices are **impossible to enforce**. The only weapon is constant code review, trainings and mentoring.
+- Once we have an existing large application written without these practices in mind, they become **very difficult to introduce onto an existing code base**. Changing CSS in general is a fragile task, so most developers avoid changing it.
+- Last but not least, **good practices don't scale**! The larger the code base, the more burdensome the maintenance.
+
+CSS methologies and frameworks tried to address most of the problems mentioned above. We'll cover them in [part 3]().

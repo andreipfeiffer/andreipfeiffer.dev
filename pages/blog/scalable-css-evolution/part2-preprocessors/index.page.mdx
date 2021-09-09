@@ -1,0 +1,95 @@
+import { BlogPost } from "../../../../components/blog/blog_post";
+import { Subheading } from "../../../../components/blog/subheading";
+import { SideBySide } from "../../../../components/blog/sidebyside";
+import { Status } from "../../../../components/blog/status";
+import { Note } from "../../../../components/blog/note";
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+CSS variables are now de-facto standard in front-end development. They were pretty well supported since 2016. But before we had full browser support, we had to rely on alternative methods.
+
+CSS preprocessors supported variables way before they were implemented natively in browsers.
+
+- **SASS** was the first one, released in 2006;
+- **LESS** was the second one, released in 2009;
+- and **Stylus** followed along in 2010.
+
+There are many features that all these preprocessors provide, such as variables, nesting, mixins, conditionals, operators, and much more. But there is a particular one we're interested in, which completely changed the way we author CSS styles even today, namely **nesting + parent selector**.
+
+## No more selector duplication
+
+The nesting feature together with the parent selector allow us to define **contextual styles**, avoiding selector duplication. This allows us to define a selector only once, making it:
+
+- easier to rename;
+- easier to understand, because we have all pseudo classes and elements colocated.
+
+<!-- prettier-ignore-start -->
+
+<SideBySide left={{lang: "CSS", file: "styles.css"}}  right={{lang: "SCSS", file: "style.scss"}}>
+
+```css
+.product_title {}
+
+.product_title:hover {}
+.product_title::after {}
+```
+
+```scss
+.product_title {
+  
+  &:hover {}
+  &::after {}
+}
+```
+
+</SideBySide>
+
+<!-- prettier-ignore-end -->
+
+## Maintainable media queries
+
+A second major benefit of the contextual styles feature was that media queries were also trivial to colocate with their respective selector:
+
+<!-- prettier-ignore-start -->
+
+<SideBySide left={{lang: "CSS", file: "styles.css"}}  right={{lang: "SCSS", file: "style.scss"}}>
+
+```css
+.product_title {}
+
+@media (min-width: 768px) {
+  .product_title {}
+}
+
+@media (min-width: 1280px) {
+  .product_title {}
+}
+```
+
+```scss
+.product_title {
+
+  @media (min-width: 768px) {}
+
+  @media (min-width: 1280px) {}
+}
+```
+
+</SideBySide>
+
+<!-- prettier-ignore-end -->
+
+Basically, all the styles related to a particular selector were defined in the same code block. Although UI components were not a thing back then, preprocessors introduced a syntax that enabled that mindset.
+
+Contextual styles are widely used in almost all CSS-in-JS libraries nowadays, either supporting the parent selector that was introduced by SASS, or using some custom syntax or API which provides the same behavior.
+
+That being said, preprocessors played a crucial role in the evolution of scalable CSS.
+
+---
+
+But there are a lot more other problems that preprocessors alone cannot fix. To add to that, preprocessors introduced the **nesting** feature, making it very easy for developers to get into the **specificity wars**.
+
+In the next part of this series, we'll take a look at some of the good practices that tried to alleviate the troubles with CSS, with or without preprocessors.
