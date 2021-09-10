@@ -3,11 +3,14 @@ import { Subheading } from "../../../../components/blog/subheading";
 import { SideBySide } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
+import { TOC } from "../toc";
 
 import { meta } from "./meta";
 export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={4} />
 
 ## Methodologies
 

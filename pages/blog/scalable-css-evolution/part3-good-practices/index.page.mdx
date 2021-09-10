@@ -3,11 +3,14 @@ import { Subheading } from "../../../../components/blog/subheading";
 import { SideBySide } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
+import { TOC } from "../toc";
 
 import { meta } from "./meta";
 export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={3} />
 
 To overcome the problems with CSS maintainability, many good (and better, and best) practices were defined by various thought leaders.
 
