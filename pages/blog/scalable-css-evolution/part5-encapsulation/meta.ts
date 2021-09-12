@@ -2,7 +2,7 @@ import { Metadata } from "../../../../lib/blog";
 
 export const meta: Metadata = {
   title: "The evolution of scalable CSS",
-  subtitle: "Part 5: Styles encapsulation",
+  subtitle: "Part 5: Encapsulation",
   date: "2021-12-28",
   tags: ["css", "ui"],
   tags_extra: ["scalability", "maintainability"],
