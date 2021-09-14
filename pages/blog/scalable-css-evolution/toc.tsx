@@ -8,16 +8,17 @@ import { Metadata } from "../../../lib/blog";
 import { meta as part1 } from "./part1-scalability-issues/meta";
 import { meta as part2 } from "./part2-preprocessors/meta";
 import { meta as part3 } from "./part3-good-practices/meta";
-import { meta as part4 } from "./part4-methologies/meta";
-import { meta as part5 } from "./part5-encapsulation/meta";
-import { meta as part6 } from "./part6-css-in-js/meta";
-import { meta as part7 } from "./part7-type-safety/meta";
+import { meta as part4 } from "./part4-methologies-and-semantics/meta";
+import { meta as part5 } from "./part5-atomic-css/meta";
+import { meta as part6 } from "./part6-styles-encapsulation/meta";
+import { meta as part7 } from "./part7-css-in-js/meta";
+import { meta as part8 } from "./part8-type-safe-css/meta";
 
 import styles from "./toc.module.scss";
 
 type PartNr = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
-const LAST_PART: PartNr = 5;
+const LAST_PART: PartNr = 7;
 
 type Part = Metadata & {
   path: string;
@@ -27,10 +28,11 @@ const SERIES: Array<Part> = [
   { ...part1, path: "part1-scalability-issues" },
   { ...part2, path: "part2-preprocessors" },
   { ...part3, path: "part3-good-practices" },
-  { ...part4, path: "part4-methologies" },
-  { ...part5, path: "part5-encapsulation" },
-  { ...part6, path: "part6-css-in-js" },
-  { ...part7, path: "part7-type-safety" },
+  { ...part4, path: "part4-methologies-and-semantics" },
+  { ...part5, path: "part5-atomic-css" },
+  { ...part6, path: "part6-styles-encapsulation" },
+  { ...part7, path: "part7-css-in-js" },
+  { ...part8, path: "part8-type-safe-css" },
 ];
 
 type Props = {

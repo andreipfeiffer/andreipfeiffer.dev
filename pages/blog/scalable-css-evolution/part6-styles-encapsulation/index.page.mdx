@@ -1,0 +1,131 @@
+import { BlogPost } from "../../../../components/blog/blog_post";
+import { Subheading } from "../../../../components/blog/subheading";
+import { SideBySide, Side } from "../../../../components/blog/sidebyside";
+import { Status } from "../../../../components/blog/status";
+import { Note } from "../../../../components/blog/note";
+import { TOC, LinkTo } from "../toc";
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+const CURRENT_PART = 5;
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={CURRENT_PART} />
+
+---
+
+In the previous article of this series <LinkTo part={CURRENT_PART - 1} /> we've covered various CSS methodologies including OOCSS, BEM, SMACCS and ITCSS. All of them adopted the Semantic CSS approach, which solves some of the maintainability problems, but not all of them.
+
+In this article we'll take at **styles encapsulation** and **CSS Modules**, techniques that completely changed the way we author semantic CSS, that some developers take for granted nowadays.
+
+## Scoped CSS
+
+The problems with scalable and maintainable CSS were so critical, that even The Web Hypertext Application Technology Working Group (WHATWG) joined the battle.
+
+In 2011, the standards' comitee suggested that CSS stylesheets should have a [`scoped` attribute](http://html5doctor.com/the-scoped-attribute/):
+
+> [...] it indicates that the styles are intended just for the subtree rooted at the style element’s parent element, as opposed to the whole Document.
+
+```html
+<div>
+  <nav>
+    <style scoped>
+      p {
+        color: blue;
+      }
+    </style>
+
+    <p><!-- nav content --></p>
+  </nav>
+
+  <p><!-- page content --></p>
+</div>
+```
+
+<br />
+
+Let's see how it was supposed to work:
+
+1. first, notice the `scoped` attribute on the `<style>` element;
+2. inside the _scoped_ style, we're changing the color to `blue` for all `p` elements;
+3. however, these styles will only affect the subtree of `nav`, which is the parent of the scoped style;
+4. without the `scoped` attribute, the styles would affect the entire page.
+
+So, the Scoped StyleSheets spec was basically addressing the problem of global namespace, allowing us to defined styles that don't affect elements outside of the container of our choice, enabling **styles encapsulation**. This way we would not need to worry about naming collisions anymore.
+
+<br />
+
+However, the spec was only implemented in [Firefox](https://caniuse.com/?search=scoped) (and removed in version 55) and experimentally in [Chrome](https://developers.google.com/web/updates/2012/03/A-New-Experimental-Feature-style-scoped). No other browser vendors showed any plan to implement it.
+
+Consequently, in 2016 the `scoped` attribute was [removed from the spec](https://github.com/w3c/csswg-drafts/issues/137) in favor of **Shadow DOM**, which has its own has it own [scoped CSS](https://developers.google.com/web/fundamentals/web-components/shadowdom#styling).
+
+## CSS Modules
+
+Before Web Components and Scoped CSS became available in browsers, some [smart people](https://github.com/orgs/css-modules/people) didn't want to wait anymore, so in 2015 [**CSS Modules**](https://glenmaddern.com/articles/css-modules) were released.
+
+A [CSS Module](https://github.com/css-modules/css-modules) is a regular `.css` file (with some additional features) that can be compiled into an interchangeable format called [Interoperable CSS](https://github.com/css-modules/icss) (ICSS):
+
+<Side header={{ file: "styles.css", lang: "CSS" }}>
+
+```css
+.heading {
+  color: blue;
+}
+```
+
+</Side>
+
+But, instead of including it as a regular StyleSheet, we can import it in JavaScript files by a loader that implemented the CSS modules specification:
+
+<!-- prettier-ignore-start -->
+
+<Side header={{ file: "page.js", lang: "JS" }}>
+
+```js
+// we import an Object from the .css file
+import styles from "./style.css";
+
+const element = document.querySelector("h1");
+
+// all classes defined in the .css file
+// are available as fields on the imported object
+element.outerHTML = `<h1 class="${styles.heading}">Title</h1>`;
+```
+
+</Side>
+
+<!-- prettier-ignore-end -->
+
+Now, the beautiful part is the output, because the loader will automatically generate **unique class names** for each CSS class defined in the imported module. Typically, the generated name has the form `filename__classname__hash`, but it can be customized:
+
+```html
+<h1 class="page__heading__abc123">Heading</h1>
+```
+
+<br />
+
+So, what that means for us, as developers?
+
+- we don't have to worry anymore about naming collisions, because the tooling takes care if this;
+- we can focus on each individual component, provide class names relevant to that component only;
+
+But, for this to work, we must have a separate `.css` file for each component, which makes perfect sense, because a component should have all its concerns grouped together: HTML markup, JS behavior, and CSS styling.
+
+## Frameworks
+
+Style encapsulation became an industry standard pretty fast. It made sense. It was simple. It had no compromises. It was so clean, that most current frameworks implement or recommend styles encapsulation.
+
+- **React** doesn't provide a built-in mechanism for styles encapsulation, but Create React App has [built-in support for CSS Modules](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/).
+
+- **Vue.js** uses the abandoned `scoped` attribute to generate [encapsulated CSS](https://vue-loader.vuejs.org/guide/scoped-css.html) output.
+
+- **Angular** has 2 methods to handle [view encapsulation](https://angular.io/guide/view-encapsulation): the default setting is `Emulated` which works similar to Vue, but we can also use the `ShadowDom` setting which uses an actual shadow DOM for styles scoping.
+
+- **Svelte** also implements its own mechanism to [styles scoping](https://svelte.dev/docs#style).
+
+---
+
+Scoped CSS and styles encapsulation completely changed the way we author CSS, fixing all the problems related to specificity, naming collisions, and the dauting task of figuring out unique names for our Semantic CSS classes. And most importantly, it was done without introducing any compromises.
+
+In the next article of this series <LinkTo part={CURRENT_PART + 1} /> we'll shift our attention to other CSS scalability concerns, like the zombie code and sharing constants between logic and styles.

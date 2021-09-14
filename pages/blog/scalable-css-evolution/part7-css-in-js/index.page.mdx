@@ -7,11 +7,10 @@ import { TOC } from "../toc";
 
 import { meta } from "./meta";
 export { meta } from "./meta";
+const CURRENT_PART = 6;
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-<TOC current={5} />
+<TOC current={CURRENT_PART} />
 
-## Encapsulation
-
-[Scoped CSS](https://css-tricks.com/saving-the-day-with-scoped-css/) was [removed](https://github.com/whatwg/html/issues/552) from the spec in favor of the more versatile [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM).
+## CSS-in-JS
