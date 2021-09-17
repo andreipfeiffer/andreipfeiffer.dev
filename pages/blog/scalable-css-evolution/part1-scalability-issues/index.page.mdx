@@ -21,9 +21,21 @@ Each of us has their own definition of _"what is a large project"_. From my own 
 - projects that span over more than 6 months;
 - larger teams, usually more than 3 developers;
 
-So, let's take a look at some of the most concearning problems when we talk about CSS scalability.
+<br />
 
-### Zombie code
+So, let's take a look at some of the most concearning problems when we talk about CSS scalability:
+
+1. [Zombie code](#zombie-code)
+2. [Naming collisions](#naming-collisions)
+3. [Specificity wars](#specificity-wars)
+4. [Source code precedence](#source-code-precedence)
+5. [Selector duplication](#selector-duplication)
+6. [Cumbersome media queries (poate il punem impreuna cu Selector duplication)](#cumbersome-media-queries)
+7. [Implicit dependencies](#implicit-dependencies)
+8. [Shared design tokens](#shared-design-tokens)
+9. [Lack of type-safety](#lack-of-type-safety)
+
+## Zombie code
 
 CSS code will usually only increase in size. Developers avoid deleting unused CSS code because it's impossible to detect if certain selectors are needed anymore, so they could be safely removed.
 
@@ -62,7 +74,7 @@ This means that we'll surely ship more CSS code than is actually needed, slowing
 
 This happens because CSS cannot be statically analyzed. Also, there is no tools that could safely tell us which CSS selectors are not used. https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/
 
-### Naming collisions
+## Naming collisions
 
 Abstract and reusable class names usually contain common nouns, like `.modal`, `.button`, `.overlay`, etc. If we include an external file that defines the same class names they could get overwritten, depending on which file is included last.
 
@@ -80,7 +92,7 @@ However, we could include stylesheets written by a different team. In this case,
 
 But no stress, we can solve any such issues using a **higher specificity**, right?
 
-### Specificity wars
+## Specificity wars
 
 One way to avoid naming collitions is to increase the "strength of a selector", or the so called [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity). This definitely works on the short run, but it could really get out of control:
 
@@ -113,7 +125,7 @@ One way to avoid naming collitions is to increase the "strength of a selector", 
 
 Once we start relying on specificity, we will find it harder and harder to overwrite styles. Eventually, the only way to define new styles will be using `!important`. Once we reach that scenario, the code base will be almost impossible to extend. I can tell you this based on my very own experience.
 
-### Source code precedence
+## Source code precedence
 
 Ok, let's say that we stick to a low specificity and that we manage somehow to avoid naming collisions. One thing to keep in mind is that when specificity is the same, source code order takes place: _styles declared later always win_.
 
@@ -142,7 +154,7 @@ Now, let's imagine how could this affect us on a large project:
 - consider breaking the styles of a page only because we refactored our stylesheet by changing the order of some styles;
 - working with dynamically loaded stylesheets could become a real nightmare, because styles resolution will become un-deterministic.
 
-### Selector duplication
+## Selector duplication
 
 When using plain CSS, defining any pseudo class, pseudo element, or media query will force us to duplicate the CSS selector:
 
@@ -164,7 +176,7 @@ Duplicating selectors during development is not a real scalability problem, more
 
 Any feature that impedes code maintenance could potentially become a scalability concern.
 
-### Cumbersome media queries
+## Cumbersome media queries
 
 An even bigger problem we'll face is when we have to deal with responsive web pages and media queries. There are 2 different ways we can group our styles: **by media query** or **by CSS selector**:
 
@@ -239,7 +251,7 @@ As developers, we usually try to avoid code duplication as much as possible. Gro
 
 To enable an easier understanding of the code, which is crucial when we think about scaling, we could group the styles by CSS selectors. Using this approach, we don't have to search the whole file to figure out which styles apply to a certain selector. **The downside is that there's more boilerplate and the output is larger.**
 
-<!-- ### Cumbersome design tokens sharing
+<!-- ## Cumbersome design tokens sharing
 
 CSS custom properties commonly known as "CSS variables" are very useful to avoid certain types of code duplication, such as colors, breakpoints, fonts sizes, spacing values, etc. These values are usually called **design tokens** and they're required in design systems, but also very useful in any application that doesn't use a strict system.
 
@@ -247,7 +259,13 @@ Extracting design tokens as variables provides easy reusability and maintainabil
 
 Also, theming becomes much easier to implement. If we think about dark mode, which is pretty popular nowadays, theming is not a scarce feature anymore. -->
 
-### Lack of type-safety
+## Implicit dependencies
+
+## Shared design tokens
+
+-> adaptive layouts, access breakpoints in logic
+
+## Lack of type-safety
 
 Before using TypeScript or other strongly typed languages, I never thought about the highly dynamic nature of CSS. I thought that there isn't any other way, so I got used to it.
 

@@ -16,7 +16,7 @@ import { meta as part8 } from "./part8-type-safe-css/meta";
 
 import styles from "./toc.module.scss";
 
-type PartNr = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+type PartNr = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 const LAST_PART: PartNr = 7;
 

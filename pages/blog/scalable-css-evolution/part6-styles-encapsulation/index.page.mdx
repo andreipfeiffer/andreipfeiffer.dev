@@ -7,7 +7,7 @@ import { TOC, LinkTo } from "../toc";
 
 import { meta } from "./meta";
 export { meta } from "./meta";
-const CURRENT_PART = 5;
+const CURRENT_PART = 6;
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
@@ -126,6 +126,6 @@ Style encapsulation became an industry standard pretty fast. It made sense. It w
 
 ---
 
-Scoped CSS and styles encapsulation completely changed the way we author CSS, fixing all the problems related to specificity, naming collisions, and the dauting task of figuring out unique names for our Semantic CSS classes. And most importantly, it was done without introducing any compromises.
+Scoped CSS and styles encapsulation completely changed the way we author CSS, fixing all the problems related to specificity, naming collisions, and the dauting task of figuring out unique names for our Semantic CSS classes. And most importantly, it was done without introducing any compromises. It was [the end of global CSS](https://medium.com/seek-blog/the-end-of-global-css-90d2a4a06284#.4brb2kfit).
 
-In the next article of this series <LinkTo part={CURRENT_PART + 1} /> we'll shift our attention to other CSS scalability concerns, like the zombie code and sharing constants between logic and styles.
+Another approach to encapsulate styling that I haven't mentioned here is **CSS-in-JS**. The reason I skipped it is because the topic of writting CSS in JavaScript deserves its own part within this series which well cover next in <LinkTo part={CURRENT_PART + 1} />.
