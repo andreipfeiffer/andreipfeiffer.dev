@@ -18,7 +18,7 @@ import styles from "./toc.module.scss";
 
 type PartNr = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
-const LAST_PART: PartNr = 7;
+const LAST_PART: PartNr = 8;
 
 type Part = Metadata & {
   path: string;

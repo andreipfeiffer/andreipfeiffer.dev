@@ -7,12 +7,13 @@ import { TOC } from "../toc";
 
 import { meta } from "./meta";
 export { meta } from "./meta";
+const CURRENT_PART = 8;
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-<TOC current={7} />
+<TOC current={CURRENT_PART} />
 
-## Type-safe CSS
+---
 
 Before using TypeScript, I never thought about all the limitations of CSS.
 
