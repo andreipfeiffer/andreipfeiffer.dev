@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-import { Post } from "../../lib/blog";
+import { Post, PrivateVisibility } from "../../lib/blog";
 import { FormattedDate } from "../date";
 import { Grid } from "../grid";
 import { useBreakpoint } from "../layout/useBreakpoint";
@@ -16,6 +16,8 @@ type Props = {
   post: Post;
 };
 
+const private_statuses = ["draft", "unlisted"] as const;
+
 export function BlogItem({ post }: Props) {
   const { id, meta } = post;
   const { breakpoint } = useBreakpoint();
@@ -23,7 +25,11 @@ export function BlogItem({ post }: Props) {
   return (
     <Grid key={id} as="li">
       <Grid.Col span={breakpoint === "md" ? 10 : 8}>
+        <Spacer vertical="8" />
         <Tag tag={meta.tags[0]} type="sm" />
+
+        {renderWip()}
+
         <Spacer vertical="8" />
         <Text size="m02" color="muted" display="block">
           <FormattedDate date={meta.date} />
@@ -48,4 +54,20 @@ export function BlogItem({ post }: Props) {
       </Grid.Col>
     </Grid>
   );
+
+  function renderWip() {
+    if (
+      process.env.NODE_ENV !== "development" ||
+      meta.visibility === "archived" ||
+      meta.visibility === "public"
+    ) {
+      return null;
+    }
+
+    return (
+      <Text size="m02" display="inline" className={styles.wip}>
+        {meta.visibility}
+      </Text>
+    );
+  }
 }

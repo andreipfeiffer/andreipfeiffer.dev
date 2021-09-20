@@ -7,7 +7,6 @@ export const meta: Metadata = {
   tags_extra: ["layout", "grid", "flex"],
   intro:
     "In this post, we'll examine various implementations for a given layout, using both flex and grid, debating the robustness of each approach. The layout contains a horizontal list of 3 key-value pairs, the values being displayed beneath the labels.",
-  isPublished: true,
-  isArchived: false,
+  visibility: "public",
   cover: "/images/share/definition-lists-with-grid-layout.png",
 };

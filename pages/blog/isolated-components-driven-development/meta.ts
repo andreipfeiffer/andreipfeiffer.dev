@@ -13,7 +13,6 @@ export const meta: Metadata = {
   ],
   intro:
     "In unit tests, we execute code in isolation, outside the application. The same approach could be applied to UI components, proving to be a very convenient method during development and debugging. As a bonus, this technique also provides documentation, valuable to all team members working on the project.",
-  isPublished: false,
-  isArchived: false,
+  visibility: "unlisted",
   cover: "/images/share/isolated-components-driven-development.png",
 };

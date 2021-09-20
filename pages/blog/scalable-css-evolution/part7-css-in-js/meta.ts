@@ -7,7 +7,6 @@ export const meta: Metadata = {
   tags: ["css", "javascript"],
   tags_extra: ["scalability", "maintainability", "styling"],
   intro: "We came a long way...",
-  isPublished: false,
-  isArchived: false,
+  visibility: "draft",
   // cover: "/images/share/tech-debt-tech-loan.png",
 };

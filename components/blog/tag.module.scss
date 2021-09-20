@@ -13,6 +13,7 @@
   height: var(--height);
   padding-left: calc(var(--size) + var(--gap));
   padding-right: var(--spacing);
+  color: var(--color) !important;
 
   & strong {
     transition: all 0.5s;

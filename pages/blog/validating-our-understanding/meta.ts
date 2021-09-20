@@ -7,7 +7,6 @@ export const meta: Metadata = {
   tags_extra: ["knowledge", "measure", "understanding", "analogy"],
   intro:
     "There is no absolute measurement tool to determine our level of understanding of a particular concept. But there are specific heuristics that we can use to evaluate ourselves.",
-  isPublished: true,
-  isArchived: false,
+  visibility: "public",
   cover: "/images/share/validating-our-understanding.png",
 };

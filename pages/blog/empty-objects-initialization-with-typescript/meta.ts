@@ -9,7 +9,6 @@ export const meta: Metadata = {
   // cover: "/images/blog/cover-definition-lists-with-column-flow-grid-layout.png",
   intro:
     "We'll examine multiple methods to initialize empty objects in TypeScript, which is something you'll probably have to deal with in any application that has some form of state management.",
-  isPublished: true,
-  isArchived: false,
+  visibility: "public",
   cover: "/images/share/empty-objects-initialization-with-typescript.png",
 };

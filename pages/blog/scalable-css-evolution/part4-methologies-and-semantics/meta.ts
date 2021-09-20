@@ -17,7 +17,6 @@ export const meta: Metadata = {
     "components",
   ],
   intro: "We came a long way...",
-  isPublished: false,
-  isArchived: false,
+  visibility: "draft",
   // cover: "/images/share/tech-debt-tech-loan.png",
 };

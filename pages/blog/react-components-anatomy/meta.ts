@@ -7,7 +7,6 @@ export const meta: Metadata = {
   tags_extra: ["structure", "functions", "components", "imports"],
   intro:
     "This article describes in detail my personal and current approach to defining React component files and the rationale for each decision. It covers function components syntax with TypeScript.",
-  isPublished: false,
-  isArchived: false,
+  visibility: "unlisted",
   cover: "/images/share/react-components-anatomy.png.png",
 };

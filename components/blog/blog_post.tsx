@@ -45,6 +45,7 @@ export function BlogPost(props: Props) {
   const [email, setEmail] = React.useState("");
 
   const meta_tags = meta.tags.map((t) => TAGS[t].name).concat(meta.tags_extra);
+
   // copy url to clipboard when clicking headings link icon
   useEffect(() => {
     document.querySelectorAll(".headinglink").forEach((span) => {
@@ -56,6 +57,10 @@ export function BlogPost(props: Props) {
       });
     });
   }, []);
+
+  if (meta.visibility === "draft" && process.env.NODE_ENV === "production") {
+    return <Draft />;
+  }
 
   return (
     <Layout className={styles.blog_main}>
@@ -192,6 +197,23 @@ function Tags({ tags }: { tags: TagType[] }) {
       </Text>
       <TagsList tags={tags} />
     </aside>
+  );
+}
+
+function Draft() {
+  return (
+    <Layout className={styles.blog_main}>
+      <Fullpage>
+        <Grid.Full className={styles.title}>
+          <Text size="h02">This blog post is a draft</Text>
+          <br />
+          <br />
+          <Text>
+            Please subscribe to get notified as soon as it will be published.
+          </Text>
+        </Grid.Full>
+      </Fullpage>
+    </Layout>
   );
 }
 

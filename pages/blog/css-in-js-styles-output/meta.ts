@@ -15,7 +15,6 @@ export const meta: Metadata = {
   ],
   intro:
     "There are two mutually exclusive methods that CSS-in-JS libraries use to generate and ship styles to the browser: Runtime Stylesheets and Static CSS Extraction. Both methods have benefits and downsides, so let’s analyze them in detail.",
-  isPublished: true,
-  isArchived: false,
+  visibility: "public",
   cover: "/images/share/css-in-js-styles-output.png",
 };

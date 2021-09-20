@@ -13,7 +13,6 @@ export const meta: Metadata = {
     "type safety",
   ],
   intro: "We came a long way...",
-  isPublished: false,
-  isArchived: false,
+  visibility: "draft",
   // cover: "/images/share/tech-debt-tech-loan.png",
 };

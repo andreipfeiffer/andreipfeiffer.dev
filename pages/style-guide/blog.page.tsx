@@ -17,11 +17,20 @@ export default function BlogPostPreview() {
       meta={{
         title: "Blog post with a pretty long title on more than one line",
         date: "2020-12-22",
-        tags: ["javascript", "css"],
+        tags: [
+          "javascript",
+          "css",
+          "html",
+          "entropy",
+          "learning",
+          "misc",
+          "react",
+          "typescript",
+          "ui",
+        ],
         tags_extra: ["extra tag"],
         cover: undefined,
-        isArchived: false,
-        isPublished: false,
+        visibility: "unlisted",
         intro: "",
       }}
     >

@@ -11,13 +11,13 @@ function getAllPosts(): Post[] {
 
 export function getPublishedPosts(): Post[] {
   return getAllPosts()
-    .filter((post) => isPublished(post) && post.meta.isArchived === false)
+    .filter((post) => isPublished(post) && post.meta.visibility !== "archived")
     .sort(sortPosts);
 }
 
 export function getArchivedPosts(): Post[] {
   return getAllPosts()
-    .filter((post) => isPublished(post) && post.meta.isArchived === true)
+    .filter((post) => isPublished(post) && post.meta.visibility === "archived")
     .sort(sortPosts);
 }
 
@@ -70,13 +70,16 @@ function isPublished(post: Post) {
   if (process.env.NODE_ENV === "development") {
     return true;
   }
-  return post.meta.isPublished === true;
+  return post.meta.visibility === "public";
 }
 
 export interface Post {
   id: string;
   meta: Metadata;
 }
+
+export type Visibility = "public" | "unlisted" | "archived" | "draft";
+export type PrivateVisibility = Exclude<Visibility, "public" | "archived">;
 
 export interface Metadata {
   date: string;
@@ -88,8 +91,7 @@ export interface Metadata {
   cover?: string;
   /** text content displayed on the listing page */
   intro: string;
-  isPublished: boolean;
-  isArchived: boolean;
+  visibility: Visibility;
 }
 
 export type Tag =
