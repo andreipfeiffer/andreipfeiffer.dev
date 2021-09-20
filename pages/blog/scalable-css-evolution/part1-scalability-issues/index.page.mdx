@@ -7,19 +7,26 @@ import { TOC } from "../toc";
 
 import { meta } from "./meta";
 export { meta } from "./meta";
+const CURRENT_PART = 1;
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-<TOC current={1} />
+<TOC current={CURRENT_PART} />
 
-Before going any further to discuss the solutions, we must understand the problems. Generally speaking, when we talk about software scalability, we look at **how something behaves when we greatly increase its size**.
+---
 
-To give an example, if a certain problem increases proportionally with the size of the code, it means that we have a **scalability issue**. Even an insignificant detail such as _using `!important`_ could become a huge problem when we consider a several years long project with a team of several developers.
+Before going any further to discuss the solutions, we must understand the problems. Generally speaking, when we talk about _software scalability_, we look at **how something behaves when we greatly increase its size**.
 
-Each of us has their own definition of _"what is a large project"_. From my own experience, CSS scalability problems become visible when working with:
+To give an example, if a certain problem increases proportionally with the size of the code, it means that we have a **scalability issue**. For instance, we know that we [_should not repeat ourselves_](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself), right? Would it matter if we repeat ourselves _once_ in a small code base for a personal project? Of course not.
 
-- projects that span over more than 6 months;
-- larger teams, usually more than 3 developers;
+But doing it multiple times, within a team of several developers, working on a long-term project that spans over multiple years could, and surely will, become a **huge maintainability problem**.
+
+<br />
+
+Now, each of us has their own definition of _"what a large project is"_, in order to understand when these scalability problems might start to surface. From my own experience, CSS scalability problems become visible:
+
+- with projects that span over **more than 6 months**;
+- within larger teams, containing **at least 3 developers** working on the UI.
 
 <br />
 

@@ -41,12 +41,28 @@ type Props = {
 
 export function TOC(props: Props) {
   return (
-    <ol className={styles.list}>
-      {SERIES.map((part, index) => {
-        // const current
-        return <li key={index}>{renderText(part, index + 1)}</li>;
-      })}
-    </ol>
+    <div>
+      <br />
+
+      <Text>
+        <strong>The evolution of scalable CSS</strong> is a multi-part
+        chronicle, intented to record the progress of tools and practices that
+        enable us write maintainable CSS at scale. The series is broken down in
+        multiple parts:
+      </Text>
+
+      <ol className={styles.list}>
+        <li>
+          <Link href="./">
+            <a>Overview</a>
+          </Link>
+        </li>
+
+        {SERIES.map((part, index) => {
+          return <li key={index}>{renderText(part, index + 1)}</li>;
+        })}
+      </ol>
+    </div>
   );
 
   function renderText(part: Part, part_nr: number): ReactNode {
@@ -64,7 +80,7 @@ export function TOC(props: Props) {
       return <strong>{part.subtitle}</strong>;
     }
 
-    return <a href={getPath(part_nr as PartNr)}>{part.subtitle}</a>;
+    return <LinkTo part={part_nr as PartNr} />;
   }
 }
 

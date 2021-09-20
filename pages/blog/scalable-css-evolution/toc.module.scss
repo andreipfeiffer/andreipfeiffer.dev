@@ -1,10 +1,14 @@
 @import "../../../styles/mixins";
 
 .list {
-  padding: 1em;
   list-style-type: disc;
+  font-size: 0.9em;
 
   @include breakpoint(md) {
     // font-size: 2em;
+  }
+
+  li {
+    margin: 0.5em 0 !important;
   }
 }
