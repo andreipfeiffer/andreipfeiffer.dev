@@ -175,7 +175,7 @@ Consider the following implementation with CSS Modules:
 <SideBySide left={{lang: "JSX", file: "footer.jsx (with CSS Modules)"}}  right={{lang: "CSS", file: "footer.module.css"}}>
 
 ```tsx
-import * as styles from "./footer.module.css";
+import styles from "./footer.module.css";
 
 export function Footer() {
   return (
@@ -276,6 +276,29 @@ As you probably saw from the examples, any solution we choose is not straightfor
 <br />
 
 It's needless to say that with CSS-in-JS, sharing anything between JavaScript code and styles, which are also defined in JavaScript, becomes simple and straightforward.
+
+## Code navigation
+
+As we've all probably experienced by now, we read, debug, and change code more often than writting it. That's why navigating through code easily and effortlessly is important.
+
+Consider a simple task as _exploring what CSS rules are defined for a particular CSS class applied to an element_:
+
+- using plain (S)CSS requires us to **copy the CSS class**, **paste it into a find tool** and append a dot `.` so we'll find its definition;
+- with CSS Modules the process is the same, even though we're explicitly importing the styles.
+
+<Subheading>
+  <Status type="ok" />
+  Go to Definition
+</Subheading>
+
+With CSS-in-JS, all styles are JavaScript constants. By pressing `Ctrl + click` (`CMD + click` on Mac) or selecting [Go to Definition](https://code.visualstudio.com/Docs/editor/editingevolved#_go-to-definition) from the context menu, the editor will instantly take us to the style definition.
+
+<Subheading>
+  <Status type="ok" />
+  Find all References
+</Subheading>
+
+The opposite task is also simple. To discover where is a style (or any other variable) referenced, we can `Right-click` on the identifier and select [Find All References](https://code.visualstudio.com/updates/v1_29#_references-view) from the context menu.
 
 ---
 

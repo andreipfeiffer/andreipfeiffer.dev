@@ -15,21 +15,15 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 ---
 
-A few years ago, before using TypeScript, I never thought about the limitations of plain CSS. Regular CSS code, using CSS Modules or any CSS preprocessor, **is not type checked**. Before we run it, no tool will tell us if we have any errors in the code we wrote.
+A few years ago, before using TypeScript, I never thought about the limitations of plain CSS. Regular CSS code, CSS Modules or any CSS preprocessor, **are not type checked**. Before we run it, no tool will tell us if we have any errors in the code we wrote.
 
 To be honest, if I haven't started using TypeScript, I would probably still think that _CSS Modules paired with SASS is all we need, because we can't do any better_. But, I couldn't have been more wrong.
 
 In this part, we will see how CSS-in-JS paired with TypeScript solves the missing piece of the puzzle: **type safety for the styling** of the components.
 
-## Goto definition
-
-Exploring what CSS rules are defined for a particular CSS class applied to an element, when using plain CSS, requires us to **copy the CSS class** and **paste it into a find tool**. With CSS Modules we have to perform the same steps, even though we're explicitly importing the styles.
-
-The next iteration of CSS Modules, with full TypeScript support, is [vanilla-extract](https://vanilla-extract.style/). The
-
 ## Typed design tokens
 
-Design tokens defined in JavaScript that can be easily shared between logic and styles is very useful. But **typed design tokens** defined in TypeScript is even better. Consider this simple theme object:
+Design tokens defined in JavaScript that can be easily shared between logic and styles are very useful indeed. But **typed design tokens** defined in TypeScript are so much better. Consider this simple theme object:
 
 <Side header={{ file: "theme.ts", lang: "TS" }}>
 
@@ -73,7 +67,7 @@ theme.colors.brandy;
 
 ## Typed props
 
-Having our design tokens statically typed, we can use them to further improve our UI components' interfaces. For instance, we could have a `Notification` component that accepts a `color` prop:
+Let's consider a `Notification` component that accepts a `color` prop. We could set its type to `string`, which is not wrong, but it's too permissive:
 
 ```tsx
 interface NotificationProps {
@@ -82,7 +76,12 @@ interface NotificationProps {
 }
 ```
 
-With TypeScript on the other hand, we can hint our consumers what colors are available in our application:
+- consumers of the component could pass any color, like `red` or `#ff0000`, which are not defined in our color palette;
+- consumers will not know what colors should they use, unless they manually look at the color palette definition.
+
+<br />
+
+Having our design tokens statically typed, we can use them to further improve our UI components' interfaces. With TypeScript, we can hint our consumers what colors are available for the component:
 
 <!-- prettier-ignore-start -->
 
@@ -96,6 +95,11 @@ interface NotificationProps {
 ```
 
 <!-- prettier-ignore-end -->
+
+- consumers will get [IntelliSense](https://code.visualstudio.com/docs/editor/intellisense) with all the available color options, so they don't have to remember or to type them manually;
+- passing any other value, will result in a compile time error.
+
+<br />
 
 If needed, we can even go a step further, by allowing only a subset of colors, for specific use cases:
 
@@ -114,7 +118,7 @@ interface NotificationProps {
 
 <br />
 
-Only the sky is the limit regarding what we can accomplish with TypeScript when authoring interfaces for UI components. Any consumer of well-typed components will get an flawless experience during development. It's virtually impossible to misuse such components.
+Sky's the limit regarding what can be accomplished with TypeScript when authoring interfaces for UI components. Any consumer of well-typed components will get an flawless experience during development. It's virtually impossible to misuse such components.
 
 ## Safe refactorings
 
