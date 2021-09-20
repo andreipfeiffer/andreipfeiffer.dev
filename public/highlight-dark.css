@@ -98,12 +98,11 @@ code.language-scss,
 }
 
 .token.deleted {
-  text-decoration: line-through;
+  color: #f92672;
 }
 
 .token.inserted {
-  border-bottom: 1px dotted #e1f7ff;
-  text-decoration: none;
+  color: #a6e22e;
 }
 
 .token.italic {
