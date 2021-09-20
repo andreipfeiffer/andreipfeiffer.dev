@@ -4,7 +4,7 @@ export const meta: Metadata = {
   title: "The evolution of scalable CSS",
   subtitle: "Part 8: Type-safe CSS",
   date: "2021-12-28",
-  tags: ["css", "typescript"],
+  tags: ["css", "typescript", "ui"],
   tags_extra: [
     "scalability",
     "maintainability",
