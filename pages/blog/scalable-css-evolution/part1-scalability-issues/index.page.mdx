@@ -1,6 +1,6 @@
 import { BlogPost } from "../../../../components/blog/blog_post";
 import { Subheading } from "../../../../components/blog/subheading";
-import { SideBySide } from "../../../../components/blog/sidebyside";
+import { SideBySide, Side} from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
 import { TOC } from "../toc";
@@ -35,7 +35,7 @@ So, let's take a look at some of the most concearning problems when we talk abou
 1. [Zombie code](#zombie-code)
 2. [Naming collisions](#naming-collisions)
 3. [Specificity wars](#specificity-wars)
-4. [Source code precedence](#source-code-precedence)
+4. [Source order precedence](#source-order-precedence)
 5. [Selector duplication](#selector-duplication)
 6. [Cumbersome media queries (poate il punem impreuna cu Selector duplication)](#cumbersome-media-queries)
 7. [Implicit dependencies](#implicit-dependencies)
@@ -132,34 +132,44 @@ One way to avoid naming collitions is to increase the "strength of a selector", 
 
 Once we start relying on specificity, we will find it harder and harder to overwrite styles. Eventually, the only way to define new styles will be using `!important`. Once we reach that scenario, the code base will be almost impossible to extend. I can tell you this based on my very own experience.
 
-## Source code precedence
+## Source order precedence
 
 Ok, let's say that we stick to a low specificity and that we manage somehow to avoid naming collisions. One thing to keep in mind is that when specificity is the same, source code order takes place: _styles declared later always win_.
 
 Consider the following trivial example:
 
-<!-- prettier-ignore-start -->
+<Side header={{ file: "page.html", lang: "HTML" }}>
+
 ```html
-<!-- page.html -->
-<p class="red blue"> Red or Blue? </p>
+<p class="red blue">Red or Blue?</p>
 ```
 
-```css
-/* styles.css */
-.blue { color: blue; }
-.red { color: red; }
-```
-<!-- prettier-ignore-end -->
+</Side>
 
 If we look at the `.html` file, we might think that the text will be have the `.blue` class applied. But it's not the order of CSS classes that we apply to the HTML element that matters. It's the order of the styles defined in the CSS stylesheets.
 
-When looking at the `.css` file, we see that `.red` is defined later, which means that its styles will win.
+<!-- prettier-ignore-start -->
 
-Now, let's imagine how could this affect us on a large project:
+<Side header={{ file: "styles.css", lang: "CSS" }}>
 
-- consider that you're adding a new class to override some styles, but it doesn't work, because other styles defined later in code take precedence;
-- consider breaking the styles of a page only because we refactored our stylesheet by changing the order of some styles;
-- working with dynamically loaded stylesheets could become a real nightmare, because styles resolution will become un-deterministic.
+```css
+.blue { color: blue; }
+.red { color: red; }
+```
+
+</Side>
+
+<!-- prettier-ignore-end -->
+
+When looking at the `.css` file, we see that `.red` is defined later, which means that its styles will win, because both selectors have the same specificity.
+
+<br />
+
+Now, let's look at 3 different scenarios that could seriously affect us:
+
+1. Consider that you're adding a new class to override some styles, but it doesn't work, because other styles defined later in code take precedence.
+2. Consider breaking the styles of a page only because we refactored our stylesheet by changing the order of some styles.
+3. Working with dynamically loaded stylesheets could become a real nightmare, because styles resolution will become un-deterministic.
 
 ## Selector duplication
 

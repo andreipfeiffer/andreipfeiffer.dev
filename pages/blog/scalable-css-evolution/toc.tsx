@@ -20,6 +20,8 @@ type PartNr = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 const LAST_PART: PartNr = 8;
 
+const SERIES_BASE_URL = "/blog/scalable-css-evolution";
+
 type Part = Metadata & {
   path: string;
 };
@@ -106,7 +108,7 @@ function getPart(part: PartNr): Part {
 }
 
 function getPath(part: PartNr, hash?: string): string {
-  let result = `./${getPart(part).path}`;
+  let result = `${SERIES_BASE_URL}/${getPart(part).path}`;
 
   if (hash) {
     result += `#${hash}`;
