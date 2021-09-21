@@ -49,13 +49,13 @@ export function TOC(props: Props) {
       <Text>
         <strong>The evolution of scalable CSS</strong> is a multi-part
         chronicle, intented to record the progress of tools and practices that
-        enable us write maintainable CSS at scale. The series is broken down in
-        multiple parts:
+        enable us to write maintainable CSS at scale. The series is broken down
+        in multiple parts:
       </Text>
 
       <ol className={styles.list}>
         <li>
-          <Link href="./">
+          <Link href={SERIES_BASE_URL}>
             <a>Overview</a>
           </Link>
         </li>

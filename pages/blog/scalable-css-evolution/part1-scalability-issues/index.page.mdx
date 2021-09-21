@@ -3,7 +3,7 @@ import { Subheading } from "../../../../components/blog/subheading";
 import { SideBySide, Side} from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
-import { TOC } from "../toc";
+import { TOC, LinkTo } from "../toc";
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -13,24 +13,24 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
----
+## What is "scalability"?
 
-Before going any further to discuss the solutions, we must understand the problems. Generally speaking, when we talk about _software scalability_, we look at **how something behaves when we greatly increase its size**.
+Generally speaking, when we talk about _software scalability_, we look at **how software behaves when we greatly increase its size**.
 
-To give an example, if a certain problem increases proportionally with the size of the code, it means that we have a **scalability issue**. For instance, we know that we [_should not repeat ourselves_](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself), right? Would it matter if we repeat ourselves _once_ in a small code base for a personal project? Of course not.
+Whenever the gravity of a problem increases proportionally with the size of the code, it means that we have a **scalability issue**. For instance, we all know that we [should avoid globals](https://www.oreilly.com/library/view/maintainable-javascript/9781449328092/ch06.html). Would it matter if we use _"a few"_ globals in a small code base for a personal project? Of course not.
 
-But doing it multiple times, within a team of several developers, working on a long-term project that spans over multiple years could, and surely will, become a **huge maintainability problem**.
+However, _**using globals as a practice**_ within a team of several developers, working on a long-term project that spans over many years, will surely become a **huge maintainability problem**, sooner or later.
 
 <br />
 
 Now, each of us has their own definition of _"what a large project is"_, in order to understand when these scalability problems might start to surface. From my own experience, CSS scalability problems become visible:
 
-- with projects that span over **more than 6 months**;
-- within larger teams, containing **at least 3 developers** working on the UI.
+- during projects that span over **more than 6 months**;
+- with projects having **at least 3 developers** working on the UI.
 
-<br />
+## Common CSS problems
 
-So, let's take a look at some of the most concearning problems when we talk about CSS scalability:
+Before going any further to discuss the scalability solutions, we must understand the issues that they're trying to solve. So, let's take a look at some of the most concearning problems when we talk about CSS scalability:
 
 1. [Zombie code](#zombie-code)
 2. [Naming collisions](#naming-collisions)
@@ -42,12 +42,14 @@ So, let's take a look at some of the most concearning problems when we talk abou
 8. [Shared design tokens](#shared-design-tokens)
 9. [Lack of type-safety](#lack-of-type-safety)
 
-## Zombie code
+### Zombie code
 
-CSS code will usually only increase in size. Developers avoid deleting unused CSS code because it's impossible to detect if certain selectors are needed anymore, so they could be safely removed.
+CSS code, like any other code, will increase in size indefinitely. The particular problem with CSS is that `.css` files size will grow even when we remove HTML code that references CSS selectors defined in those files. This usually happens when:
 
-- removing temporary markup, but forgetting to delete the associated styles;
-- removing a reusable concept, but avoid deleting the selectors from a global styles file, because of the fear that they could be used somewhere else;
+- We remove HTML markup, but forget to delete the associated styles.
+- We want to delete the associated styles, but we have no idea if they are used elsewhere on the code base. So, instead of breaking any existing code, we choose not to touch them.
+
+We avoid deleting _unused CSS code_ because it's almost impossible to detect if they are really _unused_, in order to be safely removed.
 
 <br />
 
@@ -55,13 +57,13 @@ CSS code will usually only increase in size. Developers avoid deleting unused CS
 
 ```html
 <p class="promo">
-  <h2>Promo text...</h2>
-</p>
+  <h2>Promo title</h2>
 
-<!-- This will get removed at some point... -->
-<button class="promo_link">
-  Check this out
-</button>
+  <!-- This will get removed at some point... -->
+  <p>Promo text ...</p>
+
+  <a href="/promo">Check this out</a>
+</p>
 ```
 
 ```css
@@ -69,39 +71,66 @@ CSS code will usually only increase in size. Developers avoid deleting unused CS
   font-size: 1.5em;
 }
 
-/* ... but it associated styles would be probably left in the codebase */
-.promo_link {
-  color: blue;
+/* Styles will be left in the codebase */
+.promo p {
+  color: rebeccapurple;
 }
 ```
 
 </SideBySide>
 
-This means that we'll surely ship more CSS code than is actually needed, slowing down the page load and making the code base less manageable.
+As time goes by we'll surely ship more CSS code than is actually needed, slowing down the page load and making the code base less and less manageable. This happens because CSS cannot be statically analyzed, therefore no tool could safely tell us which CSS selectors from our source code are not used.
 
-This happens because CSS cannot be statically analyzed. Also, there is no tools that could safely tell us which CSS selectors are not used. https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/
+There are tools to [detect unused CSS](https://developer.chrome.com/docs/devtools/coverage/) in static websites and even some attempts to [remove unused CSS](https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/). However, they work only to some extend.
 
-## Naming collisions
+<Subheading>
+  <Status type="ok" />
+  Solutions
+</Subheading>
 
-Abstract and reusable class names usually contain common nouns, like `.modal`, `.button`, `.overlay`, etc. If we include an external file that defines the same class names they could get overwritten, depending on which file is included last.
+<p>
+  <LinkTo part={6} /> and <LinkTo part={7} /> address the issue of zombie code,
+  successfully removing unused CSS styles.
+</p>
 
-CSS lacks any namespace concept, so it doesn't help us to prevent style overwritting. A common solution to this problem is to add a project specific **prefix**, for instance `.abc-overlay`. Third party libraries usually take this.
+### Naming collisions
 
-However, this does not guarantee unique names. When dealing with large and multiple files, how could we be sure that nobody else added the class `.abc-heading-large`? We could search the entire code base to see if we find such a already class defined.
+Reusable class names usually contain common nouns, like `.modal`, `.button`, `.overlay`, etc. If we include an external file that defines the same class names they could get overwritten, depending on which file is included last.
 
-Not to mention that we might deal with **dynamic** class names, computed using some custom logic that prevents searching for a string like `.abc-heading-large`:
+<Subheading>Namespacing</Subheading>
+
+CSS lacks the concept of namespace, so the language itself doesn't help us to prevent style overwritting. A common solution to this problem is to add a project specific **prefix**, for instance `.abc-overlay`. Third party libraries usually implement this approach.
+
+However, this does not guarantee unique names. When dealing with many large files, how could we be sure that nobody else added the class `.abc-heading-large`? We could **search the entire code base** to see if we find such a already class defined.
+
+<Subheading>Computed class names</Subheading>
+
+Manually searching for existing class names works for static classes. However, we might deal with **dynamic** class names, computed using some custom logic that prevents searching for a string like `.abc-heading-large`:
 
 ```js
 const classname = `abc-heading-${isPromo ? "large" : "small"}`;
 ```
 
-However, we could include stylesheets written by a different team. In this case, making sure that we don't have any collitions can become quite a challenge.
+<br />
 
-But no stress, we can solve any such issues using a **higher specificity**, right?
+Not to mention that we could include stylesheets written by a different team. In this case, making sure that we don't have any collitions can become quite a challenge.
 
-## Specificity wars
+<!-- But no stress, we can solve any such issues using a **higher specificity**, right? -->
 
-One way to avoid naming collitions is to increase the "strength of a selector", or the so called [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity). This definitely works on the short run, but it could really get out of control:
+<Subheading>
+  <Status type="ok" />
+  Solutions
+</Subheading>
+
+There are many solutions to this problem, some better than others:
+
+- <LinkTo part={4} /> covers how we can avoid this manually;
+- <LinkTo part={5} /> covers out of the box solutions using utility classes;
+- <LinkTo part={6} /> covers tools that solves the naming collisions automatically.
+
+### Specificity wars
+
+One way to avoid naming collitions is to increase the "strength of a selector", or the so called [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity). This definitely works on the short run, but it usually gets out of control at some point:
 
 ```css
 /* we start with a simple generic "title" class */
@@ -130,9 +159,23 @@ One way to avoid naming collitions is to increase the "strength of a selector", 
 }
 ```
 
-Once we start relying on specificity, we will find it harder and harder to overwrite styles. Eventually, the only way to define new styles will be using `!important`. Once we reach that scenario, the code base will be almost impossible to extend. I can tell you this based on my very own experience.
+Relying on specificity to overwrite styles usually creates a [Snowball effect](https://en.wikipedia.org/wiki/Snowball_effect), forcing everyone on the team to further increase specificity, thus making it harder and harder to overwrite styles.
 
-## Source order precedence
+Eventually, the only way to define new styles will be using `!important`. Once we reach that scenario, the code base will be almost impossible to extend.
+
+<Subheading>
+  <Status type="ok" />
+  Solutions
+</Subheading>
+
+Similar to naming collisions, there are many solutions to this problem:
+
+- <LinkTo part={3} /> instruct us to keep specificity "low";
+- <LinkTo part={4} /> teach how we can maintain a low specificity and prefer composition
+  for overwritting;
+- <LinkTo part={5} /> covers out of the box solutions using utility classes.
+
+### Source order precedence
 
 Ok, let's say that we stick to a low specificity and that we manage somehow to avoid naming collisions. One thing to keep in mind is that when specificity is the same, source code order takes place: _styles declared later always win_.
 
@@ -171,7 +214,7 @@ Now, let's look at 3 different scenarios that could seriously affect us:
 2. Consider breaking the styles of a page only because we refactored our stylesheet by changing the order of some styles.
 3. Working with dynamically loaded stylesheets could become a real nightmare, because styles resolution will become un-deterministic.
 
-## Selector duplication
+### Selector duplication
 
 When using plain CSS, defining any pseudo class, pseudo element, or media query will force us to duplicate the CSS selector:
 
@@ -193,7 +236,7 @@ Duplicating selectors during development is not a real scalability problem, more
 
 Any feature that impedes code maintenance could potentially become a scalability concern.
 
-## Cumbersome media queries
+### Cumbersome media queries
 
 An even bigger problem we'll face is when we have to deal with responsive web pages and media queries. There are 2 different ways we can group our styles: **by media query** or **by CSS selector**:
 
@@ -268,7 +311,7 @@ As developers, we usually try to avoid code duplication as much as possible. Gro
 
 To enable an easier understanding of the code, which is crucial when we think about scaling, we could group the styles by CSS selectors. Using this approach, we don't have to search the whole file to figure out which styles apply to a certain selector. **The downside is that there's more boilerplate and the output is larger.**
 
-<!-- ## Cumbersome design tokens sharing
+<!-- ### Cumbersome design tokens sharing
 
 CSS custom properties commonly known as "CSS variables" are very useful to avoid certain types of code duplication, such as colors, breakpoints, fonts sizes, spacing values, etc. These values are usually called **design tokens** and they're required in design systems, but also very useful in any application that doesn't use a strict system.
 
@@ -276,13 +319,13 @@ Extracting design tokens as variables provides easy reusability and maintainabil
 
 Also, theming becomes much easier to implement. If we think about dark mode, which is pretty popular nowadays, theming is not a scarce feature anymore. -->
 
-## Implicit dependencies
+### Implicit dependencies
 
-## Shared design tokens
+### Shared design tokens
 
 -> adaptive layouts, access breakpoints in logic
 
-## Lack of type-safety
+### Lack of type-safety
 
 Before using TypeScript or other strongly typed languages, I never thought about the highly dynamic nature of CSS. I thought that there isn't any other way, so I got used to it.
 
