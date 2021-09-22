@@ -32,56 +32,106 @@ Now, each of us has their own definition of _"what a large project is"_, in orde
 
 Before going any further to discuss the scalability solutions, we must understand the issues that they're trying to solve. So, let's take a look at some of the most concearning problems when we talk about CSS scalability:
 
-1. [Zombie code](#zombie-code)
+1. [Selector duplication](#selector-duplication)
 2. [Naming collisions](#naming-collisions)
 3. [Specificity wars](#specificity-wars)
 4. [Source order precedence](#source-order-precedence)
-5. [Selector duplication](#selector-duplication)
-6. [Cumbersome media queries (poate il punem impreuna cu Selector duplication)](#cumbersome-media-queries)
-7. [Implicit dependencies](#implicit-dependencies)
-8. [Shared design tokens](#shared-design-tokens)
-9. [Lack of type-safety](#lack-of-type-safety)
+5. [Implicit dependencies](#implicit-dependencies)
+6. [Zombie code](#zombie-code)
+7. [Shared design tokens](#shared-design-tokens)
+8. [Lack of type-safety](#lack-of-type-safety)
 
-### Zombie code
+<Note>
+  It's important to keep in mind that none of these concerns is a big issue when
+  we work alone on a small project. However, they will become real problems when
+  working on larger projects, together with other developers.
+</Note>
 
-CSS code, like any other code, will increase in size indefinitely. The particular problem with CSS is that `.css` files size will grow even when we remove HTML code that references CSS selectors defined in those files. This usually happens when:
+### Selector duplication
 
-- We remove HTML markup, but forget to delete the associated styles.
-- We want to delete the associated styles, but we have no idea if they are used elsewhere on the code base. So, instead of breaking any existing code, we choose not to touch them.
+When using plain CSS, defining any pseudo class, pseudo element, or media query will force us to duplicate the CSS selector:
 
-We avoid deleting _unused CSS code_ because it's almost impossible to detect if they are really _unused_, in order to be safely removed.
+<!-- prettier-ignore-start -->
+```css
+.product_title { }
+
+.product_title:hover { }
+.product_title::after { }
+
+@media (min-width: 768px) {
+  .product_title { }
+  .product_title::after { }
+}
+```
+<!-- prettier-ignore-end -->
+
+Duplicating selectors during development is not a real scalability problem, more of an annoying issue. But during various refactorings such as renaming, moving, or deleting, dealing with a multitude of duplicated classes could become tricky.
+
+Any feature that impedes code maintenance could potentially become a scalability concern.
+
+#### Cumbersome media queries
+
+An even bigger problem we'll face is when we have to deal with responsive web pages and media queries. There are 2 different ways we can group our styles: **by media query** or **by CSS selector**:
 
 <br />
 
-<SideBySide left={{lang: "HTML", file: "page.html"}}  right={{lang: "CSS", file: "style.css"}}>
+<!-- prettier-ignore-start -->
 
-```html
-<p class="promo">
-  <h2>Promo title</h2>
+<SideBySide left={{lang: "CSS", file: "Group by media query"}}  right={{lang: "CSS", file: "Group by CSS selector"}}>
 
-  <!-- This will get removed at some point... -->
-  <p>Promo text ...</p>
+```css
+/* line 23 */
+.product { }
+.product_title { }
 
-  <a href="/promo">Check this out</a>
-</p>
+/* line 163 */
+@media (min-width: 768px) {
+  .product { }
+  .product_title { }
+}
+
+/* line 390 */
+@media (min-width: 1280px) {
+  .product { }
+  .product_title { }
+}
 ```
 
 ```css
-.promo {
-  font-size: 1.5em;
+.product { }
+@media (min-width: 768px) {
+  .product { }
+}
+@media (min-width: 1280px) {
+  .product { }
 }
 
-/* Styles will be left in the codebase */
-.promo p {
-  color: rebeccapurple;
+.product_title { }
+@media (min-width: 768px) {
+  .product_title { }
+}
+@media (min-width: 1280px) {
+  .product_title { }
 }
 ```
 
 </SideBySide>
 
-As time goes by we'll surely ship more CSS code than is actually needed, slowing down the page load and making the code base less and less manageable. This happens because CSS cannot be statically analyzed, therefore no tool could safely tell us which CSS selectors from our source code are not used.
+<!-- prettier-ignore-end -->
 
-There are tools to [detect unused CSS](https://developer.chrome.com/docs/devtools/coverage/) in static websites and even some attempts to [remove unused CSS](https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/). However, they work only to some extend.
+<br />
+
+<Subheading>Group by media query</Subheading>
+
+As developers, we usually try to avoid code duplication as much as possible. That's why some of us prefer to defines the media queries only once.
+
+The downside is that it's very difficult to read, understand, and maintain such a code. The styles for a single element could be split in different parts of the file. **Figuring out which are all the styles that apply to a particular selector becomes a real scalability problem.**
+
+<Subheading>Group by CSS selector</Subheading>
+
+To make code easier to understand, which is crucial when we think about scaling, we could group the styles by CSS selectors. Using this approach, we don't have to search the whole file to figure out which styles apply to a certain selector.
+
+The downside of this approach is that there's a **lot duplication in the code, which is troublesome both during development and maintenance, but also affects the CSS output which becomes much larger**.
 
 <Subheading>
   <Status type="ok" />
@@ -89,8 +139,8 @@ There are tools to [detect unused CSS](https://developer.chrome.com/docs/devtool
 </Subheading>
 
 <p>
-  <LinkTo part={6} /> and <LinkTo part={7} /> address the issue of zombie code,
-  successfully removing unused CSS styles.
+  In <LinkTo part={2} /> we'll see how the problem of code duplication is solved
+  by tools that support contextual styles.
 </p>
 
 ### Naming collisions
@@ -214,116 +264,156 @@ Now, let's look at 3 different scenarios that could seriously affect us:
 2. Consider breaking the styles of a page only because we refactored our stylesheet by changing the order of some styles.
 3. Working with dynamically loaded stylesheets could become a real nightmare, because styles resolution will become un-deterministic.
 
-### Selector duplication
+<Subheading>
+  <Status type="ok" />
+  Solutions
+</Subheading>
 
-When using plain CSS, defining any pseudo class, pseudo element, or media query will force us to duplicate the CSS selector:
+Various approaches tried to solve the source order problem:
 
-<!-- prettier-ignore-start -->
-```css
-.product_title { }
+- <LinkTo part={4} /> describes how deal with it manually;
+- <LinkTo part={6} /> and <LinkTo part={7} /> on the other hand offer out-of-the-box
+  automatic solutions.
 
-.product_title:hover { }
-.product_title::after { }
+### Implicit dependencies
 
-@media (min-width: 768px) {
-  .product_title { }
-  .product_title::after { }
-}
+CSS stylesheets work by default as **explicit dependencies** for HTML, because we have to explicitly reference them in `<head>` part of the document. But CSS rules and selectors work by default as **implicit dependencies** for UI components, templates, or any partial markup of an HTML page.
+
+<SideBySide left={{ file: "page.html", lang: "HTML" }} right={{ file: "component.js", lang: "JS" }}>
+
+```html
+<html lang="en">
+  <head>
+    <!-- The stylesheet is an Explicit Dependency -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+</html>
 ```
-<!-- prettier-ignore-end -->
 
-Duplicating selectors during development is not a real scalability problem, more of an annoying issue. But during various refactorings such as renaming, moving, or deleting, dealing with a multitude of duplicated classes could become tricky.
+```js
+// The CSS class "modal" is an Implicit Dependency
+document.appendChild(`
+  <div class="modal">...</div>
+`);
+```
 
-Any feature that impedes code maintenance could potentially become a scalability concern.
+</SideBySide>
 
-### Cumbersome media queries
+Implicit dependencies in general, not limited to CSS, are inherently problematic because:
 
-An even bigger problem we'll face is when we have to deal with responsive web pages and media queries. There are 2 different ways we can group our styles: **by media query** or **by CSS selector**:
+- **Code navigation is cumbersome** because it's difficult to figure out where do dependencies come from and how to get to their definition and implementation.
+- **Their runtime availability is non-deterministic.** We'll never know if the dependencies will be available when needed. They could be lazy loaded, for instance.
+- **Browsers will fail silently without any warning** if the styles referenced by our markup are not available.
+- **Definition and usage are disconnected.** It's difficult to reason about and understand code that's supposed to work together, but is split in different locations.
+
+<Subheading>
+  <Status type="ok" />
+  Solutions
+</Subheading>
+
+<p>
+  CSS Modules covered in <LinkTo part={6} /> and CSS-in-JS discussed in{" "}
+  <LinkTo part={7} /> use explicit dependencies.
+</p>
+
+### Zombie code
+
+CSS code, like any other code, will increase in size indefinitely. The particular problem with CSS is that `.css` files size will grow even when we remove HTML code that references CSS selectors defined in those files. This usually happens when:
+
+- We remove HTML markup, but forget to delete the associated styles.
+- We want to delete the associated styles, but we have no idea if they are used elsewhere on the code base. So, instead of breaking any existing code, we choose not to touch them.
+
+We avoid deleting _unused CSS code_ because it's almost impossible to detect if they are really _unused_, in order to be safely removed.
 
 <br />
 
-<!-- prettier-ignore-start -->
+<SideBySide left={{lang: "HTML", file: "page.html"}}  right={{lang: "CSS", file: "style.css"}}>
 
-<SideBySide left={{lang: "CSS", file: "Group by media query"}}  right={{lang: "CSS", file: "Group by CSS selector"}}>
+```html
+<p class="promo">
+  <h2>Promo title</h2>
 
-```css
-/* line 23 */
-.product { }
-.product_title { }
-.product_body { }
+  <!-- This will get removed at some point... -->
+  <p>Promo text ...</p>
 
-...
-
-/* line 163 */
-@media (min-width: 768px) {
-  .product { }
-  .product_title { }
-  .product_body { }
-}
-
-...
-
-/* line 390 */
-@media (min-width: 1280px) {
-  .product { }
-  .product_title { }
-  .product_body { }
-}
+  <a href="/promo">Check this out</a>
+</p>
 ```
 
 ```css
-.product { }
-@media (min-width: 768px) {
-  .product { }
-}
-@media (min-width: 1280px) {
-  .product { }
+.promo {
+  font-size: 1.5em;
 }
 
-.product_title { }
-@media (min-width: 768px) {
-  .product_title { }
-}
-@media (min-width: 1280px) {
-  .product_title { }
-}
-
-.product_body { }
-@media (min-width: 768px) {
-  .product_body { }
-}
-@media (min-width: 1280px) {
-  .product_body { }
+/* Styles will be left in the codebase */
+.promo p {
+  color: rebeccapurple;
 }
 ```
 
 </SideBySide>
 
-<!-- prettier-ignore-end -->
+As time goes by we'll surely ship more CSS code than is actually needed, slowing down the page load and making the code base less and less manageable. This happens because CSS cannot be statically analyzed, therefore no tool could safely tell us which CSS selectors from our source code are not used.
 
-<br />
+There are tools to [detect unused CSS](https://developer.chrome.com/docs/devtools/coverage/) in static websites and even some attempts to [remove unused CSS](https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/). However, they work only to some extend.
 
-<Subheading>Groupping by media query</Subheading>
+<Subheading>
+  <Status type="ok" />
+  Solutions
+</Subheading>
 
-As developers, we usually try to avoid code duplication as much as possible. Groupping by media query defines the media queries only once, so it's probably a more approach appealling. The downside is that it's very difficult to read, understand, and maintain such a code. The styles for a single element could be split in different parts of the file. **Figuring out which are all the styles that apply to a particular selector becomes a real scalability problem.**
-
-<Subheading>Groupping by CSS selector</Subheading>
-
-To enable an easier understanding of the code, which is crucial when we think about scaling, we could group the styles by CSS selectors. Using this approach, we don't have to search the whole file to figure out which styles apply to a certain selector. **The downside is that there's more boilerplate and the output is larger.**
-
-<!-- ### Cumbersome design tokens sharing
-
-CSS custom properties commonly known as "CSS variables" are very useful to avoid certain types of code duplication, such as colors, breakpoints, fonts sizes, spacing values, etc. These values are usually called **design tokens** and they're required in design systems, but also very useful in any application that doesn't use a strict system.
-
-Extracting design tokens as variables provides easy reusability and maintainability. They are easy to change, because there's a single source of truth.
-
-Also, theming becomes much easier to implement. If we think about dark mode, which is pretty popular nowadays, theming is not a scarce feature anymore. -->
-
-### Implicit dependencies
+<p>
+  <LinkTo part={6} /> and <LinkTo part={7} /> address the issue of zombie code,
+  successfully removing unused CSS code.
+</p>
 
 ### Shared design tokens
 
--> adaptive layouts, access breakpoints in logic
+[Design tokens](https://design.infor.com/product/design-tokens) are fundamental building blocks of any **design system**. But even when working on smaller projects that don't require a robust design system, we'll probably need to use a particular `value` in CSS and also in JavaScript.
+
+<Subheading>Use cases</Subheading>
+
+There are various reasons for sharing values to be used both in CSS and JavaScript:
+
+- Using **breakpoint values** in CSS media queries, but also with [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) API for [Responsive Web Design](https://web.dev/responsive-web-design-basics/) (RWD) or [Adaptive Web Design](https://webflow.com/blog/adaptive-vs-responsive-design);
+- Using **color variables** in CSS, but also pass them to 3rd party libraries that require initialization from JavaScript;
+- Using **animation durations** in CSS Transitions, but also with JavaScript libraries such as [Anime.js](https://animejs.com/) or [CSSTransition](http://reactcommunity.org/react-transition-group/css-transition) from React Transition Group package.
+- Using **elements size or position** as CSS values for `width`, `height`, or `top`, but also reuse them in JavaScript computations for dynamic styling.
+
+<Subheading>Using (S)CSS as the source of truth</Subheading>
+
+One approach is to define the variables in our (S)CSS files, either as _CSS custom properties_, _SASS variables_, or _CSS Modules `@values`_ and expose them to be importable in JavaScript.
+
+Keeing it short, there are technical solutions to [share variables from CSS to JavaScript](https://www.falldowngoboone.com/blog/share-variables-between-javascript-and-css/) using any styling method.
+
+<Subheading>Using JS as the source of truth</Subheading>
+
+An alternative is to store the variables as JS variables or objects and to expose them to (S)CSS. This approach looks more convenient if we think about [Universal Design Tokens](https://udt.design/) (UDT), which also suggest using JSON as an interchangeble data format. And we all know that JSON plays nicely with JavaScript.
+
+Again, there are technical solutions for exporting JS/JSON objects to [SASS variables](https://github.com/planetflash/sharing_variables_js_sass), [CSS Modules](https://github.com/macropodhq/postcss-constants), or [CSS custom properties](https://css-tricks.com/updating-a-css-variable-with-javascript/).
+
+<Subheading>
+  <Status type="err" />
+  Limitations
+</Subheading>
+
+As you probably saw from the examples, any solution we choose is not straightforward. They look more like workarounds, instead of solid and elegant approaches. In addition:
+
+- Even though there is a single source of truth, we have to **maintain 2 sets of values**: the (S)CSS values and the JS values.
+- **Automatic refactorings are not available** for CSS values, so they require manual effort, which as we now is never fun to perform.
+- **Code editors cannot display suggestions** for defined (S)CSS (Modules) variables, making them difficult to discover. There are some plugins that attempt to support this, but are pretty flawed.
+- Explicit and manual conversions requires a lot of **boilerplate**. Automatic conversions create **implicit dependencies**, which have their own drawbacks as we saw earlier.
+
+<Subheading>
+  <Status type="ok" />
+  Solutions
+</Subheading>
+
+<p>
+  <LinkTo part={7} /> addresses the issue of sharing variables, mostly as a
+  consequence of having the styles defined in JavaScript, so they can easily
+  reference any JS value.
+</p>
 
 ### Lack of type-safety
 
@@ -331,15 +421,22 @@ Before using TypeScript or other strongly typed languages, I never thought about
 
 But after I started using statically typed languages, I've begun to feel the lack of type-safety when authoring and maintaining either plain CSS, accompanied by preprocessors, or CSS modules:
 
-- **Missing a "go to definition" or "find references"** feature, which is very useful in debugging, to determine which styles apply to a particular element, or where is a paticular class name applied. Instead, we must use copy the class name from the markup and search for it in the stylesheet, or vice-versa.
-- **Refactorings are not safe** because the tooling doesn't help highlighting any syntax errors when renaming class names, or removing them. This alone will lead to developers being afraid to touch or modify any existing code, which could ultimately lead to [code rot](https://en.wikipedia.org/wiki/Software_rot).
+- **Navigating code is cumbersome** because we cannot use code editor features such as _"Go to Definition"_ or _"Find references"_ to determine which styles apply to a particular element or where is a particular class applied.
+- **Refactorings are not safe** because the tooling doesn't help highlighting any syntax errors when renaming class names or removing them. This alone will lead to developers being afraid to touch or modify any existing code, which could ultimately lead to [code rot](https://en.wikipedia.org/wiki/Software_rot).
+- **Lack of tooling support** regarding auto-complete, type-checking variable names and discovering available CSS classes or variables make developers dependent on high cognitive load to either remember how CSS classes or variables are named or simply copy & paste them.
 
-<Note>
-  It's important to keep in mind that none of the previously mentioned concerns
-  are a problem if we work alone on a small project. But they will become real
-  problems when working on larger projects, together with other developers.
-</Note>
+<Subheading>
+  <Status type="ok" />
+  Solutions
+</Subheading>
+
+<p>
+  <LinkTo part={8} /> addresses type-safety, by using TypeScript on top of
+  existing CSS-in-JS solutions.
+</p>
 
 ---
 
-In part 2 of this series we'll cover **preprocessors**.
+Now that we have a good understanding of the most concearning problems with writting and maintaining CSS code at scale, let's turn our view to the solutions that solve these problems.
+
+In <LinkTo part={2} /> we'll discuss CSS pre-processors which allowed us to keep our source code cleaner and CSS post-processors which optimized the output of our builds.

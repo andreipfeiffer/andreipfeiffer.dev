@@ -6,7 +6,7 @@ import { Text } from "../../../components/text";
 import { Metadata } from "../../../lib/blog";
 
 import { meta as part1 } from "./part1-scalability-issues/meta";
-import { meta as part2 } from "./part2-preprocessors/meta";
+import { meta as part2 } from "./part2-css-processors/meta";
 import { meta as part3 } from "./part3-good-practices/meta";
 import { meta as part4 } from "./part4-methologies-and-semantics/meta";
 import { meta as part5 } from "./part5-atomic-css/meta";

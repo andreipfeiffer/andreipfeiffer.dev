@@ -110,7 +110,22 @@ So, what that means for us, as developers?
 - we don't have to worry anymore about naming collisions, because the tooling takes care if this;
 - we can focus on each individual component, provide class names relevant to that component only;
 
-But, for this to work, we must have a separate `.css` file for each component, which makes perfect sense, because a component should have all its concerns grouped together: HTML markup, JS behavior, and CSS styling.
+But, for this to work, we must have a **separate `.css` file for each component**. However, this makes perfect sense, because a component should have all its concerns grouped together: HTML markup, JS behavior, and CSS styling.
+
+<Subheading>Explicit style dependencies</Subheading>
+
+<p>
+  As we've seen in the above example, with CSS Modules we have to explicitly{" "}
+  <code>import</code> the stylesheet used by a particular component file. This
+  means that the styles are not{" "}
+  <LinkTo part={1} hash="implicit-dependencies">
+    implicit dependencies
+  </LinkTo>{" "}
+  anymore, which brings benefits that were not possible before:
+</p>
+
+- easily figuring out where are the styles defined;
+- eliminating unused styles when the component is not imported anymore.
 
 ## Frameworks
 
