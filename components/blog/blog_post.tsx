@@ -180,6 +180,21 @@ export function BlogPost(props: Props) {
     // otherwise (when opening this page directly) fallback to href
     if (window.history.state.idx > 0) {
       e.preventDefault();
+
+      // this will be executed before router.back()
+      router.beforePopState((state) => {
+        // only if we're going back to let's say /tag page
+        // we allow the back() action
+        if (state.url.includes("blog/tag/")) {
+          return true;
+        }
+
+        // if we're "going back" to another article visited before
+        // we handle manually by redirecting to blog index
+        router.push("/blog");
+        return false;
+      });
+
       router.back();
     }
   }
