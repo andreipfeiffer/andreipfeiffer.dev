@@ -134,6 +134,8 @@ export function BlogPost(props: Props) {
           <Spacer vertical="16" />
         </header>
 
+        <br />
+
         <main className={styles.content}>{children}</main>
 
         <br />

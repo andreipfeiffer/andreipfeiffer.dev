@@ -13,8 +13,6 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
----
-
 In the previous article of this series <LinkTo part={CURRENT_PART - 1} /> we've covered different methods to scope our styles to the component they belong to and not leak into the global namespace, or influence other components.
 
 It's worth mentioning that styles encapsulation was also one of the core goals of CSS-in-JS. However, CSS-in-JS means much more than just styles encapsulation. In this article we'll take a closer look at:

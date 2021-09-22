@@ -28,7 +28,7 @@ type Part = Metadata & {
 
 const SERIES: Array<Part> = [
   { ...part1, path: "part1-scalability-issues" },
-  { ...part2, path: "part2-preprocessors" },
+  { ...part2, path: "part2-css-processors" },
   { ...part3, path: "part3-good-practices" },
   { ...part4, path: "part4-methologies-and-semantics" },
   { ...part5, path: "part5-atomic-css" },
@@ -44,9 +44,7 @@ type Props = {
 export function TOC(props: Props) {
   return (
     <div>
-      <br />
-
-      <Text>
+      <Text as="p">
         <strong>The evolution of scalable CSS</strong> is a multi-part
         chronicle, intented to record the progress of tools and practices that
         enable us to write maintainable CSS at scale. The series is broken down
@@ -64,19 +62,13 @@ export function TOC(props: Props) {
           return <li key={index}>{renderText(part, index + 1)}</li>;
         })}
       </ol>
+
+      <hr />
     </div>
   );
 
   function renderText(part: Part, part_nr: number): ReactNode {
     const isMatch = part.subtitle === getPart(props.current)?.subtitle;
-
-    if (part_nr > LAST_PART) {
-      return (
-        <Text color="muted">
-          {part.subtitle} <i>(coming soon)</i>
-        </Text>
-      );
-    }
 
     if (isMatch) {
       return <strong>{part.subtitle}</strong>;
@@ -95,10 +87,19 @@ type LinkToProps = {
 export function LinkTo({ part, hash, children }: LinkToProps) {
   const data = getPart(part);
   const path = getPath(part, hash);
+  const text = children || data.subtitle;
+
+  if (part > LAST_PART) {
+    return (
+      <Text color="muted">
+        {text} <i>(coming soon)</i>
+      </Text>
+    );
+  }
 
   return (
     <Link href={path}>
-      <a>{children || data.subtitle}</a>
+      <a>{text}</a>
     </Link>
   );
 }

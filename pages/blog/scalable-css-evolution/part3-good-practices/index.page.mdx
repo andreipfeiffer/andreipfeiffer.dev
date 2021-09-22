@@ -7,10 +7,11 @@ import { TOC } from "../toc";
 
 import { meta } from "./meta";
 export { meta } from "./meta";
+const CURRENT_PART = 3;
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-<TOC current={3} />
+<TOC current={CURRENT_PART} />
 
 To overcome the problems with CSS maintainability, many good (and better, and best) practices were defined by various thought leaders.
 

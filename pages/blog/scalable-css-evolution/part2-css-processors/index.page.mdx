@@ -7,10 +7,11 @@ import { TOC } from "../toc";
 
 import { meta } from "./meta";
 export { meta } from "./meta";
+const CURRENT_PART = 2;
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-<TOC current={2} />
+<TOC current={CURRENT_PART} />
 
 CSS variables are now de-facto standard in front-end development. They were pretty well supported since 2016. But before we had full browser support, we had to rely on alternative methods.
 
