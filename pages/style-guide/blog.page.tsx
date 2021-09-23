@@ -30,7 +30,7 @@ export default function BlogPostPreview() {
         ],
         tags_extra: ["extra tag"],
         cover: undefined,
-        visibility: "unlisted",
+        visibility: "private",
         intro: "",
       }}
     >

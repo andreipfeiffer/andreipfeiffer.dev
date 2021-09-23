@@ -9,6 +9,15 @@ function getAllPosts(): Post[] {
   return importAll(require.context("../pages/blog", true, /\.page.mdx$/));
 }
 
+export function getRssPosts(): Post[] {
+  return getAllPosts()
+    .filter(
+      (post) =>
+        post.meta.visibility === "public" || post.meta.visibility === "unlisted"
+    )
+    .sort(sortPosts);
+}
+
 export function getPublishedPosts(): Post[] {
   return getAllPosts()
     .filter((post) => isPublished(post) && post.meta.visibility !== "archived")
@@ -17,7 +26,7 @@ export function getPublishedPosts(): Post[] {
 
 export function getArchivedPosts(): Post[] {
   return getAllPosts()
-    .filter((post) => isPublished(post) && post.meta.visibility === "archived")
+    .filter((post) => post.meta.visibility === "archived")
     .sort(sortPosts);
 }
 
@@ -66,7 +75,7 @@ function sortPosts(a: Post, b: Post) {
 }
 
 function isPublished(post: Post) {
-  // in development, display WIP articles also
+  // in development, display all articles
   if (process.env.NODE_ENV === "development") {
     return true;
   }
@@ -78,8 +87,20 @@ export interface Post {
   meta: Metadata;
 }
 
-export type Visibility = "public" | "unlisted" | "archived" | "draft";
-export type PrivateVisibility = Exclude<Visibility, "public" | "archived">;
+enum VisibilityEnum {
+  // available on blog list + RSS + direct url
+  "public" = "public",
+  // available on RSS + direct url
+  "unlisted" = "unlisted",
+  // available on direct url
+  "private" = "private",
+  // available only in development
+  "draft" = "draft",
+  // available only on archive page
+  "archived" = "archived",
+}
+
+export type Visibility = keyof typeof VisibilityEnum;
 
 export interface Metadata {
   date: string;

@@ -1,6 +1,8 @@
 import Head from "next/head";
 import React from "react";
 
+import { RSS_FEED_URL } from "../pages/subscribe.page";
+
 type MetaTags = {
   title: string;
   description: string;
@@ -52,12 +54,19 @@ export function MetaTags(props: Partial<MetaTags>) {
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:creator" content="@pfeiffer_andrei" />
+
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="RSS Feed for andreipfeiffer.dev Blog"
+        href={`/${RSS_FEED_URL}`}
+      />
     </Head>
   );
 }
 
 export const META_TITLE = "Andrei Pfeiffer, personal website and blog";
-const WEB_URL = "https://andreipfeiffer.dev";
+export const WEB_URL = "https://andreipfeiffer.dev";
 
 const DEFAULT_META_TAGS: MetaTags = {
   title: META_TITLE,
