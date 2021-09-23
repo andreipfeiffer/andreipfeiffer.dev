@@ -76,7 +76,7 @@ const generateRssFeed = async () => {
     id: WEB_URL,
     link: WEB_URL,
     image: `${WEB_URL}/images/logo_black.svg`,
-    favicon: `${WEB_URL}/favicon.ico`,
+    favicon: `${WEB_URL}/favicon-32x32.png`,
     copyright: `All rights reserved 2020-${date.getFullYear()}, Andrei Pfeiffer`,
     updated: date,
     feedLinks: {
