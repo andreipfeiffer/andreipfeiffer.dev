@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 
-import { RSS_FEED_URL } from "../pages/subscribe.page";
+import { ATOM_FEED_URL, RSS_FEED_URL } from "../pages/subscribe.page";
 
 type MetaTags = {
   title: string;
@@ -55,11 +55,18 @@ export function MetaTags(props: Partial<MetaTags>) {
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:creator" content="@pfeiffer_andrei" />
 
-      <link
+      {/* <link
         rel="alternate"
         type="application/rss+xml"
         title="RSS Feed for andreipfeiffer.dev Blog"
         href={`/${RSS_FEED_URL}`}
+      /> */}
+
+      <link
+        rel="alternate"
+        type="application/atom+xml"
+        title="Atom Feed for andreipfeiffer.dev Blog"
+        href={`/${ATOM_FEED_URL}`}
       />
     </Head>
   );

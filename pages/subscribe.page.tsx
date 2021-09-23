@@ -14,11 +14,11 @@ import { getRssPosts } from "../lib/blog";
 import { SUBSCRIBE_URL } from "../lib/utils";
 
 export const RSS_FEED_URL = "rss/feed.xml";
-// const ATOM_FEED_URL = "rss/atom.xml";
+export const ATOM_FEED_URL = "rss/atom.xml";
 
 interface Props {
   rss_feed: string;
-  // atom_feed: string;
+  atom_feed: string;
 }
 
 export default function Subscribe(props: Props) {
@@ -43,6 +43,10 @@ export default function Subscribe(props: Props) {
           <Button href={`/${props.rss_feed}`} as="a" size="large">
             RSS Feed
           </Button>
+
+          <Button href={`/${props.atom_feed}`} as="a" size="large">
+            Atom Feed
+          </Button>
         </Text>
       </Grid.Full>
     </Layout>
@@ -54,7 +58,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   return {
     props: {
       rss_feed: RSS_FEED_URL,
-      // atom_feed: ATOM_FEED_URL,
+      atom_feed: ATOM_FEED_URL,
     },
   };
 };
@@ -71,7 +75,7 @@ const generateRssFeed = async () => {
   const feed = new Feed({
     title: "Andrei Pfeiffer, personal blog",
     description:
-      "This blog if focused on technical content, related to Front-End technologies and UI development.",
+      "This blog if focused on technical content related to Front-End technologies and UI development.",
     language: "en",
     id: WEB_URL,
     link: WEB_URL,
@@ -81,7 +85,7 @@ const generateRssFeed = async () => {
     updated: date,
     feedLinks: {
       rss2: `${WEB_URL}/${RSS_FEED_URL}`,
-      // atom: `${WEB_URL}/${ATOM_FEED_URL}`,
+      atom: `${WEB_URL}/${ATOM_FEED_URL}`,
     },
     author,
   });
@@ -104,5 +108,5 @@ const generateRssFeed = async () => {
 
   fs.mkdirSync("./public/rss", { recursive: true });
   fs.writeFileSync(`./public/${RSS_FEED_URL}`, feed.rss2());
-  // fs.writeFileSync(`./public/${ATOM_FEED_URL}`, feed.atom1());
+  fs.writeFileSync(`./public/${ATOM_FEED_URL}`, feed.atom1());
 };
