@@ -13,11 +13,11 @@ import { Text } from "../components/text";
 import { getRssPosts } from "../lib/blog";
 import { SUBSCRIBE_URL } from "../lib/utils";
 
-export const RSS_FEED_URL = "rss/feed.xml";
+// export const RSS_FEED_URL = "rss/feed.xml";
 export const ATOM_FEED_URL = "rss/atom.xml";
 
 interface Props {
-  rss_feed: string;
+  // rss_feed: string;
   atom_feed: string;
 }
 
@@ -40,12 +40,8 @@ export default function Subscribe(props: Props) {
             Email
           </Button>
 
-          <Button href={`/${props.rss_feed}`} as="a" size="large">
-            RSS Feed
-          </Button>
-
           <Button href={`/${props.atom_feed}`} as="a" size="large">
-            Atom Feed
+            RSS/Atom Feed
           </Button>
         </Text>
       </Grid.Full>
@@ -57,7 +53,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   await generateRssFeed();
   return {
     props: {
-      rss_feed: RSS_FEED_URL,
+      // rss_feed: RSS_FEED_URL,
       atom_feed: ATOM_FEED_URL,
     },
   };
@@ -84,7 +80,7 @@ const generateRssFeed = async () => {
     copyright: `All rights reserved 2020-${date.getFullYear()}, Andrei Pfeiffer`,
     updated: date,
     feedLinks: {
-      rss2: `${WEB_URL}/${RSS_FEED_URL}`,
+      // rss2: `${WEB_URL}/${RSS_FEED_URL}`,
       atom: `${WEB_URL}/${ATOM_FEED_URL}`,
     },
     author,
@@ -93,7 +89,7 @@ const generateRssFeed = async () => {
   posts.forEach((post) => {
     // for some reason, the id starts with "./"
     const url = `${WEB_URL}/blog/${post.id.replace("./", "")}`;
-    const { title, subtitle, intro, date } = post.meta;
+    const { title, subtitle, intro, date, cover } = post.meta;
 
     feed.addItem({
       title: `${title}${subtitle ? ":" + subtitle : ""}`,
@@ -103,10 +99,11 @@ const generateRssFeed = async () => {
       // content: ``,
       author: [author],
       date: new Date(date),
+      image: cover,
     });
   });
 
   fs.mkdirSync("./public/rss", { recursive: true });
-  fs.writeFileSync(`./public/${RSS_FEED_URL}`, feed.rss2());
+  // fs.writeFileSync(`./public/${RSS_FEED_URL}`, feed.rss2());
   fs.writeFileSync(`./public/${ATOM_FEED_URL}`, feed.atom1());
 };
