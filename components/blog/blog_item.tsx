@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-import { Post, PrivateVisibility } from "../../lib/blog";
+import { Post } from "../../lib/blog";
 import { FormattedDate } from "../date";
 import { Grid } from "../grid";
 import { useBreakpoint } from "../layout/useBreakpoint";

@@ -1,7 +1,8 @@
 import classNames from "classnames";
+import Link from "next/link";
 import React from "react";
 
-import { getCurrentYear, SUBSCRIBE_URL } from "../../lib/utils";
+import { getCurrentYear } from "../../lib/utils";
 import { Box } from "../box";
 import { Flex } from "../flex";
 import { Text } from "../text";
@@ -36,7 +37,10 @@ export function Footer() {
       <Text size="m02">
         Follow me on Twitter{" "}
         <a href="https://twitter.com/pfeiffer_andrei">@pfeiffer_andrei</a> or{" "}
-        <a href={SUBSCRIBE_URL}>subscribe</a> for updates.
+        <Link href="/subscribe">
+          <a>subscribe</a>
+        </Link>{" "}
+        for updates.
       </Text>
 
       <Text size="m02" color="muted" className={styles.copyright}>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://andreipfeiffer.dev</id>
+    <title>Andrei Pfeiffer, personal blog</title>
+    <updated>2021-09-23T18:46:42.771Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <author>
+        <name>Andrei Pfeiffer</name>
+        <email>andrei@upsidedown.ro</email>
+        <uri>https://twitter.com/pfeiffer_andrei</uri>
+    </author>
+    <link rel="alternate" href="https://andreipfeiffer.dev"/>
+    <link rel="self" href="https://andreipfeiffer.dev/rss/atom.xml"/>
+    <subtitle>This blog if focused on technical content, related to Front-End technologies and UI development.</subtitle>
+    <logo>https://andreipfeiffer.dev/images/logo_black.svg</logo>
+    <icon>https://andreipfeiffer.dev/favicon-32x32.png</icon>
+    <rights>All rights reserved 2020-2021, Andrei Pfeiffer</rights>
+    <entry>
+        <title type="html"><![CDATA[The anatomy of React component files]]></title>
+        <id>https://andreipfeiffer.dev/blog/react-components-anatomy</id>
+        <link href="https://andreipfeiffer.dev/blog/react-components-anatomy"/>
+        <updated>2021-09-21T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[This article describes in detail my personal and current approach to defining React component files and the rationale for each decision. It covers function components syntax with TypeScript.]]></summary>
+        <author>
+            <name>Andrei Pfeiffer</name>
+            <email>andrei@upsidedown.ro</email>
+            <uri>https://twitter.com/pfeiffer_andrei</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CSS-in-JS styles output methods]]></title>
+        <id>https://andreipfeiffer.dev/blog/css-in-js-styles-output</id>
+        <link href="https://andreipfeiffer.dev/blog/css-in-js-styles-output"/>
+        <updated>2021-09-06T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[There are two mutually exclusive methods that CSS-in-JS libraries use to generate and ship styles to the browser: Runtime Stylesheets and Static CSS Extraction. Both methods have benefits and downsides, so let’s analyze them in detail.]]></summary>
+        <author>
+            <name>Andrei Pfeiffer</name>
+            <email>andrei@upsidedown.ro</email>
+            <uri>https://twitter.com/pfeiffer_andrei</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Developing UIs connected to web APIs]]></title>
+        <id>https://andreipfeiffer.dev/blog/developing-uis-connected-to-web-apis</id>
+        <link href="https://andreipfeiffer.dev/blog/developing-uis-connected-to-web-apis"/>
+        <updated>2021-08-18T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[As UI developers, we have multiple methods we could use to connect to web APIs during development. We'll explore 3 different approaches, analyzing their strong points and limitations.]]></summary>
+        <author>
+            <name>Andrei Pfeiffer</name>
+            <email>andrei@upsidedown.ro</email>
+            <uri>https://twitter.com/pfeiffer_andrei</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Validating our understanding]]></title>
+        <id>https://andreipfeiffer.dev/blog/validating-our-understanding</id>
+        <link href="https://andreipfeiffer.dev/blog/validating-our-understanding"/>
+        <updated>2021-07-15T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[There is no absolute measurement tool to determine our level of understanding of a particular concept. But there are specific heuristics that we can use to evaluate ourselves.]]></summary>
+        <author>
+            <name>Andrei Pfeiffer</name>
+            <email>andrei@upsidedown.ro</email>
+            <uri>https://twitter.com/pfeiffer_andrei</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Complementary learning]]></title>
+        <id>https://andreipfeiffer.dev/blog/complementary-learning</id>
+        <link href="https://andreipfeiffer.dev/blog/complementary-learning"/>
+        <updated>2021-07-09T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[We took some courses, attended a few workshops, read a ton of articles, and probably one or two books too. We have even worked on a couple of personal projects. Ok, what's next?]]></summary>
+        <author>
+            <name>Andrei Pfeiffer</name>
+            <email>andrei@upsidedown.ro</email>
+            <uri>https://twitter.com/pfeiffer_andrei</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Distinguishing between pages and components in Next.js]]></title>
+        <id>https://andreipfeiffer.dev/blog/distinguishing-between-pages-and-components-in-next-js</id>
+        <link href="https://andreipfeiffer.dev/blog/distinguishing-between-pages-and-components-in-next-js"/>
+        <updated>2021-06-04T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[In Next.js we can customize what file extensions should be rendered as pages. This enables us to create components inside the pages folder without generating unneeded routes.]]></summary>
+        <author>
+            <name>Andrei Pfeiffer</name>
+            <email>andrei@upsidedown.ro</email>
+            <uri>https://twitter.com/pfeiffer_andrei</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Empty objects initialization with TypeScript]]></title>
+        <id>https://andreipfeiffer.dev/blog/empty-objects-initialization-with-typescript</id>
+        <link href="https://andreipfeiffer.dev/blog/empty-objects-initialization-with-typescript"/>
+        <updated>2020-12-27T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[We'll examine multiple methods to initialize empty objects in TypeScript, which is something you'll probably have to deal with in any application that has some form of state management.]]></summary>
+        <author>
+            <name>Andrei Pfeiffer</name>
+            <email>andrei@upsidedown.ro</email>
+            <uri>https://twitter.com/pfeiffer_andrei</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Tech Debt or Tech Loan?]]></title>
+        <id>https://andreipfeiffer.dev/blog/tech-debt-tech-loan</id>
+        <link href="https://andreipfeiffer.dev/blog/tech-debt-tech-loan"/>
+        <updated>2020-12-22T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Technical Debt is a trade-off, a choice we make as developers. Sometimes we are (or feel) compelled to make these trade-offs. Sometimes it's our own decision. The fact is we can't always avoid them, so we need to learn how to manage them.]]></summary>
+        <author>
+            <name>Andrei Pfeiffer</name>
+            <email>andrei@upsidedown.ro</email>
+            <uri>https://twitter.com/pfeiffer_andrei</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Definition lists with grid layout]]></title>
+        <id>https://andreipfeiffer.dev/blog/definition-lists-with-grid-layout</id>
+        <link href="https://andreipfeiffer.dev/blog/definition-lists-with-grid-layout"/>
+        <updated>2020-11-06T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[In this post, we'll examine various implementations for a given layout, using both flex and grid, debating the robustness of each approach. The layout contains a horizontal list of 3 key-value pairs, the values being displayed beneath the labels.]]></summary>
+        <author>
+            <name>Andrei Pfeiffer</name>
+            <email>andrei@upsidedown.ro</email>
+            <uri>https://twitter.com/pfeiffer_andrei</uri>
+        </author>
+    </entry>
+</feed>
