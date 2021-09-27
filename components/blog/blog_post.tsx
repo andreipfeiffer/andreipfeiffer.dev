@@ -226,7 +226,11 @@ function Draft() {
           <br />
           <br />
           <Text>
-            Please subscribe to get notified as soon as it will be published.
+            Please{" "}
+            <Link href="/subscribe">
+              <a>subscribe</a>
+            </Link>{" "}
+            to get notified as soon as it will be published.
           </Text>
         </Grid.Full>
       </Fullpage>
