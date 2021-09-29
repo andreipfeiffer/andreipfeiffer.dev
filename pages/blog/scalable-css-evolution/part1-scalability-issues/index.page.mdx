@@ -38,7 +38,7 @@ Before going any further to discuss the scalability solutions, we must understan
 4. [Source order precedence](#source-order-precedence)
 5. [Implicit dependencies](#implicit-dependencies)
 6. [Zombie code](#zombie-code)
-7. [Shared design tokens](#shared-design-tokens)
+7. [Shared variables](#shared-variables)
 8. [Lack of type-safety](#lack-of-type-safety)
 
 <Note>
@@ -367,18 +367,16 @@ There are tools to [detect unused CSS](https://developer.chrome.com/docs/devtool
   successfully removing unused CSS code.
 </p>
 
-### Shared design tokens
+### Shared variables
 
-[Design tokens](https://design.infor.com/product/design-tokens) are fundamental building blocks of any **design system**. But even when working on smaller projects that don't require a robust design system, we'll probably need to use a particular `value` in CSS and also in JavaScript.
-
-<Subheading>Use cases</Subheading>
-
-There are various reasons for sharing values to be used both in CSS and JavaScript:
+There are various reasons to use custom `values` both in CSS and also in JavaScript, even when working on smaller projects that don't require a robust design system:
 
 - Using **breakpoint values** in CSS media queries, but also with [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) API for [Responsive Web Design](https://web.dev/responsive-web-design-basics/) (RWD) or [Adaptive Web Design](https://webflow.com/blog/adaptive-vs-responsive-design);
 - Using **color variables** in CSS, but also pass them to 3rd party libraries that require initialization from JavaScript;
 - Using **animation durations** in CSS Transitions, but also with JavaScript libraries such as [Anime.js](https://animejs.com/) or [CSSTransition](http://reactcommunity.org/react-transition-group/css-transition) from React Transition Group package.
 - Using **elements size or position** as CSS values for `width`, `height`, or `top`, but also reuse them in JavaScript computations for dynamic styling.
+
+In addition, [design tokens](https://design.infor.com/product/design-tokens) are fundamental building blocks of any **design system**, so sharing such values becomes a necessity.
 
 <Subheading>Using (S)CSS as the source of truth</Subheading>
 

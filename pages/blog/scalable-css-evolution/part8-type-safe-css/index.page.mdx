@@ -15,7 +15,7 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 A few years ago, before using TypeScript, I never thought about the limitations of plain CSS. Regular CSS code, CSS Modules or any CSS preprocessor, **are not type checked**. Before we run it, no tool will tell us if we have any errors in the code we wrote.
 
-To be honest, if I haven't started using TypeScript, I would probably still think that _CSS Modules paired with SASS is all we need, because we can't do any better_. But, I couldn't have been more wrong.
+To be honest, if I haven't started using TypeScript, I would probably still think that _CSS Modules paired with SCSS is all we need, because we can't do any better_. But, I couldn't have been more wrong.
 
 In this part, we will see how CSS-in-JS paired with TypeScript solves the missing piece of the puzzle: **type safety for the styling** of the components.
 
@@ -99,7 +99,7 @@ interface NotificationProps {
 
 <br />
 
-If needed, we can even go a step further, by allowing only a subset of colors, for specific use cases:
+We can even go one step further, by allowing only a subset of colors, for specific use cases:
 
 <!-- prettier-ignore-start -->
 
@@ -116,13 +116,11 @@ interface NotificationProps {
 
 <br />
 
-Sky's the limit regarding what can be accomplished with TypeScript when authoring interfaces for UI components. Any consumer of well-typed components will get an flawless experience during development. It's virtually impossible to misuse such components.
+Only the sky is the limit in regard to what can be accomplished with TypeScript when authoring interfaces for UI components. **Any consumer of well-typed components will get an flawless experience during development.** It's virtually impossible to misuse such components.
 
 ## Safe refactorings
 
-I can't stress enough the importance of refactorings, especially when we talk about scalable, long term projects. Without proper tooling to provide **easy but also safe refactorings**, we would be very hesitant to refactor our code.
-
-Thankfully, TypeScript is one of the tools that makes refactorings both easy and safe to perform.
+I can't stress enough the importance of refactorings, especially when we talk about scalable, long term projects. Without proper tooling to provide **easy but also safe refactorings**, we would be very hesitant to refactor our code. Thankfully, TypeScript is one of the tools that makes refactorings both easy and safe to perform.
 
 <Subheading>
   <Status type="ok" />
@@ -189,12 +187,14 @@ Surely, searching for a CSS class like `main-menu__item-link--active` would be e
 const class_names = `main-menu__item-link${active ? "--active" : ""}`;
 ```
 
+In this case we would have a hard time finding out where is the class applied.
+
 <Subheading>
   <Status type="err" />
   Renaming CSS Modules classes
 </Subheading>
 
-When using CSS Modules, we don't have to make sure the class names are unique thanks to encapsulation. As a result, defined CSS classes tend to be shorter, like `.item`, or `.active`. However, searching for such short and generic strings would usually end up with many results. We'll have to manually discern which ones should be changed, and which ones left untouched.
+When using CSS Modules, we don't have to make sure the class names are unique thanks to encapsulation. As a result, defined CSS classes tend to be shorter, like `.item`, or `.active`. However, searching for such short and generic strings would usually end up with many results. We'll have to manually discern which ones should be changed, and which ones should be left untouched.
 
 Unfortunately, with CSS Modules we cannot perform automatic renaming refactorings.
 
@@ -207,9 +207,7 @@ With TypeScript and CSS-in-JS, no matter what library we use, we benefit from au
 
 ### Extracting components
 
-Think about the last time you had to extract a component, along with its styles, into a separate file. How was the experience?
-
-How did you make sure that you have **moved all the styles** as well, **without missing any** of them and **without leaving some styles behind** that aren't needed anymore?
+Think about the last time you had to extract a component, along with its styles, into a separate file. How was the experience? How did you make sure that you have **moved all the styles** as well, without missing any of them and without leaving some styles behind that aren't needed anymore?
 
 <Subheading>
   <Status type="err" />
