@@ -13,23 +13,23 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-In the previous article <LinkTo part={CURRENT_PART - 1} /> we've covered some techniques that help us write more maintainable CSS. However, they have quite a few significant limitations and they don't teach us much about how to reuse larger blocks of code.
+In the previous article <LinkTo part={CURRENT_PART - 1} /> we've covered some techniques that help us write more maintainable CSS. However, they have quite a few significant limitations. In addition, they don't teach us much about how to reuse larger blocks of code.
 
 In this article we'll take a look at how various **methodologies** and **architectures**, built on top of many of the good practices that we've covered, but providing a structured and cohesive set of principles and rules.
 
 <Note>
-  I won't dive into the details, as there are plenty of resources available.
-  Rather, I will focus on how each approach helped the developer community to
-  reach its current state.
+  We won't dive into the details of any methodology, as there are plenty of
+  resources available. Rather, we will focus on how each approach helped the
+  developer community to reach its current state.
 </Note>
 
 ## The birth of components
 
-[**OOCSS**](https://github.com/stubbornella/oocss/wiki) was coined by [Nicole Sullivan](https://twitter.com/stubbornella) in [2010](http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/). It stands for **Object Oriented CSS**. OOCSS was one of the first approaches that taught us how to identify _repeating visual patterns_ and develop _reusable abstract objects_.
+[**OOCSS**](https://github.com/stubbornella/oocss/wiki) was coined by **Nicole Sullivan** in [2010](http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/). It stands for **Object Oriented CSS**. OOCSS was one of the first approaches that taught us how to identify _repeating visual patterns_ and develop _reusable abstract objects_.
 
 > An object should look the same no matter where you put it
 
-The term **component** was not popularized at that time, but the resemblance is obvious between how we think about components today and how Nicole described her **objects**. Not to mention that she also refered them as _"web Lego"_.
+The term **component** was not popularized at that time, but the resemblance is obvious between how we think about components today and how Nicole described her **objects**. Not to mention that she also referred to them as _"web Lego"_.
 
 <Subheading>
   <Status type="ok" /> Takeaways:
@@ -37,14 +37,14 @@ The term **component** was not popularized at that time, but the resemblance is 
 
 There are two essential things to take away from OOCSS, that are still applicable in today's applications:
 
-1. **Separate container from content**, or in other words the objects (or components) should provide only the abstract container, while the consumers of the objects will provide their own custom content. This way we gain **high reusability**.
+1. **Separate container from content**, or in other words the objects (or components) should provide only the abstract container, while the consumers of the objects should provide their own specific content. This way we gain **high reusability**.
 2. **Separate structure from skin**, or in other words being able to apply different skins to the same structure. This way we gain **high extensibility and customization**.
 
-However, OOCSS focused more on the principles of what a component is and how to implement it, but it wasn't very specific regarding the technicalities of writting the code.
+However, OOCSS focused more on the principles of what a component is and how to implement it, but it wasn't very specific regarding the technicalities of writting the required CSS code.
 
 ## Naming conventions
 
-[**BEM methodology**](https://en.bem.info/methodology/key-concepts/) was developed by Yandex long before OOCSS, but it was [open sourced](https://en.bem.info/methodology/history/#bem-and-open-source-2010) only in 2010. BEM is a _component-based_ approach to web development. It taught us to think of our pages and application screens as **Blocks**, which contain **Elements**, both of them being customizable by **Modifiers**.
+[**BEM methodology**](https://en.bem.info/methodology/key-concepts/) was developed at **Yandex** long before OOCSS, but it was [open sourced](https://en.bem.info/methodology/history/#bem-and-open-source-2010) only in 2010. BEM is a _component-based_ approach to web development. It taught us to think of our pages and application screens as **Blocks**, which contain **Elements**, both of them being customizable by **Modifiers**.
 
 > The BEM methodology defines **CSS selector naming conventions** that solve a range of web [development problems](https://en.bem.info/methodology/solved-problems/)
 
@@ -119,40 +119,30 @@ We easily **override CSS rules by composing multiple classes** on the same eleme
 
 </SideBySide>
 
-<br />
-
-<Subheading>
-  <Status type="err" /> Limitations:
-</Subheading>
-
-The problems with BEM are not related to the methodology itself, but to the developers that apply it, especially at scale:
-
-- coming up with unique names for the CSS classes, in global namespace, with a continually increasing code base, it turns out to be quite difficult.
-
 ## High-level architecture
 
-So far, we've only looked at some approaches to style individual components. But should we place everything in a single CSS file? Should we put classes on each HTML element that we want to style? That's where CSS architectures started to emerge.
+So far, we've only looked at individual component styling. But when architecting an entire website or application, structuring all the CSS code becomes an important task. There are various types of CSS rules that we need to maintain: default styles, re-usable styles, non-reusable styles, utility classes, etc. That's where CSS architectures started to emerge.
 
-- [**SMACCS**](http://smacss.com/book/) was the first popular methodology, achitecture, or whatever you want to call it. It stands for _Scalable and Modular Architecture for CSS_ and it was coined by [Jonathan Snook](https://snook.ca/) in [2011](https://snook.ca/archives/html_and_css/css-architecture).
+- [**SMACCS**](http://smacss.com/book/) was the first popular methodology, achitecture, or whatever you want to call it. It stands for _Scalable and Modular Architecture for CSS_ and it was coined by **Jonathan Snook** in [2011](https://snook.ca/archives/html_and_css/css-architecture).
 
-- [**ITCSS**](https://csswizardry.net/talks/2014/11/itcss-dafed.pdf) is another popular architecture, introduced in 2014 by [Harry Roberts](https://csswizardry.com/). It stands for _Inverted Triangle CSS_.
+- [**ITCSS**](https://csswizardry.net/talks/2014/11/itcss-dafed.pdf) is another popular architecture, introduced in 2014 by **Harry Roberts**. It stands for _Inverted Triangle CSS_.
 
-<br />
+<Subheading>
+  <Status type="ok" /> Takeaways:
+</Subheading>
 
-As I mentioned, I won't dive into the specific details of each of these approaches. The important thing to learn is that there are **multiple layers of CSS rules** that we need to consider when structuring our code base:
+As I mentioned, I won't dive into the specific details of each of these approaches. The important thing to learn is that there are **multiple layers of CSS rules** that we need to consider when structuring the CSS code base for an application:
 
-1. We have some **base rules**, very generic styles using only type selectors, no classes. These rules contain CSS resets, typography, variables, mixins, etc. ITCSS breaks this down even more granularly in Settings, Tools, Generic and Base.
-2. Then we have **layout rules** (or **objects** as called in ITCSS). These are basically abstract components, containing minimal styling, used only for layout. Such components include grid systems, media object, stack, box, divider, etc.
-3. Inside these abstract components we place **concrete components** (or **modules** as called in SMACCS). These are the actual parts of UI that get styling specific to the application, which can be highly reusable and generic components like modal, form elements, tooltip, icon, etc, or domain-specific components (like product card, breadcrumb, carousel, avatar, etc) that are bound to the application domain.
-4. Lastly, we have **overrides** (called **trumps** in ITCSS and **state** in SMACCS). These are single purpose utility classes that override other styles.
+1. We have some **base rules**, very generic styles using only type selectors, no classes. These rules contain _CSS resets_, _typography_, _variables_, etc.
+2. Then we have **layout rules** (or **objects** as called in ITCSS). These are basically abstract components, containing minimal styling, used only for layout. Such components include _Grid systems_, _Media object_, _Stack_ and _Divider_ components, etc.
+3. The above layout components will contain **concrete components** (or **modules** as called in SMACCS). These are the actual parts of UI that have application specific styling, which can be either highly reusable components like _Modal_, _Form_ elements, _Tooltip_, etc or domain-specific components (like _ProductCard_, _Breadcrumb_, _Carousel_, _Avatar_, etc) that are bound to the application domain.
+4. Lastly, we have **overrides** (called **trumps** in ITCSS and **state** in SMACCS). These are single purpose _utility classes_ that override other styles.
 
 <Note>
-  OOCSS approach and BEM naming conventions can also be applied along with
-  SMACCS and/or ITCSS. These methodologies don't exclude each other, they rather
+  OOCSS approach and BEM naming conventions can also be used along with SMACCS
+  and/or ITCSS. These methodologies don't exclude each other, they rather
   complement themselves.
 </Note>
-
-<!-- All the ideas behind these architectural aproaches are great. However, there is no tooling to enforce these practices, thus requiring manual effort to implement and to maintain. Onboarding new developers is also pretty demanding. -->
 
 ## Semantic CSS
 
@@ -172,55 +162,38 @@ And indeed, everything that we've talked about so far can be included in the **s
 
 <br />
 
-<!-- ## Frameworks
-
-The companies behind large software projects started to adopt CSS architectures and methodologies, applying and customizing them to their own needs. Slowly, they evolved into fully-fledged CSS frameworks, allowing them to be integrated into new or existing projects.
-
-CSS frameworks are built on top of many good practices and methodologies that we've covered, but provide a concrete implementation of abstract building blocks:
-
-- **CSS reset**;
-- **Layout components** and usually a grid system as well;
-- **Typography**;
-- **Generic styled elements**: `input`, `table`, `button`, etc;
-- **Reusable UI components**: `Dropdown`, `Modal`, `Tooltip`, `Spinner`, etc;
-- **Utilities** and helpers;
-- **Theming support** for customizing built-in styles.
-
-So, instead of trying to figure out what methodology to choose, how to apply it, and constantly making sure that everyone on the team follows the methodology accordingly, teams could adopt a framework and simply apply "as-is" into their projects.
-
-Generaly speaking, **with a framework we write less CSS** because the framework provides most of the building blocks that we need.
-
-<br />
-
-It's worth mentioning that there are two major categories of frameworks: **semantic frameworks** and **atomic CSS frameworks**. -->
-
 <Subheading>Semantic CSS Frameworks</Subheading>
 
 The vast majority of CSS Frameworks that we know today were built on top of many of the principles described above, imbracing the semantic CSS approach. Some of the popular semantic CSS frameworks include:
 
 - [Foundation](https://get.foundation/) released in 2011;
 - Twitter's widely adopted [Bootstrap](https://getbootstrap.com/) also released in 2011;
-- [Semantic UI](https://semantic-ui.com/) in 2013;
+- The semantical [Semantic UI](https://semantic-ui.com/) in 2013;
 - The lightweight [PureCSS](https://purecss.io/) also relesed in 2013;
-- [Materialize](https://materializecss.com/) released in 2014 based on Google's Material Design;
 - The minimalistic [UIKit](https://getuikit.com/) released in 2015;
 - The CSS-only & no-JS [Bulma](https://bulma.io/) released in 2016, and many many more.
 
-<Subheading>Criticism</Subheading>
+---
+
+## The semantical problem
 
 It's not a secret that Semantic CSS has some known shortcomings:
 
-1. There's usually a lot of repetition in the written CSS rules. We'll surely have lots of `display: flex;` or `font-weight: bold;` in our CSS code, which results in larger than needed file size.
-2. The size of our CSS files will grow continually as we develop new features, components, or pages. The reusability of styles is limited to the reusability of the components they relate to.
-3. The cache will be probably invalidated everytime our change our styles.
-4. And last but not least, naming classes is difficult and making sure there are no naming collitions in the global namespace is a daunting task.
+1. There's usually **a lot of repetition** in the written CSS rules. We'll surely have lots of `display: flex;` or `font-weight: bold;` in our CSS code, which results in larger than needed file size.
+2. The size of our **CSS files will grow continually** as we develop new features, components, or pages. The reusability of styles is limited to the reusability of the components they relate to.
+3. The **cached `.css` files will get invalidated** everytime a single CSS rule changes.
+4. Last but not least, **naming things is inherently difficult** and making sure there are no class names collisions in the global namespace, with a continually increasing code base, is a daunting task.
 
 <br />
 
-Similar to [non-Euclidean geometry](https://en.wikipedia.org/wiki/Non-Euclidean_geometry), there's will always be someone to question the status quo. The same thing happened in 2013 with semantic CSS.
+Similar to [non-Euclidean geometry](https://en.wikipedia.org/wiki/Non-Euclidean_geometry), there's will always be someone to _question the status quo_. The same thing happened in 2013 with semantic CSS.
 
----
+In the next article <LinkTo part={CURRENT_PART + 1} /> we'll explore how to solve all the problems of semantic CSS, by contradicting the fundamental principle that "class names should be semantic", using only utility classes that fully convey their implementation instead.
+
+<br />
 
 **References:**
 
-- http://nicolasgallagher.com/about-html-semantics-front-end-architecture/
+- [About HTML semantics and front-end architecture](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/) by Nicolas Gallagher
+- [CSS and Scalability](https://mrmrs.cc/writing/scalable-css/) by Adam Morse
+- [Battling BEM CSS](https://www.smashingmagazine.com/2016/06/battling-bem-extended-edition-common-problems-and-how-to-avoid-them/) by David Berner

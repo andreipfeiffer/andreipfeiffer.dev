@@ -320,8 +320,8 @@ Implicit dependencies in general, not limited to CSS, are inherently problematic
 
 CSS code, like any other code, will increase in size indefinitely. The particular problem with CSS is that `.css` files size will grow even when we remove HTML code that references CSS selectors defined in those files. This usually happens when:
 
-- We remove HTML markup, but forget to delete the associated styles.
-- We want to delete the associated styles, but we have no idea if they are used elsewhere on the code base. So, instead of breaking any existing code, we choose not to touch them.
+- We remove HTML markup, but **forget to delete the associated styles**.
+- We want to delete the associated styles, but we have no idea if they are used elsewhere on the code base. So, instead of breaking any existing code, we **choose not to touch them**.
 
 We avoid deleting _unused CSS code_ because it's almost impossible to detect if they are really _unused_, in order to be safely removed.
 
