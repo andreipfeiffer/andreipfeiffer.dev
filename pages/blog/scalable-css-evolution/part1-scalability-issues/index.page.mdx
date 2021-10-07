@@ -15,22 +15,24 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 ## What is "scalability"?
 
-Generally speaking, when we talk about _software scalability_, we look at **how software behaves when we greatly increase its size**.
+Generally speaking, when we talk about _software scalability_, we look at **how software behaves when significantly increasing its size**.
 
 Whenever the gravity of a problem increases proportionally with the size of the code, it means that we have a **scalability issue**. For instance, we all know that we [should avoid globals](https://www.oreilly.com/library/view/maintainable-javascript/9781449328092/ch06.html). Would it matter if we use _"a few"_ globals in a small code base for a personal project? Of course not.
 
-However, _**using globals as a practice**_ within a team of several developers, working on a long-term project that spans over many years, will surely become a **huge maintainability problem**, sooner or later.
+However, _using globals as a practice_ within a team of several developers, working on a long-term project that spans over many years, will undoubtedly become a **substantial scalability problem**, sooner or later.
 
 <br />
 
-Now, each of us has their own definition of _"what a large project is"_, in order to understand when these scalability problems might start to surface. From my own experience, CSS scalability problems become visible:
+Now, each of us has our own definition of _"what a large project is"_ to figure out when these scalability issues might start to surface. From my own experience, CSS scalability problems become visible:
 
-- during projects that span over **more than 6 months**;
+- during projects that span **longer than 6 months**;
 - with projects having **at least 3 developers** working on the UI.
+
+### Maintainability vs Scalability
 
 ## Common CSS problems
 
-Before going any further to discuss the scalability solutions, we must understand the issues that they're trying to solve. So, let's take a look at some of the most concearning problems when we talk about CSS scalability:
+Before going any further to discuss the scalability solutions, we must understand the issues they're trying to solve. So, let's take a look at some of the most concerning problems when we talk about CSS scalability and maintainability:
 
 1. [Selector duplication](#selector-duplication)
 2. [Naming collisions](#naming-collisions)

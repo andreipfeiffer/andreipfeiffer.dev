@@ -10,38 +10,36 @@ export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-I've been writting CSS since 2000. A lot has changed since then regarding what we're able to achieve with CSS.
+I've been writing StyleSheets since 2000. A lot has changed since then regarding what we're able to achieve with CSS.
 
-One thing I came to understand is that there's a significant difference between the CSS code we write for **small websites** and the one developed for **large applications**. Single developers working on a project that will end in a few months can write CSS in any way they like. Poorly written code will probably not impact the success of the project.
+One thing I came to understand is that there's a significant difference between the CSS code that we write for **small websites** and the one developed for **large applications**. Single developers working on a project that will end in a few months can write CSS in any way they like. Poorly written code will probably not impact the success of the project.
 
-But when we think about teams with multiple developers, during the course of many years, poorly written CSS can hugely influence the project's development.
+On the other hand, when we think about teams with multiple developers, poorly written CSS can hugely influence the project's development during the course of many years. It's not a secret that writing CSS at scale is not trivial: I've read about it in articles and blog posts, I've listened to it during conference talks, and I've personally experienced it multiple times.
 
-CSS features were always years behind the current needs of the community. That's something that will probably never change. To combat CSS limitations, developers had to invent all sorts of tools to aid them in writting CSS at scale.
+CSS features were always years behind the current needs of the community. Unfortunately, that's something that will probably never change. To combat CSS limitations, developers had to invent all sorts of tools to aid them in writing scalable CSS.
 
----
+You can view this series as a **chronicle**, describing how these tools have evolved over time and the current state of writing _maintainable CSS at scale_.
 
-You can view this series as a **chronicle**, describing how these tools have evolved over time and what is the current state of writting maintainable CSS at scale.
+> A chronicle is a recording of significant historical events in the order of their occurrence, as seen from the chronicler's perspective.
 
-> A chronicle is a recording of important or historical events in the order of their occurrence, seen from the perspective of the chronicler.
+## Overview
 
-## Long story short
+In **<LinkTo part={1} />**, we'll explore 8 of the most significant problems that developers are usually facing when writing large scale CSS, namely **selector duplication**, **naming collisions**, **specificity wars**, **source order precedence**, **implicit dependencies**, **zombie code**, **shared variables** and **lack of type-safety**.
 
-In **<LinkTo part={1} />** we'll explore 8 of the most significant problems that developers are usually facing when writting large scale CSS, namely **zombie code**, **naming collisions**, **specificity wars**, **source order precedence**, **selector duplication**, **implicit dependencies**, **shared design tokens** and **lack of type-safety**.
+**<LinkTo part={2} />** covers various tools that enriched CSS with new syntax, allowing us to write more maintainable source code by significantly reducing **selector duplication**. It was only a tiny step forward, but nevertheless a crucial one.
 
-**<LinkTo part={2} />** covers various tools that enriched CSS with new syntax, allowing us to write more maintainable source code by greatly reducing **selector duplication**. It was only a small step forward, but nonetheless a crucial one.
+**<LinkTo part={3} />** walks through some of the essential techniques introduced by various thought leaders, required to write maintainable CSS, with or without the help of preprocessors, to avoid **naming collisions** and **specificity wars**.
 
-**<LinkTo part={3} />** walks through some of the essential practices, introduced by various thought leaders, required to write maintainable CSS, with or without the help of preprocessors, in order to avoid **naming collisions** and **specificity wars**. However, these practices are quite difficult to apply.
+In **<LinkTo part={4} />**, we'll discuss two related topics. First, we'll look at various _CSS methodologies_ that brought together the good practices in a concise and explicit set of rules. Second, we'll discuss the _Semantic CSS approach_, encouraged by the HTML5 specification, which most CSS methodologies and frameworks embrace.
 
-In **<LinkTo part={4} />** we'll discuss two related topics. First, we'll take a look at various _CSS methodologies_, that brought together a set of good practices in a concise set of rules, much easier to apply. Second, we'll discuss the _Semantic CSS approach_, encouraged by the HTML5 specification, which is embraced by most CSS methodologies and frameworks.
+**<LinkTo part={5} />** debates an alternative approach that contradicts and breaks all the principles of Semantic CSS. This shift gave birth to a whole new set of frameworks based solely on single-purpose utility classes.
 
-**<LinkTo part={5} />** debates an alternative approach that contradicts and breaks all the principles of Semantic CSS. This mindshift gave birth to whole new set of frameworks.
+**<LinkTo part={6} />** focuses on the tools used for CSS scoping, resolving all the problems regarding **naming collisions**, **specificity wars**, **source order precedence**, and reducing the amount of **zombie code**. Styles encapsulation became an industry standard, adopted by all component-based JavaScript frameworks.
 
-**<LinkTo part={6} />** focuses on the tools used for CSS scoping, resolving all the problems regarding **naming collisions**, **specificity wars**, **source order precedence** and also reducing the amount of **zombie code**. Styles encapsulation became an industry standard, adopted by all component-based JavaScript frameworks.
+**<LinkTo part={7} />** covers another novel approach, by moving CSS definitions to JavaScript files, resulting in countless benefits, such as **explicit dependencies**, **shared variables**, not to mention all the features of styles encapsulation, CSS preprocessors, Atomic CSS, and so much more.
 
-**<LinkTo part={7} />** covers another mindshift, by moving CSS definitions from stylesheet files to JavaScript files, resulting in countless benefits, such as **explicit dependencies**, **shared design tokens**, plus all the benefits of styles encapsulation, CSS preprocessors, Atomic CSS and so much more.
-
-In **<LinkTo part={8} />** we'll see how adding TypeScript on top of CSS-in-JS provides **type-safety** for CSS styles, enabling _safe refactorings_ and _typed interfaces_ when authoring UI components.
+In **<LinkTo part={8} />**, we'll see how adding TypeScript on top of CSS-in-JS provides type checking for CSS, enabling _safe refactorings_ and _typed interfaces_ when authoring UI components, being the missing puzzle piece when aiming for a complete **type-safe code** base.
 
 ---
 
-So, let our journey begin with <LinkTo part={1} />, because we cannot discuss the solutions, unless we understand the problems that they are trying to solve.
+So, let our journey begin with <LinkTo part={1} /> because we cannot discuss the solutions unless we understand the problems they are trying to solve.
