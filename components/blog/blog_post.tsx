@@ -64,22 +64,19 @@ export function BlogPost(props: Props) {
 
   return (
     <Layout className={styles.blog_main}>
-      <Head>
-        <title>{meta.title}</title>
+      <MetaTags
+        title={meta.title}
+        description={meta.intro}
+        image={meta.cover}
+        article={{ tags: meta_tags, published_time: meta.date }}
+      >
         <link rel="stylesheet" href={`/highlight.css`} />
         <link rel="stylesheet" href={`/highlight-${theme}.css`} />
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
           rel="stylesheet"
         ></link>
-      </Head>
-
-      <MetaTags
-        title={meta.title}
-        description={meta.intro}
-        image={meta.cover}
-        article={{ tags: meta_tags, published_time: meta.date }}
-      />
+      </MetaTags>
 
       {breakpoint && <Spacer vertical="60" />}
 
