@@ -13,45 +13,26 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-## What is "scalability"?
+Before discussing the solutions to CSS scalability issues, we must understand what these issues are in the first place. So, let's take a look at some of the **most concerning problems** when we talk about CSS scalability and maintainability:
 
-Generally speaking, when we talk about _software scalability_, we look at **how software behaves when significantly increasing its size**.
-
-Whenever the gravity of a problem increases proportionally with the size of the code, it means that we have a **scalability issue**. For instance, we all know that we [should avoid globals](https://www.oreilly.com/library/view/maintainable-javascript/9781449328092/ch06.html). Would it matter if we use _"a few"_ globals in a small code base for a personal project? Of course not.
-
-However, _using globals as a practice_ within a team of several developers, working on a long-term project that spans over many years, will undoubtedly become a **substantial scalability problem**, sooner or later.
-
-<br />
-
-Now, each of us has our own definition of _"what a large project is"_ to figure out when these scalability issues might start to surface. From my own experience, CSS scalability problems become visible:
-
-- during projects that span **longer than 6 months**;
-- with projects having **at least 3 developers** working on the UI.
-
-### Maintainability vs Scalability
-
-## Common CSS problems
-
-Before going any further to discuss the scalability solutions, we must understand the issues they're trying to solve. So, let's take a look at some of the most concerning problems when we talk about CSS scalability and maintainability:
-
-1. [Selector duplication](#selector-duplication)
-2. [Naming collisions](#naming-collisions)
-3. [Specificity wars](#specificity-wars)
-4. [Source order precedence](#source-order-precedence)
-5. [Implicit dependencies](#implicit-dependencies)
-6. [Zombie code](#zombie-code)
-7. [Shared variables](#shared-variables)
-8. [Lack of type-safety](#lack-of-type-safety)
+1. [**Selector duplication**](#selector-duplication) when defining media queries, pseudos classes, or selectors;
+2. [**Naming collisions**](#naming-collisions) within the global namespace;
+3. [**Specificity wars**](#specificity-wars) when we use CSS specificity to override styles;
+4. [**Source order precedence**](#source-order-precedence) rendering different results based on the order of the styles;
+5. [**Implicit dependencies**](#implicit-dependencies) make debugging and understanding of the code troublesome;
+6. [**Zombie code**](#zombie-code) increases the CSS code size, even when it's not referenced from components;
+7. [**Shared variables**](#shared-variables) between CSS and JavaScript code;
+8. [**Lack of type-safety**](#lack-of-type-safety) due to the dynamic nature of CSS.
 
 <Note>
-  It's important to keep in mind that none of these concerns is a big issue when
-  we work alone on a small project. However, they will become real problems when
+  It's essential to keep in mind that none of these concerns is a vital issue when
+  working alone on a small project. However, they will become real problems when
   working on larger projects, together with other developers.
 </Note>
 
-### Selector duplication
+## Selector duplication
 
-When using plain CSS, defining any pseudo class, pseudo element, or media query will force us to duplicate the CSS selector:
+When using plain CSS, defining any pseudo-class, pseudo-element, or media query will force us to duplicate the CSS selector:
 
 <!-- prettier-ignore-start -->
 ```css
@@ -67,13 +48,13 @@ When using plain CSS, defining any pseudo class, pseudo element, or media query 
 ```
 <!-- prettier-ignore-end -->
 
-Duplicating selectors during development is not a real scalability problem, more of an annoying issue. But during various refactorings such as renaming, moving, or deleting, dealing with a multitude of duplicated classes could become tricky.
+Duplicating selectors during development is not a real scalability problem, more of an annoying issue. However, dealing with numerous duplicated classes could become tricky during various refactorings such as renaming, moving, or deleting.
 
-Any feature that impedes code maintenance could potentially become a scalability concern.
+Any aspect that impedes code maintenance could potentially become a scalability concern.
 
-#### Cumbersome media queries
+### Cumbersome media queries
 
-An even bigger problem we'll face is when we have to deal with responsive web pages and media queries. There are 2 different ways we can group our styles: **by media query** or **by CSS selector**:
+We'll face an even bigger problem when dealing with responsive web pages and media queries. There are 2 different ways we can group our styles: **by media query** or **by CSS selector**:
 
 <br />
 
@@ -125,15 +106,15 @@ An even bigger problem we'll face is when we have to deal with responsive web pa
 
 <Subheading>Group by media query</Subheading>
 
-As developers, we usually try to avoid code duplication as much as possible. That's why some of us prefer to defines the media queries only once.
+As developers, we usually try to avoid code duplication as much as possible. That's why some of us prefer to define the media queries only once.
 
-The downside is that it's very difficult to read, understand, and maintain such a code. The styles for a single element could be split in different parts of the file. **Figuring out which are all the styles that apply to a particular selector becomes a real scalability problem.**
+The downside is that it's challenging to read, understand, and maintain such a code. The styles for a single element would get split into different parts of the file. **Figuring out which styles apply to a particular selector becomes a scalability problem.**
 
 <Subheading>Group by CSS selector</Subheading>
 
-To make code easier to understand, which is crucial when we think about scaling, we could group the styles by CSS selectors. Using this approach, we don't have to search the whole file to figure out which styles apply to a certain selector.
+To make code easier to understand, which is crucial when we think about scaling, we could group the styles by CSS selectors. Using this approach, we don't have to search the whole file to discover which styles apply to a particular selector.
 
-The downside of this approach is that there's a **lot duplication in the code, which is troublesome both during development and maintenance, but also affects the CSS output which becomes much larger**.
+The downside of this approach is that there's a **lot of duplication in the code, which is troublesome both during development and maintenance and increases the CSS output**.
 
 <Subheading>
   <Status type="ok" />
@@ -141,19 +122,20 @@ The downside of this approach is that there's a **lot duplication in the code, w
 </Subheading>
 
 <p>
-  In <LinkTo part={2} /> we'll see how the problem of code duplication is solved
-  by tools that support contextual styles.
+  In <LinkTo part={2} />, we'll see how tools that support contextual styles solve the problem of source code duplication.
 </p>
 
-### Naming collisions
+## Naming collisions
 
-Reusable class names usually contain common nouns, like `.modal`, `.button`, `.overlay`, etc. If we include an external file that defines the same class names they could get overwritten, depending on which file is included last.
+All the CSS rules that we define and import as 3rd party CSS will end up in a single **global namespace**. Therefore the likelihood of defining 2 classed with the same name scales proportionally with the size of the code.
+
+Reusable class names usually contain common nouns, like `.modal`, `.button`, `.overlay`, etc. If we include an external file that defines the same class names, they could get overwritten, depending on which file we include last.
 
 <Subheading>Namespacing</Subheading>
 
-CSS lacks the concept of namespace, so the language itself doesn't help us to prevent style overwritting. A common solution to this problem is to add a project specific **prefix**, for instance `.abc-overlay`. Third party libraries usually implement this approach.
+CSS lacks support for namespaces, so the language itself doesn't help us prevent style overwriting. A standard solution to this problem is to add a project-specific **prefix**, for instance, `.abc-overlay`. Third-party libraries usually implement this approach.
 
-However, this does not guarantee unique names. When dealing with many large files, how could we be sure that nobody else added the class `.abc-heading-large`? We could **search the entire code base** to see if we find such a already class defined.
+However, this does not guarantee unique names. When dealing with many large files, how could we be sure that nobody else added the class `.abc-heading-large`? We could **search the entire code base** to see if we find such an already class defined.
 
 <Subheading>Computed class names</Subheading>
 
@@ -165,9 +147,7 @@ const classname = `abc-heading-${isPromo ? "large" : "small"}`;
 
 <br />
 
-Not to mention that we could include stylesheets written by a different team. In this case, making sure that we don't have any collitions can become quite a challenge.
-
-<!-- But no stress, we can solve any such issues using a **higher specificity**, right? -->
+Not to mention that we could include stylesheets written by a different team. In this case, making sure that we don't have any collisions can become quite a challenge.
 
 <Subheading>
   <Status type="ok" />
@@ -178,11 +158,11 @@ There are many solutions to this problem, some better than others:
 
 - <LinkTo part={4} /> covers how we can avoid this manually;
 - <LinkTo part={5} /> covers out of the box solutions using utility classes;
-- <LinkTo part={6} /> covers tools that solves the naming collisions automatically.
+- <LinkTo part={6} /> covers tools that solve the naming collisions automatically.
 
-### Specificity wars
+## Specificity wars
 
-One way to avoid naming collitions is to increase the "strength of a selector", or the so called [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity). This definitely works on the short run, but it usually gets out of control at some point:
+One way to avoid naming collisions is to increase the "strength of a selector" called [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity), which works in the short term, but it usually gets out of control at some point:
 
 ```css
 /* we start with a simple generic "title" class */
@@ -211,7 +191,7 @@ One way to avoid naming collitions is to increase the "strength of a selector", 
 }
 ```
 
-Relying on specificity to overwrite styles usually creates a [Snowball effect](https://en.wikipedia.org/wiki/Snowball_effect), forcing everyone on the team to further increase specificity, thus making it harder and harder to overwrite styles.
+Relying on specificity to overwrite styles usually creates a [Snowball effect](https://en.wikipedia.org/wiki/Snowball_effect), forcing everyone on the team to increase specificity further, thus making it harder and harder to overwrite styles.
 
 Eventually, the only way to define new styles will be using `!important`. Once we reach that scenario, the code base will be almost impossible to extend.
 
@@ -224,12 +204,12 @@ Similar to naming collisions, there are many solutions to this problem:
 
 - <LinkTo part={3} /> instruct us to keep specificity "low";
 - <LinkTo part={4} /> teach how we can maintain a low specificity and prefer composition
-  for overwritting;
-- <LinkTo part={5} /> covers out of the box solutions using utility classes.
+  for overwriting;
+- <LinkTo part={5} /> covers out-of-the-box solutions using utility classes.
 
-### Source order precedence
+## Source order precedence
 
-Ok, let's say that we stick to a low specificity and that we manage somehow to avoid naming collisions. One thing to keep in mind is that when specificity is the same, source code order takes place: _styles declared later always win_.
+Ok, let's say that we stick to low specificity and somehow manage to avoid naming collisions. When specificity is the same, source code order is considered, as _styles declared later always win_.
 
 Consider the following trivial example:
 
@@ -241,7 +221,7 @@ Consider the following trivial example:
 
 </Side>
 
-If we look at the `.html` file, we might think that the text will be have the `.blue` class applied. But it's not the order of CSS classes that we apply to the HTML element that matters. It's the order of the styles defined in the CSS stylesheets.
+If we look at the `.html` file, we might think that the text will have the `.blue` class applied. But it's not the order of CSS classes that we apply to the HTML element that matters. It's the order of the styles defined in the CSS stylesheets.
 
 <!-- prettier-ignore-start -->
 
@@ -256,15 +236,15 @@ If we look at the `.html` file, we might think that the text will be have the `.
 
 <!-- prettier-ignore-end -->
 
-When looking at the `.css` file, we see that `.red` is defined later, which means that its styles will win, because both selectors have the same specificity.
+When looking at the `.css` file, we see that `.red` is defined later, which means that its styles will win because both selectors have the same specificity.
 
 <br />
 
-Now, let's look at 3 different scenarios that could seriously affect us:
+Now, let's look at different scenarios that could seriously affect us:
 
-1. Consider that you're adding a new class to override some styles, but it doesn't work, because other styles defined later in code take precedence.
-2. Consider breaking the styles of a page only because we refactored our stylesheet by changing the order of some styles.
-3. Working with dynamically loaded stylesheets could become a real nightmare, because styles resolution will become un-deterministic.
+1. Consider that we're adding a new class to an element, but the **styles don't get applied** because other CSS classes defined (or included) later in code take precedence.
+2. Consider **breaking the styles** of a page only because we refactored our stylesheet by changing the order of some style definitions.
+3. Working with dynamically loaded stylesheets could become an absolute nightmare because styles resolution will become un-deterministic.
 
 <Subheading>
   <Status type="ok" />
@@ -273,11 +253,10 @@ Now, let's look at 3 different scenarios that could seriously affect us:
 
 Various approaches tried to solve the source order problem:
 
-- <LinkTo part={4} /> describes how deal with it manually;
-- <LinkTo part={6} /> and <LinkTo part={7} /> on the other hand offer out-of-the-box
-  automatic solutions.
+- <LinkTo part={4} /> describes how to deal with it manually;
+- <LinkTo part={6} /> and <LinkTo part={7} />, on the other hand, offer out-of-the-box automatic solutions.
 
-### Implicit dependencies
+## Implicit dependencies
 
 CSS stylesheets work by default as **explicit dependencies** for HTML, because we have to explicitly reference them in `<head>` part of the document. But CSS rules and selectors work by default as **implicit dependencies** for UI components, templates, or any partial markup of an HTML page.
 
@@ -303,10 +282,9 @@ document.appendChild(`
 
 Implicit dependencies in general, not limited to CSS, are inherently problematic because:
 
-- **Code navigation is cumbersome** because it's difficult to figure out where do dependencies come from and how to get to their definition and implementation.
-- **Their runtime availability is non-deterministic.** We'll never know if the dependencies will be available when needed. They could be lazy loaded, for instance.
-- **Browsers will fail silently without any warning** if the styles referenced by our markup are not available.
-- **Definition and usage are disconnected.** It's difficult to reason about and understand code that's supposed to work together, but is split in different locations.
+- **Code navigation is cumbersome** because it's not trivial to figure out where dependencies come from and how to get to their definition and implementation.
+- **Their runtime availability is non-deterministic.** We'll never know if the dependencies will be available when needed. They could be lazy-loaded, for instance.
+- **Browsers will fail silently without any warning** if the styles referenced by our markup are not available. This problem is specific to CSS.
 
 <Subheading>
   <Status type="ok" />
@@ -318,14 +296,14 @@ Implicit dependencies in general, not limited to CSS, are inherently problematic
   <LinkTo part={7} /> use explicit dependencies.
 </p>
 
-### Zombie code
+## Zombie code
 
-CSS code, like any other code, will increase in size indefinitely. The particular problem with CSS is that `.css` files size will grow even when we remove HTML code that references CSS selectors defined in those files. This usually happens when:
+CSS code, like any other code, will increase in size indefinitely. The particular problem with CSS is that `.css` files size will grow even when we remove HTML code that references CSS selectors defined in those files. The zombie code phenomenon usually happens when:
 
-- We remove HTML markup, but **forget to delete the associated styles**.
-- We want to delete the associated styles, but we have no idea if they are used elsewhere on the code base. So, instead of breaking any existing code, we **choose not to touch them**.
+- We remove HTML markup but **forget to delete the associated styles**.
+- We want to delete the associated styles, but we have no idea if they are used elsewhere on the codebase. So, instead of breaking any existing code, we **choose not to touch them**.
 
-We avoid deleting _unused CSS code_ because it's almost impossible to detect if they are really _unused_, in order to be safely removed.
+We avoid deleting _unused CSS code_ because it's almost impossible to detect if it really is _unused_.
 
 <br />
 
@@ -355,7 +333,7 @@ We avoid deleting _unused CSS code_ because it's almost impossible to detect if 
 
 </SideBySide>
 
-As time goes by we'll surely ship more CSS code than is actually needed, slowing down the page load and making the code base less and less manageable. This happens because CSS cannot be statically analyzed, therefore no tool could safely tell us which CSS selectors from our source code are not used.
+As time goes by, we'll undoubtedly ship more CSS code than is actually needed, slowing down the page load and making the codebase less and less manageable. No tool could safely tell us which CSS selectors are unused because CSS cannot be statically analyzed.
 
 There are tools to [detect unused CSS](https://developer.chrome.com/docs/devtools/coverage/) in static websites and even some attempts to [remove unused CSS](https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/). However, they work only to some extend.
 
@@ -369,26 +347,26 @@ There are tools to [detect unused CSS](https://developer.chrome.com/docs/devtool
   successfully removing unused CSS code.
 </p>
 
-### Shared variables
+## Shared variables
 
 There are various reasons to use custom `values` both in CSS and also in JavaScript, even when working on smaller projects that don't require a robust design system:
 
-- Using **breakpoint values** in CSS media queries, but also with [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) API for [Responsive Web Design](https://web.dev/responsive-web-design-basics/) (RWD) or [Adaptive Web Design](https://webflow.com/blog/adaptive-vs-responsive-design);
-- Using **color variables** in CSS, but also pass them to 3rd party libraries that require initialization from JavaScript;
-- Using **animation durations** in CSS Transitions, but also with JavaScript libraries such as [Anime.js](https://animejs.com/) or [CSSTransition](http://reactcommunity.org/react-transition-group/css-transition) from React Transition Group package.
-- Using **elements size or position** as CSS values for `width`, `height`, or `top`, but also reuse them in JavaScript computations for dynamic styling.
+- Using **breakpoint values** in CSS media queries, but also with [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) API for [Responsive Web Design](https://web.dev/responsive-web-design-basics/) (RWD) or [Adaptive Web Design](https://webflow.com/blog/adaptive-vs-responsive-design).
+- Using **color variables** in CSS, but also pass them to 3rd party libraries that require initialization from JavaScript.
+- Using **elements size or position** as CSS values for `width`, `height`, or `top` and reuse them in JavaScript computations for dynamic styling.
+- Using the same **animation durations** in CSS Transitions and JavaScript animation libraries as well.
 
 In addition, [design tokens](https://design.infor.com/product/design-tokens) are fundamental building blocks of any **design system**, so sharing such values becomes a necessity.
 
 <Subheading>Using (S)CSS as the source of truth</Subheading>
 
-One approach is to define the variables in our (S)CSS files, either as _CSS custom properties_, _SASS variables_, or _CSS Modules `@values`_ and expose them to be importable in JavaScript.
+One approach is to define the variables in our (S)CSS files, either as _CSS custom properties_, _SASS variables_, or _CSS Modules `@values`_, and expose them to be importable in JavaScript.
 
-Keeing it short, there are technical solutions to [share variables from CSS to JavaScript](https://www.falldowngoboone.com/blog/share-variables-between-javascript-and-css/) using any styling method.
+Keeping it short, we have technical solutions to [share variables from CSS to JavaScript](https://www.falldowngoboone.com/blog/share-variables-between-javascript-and-css/) using any styling method.
 
 <Subheading>Using JS as the source of truth</Subheading>
 
-An alternative is to store the variables as JS variables or objects and to expose them to (S)CSS. This approach looks more convenient if we think about [Universal Design Tokens](https://udt.design/) (UDT), which also suggest using JSON as an interchangeble data format. And we all know that JSON plays nicely with JavaScript.
+An alternative is to store the variables as JS variables or objects and expose them to (S)CSS. This approach looks more convenient if we think about [Universal Design Tokens](https://udt.design/) (UDT), which also suggests using JSON as an interchangeable data format. And we all know that JSON plays nicely with JavaScript.
 
 Again, there are technical solutions for exporting JS/JSON objects to [SASS variables](https://github.com/planetflash/sharing_variables_js_sass), [CSS Modules](https://github.com/macropodhq/postcss-constants), or [CSS custom properties](https://css-tricks.com/updating-a-css-variable-with-javascript/).
 
@@ -397,12 +375,12 @@ Again, there are technical solutions for exporting JS/JSON objects to [SASS vari
   Limitations
 </Subheading>
 
-As you probably saw from the examples, any solution we choose is not straightforward. They look more like workarounds, instead of solid and elegant approaches. In addition:
+As you probably saw in the examples or conclude from personal experience, none of the solutions is straightforward. They look more like workarounds instead of solid and elegant approaches. In addition:
 
-- Even though there is a single source of truth, we have to **maintain 2 sets of values**: the (S)CSS values and the JS values.
-- **Automatic refactorings are not available** for CSS values, so they require manual effort, which as we now is never fun to perform.
-- **Code editors cannot display suggestions** for defined (S)CSS (Modules) variables, making them difficult to discover. There are some plugins that attempt to support this, but are pretty flawed.
-- Explicit and manual conversions requires a lot of **boilerplate**. Automatic conversions create **implicit dependencies**, which have their own drawbacks as we saw earlier.
+- Even though there is a single source of truth, we have to **maintain two sets of values**: the (S)CSS values and the JS values.
+- **Automatic refactorings are not available** for CSS values, so they require manual effort, which, as we know, is never fun to perform.
+- **Code editors cannot display suggestions** for defined (S)CSS (Modules) variables, making them difficult to discover. Some plugins attempt to support this limitation, but they are pretty flawed.
+- Explicit and manual conversions require a lot of **boilerplate**. Automatic conversions create **implicit dependencies**, which have their own drawbacks, as we saw earlier.
 
 <Subheading>
   <Status type="ok" />
@@ -410,20 +388,20 @@ As you probably saw from the examples, any solution we choose is not straightfor
 </Subheading>
 
 <p>
-  <LinkTo part={7} /> addresses the issue of sharing variables, mostly as a
+  <LinkTo part={7} /> addresses the issue of sharing variables, mainly as a
   consequence of having the styles defined in JavaScript, so they can easily
   reference any JS value.
 </p>
 
-### Lack of type-safety
+## Lack of type-safety
 
-Before using TypeScript or other strongly typed languages, I never thought about the highly dynamic nature of CSS. I thought that there isn't any other way, so I got used to it.
+Before using TypeScript or other strongly typed languages, I never thought about the highly dynamic nature of CSS. I got used to it, as I haven't asked myself if there's a better and safer way to write CSS.
 
-But after I started using statically typed languages, I've begun to feel the lack of type-safety when authoring and maintaining either plain CSS, accompanied by preprocessors, or CSS modules:
+But after using statically typed languages, I've begun to feel the lack of type-safety when authoring and maintaining CSS code:
 
-- **Navigating code is cumbersome** because we cannot use code editor features such as _"Go to Definition"_ or _"Find references"_ to determine which styles apply to a particular element or where is a particular class applied.
-- **Refactorings are not safe** because the tooling doesn't help highlighting any syntax errors when renaming class names or removing them. This alone will lead to developers being afraid to touch or modify any existing code, which could ultimately lead to [code rot](https://en.wikipedia.org/wiki/Software_rot).
-- **Lack of tooling support** regarding auto-complete, type-checking variable names and discovering available CSS classes or variables make developers dependent on high cognitive load to either remember how CSS classes or variables are named or simply copy & paste them.
+- **Navigating code is cumbersome** because we cannot use code editor features such as _"Go to Definition"_ or _"Find references"_ to determine which styles apply to a particular element or where a specific class is applied.
+- **Refactorings are not safe** because the tooling doesn't help to highlight any syntax errors when renaming class names or removing them. Consequently, developers will be afraid to touch or modify any existing code, ultimately leading to [code rot](https://en.wikipedia.org/wiki/Software_rot).
+- **Editors lack productivity features support** such as auto-complete, type-checking variable names, or discovering available CSS classes or variables. Without these features, developers are dependent on high cognitive load to either remember how CSS classes or variables are named or constantly copying & pasting them.
 
 <Subheading>
   <Status type="ok" />
@@ -431,12 +409,11 @@ But after I started using statically typed languages, I've begun to feel the lac
 </Subheading>
 
 <p>
-  <LinkTo part={8} /> addresses type-safety, by using TypeScript on top of
-  existing CSS-in-JS solutions.
+  <LinkTo part={8} /> addresses type-safety concerns by using TypeScript on top of existing CSS-in-JS solutions.
 </p>
 
 ---
 
-Now that we have a good understanding of the most concearning problems with writting and maintaining CSS code at scale, let's turn our view to the solutions that solve these problems.
+Now that we understand the most concerning problems with writing and maintaining CSS code at scale let's turn our view to the solutions that solve these problems.
 
-In <LinkTo part={2} /> we'll discuss CSS pre-processors which allowed us to keep our source code cleaner and CSS post-processors which optimized the output of our builds.
+In <LinkTo part={2} />, we'll discuss CSS preprocessors that allow us to keep our source code cleaner and CSS postprocessors that optimize our builds' output.

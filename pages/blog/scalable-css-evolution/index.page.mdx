@@ -10,13 +10,15 @@ export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-I've been writing StyleSheets since 2000. A lot has changed since then regarding what we're able to achieve with CSS.
+I've been writing CSS code since 2000. A lot has changed since then regarding what we're able to achieve with CSS.
 
 One thing I came to understand is that there's a significant difference between the CSS code that we write for **small websites** and the one developed for **large applications**. Single developers working on a project that will end in a few months can write CSS in any way they like. Poorly written code will probably not impact the success of the project.
 
-On the other hand, when we think about teams with multiple developers, poorly written CSS can hugely influence the project's development during the course of many years. It's not a secret that writing CSS at scale is not trivial: I've read about it in articles and blog posts, I've listened to it during conference talks, and I've personally experienced it multiple times.
+On the other hand, when we think about teams with multiple developers working on the same code base, poorly written CSS can hugely influence the project's development over the course of several years. It's not a secret that writing CSS at scale is not trivial: I've read about it in articles and blog posts, I've listened to it during conference talks, and I've personally experienced it multiple times.
 
-CSS features were always years behind the current needs of the community. Unfortunately, that's something that will probably never change. To combat CSS limitations, developers had to invent all sorts of tools to aid them in writing scalable CSS.
+CSS standard features were always years behind the current needs of the community. Unfortunately, that's something that will probably never change. Therefore, developers had to **develop their own tools** to aid them in writing CSS at scale.
+
+<br />
 
 You can view this series as a **chronicle**, describing how these tools have evolved over time and the current state of writing _maintainable CSS at scale_.
 
@@ -24,7 +26,11 @@ You can view this series as a **chronicle**, describing how these tools have evo
 
 ## Overview
 
-In **<LinkTo part={1} />**, we'll explore 8 of the most significant problems that developers are usually facing when writing large scale CSS, namely **selector duplication**, **naming collisions**, **specificity wars**, **source order precedence**, **implicit dependencies**, **zombie code**, **shared variables** and **lack of type-safety**.
+Similar to natural selection, the evolution of scalable CSS didn't take a linear path. Instead, developers had to try many different approaches to figure out which ones would withstand the test of time. In addition, each project has its own challenges and each team has its own preferences, resulting in a wide range of solutions, even when addressing the same problem.
+
+We'll analyze all the solutions in the following articles, so here's a quick overview of what we'll cover.
+
+In **<LinkTo part={1} />**, we'll explore 8 of the most significant problems that developers are usually facing when writing large-scale CSS, namely **selector duplication**, **naming collisions**, **specificity wars**, **source order precedence**, **implicit dependencies**, **zombie code**, **shared variables**, and **lack of type-safety**.
 
 **<LinkTo part={2} />** covers various tools that enriched CSS with new syntax, allowing us to write more maintainable source code by significantly reducing **selector duplication**. It was only a tiny step forward, but nevertheless a crucial one.
 
@@ -40,6 +46,29 @@ In **<LinkTo part={4} />**, we'll discuss two related topics. First, we'll look 
 
 In **<LinkTo part={8} />**, we'll see how adding TypeScript on top of CSS-in-JS provides type checking for CSS, enabling _safe refactorings_ and _typed interfaces_ when authoring UI components, being the missing puzzle piece when aiming for a complete **type-safe code** base.
 
+## Scalability concerns
+
+Before diving into Part 1 and talk about CSS-specific scalability problems, let's generalize what exactly is a _scalability issue_.
+
+Without a doubt, the code for a software project will continually grow as new features are being implemented. When we talk about _software scalability_, we look at the **scaling factor of the effort in maintaining or changing the code when we significantly increase its size**.
+
+> Whenever the gravity of a problem increases proportionally with the size of the code, it means that we have a **scalability issue**.
+
+For instance, we all know that we [should avoid globals](https://www.oreilly.com/library/view/maintainable-javascript/9781449328092/ch06.html). Would it matter if we use _"a few"_ globals in a small code base for a personal project? Of course not. However, _using globals as a practice_ within a team of several developers working on a long-term project that spans over many years should be a **scalability concern** for the team, as it will undoubtedly become a **substantial problem** sooner or later.
+
+<Subheading>Project size</Subheading>
+
+Now, each of us has our own definition of _"what a large project is"_ to determine when to address these scalability concerns. From my own experience, CSS scalability problems usually start to surface:
+
+- during projects that span **longer than 6 months**;
+- on projects having **at least 3 developers** working on the UI.
+
+<Subheading>Maintainability</Subheading>
+
+Writing new code is only one of our daily activities as developers. Besides adding new features, we'll also need to **investigate** problems, **fix bugs** in existing code, perform **refactorings**, **optimize** code, and **update** it as libraries and native platforms evolve. All these responsibilities comprise the maintenance part of the code.
+
+There's a tight relationship between _scalability_ and _maintainability_. That's why I'll often use these terms interchangeably throughout this series. Any scalability concern could potentially affect the maintainability of the code, the latter being a consequence of the former.
+
 ---
 
-So, let our journey begin with <LinkTo part={1} /> because we cannot discuss the solutions unless we understand the problems they are trying to solve.
+Now that we have a general understanding of scalability concerns, we can move on to CSS-specific ones. Therefore, let our journey begin with <LinkTo part={1} /> because we cannot discuss the solutions unless we understand the problems they are trying to solve.
