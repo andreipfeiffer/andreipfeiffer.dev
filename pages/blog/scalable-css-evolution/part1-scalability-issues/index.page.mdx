@@ -20,12 +20,12 @@ Before discussing the solutions to CSS scalability issues, we must understand wh
 3. [**Specificity wars**](#specificity-wars) when we use CSS specificity to override styles;
 4. [**Source order precedence**](#source-order-precedence) rendering different results based on the order of the styles;
 5. [**Implicit dependencies**](#implicit-dependencies) make debugging and understanding of the code troublesome;
-6. [**Zombie code**](#zombie-code) increases the CSS code size, even when it's not referenced from components;
+6. [**Zombie code**](#zombie-code) increases CSS file size, being tricky to remove;
 7. [**Shared variables**](#shared-variables) between CSS and JavaScript code;
 8. [**Lack of type-safety**](#lack-of-type-safety) due to the dynamic nature of CSS.
 
 <Note>
-  It's essential to keep in mind that none of these concerns is a vital issue when
+  It's essential to remember that none of these concerns is a vital issue when
   working alone on a small project. However, they will become real problems when
   working on larger projects, together with other developers.
 </Note>
