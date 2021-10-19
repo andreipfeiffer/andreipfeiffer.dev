@@ -8,10 +8,12 @@ export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-This article describes in detail my approach to defining React component files and the rationale for each decision. It covers only **function components** syntax with **TypeScript**.
+If you're working with React, you've probably noticed that there are numerous ways to organize components' code. This variety comes from a wide range of factors that influence their development, such as project requirements, team experience, personal tastes, and much more.
 
-This approach isn't necessarily better than others; it's only **my personal method**.
-And as we're constantly [learning and improving](/blog/complementary-learning), some parts presented here might change as well in time, so this article only reflects **my current approach**.
+This article describes in detail my own approach to defining React component files and the rationale for each decision. It covers only **function components** syntax with **TypeScript**, but the content is also relevant with plain JavaScript or other type-checkers.
+
+<!-- This approach isn't necessarily better than others; it's only **my personal method**.
+And as we're constantly [learning and improving](/blog/complementary-learning), some parts presented here might change as well in time, so this article only reflects **my current approach**. -->
 
 <Subheading uppercase>Table of contents:</Subheading>
 
@@ -23,15 +25,17 @@ We'll cover a lot of topics so here's an overview:
 4. [**Variable declarations**](#variable-declarations) and hook calls;
 5. [**Effects**](#effects) section;
 6. [**Rendered content**](#rendered-content) inside the function's `return` statement;
-7. [**Partial renders**](#partial-renders) as local functions;
+7. [**Partial renders**](#partial-renders) as nested functions;
 8. [**Local functions**](#local-functions) as closures, bound to the component;
 9. [**Pure functions**](#pure-functions) defined outside the component.
+
+<br />
 
 You can also [skip to the complete example](#complete-example) if you're not interested in the details.
 
 ## Imports
 
-The top section of a component file consists of the dependencies list, typically ES import statements. There are different categories of dependencies, and I usually prefer to group and separate them:
+The top section of a component file consists of the dependencies list, typically ES import statements. There are different categories of dependencies, and I prefer to group and separate them. This helps me have a better overview and easily visualize the component's complexity regarding its dependencies types.
 
 <!-- prettier-ignore-start -->
 ```tsx
@@ -53,27 +57,33 @@ import styles from "./article.module.scss";
 
 <Subheading>External imports</Subheading>
 
-The first group of imports contains the **external or 3rd party dependencies**. These are the ones that we'll include in the `package.json` file and use absolute path imports.
+The first group of imports contains the **external or 3rd party dependencies**. These are the ones that we'll include in the `package.json` file and use absolute path imports from `node_modules`.
+
+Long lists of such imports in many components is usually an anti-pattern, signaling that we're polluting our code with too much 3rd party code. A simple solution is to create wrappers around reusable external dependencies, making them easier to change and test.
 
 <Subheading>Internal imports</Subheading>
 
 The second group of imports includes the **internal dependencies**, usually reusable components or modules that sit outside the component folder. All these imports should use relative import syntax, starting with `../`.
 
+Usually, the majority of imports will reside in this category. Thus we can separate them even further if needed, for example, UI components, data-related imports, services, helpers, etc.
+
 <Subheading>Local imports</Subheading>
 
 The third group of imports incorporates the **local dependencies or subcomponents** located in the same folder as the component. All the import paths for these dependencies should start with `./`.
 
+Primarily containers or larger components include local dependencies.
+
 <Subheading>Styles import</Subheading>
 
-The last group, which most of the time consists of only a single import, represents the **component styles**. I can't really explain why, but I like keeping the styles separately from the local imports.
+The last group, which most of the time consists of only a single import, represents the **component styles**. If there is more than one stylesheet import, it could be a code smell.
 
 ### Auto-sort imports
 
-I confess that I have an obsession (not compulsive) for manually formatting code, so I have no problem doing this sorting manually. But this doesn't scale within a larger team, so we should automate it.
+I confess that I have an obsession (not compulsive) for manually formatting code, so I have no problem doing this grouping manually. But this doesn't scale within a larger team, so we should automate it.
 
 Luckily, I've recently found a Prettier plugin, namely [**prettier-plugin-sort-imports**](https://github.com/trivago/prettier-plugin-sort-imports) from Trivago, that does an excellent job.
 
-I have also customized it to address my sorting preferences, by updating the [Prettier config](https://github.com/trivago/prettier-plugin-sort-imports#usage) file:
+I have also customized it to address my sorting preferences by updating the [Prettier config](https://github.com/trivago/prettier-plugin-sort-imports#usage) file:
 
 <Side header={{ file: "prettier.config.js", lang: "JS" }}>
 
@@ -180,7 +190,7 @@ export default function Article(props: Props) {}
 
 ## Variable declarations
 
-Next, we have the variable declarations inside the component. Notice that I call them **variables** even if I declare them using `const` because their value usually changes between renders, even though it's constant through the execution of a single render.
+Next, we have the variable declarations inside the component. Notice that I call them **variables** even if I declare them using `const` because their value usually changes between renders, even though it's constant through the execution of a single render pass.
 
 ```tsx
 const { id, name, title } = props; // A
@@ -190,7 +200,7 @@ const initials = getInitials(name); // C
 
 <br />
 
-This section usually contains all the variables used at the component level, defined either with `const` or `let` depending if they change their value or not during one render pass:
+This section usually contains all the variables used at the component level, defined either with `const` or `let` depending if they change their value or not during rendering:
 
 <ol type="A">
   <li>
@@ -249,7 +259,7 @@ const formattedDate = getDate(date);
 
 The grouping method is very contextual. It depends on the number and types of variables and can differ quite a lot from component to component.
 
-The key takeaway is that **related variables should stay together**. Adding an empty line between these groups helps, even more, the readability of the code.
+The key takeaway is that **related variables should stay together**. Adding an empty line between these groups further improves the readability of the code.
 
 <Note>
   The code comments in the example are only used to describe the variable
@@ -270,7 +280,7 @@ Any identifiers used inside the effect, but defined outside of it, should be inc
 
 <br />
 
-It's also imperative to remove any event handlers added with the DOM API using the [cleanup return handler](https://reactjs.org/docs/hooks-effect.html#example-using-hooks-1).
+It's also imperative to remove any event handlers using the [cleanup return handler](https://reactjs.org/docs/hooks-effect.html#example-using-hooks-1).
 
 ```tsx
 React.useEffect(() => {
@@ -334,15 +344,17 @@ From my own experience, having the `return` statement at the end, with a bunch o
 - We cannot search for the `return` statement as there could be multiple return statements from other nested functions.
 - Scrolling at the end of the file to find the return statement does not guarantee that we'll easily find it, as the returned JSX block could be pretty large.
 
+<br />
+
+I've never encountered a scenario when I wanted to understand the event handlers code first and the content second. It's always been the other way around:
+
+1. _What is the trigger element?_
+2. _What event handler gets called?_
+3. _What does the event handler do?_
+
 ## Partial renders
 
 When dealing with large JSX code, it's helpful to extract certain content blocks as separate functions that render parts of our component, similar to how we break large functions into multiple smaller ones.
-
-- I typically prefix these functions with `render` to differentiate them from other functions that don't return JSX.
-- I place these functions right after the `return` statement so that everything related to content is grouped together.
-- There's no need to pass any arguments to these functions, as they have access to all props and locally defined variables.
-
-<br />
 
 ```tsx
 export function Article(props: Props) {
@@ -365,6 +377,12 @@ export function Article(props: Props) {
   }
 }
 ```
+
+<br />
+
+- I typically prefix these functions with `render` to differentiate them from other functions that don't return JSX.
+- I place these functions right after the `return` statement so that everything related to content is grouped together.
+- There's no need to pass any arguments to these functions, as they have access to all props and locally defined variables.
 
 <Subheading>Why not extract them as components?</Subheading>
 
@@ -392,9 +410,9 @@ function ArticleFooter(props: Props) {}
 
 <br />
 
-This approach works well in some isolated situations, but we'll have to **manually pass all the local variables** that the component needs as props. Consequently, when using TypeScript, we usually end up defining additional complex types for the components' props.
+This approach works well in some isolated situations. However, we'll have to **manually pass as props all the required local variables** that the subcomponent needs. Consequently, when using TypeScript, we usually end up defining additional complex types for the components' props.
 
-In the end, what we get is **bloated code**, which often obscures the reading and understanding of the code.
+In the end, what we get is **bloated code**, which often obscures its reading and understanding.
 
 ```tsx
 export function Article(props: Props) {
@@ -431,11 +449,15 @@ Keep in mind that these separate components:
 - are **not reusable**; they are only used by the component they belong to;
 - are **not cohesive**; they don't make sense to be used on their own.
 
-Extracting these components in separate files usually increases **[indirection](https://en.wikipedia.org/wiki/Indirection)**, which ultimately obscures even more the way we read and understand the entire component.
+Extracting these components in separate files usually increases [indirection](https://en.wikipedia.org/wiki/Indirection), which ultimately obscures even more the way we read and understand the entire component.
+
+Thus, I prefer the **pragmatic** approach in this case, as it makes more sense for practical considerations.
 
 ## Local functions
 
-UI components will often include **event handlers**, which are nested functions that usually alter the component's internal state. Another category of nested functions is **closures**, which are impure functions that read local state or props, helpful in structuring our component logic.
+UI components will often include **event handlers**, which are nested functions that usually alter the component's internal state or dispatch an action to update the application state.
+
+Another category of nested functions is **closures**, which are impure functions that read local state or props, helpful in structuring our component logic.
 
 ```tsx
 export function Article(props: Props) {
@@ -453,7 +475,7 @@ export function Article(props: Props) {
   );
 
   // event handler
-  function subscribe() {
+  function subscribe(): void {
     if (canSubscribe()) {
       // send subscribe request
     }
@@ -468,8 +490,8 @@ export function Article(props: Props) {
 
 It's worth mentioning that:
 
-- I always use [**function declarations**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) instead of [function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function) because they are [hoisted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function#function_declaration_hoisting), which allows me to define them after their usage so that I can place them after the `return` statement;
-- If a function calls another function, I always place the **caller** before the **callee**;
+- I always use [**function declarations**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) instead of [function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function) because they are [hoisted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function#function_declaration_hoisting), which allows me to define them after their usage. This wayI can place them at the end of the component function, after the `return` statement;
+- If a function calls another function, I always place the **caller** before the **callee**.
 - I usually put these functions in the order of their usage.
 
 ## Pure functions
@@ -506,13 +528,11 @@ function getInitials(str: string) {}
 
 <br />
 
-First of all, pure functions **don't have dependencies**, like props, state, or local variables, because they receive all dependencies as arguments. This means that we can place them anywhere.
-
-But there are also additional benefits to place them outside the function that defines our component:
+First of all, pure functions **don't have dependencies**, like props, state, or local variables, because they receive all dependencies as arguments. This means that we can place them virtually anywhere. However, there are also additional reasons to place them outside the function that defines our component:
 
 1. It **signals to any developer reading the code** that they are pure.
 2. They are **easy to test**. We only need to export the functions we want to test and import them into the test file.
-3. They are **easy to move** to other files in case we need to reuse them.
+3. They are **easy to move** to other files in case we need to extract and reuse them.
 
 ## Complete example
 
@@ -524,6 +544,7 @@ Here's a complete typical React component file. The implementation details are l
 ```tsx
 // 1️⃣ dependencies imports
 import React from "react";
+import { Tag } from "./tag";
 import styles from "./article.module.scss";
 
 // 2️⃣ static definitions: constants & types
