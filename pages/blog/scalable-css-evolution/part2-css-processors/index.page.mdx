@@ -13,33 +13,37 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-In the previous article <LinkTo part={CURRENT_PART - 1} /> we analyzed the most concearning problems with writting and maintaining CSS code at scale. Now it's time to turn our attention to solving the problems of scalable CSS.
+In the previous article, <LinkTo part={CURRENT_PART - 1} />, we analyzed the most concearning problems with writing and maintaining CSS code. Now it's time to turn our attention to solving the issues of scalable CSS.
 
-In this part we'll cover two different types of CSS processors:
+In this part, we'll cover two types of CSS processors, each of them serving different purposes:
 
-- [**CSS preprocessors**](#css-pre-processing) which played a major role in the evolution of scalable CSS by introducing support for [contextual styles](#contextual-styles).
-- [**CSS postprocessors**](#css-post-processing) which not only optimize the final CSS output, but also paved the way for future tools which we'll cover in later chapters.
+- [**CSS preprocessors**](#css-preprocessing) introduce support for contextual styles, removing a lot of the source code duplication.
+- [**CSS postprocessors**](#css-postprocessing) optimize the final CSS output while paving the way for future tools that we'll touch upon in later chapters.
 
 <Note>
-  The separation between "Preprocessors" and "Postprocessors" is not that
-  clear nowadays, so it's better to simply call them all{" "}
-  <strong>CSS Processors</strong>. In this article, I'm sticking with the
-  improper, but <em>de facto</em> naming, to distinguish between the 2
-  categories of tools, because that's how they're colloquially known.
+  The separation between "pre" and "post" processors is not that clear nowadays
+  because most modern tools perform both pre and post-processing. Therefore it's
+  better to simply call them all <strong>CSS processors</strong>.
   <br />
   <br />
-  Confused? Checkout <a href="https://medium.com/@ddprrt/deconfusing-pre-and-post-processing-d68e3bd078a3">
+  In this article, I'm sticking with the improper <em>de facto</em> naming to distinguish
+  between the two categories of tools because that's how they're colloquially known.
+  <br />
+  <br />
+  For more details, you can checkout{" "}
+  <a href="https://medium.com/@ddprrt/deconfusing-pre-and-post-processing-d68e3bd078a3">
     Deconfusing Pre- and Post-processing
-  </a> for more details.
+  </a>
+  .
 </Note>
 
-## CSS pre-processing
+## CSS preprocessing
 
-There was a time when [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) or [CSS math functions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions#math_functions) were not implemented natively in browsers. CSS variables are now de-facto standard in front-end development, being well supported since 2016.
+There was a time when _CSS variables_ or _CSS math functions_ like `calc()` were not implemented natively in browsers. Nowadays they are considered de-facto standard in front-end development, being well supported for years.
 
-Before we had full browser support for such useful features, we had to rely on alternative methods. That's when the age of **CSS preprocessors** began.
+However, before we had full browser support for such useful features, we had to rely on alternative methods. That's when the age of **CSS preprocessors** began.
 
-Any **CSS authoring tool** that use **non-standard CSS syntax** which allows developers to write code more comfortably and **outputs valid CSS** code could be considered a **CSS preprocessor**.
+Any **CSS authoring tool** that uses **non-standard CSS syntax**, allowing developers to write code more comfortably and **outputs valid CSS**, code could be considered a **CSS preprocessor**.
 
 - [**SASS**](https://sass-lang.com/) was the first one, released in 2006;
 - [**LESS**](https://lesscss.org/) was the second one, released in 2009;
@@ -47,32 +51,15 @@ Any **CSS authoring tool** that use **non-standard CSS syntax** which allows dev
 
 <br />
 
-Looking back at CSS preprocessors, many of their feature were focused on **avoiding code duplication**. For instance _variables_ allow us to re-use concrete values:
+Come to think about it, many CSS preprocessors features are focused on **avoiding code duplication**. For instance, _variables_ allow us to re-use concrete values, while _mixins_ enable us to re-use entire blocks of CSS rules.
 
-<Side header={{lang: "SCSS", file: "styles.scss"}}>
+CSS preprocessors also introduced numerous additional features such as _nesting_, _interpolation_, _conditionals_, _operators_, _functions_, and much more. We won't go into their details, as most of them are outside the scope of this article.
 
-```scss
-$base_color = #c6538c;
-
-button {
-  color: $base_color;
-  border-color: $base_color;
-}
-```
-
-</Side>
-
-<br />
-
-CSS preprocessors also introduced numerous additional features such as _nesting_, _mixins_, _interpolation_, _conditionals_, _operators_, _functions_, and much more. We won't go into their details, as most of them are outside the scope of this article.
-
-But there is a particular feature that we're interested in, which completely changed the way we author CSS styles even today, namely **nesting + parent selector** as it allows us to define **contextual styles**.
+However, there is a particular feature that we're interested in, which completely changed the way we author CSS styles even today, namely **nesting + parent selector**, as it allows us to define **contextual styles**.
 
 ### Contextual styles
 
-**Nesting** allows us to define CSS rules for a selector inside another selector, to simplify descendant selectors declarations. The **parent selector** allows us to refer to the outer selector during nesting.
-
-Combining these two features, allows us to avoid the <LinkTo part={1} hash="selector-duplication">selector duplication</LinkTo> issue:
+**Nesting** allows us to define CSS rules for a selector inside another selector, simplifying descendant declarations. In addition, the **parent selector** will enable us to refer to the outer selector during nesting. Combining these two features, we can easily avoid the <LinkTo part={1} hash="selector-duplication">selector duplication</LinkTo> issue:
 
 <!-- prettier-ignore-start -->
 
@@ -97,11 +84,11 @@ Combining these two features, allows us to avoid the <LinkTo part={1} hash="sele
 
 <!-- prettier-ignore-end -->
 
-Making it easier to define related styles is a convenience that we experience only during development. But there are other, less obvious benefits, that surface during long-term maintenance:
+The convenience of defining and grouping related styles is definitely a benefit we experience during development because we write less code. But other, less obvious benefits surface during long-term maintenance as well:
 
-- **renaming selectors is easy**, because they're defined only once;
-- code is **easy to understand**, because all pseudo classes and elements colocated;
-- **deleting code is trivial**, because all related elements are grouped together.
+- **renaming selectors is straightforward** because they're defined only once;
+- code is **easy to understand** because all pseudo-classes and elements are colocated;
+- **deleting code is trivial** because all related elements are grouped together.
 
 <Subheading>Maintainable media queries</Subheading>
 
@@ -136,32 +123,34 @@ Another major benefit of contextual styles is that media queries could also be n
 
 <!-- prettier-ignore-end -->
 
-Basically, all the styles related to a particular selector were defined in the same code block. Even though UI components were not a thing back then, pre-processors introduced a syntax that enabled that mindset.
+As we can see, all the styles related to a particular selector are defined within a single code block. So even though _UI components_ were not a thing back then, CSS preprocessors introduced a syntax that enabled that mindset.
 
 <br />
 
-Nowadays, **contextual styles are widely used in almost all CSS-in-JS libraries**, either supporting the parent selector that was introduced by SCSS or using some custom syntax which provides the same behavior.
+Nowadays, **contextual styles are widely used in most CSS-in-JS libraries**, either supporting the parent selector `&` or using some custom syntax that provides the same behavior.
 
-> Thus, pre-processors played a crucial role in the evolution of scalable CSS.
+Therefore, CSS preprocessors played a crucial role in the evolution of scalable CSS.
 
-## CSS post-processing
+## CSS postprocessing
 
-Any tool that takes **valid CSS code**, transforms it either to **improve or optimize** it, can be considered a **CSS postprocessor**. There used to be numerous CSS Postprocessors, but lately they seam to have converged.
+In contrast with preprocessors, postprocessors don't typically add new CSS syntax. Instead, they receive regular CSS as input.
 
-[**PostCSS**](https://postcss.org/) was released in 2013, it's still maintained and is by far the most popular tool for CSS post-processing. **PostCSS** includes over 300 [plugins](https://www.postcss.parts/) that can be combined, and also automated. I would like to mention only a couple, which I find useful:
+Any tool that transforms **valid CSS code**, either by **improving or optimizing** it, can be considered a **CSS postprocessor**. There used to be numerous CSS postprocessors, but lately, they seem to have converged to a single tool.
 
-- [**Autoprefixer**](https://github.com/postcss/autoprefixer) which allows us to write only the standard syntax and automate the process of adding vendor specific prefixes to the required CSS rules.
+[**PostCSS**](https://postcss.org/) was released in 2013. It's still maintained today and is by far the most popular tool for CSS postprocessing. **PostCSS** includes over 300 [plugins](https://www.postcss.parts/) that we can combine and automate. I'll mention only a couple, which I find helpful:
+
+- [Autoprefixer](https://github.com/postcss/autoprefixer) automates the process of adding vendor-specific prefixes to the required CSS rules, allowing us to author CSS using the standard syntax.
 <!-- - [combine-media-query](https://github.com/SassNinja/postcss-combine-media-query) which removes duplication of media queries, considerably reducing the `.css` file size. -->
-- [**Stylelint**](https://stylelint.io/) which a modern linter that helps us avoid errors and enforce conventions in our styles, including [specificity limiters](https://stylelint.io/user-guide/rules/list/selector-max-specificity).
+- [Stylelint](https://stylelint.io/) is a modern linter that highlights CSS errors and enforces conventions in our styles, including [specificity limiters](https://stylelint.io/user-guide/rules/list/selector-max-specificity).
 
 <Subheading>Paving the way for CSS Modules</Subheading>
 
-PostCSS is indeed an awesome tool, still widely used today on its own, or used under the hood by many other tools, libraries and frameworks.
+PostCSS is widely used today either on its own or working under the hood for many other tools, libraries, and frameworks.
 
-But one thing I would like to highlight is that PostCSS opened the doors for <LinkTo part={6} hash="css-modules">CSS Modules</LinkTo>, which apparently started as a [PostCSS plugin](https://github.com/markdalgleish/postcss-local-scope-example) experiment. We'll cover CSS Modules in more detail in later chapters, as it played a critical role in the evolution of scalable CSS.
+One thing worth mentioning is that PostCSS opened the doors for <LinkTo part={6} hash="css-modules">CSS Modules</LinkTo>, which started as a [PostCSS plugin](https://github.com/markdalgleish/postcss-local-scope-example) experiment. We'll cover CSS Modules in more detail in later chapters, as they played a critical role in the evolution of scalable CSS.
 
 ---
 
-**To conclude**: CSS pre-processing enabled us to author more maintainable CSS code by considerably reducing duplication, while CSS post-processing optimized the output automatically.
+To conclude, CSS preprocessing enabled us to author more maintainable CSS code by considerably reducing duplication, while CSS postprocessing optimized the output automatically.
 
-But our journey has just began. There are so many other problems that we need to solve, so let's pack our bags and move on. In the next part of this series <LinkTo part={CURRENT_PART + 1} /> we'll explore various methods to alleviate the problems of complex CSS selectors and specificity wars.
+However, our journey has just begun. We still have many other problems to solve, so let's pack our bags and move on. In the next part of this series, <LinkTo part={CURRENT_PART + 1} />, we'll explore various methods to alleviate the problems of complex CSS selectors and specificity wars.
