@@ -13,11 +13,11 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-A few years ago, before using TypeScript, I never thought about the limitations of plain CSS. Regular CSS code, CSS Modules or any CSS preprocessor, **are not type checked**. Before we run it, no tool will tell us if we have any errors in the code we wrote.
+Before using TypeScript a few years ago, I never really thought about the limitations of plain CSS. In particular, the **lack of type checking** didn't bother me before. When using regular CSS code, CSS Modules or any CSS processors, no tools will tell us if we have any errors in the code we wrote without executing it.
 
-To be honest, if I haven't started using TypeScript, I would probably still think that _CSS Modules paired with SCSS is all we need, because we can't do any better_. But, I couldn't have been more wrong.
+To be honest, if I haven't started using TypeScript, I would probably still think that _CSS Modules paired with SCSS is all we need, because we can't do any better_. But I couldn't have been more wrong.
 
-In this part, we will see how CSS-in-JS paired with TypeScript solves the missing piece of the puzzle: **type safety for the styling** of the components.
+In this part, we will see how CSS-in-JS paired with TypeScript solves the missing piece of the puzzle in regard to UI development: **type safety for components' styles**.
 
 ## Typed design tokens
 
@@ -41,10 +41,10 @@ export const theme = {
 
 </Side>
 
-Using `as const` we're telling TypeScript that _"our `theme` object will never change, it is readonly"_. Thus, whenever we'll use the `theme` object:
+Using `as const` we're telling TypeScript that _"our `theme` object will never change, it is readonly"_. Thus, whenever we use the `theme` object:
 
-- we'll get **auto-complete** for all of its properties, so we'll never have to remember them;
-- we'll get **type checking**, so we'll never mispell any of its properties.
+- we get **auto-complete** for all of its properties, so we'll never have to remember them;
+- we get instant **type-checking**, so we'll never misspell any of its properties.
 
 <br />
 
@@ -74,12 +74,12 @@ interface NotificationProps {
 }
 ```
 
-- consumers of the component could pass any color, like `red` or `#ff0000`, which are not defined in our color palette;
-- consumers will not know what colors should they use, unless they manually look at the color palette definition.
+- component's consumers could pass any color, like `red` or `#ff0000`, which are not defined in our color palette;
+- consumers will not know what colors should they use unless they manually look at the color palette definition.
 
 <br />
 
-Having our design tokens statically typed, we can use them to further improve our UI components' interfaces. With TypeScript, we can hint our consumers what colors are available for the component:
+Having our design tokens statically typed, we can further improve our UI components' interfaces. For example, we can hint our consumers what colors are available for the component:
 
 <!-- prettier-ignore-start -->
 
@@ -95,7 +95,7 @@ interface NotificationProps {
 <!-- prettier-ignore-end -->
 
 - consumers will get [IntelliSense](https://code.visualstudio.com/docs/editor/intellisense) with all the available color options, so they don't have to remember or to type them manually;
-- passing any other value, will result in a compile time error.
+- passing any other value will result in a compile-time error.
 
 <br />
 
@@ -116,18 +116,18 @@ interface NotificationProps {
 
 <br />
 
-Only the sky is the limit in regard to what can be accomplished with TypeScript when authoring interfaces for UI components. **Any consumer of well-typed components will get an flawless experience during development.** It's virtually impossible to misuse such components.
+The sky is the limit regarding what can be achieved with TypeScript when authoring interfaces for UI components. **Any consumer of well-typed components will get a flawless experience during development.** It's virtually impossible to misuse such components.
 
 ## Safe refactorings
 
-I can't stress enough the importance of refactorings, especially when we talk about scalable, long term projects. Without proper tooling to provide **easy but also safe refactorings**, we would be very hesitant to refactor our code. Thankfully, TypeScript is one of the tools that makes refactorings both easy and safe to perform.
+I can't stress enough the importance of refactorings, especially when we talk about scalable, long-term projects. Yet, we usually hesitate to refactor our code without proper tooling to provide **effortless but confident refactorings**. Thankfully, TypeScript is one of the tools that turn refactorings into enjoyable and trivial tasks.
 
 <Subheading>
   <Status type="ok" />
   Manual refactorings
 </Subheading>
 
-Let's consider that we'll going to manually rename the `theme` object to `tokens`:
+Let's consider that we'll manually rename the `theme` object to `tokens`:
 
 <Side header={{ file: "theme.ts", lang: "TS" }}>
 
@@ -138,10 +138,10 @@ Let's consider that we'll going to manually rename the `theme` object to `tokens
 
 </Side>
 
-In this case, we'll get instant compile error(s) in all the files that import the old `theme` object. Thus type checking will aid us to manually fix all the problems, without missing any occurences.
+In this case, we'll get instant compile error(s) in all the files that import the old `theme` object. Thus, type checking will aid us in manually fixing all the problems without missing any occurrences, which is not possible with plain JavaScript.
 
 ```shell
-# ✅ instant compile time errors
+# ✅ instant compile-time errors
 Module '"./theme"' has no exported member 'theme'.
 ```
 
@@ -150,9 +150,9 @@ Module '"./theme"' has no exported member 'theme'.
   Refactoring tools
 </Subheading>
 
-Renaming is one of the most common refactorings we usually perform. Using TypeScript, we can perform such refactorings automatically with proper tooling. For example, VSCode provides several [refactoring tools](https://code.visualstudio.com/docs/editor/refactoring), one of them being [rename symbol](https://code.visualstudio.com/docs/editor/refactoring#_rename-symbol).
+Renaming is one of the most common refactorings we usually perform. Using TypeScript, we can perform such refactorings automatically with proper tooling. For example, VSCode provides several [refactoring tools](https://code.visualstudio.com/docs/editor/refactoring), one of them being **rename symbol**.
 
-Right-clicking the `theme` object, selecting **"Rename symbol"** from the dropdown and choosing a new name like `tokens` will automatically update all imports and all usages of that object.
+Right-clicking the `theme` object, selecting **"Rename symbol"** from the dropdown, and choosing a new name like `tokens` will automatically update all imports and all usages of that object. What's left is to _Save all_ files, and we're done.
 
 <Side header={{ file: "theme.ts", lang: "TS" }}>
 
@@ -168,71 +168,69 @@ Right-clicking the `theme` object, selecting **"Rename symbol"** from the dropdo
 
 </Side>
 
-Full-fledged IDEs like WebStorm include even more powerful [refactoring tools](https://www.jetbrains.com/help/webstorm/specific-typescript-refactorings.html).
+### Renaming CSS classes
 
-### Renaming classes
+How often do we rename CSS classes due to updates in code that don't reflect what the class name refers to anymore? From my own experience, not that often. Without type-safety, manual refactorings are fragile and prone to errors.
 
-How often do we rename CSS classes due to updates in code that don't reflect anymore what the class name refers to? From my own experience, not that often. Without type-safety manual refactorings are fragile and prone to errors.
-
-So, instead of introducing potential bugs, we often choose not to perform refactorings at all. This is very unfortunate and problematic, because it means that the existing code will only become worse and worse due to [entropy](https://en.wikipedia.org/wiki/Software_entropy), without any possibility to improve it.
+So, instead of introducing potential bugs, we often choose not to perform CSS refactorings at all. This is unfortunate and problematic because the existing code will only worsen due to [entropy](https://en.wikipedia.org/wiki/Software_entropy), without any real possibility to improve it.
 
 <Subheading>
   <Status type="err" />
   Renaming plain CSS classes
 </Subheading>
 
-Surely, searching for a CSS class like `main-menu__item-link--active` would be easy to find its occurences and rename it. But what if its name is dynamically computed?
+Searching for a CSS class such `main-menu__item-link--active` to find its occurrences and rename them isn't that difficult, right? But what if its name is dynamically computed?
 
 ```js
 const class_names = `main-menu__item-link${active ? "--active" : ""}`;
 ```
 
-In this case we would have a hard time finding out where is the class applied.
+In this case, we would have a hard time finding out where the class is applied.
 
 <Subheading>
   <Status type="err" />
   Renaming CSS Modules classes
 </Subheading>
 
-When using CSS Modules, we don't have to make sure the class names are unique thanks to encapsulation. As a result, defined CSS classes tend to be shorter, like `.item`, or `.active`. However, searching for such short and generic strings would usually end up with many results. We'll have to manually discern which ones should be changed, and which ones should be left untouched.
+With CSS Modules, we don't have to make sure the class names are unique, thanks to encapsulation. As a result, defined CSS classes tend to be shorter, like `.item` or `.active`. However, searching for such short and generic strings would usually end up with many results.
 
-Unfortunately, with CSS Modules we cannot perform automatic renaming refactorings.
+We'll have to manually discern which ones should be changed and which ones should be left untouched. Unfortunately, with CSS Modules, we cannot perform automatic renaming refactorings.
 
 <Subheading>
   <Status type="ok" />
   Renaming CSS-in-JS styles
 </Subheading>
 
-With TypeScript and CSS-in-JS, no matter what library we use, we benefit from automatic refactorings out of the box. Choosing either manual or automatic refactorings, we can rely on the type system to point out any potential errors.
+With TypeScript and CSS-in-JS, we benefit from automatic refactorings out of the box, no matter which library we use. Moreover, even if we choose manual refactorings, we can rely on the type system to point out any potential errors without even running the code. That's a game-changer.
 
 ### Extracting components
 
-Think about the last time you had to extract a component, along with its styles, into a separate file. How was the experience? How did you make sure that you have **moved all the styles** as well, without missing any of them and without leaving some styles behind that aren't needed anymore?
+Think about the last time you had to extract a component, along with its styles, into a separate file. How was the experience? How did you make sure that you have **moved all the required styles**, without missing any of them and leaving any styles behind that aren't needed anymore?
 
 <Subheading>
   <Status type="err" />
   Type-unsafe extraction
 </Subheading>
 
-I can explain my approach, because I've done in the past quite frequently:
+I can explain my personal experience as I've done in the past quite frequently:
 
-1. I had to **look for all referenced classes**, static or dynamic, in the extracted component;
-2. For each class, I would have to **check if it's not referenced in the old component** as wel;
-3. In case only the extracted component references the class, I would **move it in the newly created `.css` file**;
-4. **Repeate steps 2-3** for all referenced classes;
-5. Run the application to **make sure I don't have any runtime errors**;
+1. I **search for all CSS classes**, static or dynamic, in the extracted component;
+2. For each class, I **check if it's referenced in the old component** as well;
+3. If it's not referenced, I would **move the class in the newly created `.css` file**;
+4. **Repeat steps 2-3** for all CSS classes used in the extracted component;
+5. Afterward, I run the application to **make sure I don't have any runtime errors**;
 6. Perform a **visual check** to make sure that all styles are properly applied;
-7. Sometimes, I would also have to **rename all classes** to reflect the new name of the extracted component, which implies even more manual work as described previously.
+7. Sometimes, I would also have to **rename most CSS classes** to reflect the new name of the extracted component, which involves even more manual labor.
 
 <Subheading>
   <Status type="ok" />
   Type-safe extraction
 </Subheading>
 
-With TypeScript and CSS-in-JS, no matter what library we use, we can rely on the type system to let us know which styles need to be moved and which of them are not referenced anymore, so we could safely delete them.
+With CSS-in-TypeScript, we have the type system as a sidekick, pointing out which styles need to be moved and which of them are not referenced anymore, so we can safely delete them. Extracting components couldn't be any safer than that.
 
 ---
 
-As we've seen in the previous part, <LinkTo part={CURRENT_PART - 1}>CSS-in-JS</LinkTo> is very powerful even on its own. But when we pair it with TypeScript, we get **CSS-in-TS**, which is a different beast.
+As we've seen in the previous part, <LinkTo part={CURRENT_PART - 1}>CSS-in-JS</LinkTo> is very powerful, even on its own. But when paired with TypeScript, its power increases exponentially.
 
-TypeScript allows us write **type-safe business logic**, TSX allows us to write **type-safe markup**, and CSS-in-TS allows us to write **type-safe styles**. With these weapons at our disposal scalability and maintainability become less problematic, regardless the number of team members or the size of the code base.
+To conclude, TypeScript allows us to write **type-safe business logic**, TSX enables **type-safe markup**, and CSS-in-TypeScript provides **type-safe styles**. With these weapons at our disposal, scalability and maintainability become less problematic, regardless of the number of team members, the codebase's size, or the project's length.
