@@ -13,13 +13,13 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-In <LinkTo part={4} /> we've covered various CSS methodologies including OOCSS, BEM, SMACCS and ITCSS. All of them adopted the Semantic CSS approach, which solves some of the maintainability problems, but only to some extend.
+In <LinkTo part={4} />, we've covered various CSS methodologies, including OOCSS, BEM, SMACCS, and ITCSS. They all adopted the Semantic CSS approach, which solves many maintainability problems, but only to some extent.
 
-In this article we'll take at **styles encapsulation** and **CSS Modules**, techniques that completely changed the way we author semantic CSS nowadays, solving once and for all any naming collisions within the global CSS namespace, while keeping specificity low at the same time.
+In this article we'll turn our attention to **styles encapsulation** and **CSS Modules**, which elegantly solve any naming collisions within the global CSS namespace while keeping specificity low at the same time. These techniques profoundly changed the way we author semantic CSS nowadays.
 
 ## Scoped CSS
 
-The problems with scalable and maintainable CSS were so critical, that even WHATWG (Web Hypertext Application Technology Working Group) joined the battle. In 2011, the standards' comitee suggested that CSS stylesheets should have a [`scoped` attribute](http://html5doctor.com/the-scoped-attribute/):
+The problems with scalable and maintainable CSS were so critical that even WHATWG (Web Hypertext Application Technology Working Group) joined the battle. So, in 2011, the standards' commitee suggested that CSS stylesheets should have a [`scoped` attribute](http://html5doctor.com/the-scoped-attribute/):
 
 > [...] it indicates that the styles are intended just for the subtree rooted at the style element’s parent element, as opposed to the whole Document.
 
@@ -50,23 +50,23 @@ The problems with scalable and maintainable CSS were so critical, that even WHAT
 Let's see how it was supposed to work:
 
 1. we have a global `<style>` that sets the color of all `p` elements to `blue`;
-2. but notice the `scoped` attribute on the inner `<style>` tag, where we change the color to `red` for all `p` elements;
+2. notice the `scoped` attribute on the inner `<style>` tag, where we change the color to `red` for all `p` elements;
 3. however, these _scoped_ styles will only affect the subtree of `nav`, which is the parent of the `scoped` style declaration;
 4. without the `scoped` attribute, the styles would affect the entire page, overriding the global `blue` color and rendering all `p` elements in `red`.
 
-So, the Scoped StyleSheets spec was basically addressing the problem of global namespace, allowing us to defined styles that don't affect elements outside of the container of our choice, enabling **styles encapsulation**. This way we would not need to worry about any naming collisions or unexpected style overrides anymore.
+So, the Scoped StyleSheets spec addressed the global namespace problem, allowing us to define styles that don't affect elements outside the container of our choice, enabling **styles encapsulation**. This way, we would not need to worry about any naming collisions, or unexpected style overrides.
 
 <br />
 
-However, the spec was only implemented in [Firefox](https://caniuse.com/?search=scoped) (and removed in version 55) and experimentally in [Chrome](https://developers.google.com/web/updates/2012/03/A-New-Experimental-Feature-style-scoped). No other browser vendors showed any plan to implement the feature.
+However, the spec was only implemented in [Firefox](https://caniuse.com/?search=scoped) (and removed in version 55) and experimentally in [Chrome](https://developers.google.com/web/updates/2012/03/A-New-Experimental-Feature-style-scoped). No other browser vendors showed any interest in implementing the feature.
 
-Consequently, in 2016 the `scoped` attribute was [removed from the spec](https://github.com/w3c/csswg-drafts/issues/137) in favor of **Shadow DOM**, which has its own has it own [scoped CSS](https://developers.google.com/web/fundamentals/web-components/shadowdom#styling).
+Consequently, in 2016 the `scoped` attribute was [removed from the spec](https://github.com/w3c/csswg-drafts/issues/137) in favor of **Shadow DOM**, which has its own [scoping mechanism](https://developers.google.com/web/fundamentals/web-components/shadowdom#styling).
 
 ## CSS Modules
 
-Since CSS features standardization is a lengthy process that could potentially take years to become implemented in most browsers, the developers community couldn't just sit and wait for a solution. Thus, in 2015, a few [smart people](https://github.com/orgs/css-modules/people) released [**CSS Modules**](https://github.com/css-modules/css-modules) which solve styles encapsulation through tooling, instead of using language standard syntax.
+CSS features standardization is a lengthy process that could potentially take years to become implemented in most browsers. Thus, the developers' community couldn't just sit and wait for a solution. Therefore, in 2015, a few smart people released [CSS Modules](https://github.com/css-modules/css-modules) which solve styles encapsulation through tooling, instead of using standard syntax.
 
-A **CSS Module** is a regular `.css` file (with some additional features) that can be compiled into an interchangeable format called [Interoperable CSS](https://github.com/css-modules/icss) (ICSS):
+A **CSS Module** is a regular `.css` file, with some additional features, that can be compiled into an interchangeable format called [Interoperable CSS](https://github.com/css-modules/icss) (or ICSS):
 
 <Side header={{ file: "styles.css", lang: "CSS" }}>
 
@@ -101,27 +101,30 @@ element.outerHTML = `<h1 class="${styles.heading}">Title</h1>`;
 
 Now, the beautiful part is the output, because the loader will automatically generate **unique class names** for each CSS class. Typically, the generated name has the form `filename__classname__hash`, but it can be customized:
 
+<Side header={{ file: "HTML output" }}>
+
 ```html
-<h1 class="page__heading__abc123">Heading</h1>
+<h1 class="page__heading__2fcab5">Heading</h1>
 ```
+
+</Side>
 
 <br />
 
-So, what does that mean for us, as developers?
+So, what does this mean for us, the developers?
 
-- **We don't have to worry anymore about naming collisions and unexpected overrides**, because the tooling takes care if this.
-- We can focus on each individual component and **use class names relevant to a particular component** only. For example, different `.title` classes, defined in 2 different components, will not collide with each other.
+- **We don't have to worry about naming collisions and unexpected overrides** because the tooling takes care of this.
+- We can **use class names relevant to a particular component** only. For example, different `.title` classes, defined in 2 separate components, will not collide with each other.
 
 <br />
 
 <Subheading>Explicit style dependencies</Subheading>
 
-It's worth mentioning that with CSS Modules we must have a **separate `.css` file for each component**. This makes perfect sense, because a component should have all its concerns grouped together: HTML markup, JavaScript behavior, and CSS styling.
+It's worth mentioning that with CSS Modules we must have a **separate `.css` file for each component**, which makes perfect sense because a component should have all its concerns grouped together: HTML markup, JavaScript behavior, and CSS styling.
 
 <p>
-  As we've seen in the above example, with CSS Modules we have to explicitly{" "}
-  <code>import</code> the stylesheet used by a particular component file. This
-  means that the styles are not{" "}
+  As seen in the above example, we have to explicitly <code>import</code> the stylesheet used by a particular component file when using CSS Modules. Therefore, styles are not{" "}
+
   <LinkTo part={1} hash="implicit-dependencies">
     implicit dependencies
   </LinkTo>{" "}
@@ -133,21 +136,21 @@ It's worth mentioning that with CSS Modules we must have a **separate `.css` fil
 
 ## Frameworks
 
-Style encapsulation became an industry standard pretty fast. It made sense. It was simple. It had no compromises. It was so clean, that most current frameworks implement or recommend styles encapsulation.
+Style encapsulation became an industry-standard pretty fast. It made sense. It was simple. It had no compromises. As a consequence, most current frameworks implement or recommend some form of style encapsulation.
 
 - **React** doesn't provide a built-in mechanism for styles encapsulation, but Create React App has [built-in support for CSS Modules](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/).
 
 - **Vue.js** uses the abandoned `scoped` attribute to generate [encapsulated CSS](https://vue-loader.vuejs.org/guide/scoped-css.html) output.
 
-- **Angular** has two methods to handle [view encapsulation](https://angular.io/guide/view-encapsulation): the default setting is `Emulated` which works similar to Vue, but the `ShadowDom` setting is also available, which uses an actual shadow DOM for styles scoping.
+- **Angular** has two methods to handle [view encapsulation](https://angular.io/guide/view-encapsulation). The default setting is `Emulated`, which works similarly to Vue under the hood. An alternative option is `ShadowDom`, which uses an actual shadow DOM for style scoping.
 
-- **Svelte** also implements its own mechanism to [styles scoping](https://svelte.dev/docs#style).
+- **Svelte** implements its own [style scoping](https://svelte.dev/docs#style) mechanism.
 
 ---
 
-Scoped CSS and styles encapsulation completely changed the way we author CSS, fixing all the problems related to specificity, naming collisions, and the dauting task of figuring out unique names for our Semantic CSS classes. And most importantly, it was done without introducing any compromises. It was **the end of global CSS**.
+Scoped CSS and styles encapsulation completely changed the way we author CSS. It fixes all the specificity-related problems, naming collisions, and the daunting task of figuring out unique names for the Semantic CSS classes. But most importantly, it has done it without introducing any compromises. It was **the end of global CSS**.
 
-Another approach to encapsulate styling that I haven't mentioned here is **CSS-in-JS**. The reason I skipped it is because the topic of writting CSS in JavaScript deserves its own part within this series which we'll cover next in <LinkTo part={CURRENT_PART + 1} />.
+Another approach to encapsulate styling that I haven't mentioned here is **CSS-in-JS**. I skipped it because the topic of writting CSS in JavaScript deserves its own part within this series which we'll cover next in <LinkTo part={CURRENT_PART + 1} />.
 
 <br />
 
