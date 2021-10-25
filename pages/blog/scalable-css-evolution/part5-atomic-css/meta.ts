@@ -12,7 +12,8 @@ export const meta: Metadata = {
     "utility-first",
     "functional css",
   ],
-  intro: "We came a long way...",
-  visibility: "draft",
+  intro:
+    "Atomic CSS contradicts and breaks all the principles of Semantic CSS. However, this mindset shift gave birth to a whole new set of frameworks, based solely on single-purpose utility classes.",
+  visibility: "private",
   // cover: "/images/share/tech-debt-tech-loan.png",
 };

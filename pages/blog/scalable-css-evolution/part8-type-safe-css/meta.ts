@@ -12,7 +12,8 @@ export const meta: Metadata = {
     "type checking",
     "type safety",
   ],
-  intro: "We came a long way...",
-  visibility: "draft",
+  intro:
+    "Adding TypeScript on top of CSS-in-JS enables safe refactorings and typed interfaces when authoring UI components. Therefore, CSS-in-TypeScript provides the missing puzzle piece when aiming for a complete type-safe code base.",
+  visibility: "private",
   // cover: "/images/share/tech-debt-tech-loan.png",
 };

@@ -16,7 +16,8 @@ export const meta: Metadata = {
     "semantics",
     "components",
   ],
-  intro: "We came a long way...",
-  visibility: "draft",
+  intro:
+    "Most CSS methodologies and architectures are built on top of many good practices that we've previously covered, providing a structured and cohesive set of principles and rules. In this chapter we'll focus on Semantic CSS, encouraged by the HTML5 specification, which most CSS methodologies and frameworks embrace.",
+  visibility: "private",
   // cover: "/images/share/tech-debt-tech-loan.png",
 };

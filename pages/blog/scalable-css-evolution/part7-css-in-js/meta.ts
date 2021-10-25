@@ -6,7 +6,8 @@ export const meta: Metadata = {
   date: "2021-12-28",
   tags: ["css", "javascript"],
   tags_extra: ["scalability", "maintainability", "styling"],
-  intro: "We came a long way...",
-  visibility: "draft",
+  intro:
+    "Moving style definitions to JavaScript files is a novel approach to CSS, resulting in countless benefits, such as explicit dependencies, shared variables, not to mention all the features of styles encapsulation, CSS preprocessors, Atomic CSS, and so much more.",
+  visibility: "private",
   // cover: "/images/share/tech-debt-tech-loan.png",
 };

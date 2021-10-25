@@ -46,9 +46,9 @@ export function TOC(props: Props) {
     <div>
       <Text as="p">
         <strong>The evolution of scalable CSS</strong> is a multi-part chronicle
-        intended to track the progress of tools and practices that enable us to
-        write <em>maintainable CSS at scale</em>. The series is broken down into
-        multiple parts:
+        intended to document the progress of tools and practices that enable us
+        to write <em>maintainable CSS at scale</em>. The series is broken down
+        into multiple parts:
       </Text>
 
       <ol className={styles.list}>

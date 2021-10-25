@@ -12,7 +12,8 @@ export const meta: Metadata = {
     "css modules",
     "scoped css",
   ],
-  intro: "We came a long way...",
-  visibility: "draft",
+  intro:
+    "CSS Modules and styles encapsulation in general elegantly solve all the CSS naming collisions problems, while keeping specificity low at the same time. These techniques profoundly changed the way we author semantic CSS nowadays and became an industry standard, adopted by all component-based JavaScript frameworks.",
+  visibility: "private",
   // cover: "/images/share/tech-debt-tech-loan.png",
 };

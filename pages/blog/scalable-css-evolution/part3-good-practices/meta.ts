@@ -6,7 +6,8 @@ export const meta: Metadata = {
   date: "2021-12-28",
   tags: ["css"],
   tags_extra: ["scalability", "maintainability", "styling", "specificity"],
-  intro: "We came a long way...",
-  visibility: "draft",
+  intro:
+    "Avoiding naming collisions and specificity wars is not a trivial task. Therefore, let's explore some essential techniques, introduced by various thought leaders, which are crucial for writting maintainable CSS.",
+  visibility: "private",
   // cover: "/images/share/tech-debt-tech-loan.png",
 };
