@@ -3,7 +3,11 @@ import { Subheading } from "../../../../components/blog/subheading";
 import { SideBySide, Side } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
+import { Figure } from "../../../../components/blog/figure";
 import { TOC, LinkTo } from "../toc";
+
+import Image from "next/image";
+import img from './type-safe-css.png'
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -18,6 +22,15 @@ Before using TypeScript a few years ago, I never really thought about the limita
 To be honest, if I haven't started using TypeScript, I would probably still think that _CSS Modules paired with SCSS is all we need, because we can't do any better_. But I couldn't have been more wrong.
 
 In this part, we will see how CSS-in-JS paired with TypeScript solves the missing piece of the puzzle in regard to UI development: **type safety for components' styles**.
+
+<Figure background={"#fff"} width="grid">
+  <Image
+    src={img}
+    width="1920"
+    height="885"
+    alt="Timeline of scalable CSS evolution, highlighting Type-safe CSS debut"
+  />
+</Figure>
 
 ## Typed design tokens
 

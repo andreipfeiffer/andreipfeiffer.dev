@@ -3,7 +3,11 @@ import { Subheading } from "../../../../components/blog/subheading";
 import { SideBySide, Side } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
+import { Figure } from "../../../../components/blog/figure";
 import { TOC, LinkTo } from "../toc";
+
+import Image from "next/image";
+import img from './css-in-js.png'
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -21,6 +25,15 @@ It's worth mentioning that encapsulation was also one of the core goals of CSS-i
 - How to easily [**share variables**](#shared-variables);
 - How to [**navigate through code**](#code-navigation) effortlessly;
 - And lastly, some common [**CSS-in-JS myths**](#css-in-js-myths).
+
+<Figure background={"#fff"} width="grid">
+  <Image
+    src={img}
+    width="1920"
+    height="885"
+    alt="Timeline of scalable CSS evolution, highlighting major CSS-in-JS milestones"
+  />
+</Figure>
 
 ## The purpose of CSS-in-JS
 

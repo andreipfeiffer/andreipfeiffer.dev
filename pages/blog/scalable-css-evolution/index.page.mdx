@@ -3,7 +3,11 @@ import { Subheading } from "../../../components/blog/subheading";
 import { SideBySide } from "../../../components/blog/sidebyside";
 import { Status } from "../../../components/blog/status";
 import { Note } from "../../../components/blog/note";
+import { Figure } from "../../../components/blog/figure";
 import { LinkTo } from "./toc";
+
+import Image from "next/image";
+import img from './scalable-css-evolution.png'
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -27,6 +31,15 @@ You can view this series as a **chronicle**, describing how these tools have evo
 ## Overview
 
 Similar to natural selection, the evolution of scalable CSS didn't take a linear path. Instead, developers had to try many different approaches to figure out which ones would withstand the test of time. In addition, each project has its own challenges and each team has its own preferences, resulting in a wide range of solutions, even when addressing the same problem. We'll analyze all the solutions in the following articles, so here's a quick overview of what we'll cover.
+
+<Figure background={"#fff"} width="grid">
+  <Image
+    src={img}
+    width="1920"
+    height="1080"
+    alt="Timeline of scalable CSS evolution, depincting Atomic CSS and CSS-in-JS branch off from Semantic CSS"
+  />
+</Figure>
 
 <br />
 

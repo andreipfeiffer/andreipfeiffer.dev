@@ -3,7 +3,11 @@ import { Subheading } from "../../../../components/blog/subheading";
 import { SideBySide, Side } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
+import { Figure } from "../../../../components/blog/figure";
 import { TOC, LinkTo } from "../toc";
+
+import Image from "next/image";
+import img from './css-encapsulation.png'
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -16,6 +20,15 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 In <LinkTo part={4} />, we've covered various CSS methodologies, including OOCSS, BEM, SMACCS, and ITCSS. They all adopted the Semantic CSS approach, which solves many maintainability problems, but only to some extent.
 
 In this article we'll turn our attention to **styles encapsulation** and **CSS Modules**, which elegantly solve any naming collisions within the global CSS namespace while keeping specificity low at the same time. These techniques profoundly changed the way we author semantic CSS nowadays.
+
+<Figure background={"#fff"} width="grid">
+  <Image
+    src={img}
+    width="1920"
+    height="1034"
+    alt="Timeline of scalable CSS evolution, highlighting Style Encapsulation techniques"
+  />
+</Figure>
 
 ## Scoped CSS
 

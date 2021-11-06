@@ -3,7 +3,11 @@ import { Subheading } from "../../../../components/blog/subheading";
 import { SideBySide } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
+import { Figure } from "../../../../components/blog/figure";
 import { TOC, LinkTo } from "../toc";
+
+import Image from "next/image";
+import img from './css-processors.png'
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -36,6 +40,15 @@ In this part, we'll cover two types of CSS processors, each of them serving diff
   </a>
   .
 </Note>
+
+<Figure background={"#fff"} width="grid">
+  <Image
+    src={img}
+    width="1920"
+    height="995"
+    alt="Timeline of scalable CSS evolution, highlighting CSS processors"
+  />
+</Figure>
 
 ## CSS preprocessing
 

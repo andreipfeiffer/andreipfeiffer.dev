@@ -3,7 +3,11 @@ import { Note } from "../../../../components/blog/note";
 import { SideBySide } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Subheading } from "../../../../components/blog/subheading";
+import { Figure } from "../../../../components/blog/figure";
 import { TOC, LinkTo } from "../toc";
+
+import Image from "next/image";
+import img from './css-methodologies.png'
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -22,6 +26,15 @@ In this article, we'll take a look at various **methodologies** and **architectu
   resources available. Instead, we will focus on the fundamental contributions
   of each approach regarding the evolution of scalable CSS.
 </Note>
+
+<Figure background={"#fff"} width="grid">
+  <Image
+    src={img}
+    width="1920"
+    height="1036"
+    alt="Timeline of scalable CSS evolution, highlighting popular CSS Methodologies and Architectures"
+  />
+</Figure>
 
 ## The birth of components
 
