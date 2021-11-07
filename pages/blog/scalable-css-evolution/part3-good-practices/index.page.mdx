@@ -3,7 +3,11 @@ import { Subheading } from "../../../../components/blog/subheading";
 import { SideBySide } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
+import { Figure } from "../../../../components/blog/figure";
 import { TOC, LinkTo } from "../toc";
+
+import Image from "next/image";
+import img from './css-good-practices.png'
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -38,6 +42,15 @@ During this part, we'll continue our journey to overcome the problems with CSS m
     </li>
   </ul>
 </Note>
+
+<Figure background={"#fff"} width="grid">
+  <Image
+    src={img}
+    width="1920"
+    height="845"
+    alt="Timeline of scalable CSS evolution, pinpoiting the emergence of CSS good practices in 2005"
+  />
+</Figure>
 
 ## Keep specificity low
 
