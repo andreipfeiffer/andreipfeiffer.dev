@@ -258,7 +258,7 @@ Any non-deterministic behavior is potentially a critical problem when thinking a
 
 The last time I checked, [foreseeing](<https://en.wikipedia.org/wiki/Foresight_(psychology)>) future needs is very debatable. In addition, my own past experiences strongly support that we are generally bad when making predictions.
 
-It happened to me so many times to think that _"we'll never have more than one Contact Form"_. But one week later, we needed to add a _Subscribe Form_, which had the same look as the _Contact Form_.
+It happened to me so many times to think that _"we'll never have more than one Contact Form"_, only to find out one week later that we needed to add a _Subscribe Form_, which looked mostly as the existing _Contact Form_.
 
 <!-- prettier-ignore-start -->
 ```css
@@ -313,7 +313,8 @@ Let's consider the following scenario:
 
 - we have a `.card` element that contains a title placed inside an `h2`;
 - we apply the styles using the `.card h2` selector;
-- for some reason, somebody needs to replace the `h2` with an `h3`, which is a trivial change and it shouldn't break anything;
+- for some reason, somebody needs to replace the `h2` with an `h3`, which is a trivial change and we shouldn't be concerned of breaking anything;
+- without knowing that there are styles applied to the `h2` element that we need to update as well, there's a high chance of introducing regressions;
 - debugging such a problem could be cumbersome because the styles are applied implicitly, not explicitly.
 
 <br />
@@ -467,8 +468,8 @@ Imagine the irony: even such an important good practice, to avoid using `!import
 
 Once we learn and understand all these practices, it should be fairly easy to apply them, right? Unfortunately, it's not a trivial task at all.
 
-- There is **no official comprehensive guide** on how to write maintainable CSS. I've only covered a few of the essential practices, but there are so many more to consider.
-- Some of the **good practices don't apply equally** to every project, with every team. Also, developers tend to be very opinionated, so we rarely reach a consensus regarding a specific set of rules.
+- There is **no official comprehensive guide** on how to write maintainable CSS. I've only covered a few of the essential practices, but there are [so many more](http://khaidoan.wikidot.com/css-best-practices) to consider.
+- Some of the **practices don't apply equally** to every project, with every team. Also, developers tend to be very opinionated, so we rarely reach a consensus regarding a specific set of rules.
 - Being so many practices and most of them quite debatable, they are **cumbersome to learn and teach**.
 - As we've seen, there are plenty of **exceptions** that apply to every practice. It's often quite challenging to draw a line when it is acceptable to break the rule.
 - Most of the important good practices are **impossible to enforce**. The only weapon is constant code review, trainings, and mentoring.
@@ -478,3 +479,11 @@ Once we learn and understand all these practices, it should be fairly easy to ap
 <br />
 
 In the upcoming chapter, <LinkTo part={CURRENT_PART + 1} />, we'll explore various **methodologies** and **architectures**, built on top of many of the good practices that we've covered here, which provide a structured and cohesive set of principles and rules.
+
+<br />
+
+**References**:
+
+- [CSS tips and tricks](https://www.456bereastreet.com/archive/200503/css_tips_and_tricks_part_1/) by 456 Berea Street
+- [Our (CSS) best practices are killing us](http://www.stubbornella.org/content/2011/04/28/our-best-practices-are-killing-us/) by Nicole Sullivan
+- [Code smells in CSS](https://csswizardry.com/2012/11/code-smells-in-css/) by Harry Roberts
