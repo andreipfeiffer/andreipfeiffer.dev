@@ -5,6 +5,7 @@ import { Text } from "../../../components/text";
 
 import { Metadata } from "../../../lib/blog";
 
+import { meta as part0 } from "./meta";
 import { meta as part1 } from "./part1-scalability-issues/meta";
 import { meta as part2 } from "./part2-css-processors/meta";
 import { meta as part3 } from "./part3-good-practices/meta";
@@ -16,7 +17,7 @@ import { meta as part8 } from "./part8-type-safe-css/meta";
 
 import styles from "./toc.module.scss";
 
-type PartNr = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+type PartNr = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 const LAST_PART: PartNr = 8;
 
@@ -27,6 +28,7 @@ type Part = Metadata & {
 };
 
 const SERIES: Array<Part> = [
+  { ...part0, path: "", subtitle: "Introduction" },
   { ...part1, path: "part1-scalability-issues" },
   { ...part2, path: "part2-css-processors" },
   { ...part3, path: "part3-good-practices" },
@@ -46,20 +48,19 @@ export function TOC(props: Props) {
     <div>
       <Text as="p">
         <strong>The evolution of scalable CSS</strong> is a multi-part chronicle
-        intended to document the progress of tools and practices that enable us
-        to write <em>maintainable CSS at scale</em>. The series is broken down
-        into multiple parts:
+        intended to document the progress of tools, practices and techniques
+        that enable us to write <em>maintainable CSS at scale</em>.
       </Text>
 
       <ol className={styles.list}>
-        <li>
+        {/* <li>
           <Link href={SERIES_BASE_URL}>
             <a>Overview</a>
           </Link>
-        </li>
+        </li> */}
 
         {SERIES.map((part, index) => {
-          return <li key={index}>{renderText(part, index + 1)}</li>;
+          return <li key={index}>{renderText(part, index)}</li>;
         })}
       </ol>
 
@@ -105,7 +106,7 @@ export function LinkTo({ part, hash, children }: LinkToProps) {
 }
 
 function getPart(part: PartNr): Part {
-  return SERIES[part - 1];
+  return SERIES[part];
 }
 
 function getPath(part: PartNr, hash?: string): string {

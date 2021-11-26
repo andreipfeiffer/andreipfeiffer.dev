@@ -2,13 +2,16 @@
 
 .list {
   list-style-type: disc;
-  font-size: 0.9em;
+  font-size: 0.8em;
 
   @include breakpoint(md) {
-    // font-size: 2em;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, auto);
   }
 
   li {
-    margin: 0.5em 0 !important;
+    margin: 0.3em 0 !important;
   }
 }
