@@ -1,9 +1,6 @@
 import classNames from "classnames";
-import Head from "next/head";
 import React from "react";
 import useDarkMode from "use-dark-mode";
-
-import { MetaTags } from "../meta_tags";
 
 import { Footer } from "./footer";
 import { MainLink } from "./main_link";
