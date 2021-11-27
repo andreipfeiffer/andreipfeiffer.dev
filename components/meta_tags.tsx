@@ -94,6 +94,7 @@ export function MetaTags({ children, ...props }: Partial<MetaTags>) {
       <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="theme-color" content="#ffffff" />
+      <meta name="color-scheme" content="light dark" />
 
       <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap"

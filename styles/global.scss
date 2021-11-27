@@ -158,10 +158,12 @@ code {
 .light-mode {
   --color: var(--dark);
   --background: var(--light);
+  color-scheme: light;
 }
 .dark-mode {
   --color: var(--light);
   --background: var(--dark);
+  color-scheme: dark;
 }
 
 .light-mode,
