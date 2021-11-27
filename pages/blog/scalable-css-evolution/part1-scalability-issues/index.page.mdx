@@ -381,9 +381,9 @@ Again, there are technical solutions for exporting JS/JSON structures to [SASS v
   Limitations
 </Subheading>
 
-As you probably saw in the examples or conclude from personal experience, none of the solutions is straightforward. They look more like workarounds instead of solid and elegant approaches. In addition:
+As you probably saw in the examples or conclude from personal experience, none of the solutions is straightforward. They look more like workarounds instead of solid and elegant solutions. In addition:
 
-- Even though there is a single source of truth, we have to **maintain two sets of values**: the (S)CSS values and the JS values.
+- Even though there is a single source of truth, we still have to **maintain two sets of definitions**: in (S)CSS and JS. Changing any variable name or value in one language requires a manual update of the other as well.
 - **Automatic refactorings are not available** for CSS values, so they require manual effort, which, as we know, is never fun to perform.
 - **Code editors cannot display suggestions** for defined (S)CSS (Modules) variables, making them difficult to discover especially to developers unfamiliar with the code. Some plugins attempt to support this limitation, but they are pretty flawed.
 - Explicit and manual conversions require a lot of **boilerplate**. Automatic conversions create **implicit dependencies**, which have their own drawbacks, as we saw earlier.

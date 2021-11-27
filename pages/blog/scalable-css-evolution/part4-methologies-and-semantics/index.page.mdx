@@ -50,8 +50,11 @@ The term **component** was not popularized at that time, but the resemblance is 
 
 There are two essential things to take away from OOCSS that are still applicable in today's applications:
 
-1. **Separate container from content**, or in other words, the objects (or components) should provide only the abstract container, while the consumers of the objects should provide their own specific content. This way, we gain **high reusability**. In today's terms, we usually refer to _"content"_ as `Props`, `Input`, or in a general way, _"data passed to the component"_.
-2. **Separate structure from skin**, or in other words being able to apply different skins to the same structure. This way, we gain **high extensibility and customization**. Nowadays, we usually refer to _"skins"_ as `variants` or `themes`.
+1. **Separate container from content**, or in other words, the objects (or components) should provide only the abstract container, while the consumers of the objects should provide their own specific content. In today's terms, the _"content"_ refers to `children` in React or `<slot>` in Vue or Web Components. This way, we gain **high reusability** because each consumer of the _container_ can pass its custom _content_.
+
+2. **Separate structure from skin**, or in other words being able to apply different skins to the same structure. Nowadays, we usually refer to _"skins"_ as component `variants` or `themes`. This way, we gain **high extensibility and customization** because different _styles_ can be applied to the same _structure_.
+
+<br />
 
 However, OOCSS focused more on the principles of what a component is and how to implement it. Therefore, it doesn't provide enough details regarding the technicalities of writing the required CSS code.
 
