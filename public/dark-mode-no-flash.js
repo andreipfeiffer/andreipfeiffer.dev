@@ -8,15 +8,20 @@
 
   function setClassOnDocumentBody(darkMode) {
     // use this so we can target from CSS modules
-    document.body.setAttribute("data-darkmode", darkMode);
-    document.body.classList.add(darkMode ? classNameDark : classNameLight);
-    document.body.classList.remove(darkMode ? classNameLight : classNameDark);
+    document.documentElement.setAttribute("data-darkmode", darkMode);
+    document.documentElement.classList.add(
+      darkMode ? classNameDark : classNameLight
+    );
+    document.documentElement.classList.remove(
+      darkMode ? classNameLight : classNameDark
+    );
   }
 
   var preferDarkQuery = "(prefers-color-scheme: dark)";
   var mql = window.matchMedia(preferDarkQuery);
   var supportsColorSchemeQuery = mql.media === preferDarkQuery;
   var localStorageTheme = null;
+
   try {
     localStorageTheme = localStorage.getItem(storageKey);
   } catch (err) {}
@@ -35,7 +40,7 @@
     localStorage.setItem(storageKey, mql.matches);
   } else {
     // source of truth from document.body
-    var isDarkMode = document.body.classList.contains(classNameDark);
+    var isDarkMode = document.documentElement.classList.contains(classNameDark);
     localStorage.setItem(storageKey, JSON.stringify(isDarkMode));
   }
 })();

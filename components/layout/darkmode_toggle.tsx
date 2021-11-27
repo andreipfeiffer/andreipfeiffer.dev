@@ -1,10 +1,11 @@
 import React from "react";
-import useDarkMode from "use-dark-mode";
+
+import { useCustomDarkMode } from "../useCustomDarkMode";
 
 import styles from "./darkmode_toggle.module.scss";
 
 export function DarkModeToggle() {
-  const darkMode = useDarkMode();
+  const darkMode = useCustomDarkMode();
 
   return (
     <div className={styles.toggle}>

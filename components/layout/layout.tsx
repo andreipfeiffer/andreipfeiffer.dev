@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React from "react";
-import useDarkMode from "use-dark-mode";
+
+import { useCustomDarkMode } from "../useCustomDarkMode";
 
 import { Footer } from "./footer";
 import { MainLink } from "./main_link";
@@ -15,10 +16,8 @@ type Props = {
 
 export function Layout(props: Props) {
   const { children, className } = props;
-  const darkMode = useDarkMode(false, {
-    onChange: (value) =>
-      document.body.setAttribute("data-darkmode", String(value)),
-  });
+
+  const darkMode = useCustomDarkMode();
 
   const [logo, setLogo] = React.useState<"black" | "white">("black");
 

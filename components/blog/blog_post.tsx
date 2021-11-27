@@ -1,9 +1,7 @@
-import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import readingTime from "reading-time";
-import useDarkMode from "use-dark-mode";
 
 import { Metadata, Tag as TagType, TAGS } from "../../lib/blog";
 import { Arrow } from "../arrow";
@@ -16,6 +14,7 @@ import { useBreakpoint } from "../layout/useBreakpoint";
 import { MetaTags } from "../meta_tags";
 import { Spacer } from "../spacer";
 import { Text } from "../text";
+import { useCustomDarkMode } from "../useCustomDarkMode";
 
 import { Fullpage } from "./fullpage";
 import { Tag } from "./tag";
@@ -39,7 +38,8 @@ export function BlogPost(props: Props) {
   const readTime = readingTime(getReactNodeText(children));
   const readTimePercent = (Math.ceil(readTime.minutes) * 100) / MAX_READ_TIME;
 
-  const darkMode = useDarkMode(false);
+  const darkMode = useCustomDarkMode();
+
   const theme = darkMode.value ? "dark" : "light";
 
   const [email, setEmail] = React.useState("");
