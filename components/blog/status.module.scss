@@ -29,6 +29,7 @@
     transform: translate(9px, 9px) rotate(-45deg);
   }
 }
+
 .status_err {
   background-color: #ff3636;
 
@@ -48,5 +49,20 @@
   &::after {
     width: 10px;
     transform: translate(7px, 9px) rotate(-45deg);
+  }
+}
+
+.status_unsure {
+  background-color: #d89e31;
+
+  &::before {
+    content: "";
+    display: block;
+    top: 0;
+    left: 0;
+    background-color: white;
+    height: 2px;
+    width: 10px;
+    transform: translate(7px, 11px);
   }
 }

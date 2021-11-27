@@ -202,6 +202,10 @@ export default function BlogPostPreview() {
           <Img body="Status err" />
         </Figure>
 
+        <Figure caption="Caption with UNSURE status" status="unsure">
+          <Img body="Status unsure" />
+        </Figure>
+
         <Flex type="stack" gap="8">
           {Object.keys(TAGS).map((tag) => (
             <Tag key={tag} tag={tag as TagType} type="sm" />
