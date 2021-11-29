@@ -11,7 +11,7 @@ import img from './atomic-css.png'
 
 import { meta } from "./meta";
 export { meta } from "./meta";
-const CURRENT_PART = 5;
+const CURRENT_PART = 6;
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
@@ -122,7 +122,7 @@ In 2017 [**Tailwind CSS**](https://tailwindcss.com/) was released, gaining a lot
 
 ## Criticism
 
-Atomic CSS is a pretty dogmatic approach. Therefore it's obvious to get a lot of critiques. However, there are several recurring limitations and drawbacks that should be mentioned:
+Atomic CSS is a pretty dogmatic approach. Therefore it's obvious to get a lot of [critiques](https://medium.com/simple-human/the-problem-with-atomic-css-d0c09c7aa38e), although some of them are highly opinionanted or not 100% accurate. However, there are several recurring limitations and drawbacks that should be mentioned:
 
 1. **Certain pseudo-elements cannot be implemented** using Atomic CSS principles, like `::before` and `::after`, since classes must be explicitly applied to existing elements.
 2. **Descendant and child combinators are not supported.** It's true that in large applications it's generally discouraged using such selectors, but they might be required in certain scenarios.

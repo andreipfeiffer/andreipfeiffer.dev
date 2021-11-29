@@ -7,11 +7,11 @@ import { Metadata } from "../../../lib/blog";
 
 import { meta as part0 } from "./meta";
 import { meta as part1 } from "./part1-scalability-issues/meta";
-import { meta as part2 } from "./part2-css-processors/meta";
-import { meta as part3 } from "./part3-good-practices/meta";
+import { meta as part2 } from "./part2-good-practices/meta";
+import { meta as part3 } from "./part3-css-processors/meta";
 import { meta as part4 } from "./part4-methologies-and-semantics/meta";
-import { meta as part5 } from "./part5-atomic-css/meta";
-import { meta as part6 } from "./part6-styles-encapsulation/meta";
+import { meta as part5 } from "./part5-styles-encapsulation/meta";
+import { meta as part6 } from "./part6-atomic-css/meta";
 import { meta as part7 } from "./part7-css-in-js/meta";
 import { meta as part8 } from "./part8-type-safe-css/meta";
 import { meta as part9 } from "./part9-epilogue/meta";
@@ -32,11 +32,11 @@ type Part = Metadata & {
 const SERIES = [
   { ...part0, id: 0, path: "", subtitle: "Introduction and overview" },
   { ...part1, id: 1, path: "part1-scalability-issues" },
-  { ...part2, id: 2, path: "part2-css-processors" },
-  { ...part3, id: 3, path: "part3-good-practices" },
+  { ...part2, id: 2, path: "part2-good-practices" },
+  { ...part3, id: 3, path: "part3-css-processors" },
   { ...part4, id: 4, path: "part4-methologies-and-semantics" },
-  { ...part5, id: 5, path: "part5-atomic-css" },
-  { ...part6, id: 6, path: "part6-styles-encapsulation" },
+  { ...part5, id: 5, path: "part5-styles-encapsulation" },
+  { ...part6, id: 6, path: "part6-atomic-css" },
   { ...part7, id: 7, path: "part7-css-in-js" },
   { ...part8, id: 8, path: "part8-type-safe-css" },
   { ...part9, id: 9, path: "part9-epilogue" },
