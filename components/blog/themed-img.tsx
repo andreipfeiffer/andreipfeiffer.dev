@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 import { useCustomDarkMode } from "../useCustomDarkMode";
 
@@ -13,11 +13,15 @@ type Props = {
   alt: string;
 };
 
+// avoid development warning: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
+const useBrowserLayoutEffect =
+  typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
+
 export function ThemedImg({ dark, light, ...props }: Props) {
   const darkMode = useCustomDarkMode();
   const ref = useRef<HTMLElement>(null);
 
-  useLayoutEffect(() => {
+  useBrowserLayoutEffect(() => {
     // hiding the image when dark mode is toggled
     // because it creates an annoying background flicker
     // as the CSS background color transitions, but the img does not
