@@ -84,6 +84,16 @@
 
   margin: 0 var(--content-spacing);
 
+  [data-darkmode="true"] & {
+    color: #dddddd;
+
+    strong:not(a strong),
+    em:not(a em),
+    code:not(a code) {
+      color: var(--light);
+    }
+  }
+
   @include breakpoint(sm) {
     --content-spacing: 40px;
   }
