@@ -14,33 +14,36 @@ import { meta as part5 } from "./part5-atomic-css/meta";
 import { meta as part6 } from "./part6-styles-encapsulation/meta";
 import { meta as part7 } from "./part7-css-in-js/meta";
 import { meta as part8 } from "./part8-type-safe-css/meta";
+import { meta as part9 } from "./part9-epilogue/meta";
 
 import styles from "./toc.module.scss";
 
-type PartNr = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+type PartId = typeof SERIES[number]["id"];
 
-const LAST_PART: PartNr = 8;
+const LAST_PUBLISHED_PART: PartId = 9;
 
 const SERIES_BASE_URL = "/blog/scalable-css-evolution";
 
 type Part = Metadata & {
+  id: number;
   path: string;
 };
 
-const SERIES: Array<Part> = [
-  { ...part0, path: "", subtitle: "Introduction" },
-  { ...part1, path: "part1-scalability-issues" },
-  { ...part2, path: "part2-css-processors" },
-  { ...part3, path: "part3-good-practices" },
-  { ...part4, path: "part4-methologies-and-semantics" },
-  { ...part5, path: "part5-atomic-css" },
-  { ...part6, path: "part6-styles-encapsulation" },
-  { ...part7, path: "part7-css-in-js" },
-  { ...part8, path: "part8-type-safe-css" },
-];
+const SERIES = [
+  { ...part0, id: 0, path: "", subtitle: "Introduction and overview" },
+  { ...part1, id: 1, path: "part1-scalability-issues" },
+  { ...part2, id: 2, path: "part2-css-processors" },
+  { ...part3, id: 3, path: "part3-good-practices" },
+  { ...part4, id: 4, path: "part4-methologies-and-semantics" },
+  { ...part5, id: 5, path: "part5-atomic-css" },
+  { ...part6, id: 6, path: "part6-styles-encapsulation" },
+  { ...part7, id: 7, path: "part7-css-in-js" },
+  { ...part8, id: 8, path: "part8-type-safe-css" },
+  { ...part9, id: 9, path: "part9-epilogue" },
+] as const;
 
 type Props = {
-  current: PartNr;
+  current: PartId;
 };
 
 export function TOC(props: Props) {
@@ -53,14 +56,8 @@ export function TOC(props: Props) {
       </Text>
 
       <ol className={styles.list}>
-        {/* <li>
-          <Link href={SERIES_BASE_URL}>
-            <a>Overview</a>
-          </Link>
-        </li> */}
-
-        {SERIES.map((part, index) => {
-          return <li key={index}>{renderText(part, index)}</li>;
+        {(SERIES as Readonly<Part[]>).map((part) => {
+          return <li key={part.id}>{renderText(part)}</li>;
         })}
       </ol>
 
@@ -68,29 +65,40 @@ export function TOC(props: Props) {
     </div>
   );
 
-  function renderText(part: Part, part_nr: number): ReactNode {
+  function renderText(part: Part): ReactNode {
     const isMatch = part.subtitle === getPart(props.current)?.subtitle;
 
     if (isMatch) {
       return <strong>{part.subtitle}</strong>;
     }
 
-    return <LinkTo part={part_nr as PartNr} />;
+    return <LinkTo part={part.id as PartId} scrollToTop={false} />;
   }
 }
 
 type LinkToProps = {
-  part: PartNr;
+  part: PartId;
   hash?: string;
   children?: string;
+  scrollToTop?: boolean;
 };
 
-export function LinkTo({ part, hash, children }: LinkToProps) {
-  const data = getPart(part);
-  const path = getPath(part, hash);
-  const text = children || data.subtitle;
+export function LinkTo({
+  part: id,
+  hash,
+  children,
+  scrollToTop = true,
+}: LinkToProps) {
+  const part = getPart(id);
 
-  if (part > LAST_PART) {
+  if (!part) {
+    return null;
+  }
+
+  const path = getPath(id, hash);
+  const text = children || part.subtitle;
+
+  if (id > LAST_PUBLISHED_PART) {
     return (
       <Text color="muted">
         {text} <i>(coming soon)</i>
@@ -99,18 +107,24 @@ export function LinkTo({ part, hash, children }: LinkToProps) {
   }
 
   return (
-    <Link href={path}>
+    <Link href={path} scroll={scrollToTop}>
       <a>{text}</a>
     </Link>
   );
 }
 
-function getPart(part: PartNr): Part {
-  return SERIES[part];
+function getPart(id: PartId): Part | undefined {
+  return SERIES.find((p) => p.id === id);
 }
 
-function getPath(part: PartNr, hash?: string): string {
-  let result = `${SERIES_BASE_URL}/${getPart(part).path}`;
+function getPath(id: PartId, hash?: string): string {
+  const part = getPart(id);
+
+  if (!part) {
+    return "";
+  }
+
+  let result = `${SERIES_BASE_URL}/${part.path}`;
 
   if (hash) {
     result += `#${hash}`;
