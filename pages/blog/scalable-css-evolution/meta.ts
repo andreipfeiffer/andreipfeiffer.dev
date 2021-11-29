@@ -1,6 +1,6 @@
 import { Metadata } from "../../../lib/blog";
 
-import cover from "./scalable-css-evolution.png";
+import cover from "./scalable-css-evolution-dark.png";
 
 export const meta: Metadata = {
   title: "The evolution of scalable CSS",
