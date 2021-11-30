@@ -26,17 +26,19 @@ export function ThemedImg({ dark, light, ...props }: Props) {
     // because it creates an annoying background flicker
     // as the CSS background color transitions, but the img does not
     ref.current?.classList.add(styles.hide);
-
-    setTimeout(() => {
-      // after the background transition end, we show the image
-      // which also includes a fade-in transition
-      ref.current?.classList.remove(styles.hide);
-    }, 200);
   }, [darkMode.value]);
 
   return (
     <picture ref={ref} className={styles.wrapper}>
-      <Image src={darkMode.value ? dark : light} {...props} />
+      <Image
+        src={darkMode.value ? dark : light}
+        onLoad={() => {
+          // after the image has loaded, display it
+          // which also includes a fade-in transition
+          ref.current?.classList.remove(styles.hide);
+        }}
+        {...props}
+      />
     </picture>
   );
 }
