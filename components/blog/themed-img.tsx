@@ -35,8 +35,10 @@ export function ThemedImg({ dark, light, ...props }: Props) {
         onLoad={() => {
           // after the image has loaded, display it
           // which also includes a fade-in transition
-          ref.current?.classList.remove(styles.hide);
+          setTimeout(() => ref.current?.classList.remove(styles.hide), 300);
         }}
+        layout={"responsive"}
+        unoptimized={true}
         {...props}
       />
     </picture>

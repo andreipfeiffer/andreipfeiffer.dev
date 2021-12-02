@@ -1,9 +1,11 @@
 .wrapper {
   opacity: 1;
-  transition: opacity 1s;
+  transition: opacity 0.5s;
+  visibility: visible;
 }
 
 .hide {
   opacity: 0;
+  visibility: hidden;
   transition: none;
 }
