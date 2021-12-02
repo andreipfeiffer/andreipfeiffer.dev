@@ -8,8 +8,8 @@ import { ThemedImg } from "../../../components/blog/themed-img";
 import { TOC, LinkTo } from "./toc";
 
 import Image from "next/image";
-import img_light from './scalable-css-evolution-light.png';
-import img_dark from './scalable-css-evolution-dark.png';
+import img_light from './scalable-css-evolution-light.gif';
+import img_dark from './scalable-css-evolution-dark.gif';
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -40,7 +40,7 @@ You can view this series of articles as a **chronicle**, describing how CSS tool
 This series will be appealing to you if:
 
 - You are **eager to discover** potential maintainability problems when working with CSS at scale, even if you haven't encountered them yet.
-- You have already experienced the problems with CSS, and you're **looking for solutions** to overcome them.
+- You have already experienced the struggles with CSS, and you're **looking for solutions** to overcome them.
 - You've **heard certain buzzwords** such as _specificity_, _semantics_, _scoping_, _encapsulation_, _Atomic CSS_, _CSS-in-JS_, _design tokens_, or _type-safety_, but you don't fully grasp their meaning.
 - You want to **understand the whole CSS ecosystem**, even if you master a few particular tools and techniques.
 - You're simply **curious to learn** how CSS tooling has evolved over time or why specific techniques exist today.
@@ -49,9 +49,10 @@ This series will be appealing to you if:
 
 However, the target audience that would benefit most from the content include:
 
-- **UI developers** or **Front-End developers** working either on client-facing or back-office interfaces;
-- **Full-Stack developers** that struggle with CSS;
-- Any developer working with CSS on **projects longer than 3 months** or within a **team with at least 3 developers** working with CSS.
+- **UI developers** or **Front-End developers** working either on client-facing interfaces or back-office applications;
+- **Back-End developers** getting their hands dirty with CSS, aka **Full-Stack developers** as they're colloquially known;
+- **Technical leads** or **CTOs** that have to make educated decisions in regards to their technological stack;
+- any developer working with CSS on **projects longer than 3 months** or within a **team with at least 3 developers** working with CSS.
 
 ## Overview
 
@@ -61,14 +62,14 @@ Similar to natural selection, the evolution of scalable CSS didn't take a linear
 
 <Figure
   width="grid"
-  caption="Timeline of scalable CSS evolution, depicting Atomic CSS and CSS-in-JS branch off from Semantic CSS"
+  caption="Timeline of scalable CSS evolution milestones and turning points"
 >
   <ThemedImg
     light={img_light.src}
     dark={img_dark.src}
     width={1920}
     height={878}
-    alt="Timeline of scalable CSS evolution, depicting Atomic CSS and CSS-in-JS branch off from Semantic CSS"
+    alt="Timeline of scalable CSS evolution, depicting important milestones such as good practices, CSS processors, CSS methodologies, styles encapsulation, but also turning points like Atomic CSS (in green) and CSS-in-JS (in yellow), branching from the main timeline of Semantic CSS (in blue)"
   />
 </Figure>
 
@@ -129,8 +130,8 @@ The more code we write, the faster the entropy will grow. Larger teams produce m
 
 To avoid the continuous rise of software entropy, we have to fight it constantly: **refactor** code, **clean** it up, **remove** dead code, **analyze** it, and **re-design** it. But we cannot fight this war with our bare hands. We need proper weapons and tactics, like tools and techniques.
 
-> This chronicle aims to dissect the **weapons** and **tactics** at our disposal in fighting against CSS code entropy.
+> This chronicle aims to dissect the **weapons** and **tactics** at our disposal in fighting against CSS entropy.
 
 ---
 
-Now that we have a general understanding of scalability concerns, we can move on to CSS-specific ones. Therefore, let our journey begin with <LinkTo part={1} /> because we cannot discuss the solutions unless we understand the problems they are trying to solve.
+Now that we have a general understanding of scalability concerns, we can move on to CSS-specific ones. Therefore, let our journey begin with **<LinkTo part={1} />** because we cannot discuss the solutions unless we understand the problems they are trying to solve.

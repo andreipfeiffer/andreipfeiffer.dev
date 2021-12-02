@@ -4,10 +4,12 @@ import { SideBySide } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Subheading } from "../../../../components/blog/subheading";
 import { Figure } from "../../../../components/blog/figure";
+import { ThemedImg } from "../../../../components/blog/themed-img";
 import { TOC, LinkTo } from "../toc";
 
 import Image from "next/image";
-import img from './css-methodologies.png'
+import img_light from './methodologies-semantics-light.gif';
+import img_dark from './methodologies-semantics-dark.gif';
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -38,12 +40,18 @@ Here's a summary of this chapter:
   of each approach regarding the evolution of scalable CSS.
 </Note>
 
-<Figure background={"#fff"} width="grid">
-  <Image
-    src={img}
-    width="1920"
-    height="1033"
-    alt="Timeline of scalable CSS evolution, highlighting popular CSS Methodologies and Architectures"
+<Figure
+  width="grid"
+  caption={
+    "Timeline of the most notable CSS Methodologies and Architectures, which played an essential role in the evolution of scalable CSS"
+  }
+>
+  <ThemedImg
+    light={img_light.src}
+    dark={img_dark.src}
+    width={1920}
+    height={818}
+    alt="Timeline of scalable CSS evolution, highlighting the main timeline or Semantic CSS (in blue) and pinpoiting the most notable CSS methodologies and architectures: OOCSS in 2008, BEM in 2010, SMACSS in 2011 and ITCSS in 2014"
   />
 </Figure>
 

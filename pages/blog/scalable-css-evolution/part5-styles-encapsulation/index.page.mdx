@@ -4,10 +4,12 @@ import { SideBySide, Side } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
 import { Figure } from "../../../../components/blog/figure";
+import { ThemedImg } from "../../../../components/blog/themed-img";
 import { TOC, LinkTo } from "../toc";
 
 import Image from "next/image";
-import img from './css-encapsulation.png'
+import img_light from './styles-encapsulation-light.gif';
+import img_dark from './styles-encapsulation-dark.gif';
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -17,16 +19,22 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-In <LinkTo part={4} />, we've covered various CSS methodologies, including OOCSS, BEM, SMACCS, and ITCSS. They all adopted the Semantic CSS approach, which solves many maintainability problems, but only to some extent.
+In <LinkTo part={4} />, we've covered various CSS methodologies, including OOCSS, BEM, SMACSS, and ITCSS. They all adopted the Semantic CSS approach, which solves many maintainability problems, but only to some extent.
 
-In this article we'll turn our attention to **styles encapsulation** and **CSS Modules**, which elegantly solve any naming collisions within the global CSS namespace while keeping specificity low at the same time. These techniques profoundly changed the way we author semantic CSS nowadays.
+In this article we'll continue the Semnatic CSS pathway, by turning our attention to **styles encapsulation** and **CSS Modules**, which elegantly solve any _naming collisions_ while keeping a _low specificity_ at the same time. These techniques profoundly changed the way we author semantic CSS nowadays, becoming an industry standard.
 
-<Figure background={"#fff"} width="grid">
-  <Image
-    src={img}
-    width="1920"
-    height="1035"
-    alt="Timeline of scalable CSS evolution, highlighting Style Encapsulation techniques"
+<Figure
+  width="grid"
+  caption={
+    "Scoped CSS was the first standard attempt to support styles encapsulation. As it didn't get traction, CSS Modules implemented encapsulation through tooling. Later, Shadow DOM was launched with native support."
+  }
+>
+  <ThemedImg
+    light={img_light.src}
+    dark={img_dark.src}
+    width={1920}
+    height={880}
+    alt="Timeline of scalable CSS evolution, highlighting the main timeline or Semantic CSS (in blue) and pinpoiting all style encapsulation techniques: Scoped CSS introduced in 2008 but abandoned later, CSS Modules in 2015 and Shadow DOM in 2016"
   />
 </Figure>
 

@@ -4,10 +4,12 @@ import { SideBySide } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
 import { Figure } from "../../../../components/blog/figure";
+import { ThemedImg } from "../../../../components/blog/themed-img";
 import { TOC, LinkTo } from "../toc";
 
 import Image from "next/image";
-import img from './css-good-practices.png'
+import img_light from './good-practices-light.gif';
+import img_dark from './good-practices-dark.gif';
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -36,12 +38,18 @@ Let's begin our journey by exploring how to **avoid complex CSS selectors** and 
   <strong>exceptions</strong>.
 </Note>
 
-<Figure background={"#fff"} width="grid">
-  <Image
-    src={img}
-    width="1920"
-    height="845"
-    alt="Timeline of scalable CSS evolution, pinpoiting the emergence of CSS good practices in 2005"
+<Figure
+  width="grid"
+  caption={
+    "The first recorded CSS good practices started to be published around 2005 and continue to evolve even today"
+  }
+>
+  <ThemedImg
+    light={img_light.src}
+    dark={img_dark.src}
+    width={1920}
+    height={730}
+    alt="Timeline of scalable CSS evolution, highlighting the main timeline or Semantic CSS (in blue) and pinpoiting the emergence of CSS good practices in 2005, which continue to evolve even today"
   />
 </Figure>
 

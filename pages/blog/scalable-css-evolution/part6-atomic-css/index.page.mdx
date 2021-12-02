@@ -4,10 +4,12 @@ import { SideBySide } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Subheading } from "../../../../components/blog/subheading";
 import { Figure } from "../../../../components/blog/figure";
+import { ThemedImg } from "../../../../components/blog/themed-img";
 import { TOC, LinkTo } from "../toc";
 
 import Image from "next/image";
-import img from './atomic-css.png'
+import img_light from './atomic-css-light.gif';
+import img_dark from './atomic-css-dark.gif';
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -21,12 +23,20 @@ In the previous article of this series, <LinkTo part={CURRENT_PART - 1} />, we'v
 
 This article will examine **Atomic CSS**, a fundamentally different approach, quite the opposite of semantic CSS. In contrast, Atomic CSS makes use of non-semantic CSS classes that explicitly express how they look.
 
-<Figure background={"#fff"} width="grid">
-  <Image
-    src={img}
-    width="1920"
-    height="824"
-    alt="Timeline of scalable CSS evolution, highlighting Atomic CSS solutions"
+This article examines **Atomic CSS**, a fundamentally different approach. In contrast with Semantic CSS, Atomic CSS employs the use of non-semantic CSS classes that explicitly express how they look.
+
+<Figure
+  width="grid"
+  caption={
+    "Atomic CSS branched off in 2013 as a completely different paradigm, currently being an alternative to the standard Semantic approach"
+  }
+>
+  <ThemedImg
+    light={img_light.src}
+    dark={img_dark.src}
+    width={1920}
+    height={708}
+    alt="Timeline of scalable CSS evolution, highlighting the Atomic CSS branch (in green) and pinpoiting notable Atomic CSS frameworks: BASSCSS in 2013, ACSS and Tachyons in 2014 and Tailwind CSS in 2017"
   />
 </Figure>
 

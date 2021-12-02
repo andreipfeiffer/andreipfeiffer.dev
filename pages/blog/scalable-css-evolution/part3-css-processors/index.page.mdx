@@ -4,10 +4,12 @@ import { SideBySide } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
 import { Figure } from "../../../../components/blog/figure";
+import { ThemedImg } from "../../../../components/blog/themed-img";
 import { TOC, LinkTo } from "../toc";
 
 import Image from "next/image";
-import img from './css-processors.png'
+import img_light from './css-processors-light.gif';
+import img_dark from './css-processors-dark.gif';
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -41,12 +43,16 @@ In this part, we'll turn our attention to the first tools that addressed CSS mai
   .
 </Note>
 
-<Figure background={"#fff"} width="grid">
-  <Image
-    src={img}
-    width="1920"
-    height="993"
-    alt="Timeline of scalable CSS evolution, highlighting CSS processors"
+<Figure
+  width="grid"
+  caption={"Timeline of the most notable and popular CSS processors"}
+>
+  <ThemedImg
+    light={img_light.src}
+    dark={img_dark.src}
+    width={1920}
+    height={842}
+    alt="Timeline of scalable CSS evolution, highlighting the main timeline or Semantic CSS (in blue) and pinpoiting the most popular CSS processors: SASS in 2006, LESS in 2009, Stylus in 2010 and PostCSS in 2013"
   />
 </Figure>
 

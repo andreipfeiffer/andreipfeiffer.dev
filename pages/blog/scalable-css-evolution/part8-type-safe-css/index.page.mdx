@@ -4,10 +4,11 @@ import { SideBySide, Side } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
 import { Figure } from "../../../../components/blog/figure";
+import { ThemedImg } from "../../../../components/blog/themed-img";
 import { TOC, LinkTo } from "../toc";
 
-import Image from "next/image";
-import img from './type-safe-css.png'
+import img_light from './type-safe-css-light.gif';
+import img_dark from './type-safe-css-dark.gif';
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -23,12 +24,18 @@ To be honest, if I haven't started using TypeScript, I would probably still thin
 
 In this part, we will see how CSS-in-JS paired with TypeScript solves the missing piece of the puzzle in regard to UI development: **type safety for components' styles**.
 
-<Figure background={"#fff"} width="grid">
-  <Image
-    src={img}
-    width="1920"
-    height="824"
-    alt="Timeline of scalable CSS evolution, highlighting Type-safe CSS debut"
+<Figure
+  width="grid"
+  caption={
+    "Type-safe CSS is possible when CSS-in-JS is paired with a static type checker"
+  }
+>
+  <ThemedImg
+    light={img_light.src}
+    dark={img_dark.src}
+    width={1920}
+    height={708}
+    alt="Timeline of scalable CSS evolution, highlighting the CSS-in-JS branch (in yellow) but emphasizing on the emergence of Type-safe CSS around 2018"
   />
 </Figure>
 

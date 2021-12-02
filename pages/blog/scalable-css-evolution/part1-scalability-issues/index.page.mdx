@@ -3,7 +3,12 @@ import { Subheading } from "../../../../components/blog/subheading";
 import { SideBySide, Side} from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
+import { Figure } from "../../../../components/blog/figure";
+import { ThemedImg } from "../../../../components/blog/themed-img";
 import { TOC, LinkTo } from "../toc";
+
+import img_light from './scalability-issues-light.gif';
+import img_dark from './scalability-issues-dark.gif';
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -24,6 +29,23 @@ Before discussing the solutions to CSS scalability issues, we must understand wh
 - [**Zombie code**](#zombie-code) increases CSS file size while being tricky to remove;
 - [**Sharing variables**](#shared-variables) between CSS and JavaScript code isn't trivial;
 - [**Lack of type-safety**](#lack-of-type-safety) due to the dynamic nature of CSS.
+
+<br />
+
+<Figure
+  width="grid"
+  caption={
+    "Most notable CSS scalability issues began to surface around 2003 with the shift to CSS-based layouts, and started to fadeout around 2015 when styles encapsulation became popular."
+  }
+>
+  <ThemedImg
+    light={img_light.src}
+    dark={img_dark.src}
+    width={1920}
+    height={759}
+    alt="Timeline of scalable CSS evolution, highlighting Semantic CSS timeline (in blue) with CSS scalability issues surfacing around 2003, and fading out around 2015"
+  />
+</Figure>
 
 ## Origins
 
