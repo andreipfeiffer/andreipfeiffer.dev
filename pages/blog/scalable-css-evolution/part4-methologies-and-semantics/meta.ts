@@ -11,7 +11,7 @@ export const meta: Metadata = {
     "styling",
     "bem",
     "oocss",
-    "smaccs",
+    "smacss",
     "css architecture",
     "semantics",
     "components",

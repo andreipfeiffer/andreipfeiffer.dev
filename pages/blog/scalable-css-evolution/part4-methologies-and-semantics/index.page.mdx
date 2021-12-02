@@ -31,7 +31,7 @@ Here's a summary of this chapter:
 
 - [**The birth of components**](#the-birth-of-components) touches upon OOCSS, which popularized identifying and reusing abstract content blocks;
 - [**Naming conventions**](#naming-conventions) covers BEM, a pioneering technique that emphasized the component-based mindset;
-- [**High-level architecture**](#high-level-architecture) looks briefly at SMACCS and ITCSS as solutions for structuring application-wide CSS code;
+- [**High-level architecture**](#high-level-architecture) looks briefly at SMACSS and ITCSS as solutions for structuring application-wide CSS code;
 - [**Semantic CSS**](#semantic-css) examines the status quo and the standard approach to CSS authoring.
 
 <Note>
@@ -177,7 +177,7 @@ So far, we've only looked at individual component styling techniques. But when a
 
 That's where CSS architectures started to emerge.
 
-- [**SMACCS**](http://smacss.com/book/) is the first popular approach that addressed the topic of large-scale project-wide CSS architecture. It stands for _Scalable and Modular Architecture for CSS_ and it was coined by **Jonathan Snook** in [2011](https://snook.ca/archives/html_and_css/css-architecture).
+- [**SMACSS**](http://smacss.com/book/) is the first popular approach that addressed the topic of large-scale project-wide CSS architecture. It stands for _Scalable and Modular Architecture for CSS_ and it was coined by **Jonathan Snook** in [2011](https://snook.ca/archives/html_and_css/css-architecture).
 
 - [**ITCSS**](https://csswizardry.net/talks/2014/11/itcss-dafed.pdf) is another popular architecture introduced in 2014 by **Harry Roberts**. It stands for _Inverted Triangle CSS_.
 
@@ -189,13 +189,13 @@ As mentioned, we won't dive into the specific details of each of these approache
 
 1. We have some **base rules**, very generic styles using only type selectors, without classes. These rules contain _CSS resets_, _typography_, _variables_, etc.
 2. Then we have **layout rules** (or **objects** as called in ITCSS). These are typically abstract components containing minimal styling, used only for layout. Such components include _Grid systems_, _Media object_, _Stack_ and _Divider_ components, etc.
-3. The above layout components will contain **concrete components** (or **modules** as called in SMACCS). These are the actual UI parts, having application-specific styling including:
+3. The above layout components will contain **concrete components** (or **modules** as called in SMACSS). These are the actual UI parts, having application-specific styling including:
    - highly re-usable and abstract components, such as _Button_, _Modal_, _Form_ elements, _Tooltip_, etc;
    - domain-specific components bound to the application domain, like _ProductCard_, _Breadcrumb_, _Carousel_, _Avatar_, and so on;
-4. Lastly, we have **overrides** (called **trumps** in ITCSS and **state** in SMACCS). These are single-purpose _utility classes_ that override other styles.
+4. Lastly, we have **overrides** (called **trumps** in ITCSS and **state** in SMACSS). These are single-purpose _utility classes_ that override other styles.
 
 <Note>
-  OOCSS approach and BEM naming conventions can also be used along with SMACCS
+  OOCSS approach and BEM naming conventions can also be used along with SMACSS
   and/or ITCSS. These methodologies don't exclude each other. They rather
   complement themselves.
 </Note>
