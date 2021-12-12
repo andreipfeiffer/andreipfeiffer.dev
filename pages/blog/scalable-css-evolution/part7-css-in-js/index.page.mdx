@@ -55,7 +55,7 @@ CSS scoping was not the status quo at that time. Therefore there is some _overla
 
 - **Styles encapsulation** is a core feature of any CSS-in-JS solution because neither scoped CSS nor CSS Modules were available at the birth of CSS-in-JS.
 - **Explicit dependencies** enable more straightforward reasoning about the code because the classes applied in the markup don't reference <LinkTo part={1} hash="implicit-dependencies">implicit CSS classes</LinkTo> available somewhere in the codebase. Instead, there is an explicit `import` of the styles, and the applied class names explicitly reference the imported styles.
-- **Avoiding zombie code** is mainly a consequence of having explicit dependencies because every component defines or imports its own styles. Thus, when we remove the component or don't import it anymore, the styles with also be ignored during bundling.
+- **Avoiding zombie code** is mainly a consequence of having explicit dependencies because every component defines or imports its own styles. Thus, when we remove the component or don't import it anymore, the styles will also be ignored during bundling.
 
 This overlap could be a reason why so many developers disregard CSS-in-JS as being a helpful technology. For instance, their problems might be already solved by CSS Modules, or other types of style encapsulation, in conjunction with a CSS processor.
 
@@ -235,11 +235,11 @@ On the other hand, what _is true_ is that there aren't notable or popular implem
 
 None of the existing CSS-in-JS libraries use inline styles as output.
 
-However, what what _is true_ is that a few libraries like [Radium](https://formidable.com/blog/2019/radium-maintenance/) and [Glamor](https://github.com/threepointone/glamor) used inline styles, but both have been discontinued.
+However, what _is true_ is that a few libraries like [Radium](https://formidable.com/blog/2019/radium-maintenance/) and [Glamor](https://github.com/threepointone/glamor) used inline styles, but both have been discontinued.
 
 It is known that inline styles have limited support for CSS syntax, making it impossible to define certain pseudo-classes, pseudo-elements, or media queries. Not to mention that common pseudo-classes like `:hover` or `:focus` required suboptimal workarounds, by attaching DOM event listeners and triggering style updates using JavaScript.
 
-<Subheading>CSS-in-JS supports all CSS syntax</Subheading>
+<Subheading>CSS-in-JS supports all the CSS syntax</Subheading>
 
 All _modern_ CSS-in-JS libraries support the full CSS syntax.
 

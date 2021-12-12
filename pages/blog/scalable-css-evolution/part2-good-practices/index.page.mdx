@@ -61,16 +61,16 @@ Sometimes we tend to be overzealous when writing CSS selectors instead of keepin
 
 <!-- prettier-ignore-start -->
 ```css
-/* ❌ BAD: overspecific selector (0.4.3 specificity) */
-.header .main_menu ul li.item a.link {}
+/* ❌ BAD: overspecific selector (1.4.3 specificity) */
+#header .main_menu ul li.item a.link {}
 ```
 <!-- prettier-ignore-end -->
 
 Let's analyze this code for a second:
 
-- If there is a single `.main_menu` element on the page, then the `.header` selector is unnecessary. In case there are more than one `.main_menu`, we could use a different class name, like `.header_main_menu`, to differentiate them.
+- If there is a single `.main_menu` element on the page, then the `#header` selector is unnecessary.
 - The descendant selector `ul li.item` should not be necessary if all `a.link` elements are placed inside the `ul`. Thus we can skip this selector altogether.
-- Last but not least, nobody should care that the `.link` is also an `a` element, so we can also remove the `a` selector.
+- Last but not least, we shouldn't care that the `.link` is also an `a` element, so we can safely remove the `a` selector.
 
 <br />
 
@@ -88,7 +88,7 @@ Thus, the above selector could be easily simplified while also reducing its spec
 
 <Subheading>Excessive nesting with CSS preprocessors</Subheading>
 
-With CSS preprocessors it's even easier to create high specificity, thanks to their nesting feature. Unfortunately, we often use **excessive nesting**, which is way too overused and creates significant scalability problems.
+With CSS preprocessors it's even easier to create high specificity, thanks to their nesting feature. Unfortunately, we often write **excessive nesting**, which is way too overused and creates significant scalability problems.
 
 <SideBySide left={{lang: "SCSS", file: "style.scss (source)"}}  right={{lang: "CSS", file: "style.css (output)"}}>
 
@@ -205,15 +205,15 @@ At some point, we want to reuse the `.profile` content block on a different page
 </div>
 ```
 
-```css{6-9}
-.profile .image {
-  /* 😡 these style will get overridden */
-  border: 1px black solid;
-}
-
+```css{1-4}
 #post-details .image {
   /* 😈 IDs have higher specificity than classes */
   border: 10px grey solid;
+}
+
+.profile .image {
+  /* 😡 these style will get overridden */
+  border: 1px black solid;
 }
 ```
 
@@ -241,7 +241,7 @@ It happened to me so many times to think that _"we'll never have more than one C
 
 <br />
 
-Therefore, to avoid any of the problems mentioned above, we should avoid applying styles on ID selectors altogether and **use classes instead**:
+Therefore, to prevent any of the problems mentioned above, we should avoid applying styles on ID selectors altogether and **use classes instead**:
 
 <!-- prettier-ignore-start -->
 ```css
@@ -313,7 +313,7 @@ Thus, the **styles will be coupled with the markup**. We cannot change the marku
 
 <Subheading>2. Lack of isolation</Subheading>
 
-Nevertheless, adding new markup could also be problematic when using type selectors. For example, an existing CSS rule could match the newly added tag, **rendering unexpected results**.
+Nevertheless, **adding new markup** could also be problematic when using type selectors. For example, an existing CSS rule could match the newly added tag, **rendering unexpected results**.
 
 <!-- Another really annoying problem we might encounter when working with type selectors occurs when adding new HTML markup. -->
 
@@ -361,7 +361,7 @@ The problem is that both `<strong>` elements will share the same styles, which m
 
 <br />
 
-Avoiding the problems mentioned previously is quite simple: avoid targetting HTML tags in CSS and **use classes** instead.
+The solution for preventing the aforementioned problems is quite simple: avoid targetting HTML tags in CSS and **use classes** instead.
 
 <!-- prettier-ignore-start -->
 ```css
@@ -449,10 +449,10 @@ Once we learn and understand all these practices, it should be fairly easy to ap
 
 - There is **no official comprehensive guide** on how to write maintainable CSS. I've only covered a few of the essential practices, but there are [so many more](http://khaidoan.wikidot.com/css-best-practices) to consider.
 - Some of the **practices don't apply equally** to every project, with every team. Also, developers tend to be very opinionated, so we rarely reach a consensus regarding a specific set of rules.
-- Being so many practices and most of them quite debatable, they are **cumbersome to learn and teach**.
+- Due to the fact that there are so many practices, and most of them quite debatable, they are **cumbersome to learn and teach**.
 - As we've seen, there are plenty of **exceptions** that apply. It's often quite challenging to draw a line when it's acceptable to break the rule.
-- Most practices are typically **impossible to enforce**. The only weapon is constant code review, training, and mentoring.
-- Once we have an existing large application written without these practices in mind, they become **tough to introduce onto an existing codebase**. Changing CSS, in general, is a fragile task, so most developers avoid big refactorings.
+- Some practices are typically **impossible to enforce**. While there are linters that can be used to enforce certain rules, we'll still have to rely on constant code review, training, and mentoring.
+- Once we have an existing large application written without these practices in mind, they become **tough to introduce into an existing codebase**. Changing CSS, in general, is a fragile task, so most developers avoid big refactorings.
 - Last but not least, **good practices don't scale**! The larger the code base, the more burdensome the maintenance will become.
 
 <br />
