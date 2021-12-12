@@ -1,0 +1,9 @@
+@import "../../styles/mixins";
+
+.quote {
+  text-align: start;
+
+  & figcaption {
+    font-size: 0.7em;
+  }
+}
