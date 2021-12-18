@@ -4,6 +4,7 @@ import { SideBySide, Side } from "../../../../components/blog/sidebyside";
 import { Status } from "../../../../components/blog/status";
 import { Note } from "../../../../components/blog/note";
 import { Figure } from "../../../../components/blog/figure";
+import { Quote } from "../../../../components/blog/quote";
 import { ThemedImg } from "../../../../components/blog/themed-img";
 import { TOC, LinkTo } from "../toc";
 
@@ -56,9 +57,10 @@ Consider having 2 styles definitions: an **outer** one and an **inner** one. Bot
 
 <Side header={{lang: "CSS", file: "With regular CSS"}}>
 
-```html{2,8}
+```html{2,9}
 <!-- Outer styles (global scope) -->
 <style> p { color: blue; } </style>
+
 <!-- Outer styles are unexpectedly overridden -->
 <p> 🔴 Outer content </p>
 
@@ -243,9 +245,24 @@ Fortunately, a new standard version was launched in 2016, called **Shadow DOM v1
 
 Without going into any details or technicalities, Shadow DOM is a set of standard APIs implemented as part of the Document Object Model (DOM). Its purpose is to fix the CSS maintainability and scalability problems that we've discussed so far, but natively, within the web platform.
 
-> Shadow DOM fixes CSS and DOM. It introduces scoped styles to the web platform. **Without tools or naming conventions** [...]
+<!-- > Shadow DOM fixes CSS and DOM. It introduces scoped styles to the web platform. **Without tools or naming conventions** [...] -->
 
-https://developers.google.com/web/fundamentals/web-components/shadowdom
+<Quote>
+  <blockquote cite="https://developers.google.com/web/fundamentals/web-components/shadowdom">
+    <p>
+      Shadow DOM fixes CSS and DOM. It introduces scoped styles to the web
+      platform. <strong>Without tools or naming conventions</strong> [...]
+    </p>
+    <figcaption>
+      Eric Bidelman,{" "}
+      <cite>
+        <a href="https://developers.google.com/web/fundamentals/web-components/shadowdom">
+          Google Developers
+        </a>
+      </cite>
+    </figcaption>
+  </blockquote>
+</Quote>
 
 <Subheading>Creating a Shadow DOM</Subheading>
 
@@ -293,7 +310,7 @@ In contrast to Scoped CSS or CSS Modules, styles defined outside the Shadow DOM,
 
 It's essential to understand that **global styles are still inherited** by Shadow DOM. For example, global styles like `body { color: green; }` will pierce through the Shadow DOM barrier.
 
-```html{2,11}
+```html{2,9}
 <!-- Global styles -->
 <style> body { color: green; } </style>
 
