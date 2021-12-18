@@ -6,6 +6,7 @@
 
   @include breakpoint(md) {
     display: grid;
+    column-gap: 2em;
     grid-auto-flow: column;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(5, auto);
@@ -18,4 +19,16 @@
       margin: 0.3em 0 !important;
     }
   }
+}
+
+.new {
+  background-color: var(--primary);
+  margin: 0 0.5em;
+  color: var(--dark);
+  text-decoration: none !important;
+  padding: 0.15em 0.5em 0.25em 0.5em;
+  border-radius: 3px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  font-weight: bold;
 }
