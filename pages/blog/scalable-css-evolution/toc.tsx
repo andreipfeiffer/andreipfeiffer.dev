@@ -21,11 +21,12 @@ import styles from "./toc.module.scss";
 type PartId = typeof SERIES[number]["id"];
 
 const LAST_PUBLISHED_PART: PartId = 9;
+const DISPLAY_NEW = true;
 
 const SERIES_BASE_URL = "/blog/scalable-css-evolution";
 
 type Part = Metadata & {
-  id: number;
+  id: PartId;
   path: string;
 };
 
@@ -57,7 +58,12 @@ export function TOC(props: Props) {
 
       <ol className={styles.list}>
         {(SERIES as Readonly<Part[]>).map((part) => {
-          return <li key={part.id}>{renderText(part)}</li>;
+          return (
+            <li key={part.id}>
+              {renderText(part)}
+              {renderNew(part)}
+            </li>
+          );
         })}
       </ol>
 
@@ -74,12 +80,25 @@ export function TOC(props: Props) {
 
     return <LinkTo part={part.id as PartId} scrollToTop={false} />;
   }
+
+  function renderNew(part: Part): ReactNode {
+    if (DISPLAY_NEW && LAST_PUBLISHED_PART === part.id) {
+      return (
+        <>
+          {" "}
+          <span className={styles.new}>new</span>
+        </>
+      );
+    }
+
+    return null;
+  }
 }
 
 type LinkToProps = {
   part: PartId;
   hash?: string;
-  children?: string;
+  children?: ReactNode;
   scrollToTop?: boolean;
 };
 
