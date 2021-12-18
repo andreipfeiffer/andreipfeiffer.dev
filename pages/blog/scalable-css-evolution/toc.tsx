@@ -30,7 +30,7 @@ type Part = Metadata & {
 };
 
 const SERIES = [
-  { ...part0, id: 0, path: "", subtitle: "Introduction and overview" },
+  { ...part0, id: 0, path: "", subtitle: "Introduction" },
   { ...part1, id: 1, path: "part1-scalability-issues" },
   { ...part2, id: 2, path: "part2-good-practices" },
   { ...part3, id: 3, path: "part3-css-processors" },

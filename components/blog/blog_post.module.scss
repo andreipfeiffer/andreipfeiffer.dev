@@ -178,11 +178,13 @@
     border-left: 8px var(--color) solid;
     margin: var(--section-spacing) 0;
     padding: 0.5em 1em;
+    line-height: 1.5;
 
     & > p:first-child {
       margin-top: 0;
     }
-    & > p:last-child {
+    & > p:last-child,
+    & > p:last-of-type {
       margin-bottom: 0;
     }
 
