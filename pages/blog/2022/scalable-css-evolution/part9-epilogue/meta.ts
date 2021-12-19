@@ -1,5 +1,7 @@
 import { Metadata } from "../../../../../lib/blog";
 
+import cover from "./scalable-css-epilogue-cover.png";
+
 export const meta: Metadata = {
   title: "The evolution of scalable CSS",
   subtitle: "Epilogue",
@@ -8,5 +10,5 @@ export const meta: Metadata = {
   tags_extra: ["scalability", "maintainability", "styling"],
   intro: "???",
   visibility: "draft",
-  // cover: "/images/share/tech-debt-tech-loan.png",
+  cover: cover.src,
 };

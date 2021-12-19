@@ -1,5 +1,7 @@
 import { Metadata } from "../../../../../lib/blog";
 
+import cover from "./type-safe-css-cover.png";
+
 export const meta: Metadata = {
   title: "The evolution of scalable CSS",
   subtitle: "Part 8: Type-safe CSS",
@@ -14,6 +16,6 @@ export const meta: Metadata = {
   ],
   intro:
     "Adding TypeScript on top of CSS-in-JS enables safe refactorings and typed interfaces when authoring UI components. Therefore, CSS-in-TypeScript provides the missing puzzle piece when aiming for a complete type-safe code base.",
-  visibility: "private",
-  // cover: "/images/share/tech-debt-tech-loan.png",
+  visibility: "draft",
+  cover: cover.src,
 };

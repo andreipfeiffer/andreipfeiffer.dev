@@ -1,5 +1,7 @@
 import { Metadata } from "../../../../../lib/blog";
 
+import cover from "./good-practices-cover.png";
+
 export const meta: Metadata = {
   title: "The evolution of scalable CSS",
   subtitle: "Part 2: Good practices",
@@ -9,5 +11,5 @@ export const meta: Metadata = {
   intro:
     "Avoiding naming collisions and specificity wars is not a trivial task. Therefore, let's explore some essential techniques, introduced by various thought leaders, which are crucial for writting maintainable CSS.",
   visibility: "private",
-  // cover: "/images/share/tech-debt-tech-loan.png",
+  cover: cover.src,
 };
