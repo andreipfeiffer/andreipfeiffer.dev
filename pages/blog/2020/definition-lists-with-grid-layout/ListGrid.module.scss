@@ -1,0 +1,27 @@
+@import "../../../../styles/mixins";
+
+.list {
+  font-weight: 100;
+  font-size: 1.25em;
+  margin: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  justify-items: center;
+
+  padding: 1em;
+
+  @include breakpoint(md) {
+    font-size: 2em;
+  }
+}
+
+.label {
+  color: grey;
+}
+
+.value {
+  margin: 0;
+  font-weight: 900;
+}

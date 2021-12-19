@@ -1,0 +1,26 @@
+@import "../../../../styles/mixins";
+
+.list {
+  display: flex;
+  font-weight: 100;
+  font-size: 1.25em;
+  padding: 1em;
+
+  @include breakpoint(md) {
+    font-size: 2em;
+  }
+}
+
+.group {
+  flex: 1;
+  text-align: center;
+}
+
+.label {
+  color: grey;
+  display: block;
+}
+
+.value {
+  font-weight: 900;
+}

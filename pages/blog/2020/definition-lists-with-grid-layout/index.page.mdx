@@ -1,0 +1,327 @@
+import { BlogPost } from "../../../../components/blog/blog_post";
+import { SideBySide } from "../../../../components/blog/sidebyside";
+import { Note } from "../../../../components/blog/note";
+import { Figure } from "../../../../components/blog/figure";
+
+import { ListFlex } from "./ListFlex";
+import { ListGrid } from "./ListGrid";
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+In this post, we'll examine various implementations for the layout displayed below, using both `flex` and `grid`, debating the robustness of each approach. The layout is a simple horizontal list of 3 key-value pairs, the values being displayed beneath the labels.
+
+<br />
+
+<Figure
+  background
+  width="grid"
+  caption="3 key-value pairs implemented with a flex layout"
+>
+  <ListFlex />
+</Figure>
+<br />
+
+**TL;DR**: in our final approach, we'll use Definition Lists with `grid-auto-flow: column`. You can [skip to the final implementation](#final-implementation) if you don't want to follow the step by step guide.
+
+## Using a `flex` layout approach
+
+One approach to this layout is having the 3 key-value groups displayed in a `flex` container. To make this happen, we'll have to wrap each group in an additional element:
+
+<br />
+<br />
+
+<SideBySide left={{lang: "HTML", file: "index.html"}}  right={{lang: "CSS", file: "style.css"}}>
+
+```html
+<div class="container">
+  <div class="group">
+    <span class="label">Posts</span>
+    <span class="value">123</span>
+  </div>
+
+  <div class="group">
+    <span class="label">Followers</span>
+    <span class="value">456</span>
+  </div>
+
+  <div class="group">
+    <span class="label">Likes</span>
+    <span class="value">9999</span>
+  </div>
+</div>
+```
+
+```css
+.container {
+  display: flex;
+}
+
+.group {
+  flex: 1;
+  text-align: center;
+}
+```
+
+</SideBySide>
+
+This approach works, the content is displayed as needed. However, it has an important flaw, because the markup doesn't say anything about the **semantics** of the content.
+
+Whenever we have `span` or `div` elements, we should ask ourselves if we can replace them with other, more semantic elements, that can describe the content better.
+
+Let's look at various ways to improve our content sematics.
+
+### Using an Unordered List
+
+One way to improve the semantics, is replacing the non-semantic `div` elements with an [Unordered List](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul). This way, we can think of the content as:
+
+> A list of 3 key-value pairs
+
+<SideBySide left={{lang: "HTML", file: "index.html"}}  right={{lang: "CSS", file: "style.css"}}>
+
+```html{1,2,7,12}
+<ul class="container">
+  <li class="group">
+    <span class="label">Posts</span>
+    <span class="value">123</span>
+  </li>
+
+  <li class="group">
+    <span class="label">Followers</span>
+    <span class="value">456</span>
+  </li>
+
+  <li class="group">
+    <span class="label">Likes</span>
+    <span class="value">9999</span>
+  </li>
+</ul>
+```
+
+```css{2-4}
+.container {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+}
+
+.group {
+  flex: 1;
+  text-align: center;
+}
+```
+
+</SideBySide>
+
+The changes to our code are minor:
+
+- we've replaced the outer `div.container` with an <abbr title="unordered list">`ul`</abbr> element;
+- we've replaced the `div.group` with <abbr title="list item">`li`</abbr> elements;
+- we've removed the default <abbr title="unordered list">`ul`</abbr> CSS styling.
+
+However, we still have the `span` elements wrapping our actual content, which don't offer any semantics. So, let's go a step forward, by switching to a **Definition List**.
+
+### Using a Definition List
+
+Whenever we have to deal with any kind of **key-value pairs**, we should consider using a [Definition List](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl). This way, we can think of our content as:
+
+> A definition list of 3 terms
+
+<SideBySide left={{lang: "HTML", file: "index.html"}}  right={{lang: "CSS", file: "style.css"}}>
+
+```html{1,3,4,8,9,13,14}
+<dl class="container">
+  <div class="group">
+    <dt class="label">Posts</dt>
+    <dd class="value">123</dd>
+  </div>
+
+  <div class="group">
+    <dt class="label">Followers</dt>
+    <dd class="value">456</dd>
+  </div>
+
+  <div class="group">
+    <dt class="label">Likes</dt>
+    <dd class="value">9999</dd>
+  </div>
+</dl>
+```
+
+```css{11}
+.container {
+  display: flex;
+}
+
+.group {
+  flex: 1;
+  text-align: center;
+}
+
+.value {
+  margin: 0;
+}
+```
+
+</SideBySide>
+
+Let's go through the code changes:
+
+- we've replaced the `ul.container` with an `dl` element;
+- we've replaced the `span.label` elements with `dt` to make them the **definition terms**;
+- we've replaced the `span.value` elements with `dd` to make them the **definition descriptions**;
+- we've remove the default margin for `dd`.
+
+This is much better, because our markup describes better the content it provides.
+
+However, we still have some extra `div` elements, which are annoying, but necessary, considering our `flex` layout approach. Let's see if we can eliminate those extra `div` elements with a `grid` layout.
+
+## Using a `grid` layout approach
+
+Using `flex` is fine, it gets the job done. But I think we can do better. Instead of thinking of our layout as _3 key-value pairs_ we can think of it as:
+
+> A grid of 2 rows and 3 columns
+
+Using this perspective allows us to get rid of the extra `div` elements, because CSS Grids can control both the horizontal and the vertical, so we don't need additional wrappers to group our content.
+
+<br />
+<br />
+
+<SideBySide left={{lang: "HTML", file: "index.html"}}  right={{lang: "CSS", file: "style.css"}}>
+
+```html
+<dl class="container">
+  <dt class="label">Posts</dt>
+  <dd class="value">123</dd>
+
+  <dt class="label">Followers</dt>
+  <dd class="value">456</dd>
+
+  <dt class="label">Likes</dt>
+  <dd class="value">9999</dd>
+</dl>
+```
+
+```css{2-4}
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+
+/*.group {
+  flex: 1;
+  text-align: center;
+}*/
+
+.value {
+  margin: 0;
+}
+```
+
+</SideBySide>
+
+The problem is that the grid cells are not displayed as we would expect, because they are distributed by rows, using the order from the markup.
+
+This happens because the [`grid-auto-flow`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow) property is set to `row` by default.
+
+<br />
+<Figure
+  background
+  width="grid"
+  status="err"
+  caption={
+    <>
+      Using a grid layout with the default{" "}
+      <strong>"grid-auto-flow:&nbsp;row"</strong> breaks the visual appearance
+    </>
+  }
+>
+  <ListGrid flow="row" />
+</Figure>
+<br />
+
+However, we can control the flow of the cells by settings `grid-auto-flow`'s value' to `column`:
+
+```css{4,5}
+.container {
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  grid-template-rows: auto auto;
+  grid-auto-flow: column;
+  justify-items: center;
+}
+```
+
+This way, the cells will be distributed by columns:
+
+- they will fill the entire first column;
+- a new column will be added for the 3rd and 5th element, because we've only defined 2 rows with `grid-template-rows`.
+
+<Note title="Important">
+  It's mandatory to define the <code>grid-template-rows</code> in this case, to
+  tell the grid that <i>"we need to have 2 rows"</i>, otherwise it will fit all
+  the cells on 1 row only, by default.
+</Note>
+
+<br />
+<Figure
+  background
+  width="grid"
+  status="ok"
+  caption={
+    <>
+      Using <strong>"grid-auto-flow:&nbsp;column"</strong> fixes the visual
+      appearance
+    </>
+  }
+>
+  <ListGrid flow="column" />
+</Figure>
+<br />
+
+## Final implementation
+
+Below you can see the final implementation:
+
+- the markup is clean and concise;
+- all HTML elements are semantic and describe the content perfectly;
+- we don't need any extra elements to aid our styling;
+- the labels and values can be aligned independently in case we need to, which gives a higher flexibility compared to a `flex` layout.
+
+<br />
+<br />
+
+<SideBySide left={{lang: "HTML", file: "index.html"}}  right={{lang: "CSS", file: "style.css"}}>
+
+```html
+<dl class="container">
+  <dt class="label">Posts</dt>
+  <dd class="value">123</dd>
+
+  <dt class="label">Followers</dt>
+  <dd class="value">456</dd>
+
+  <dt class="label">Likes</dt>
+  <dd class="value">9999</dd>
+</dl>
+```
+
+```css
+.container {
+  display: grid;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  grid-auto-flow: column;
+}
+
+.value {
+  margin: 0;
+}
+```
+
+</SideBySide>

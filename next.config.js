@@ -44,6 +44,10 @@ const nextConfig = {
         destination: "/blog",
         permanent: false,
       },
+
+      // move blog posts from root to year subfolders
+      ...getPosts(2020),
+      ...getPosts(2021),
     ];
   },
 };
@@ -54,3 +58,28 @@ module.exports = withPlugins([
 
   nextConfig,
 ]);
+
+const moved_posts = {
+  2020: [
+    "definition-lists-with-grid-layout",
+    "tech-debt-tech-loan",
+    "empty-objects-initialization-with-typescript",
+  ],
+  2021: [
+    "distinguishing-between-pages-and-components-in-next-js",
+    "complementary-learning",
+    "validating-our-understanding",
+    "developing-uis-connected-to-web-apis",
+    "css-in-js-styles-output",
+    "react-components-anatomy",
+    "isolated-components-driven-development",
+  ],
+};
+
+function getPosts(year) {
+  return moved_posts[year].map((post) => ({
+    source: `/blog/${post}`,
+    destination: `/blog/${year}/${post}`,
+    permanent: false,
+  }));
+}
