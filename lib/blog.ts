@@ -110,6 +110,8 @@ export interface Metadata {
   tags_extra: string[];
   /** og:image url */
   cover?: string;
+  cover_width?: number;
+  cover_height?: number;
   /** text content displayed on the listing page */
   intro: string;
   visibility: Visibility;

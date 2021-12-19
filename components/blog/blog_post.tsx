@@ -68,6 +68,8 @@ export function BlogPost(props: Props) {
         title={meta.title}
         description={meta.intro}
         image={meta.cover}
+        image_width={meta.cover_width}
+        image_height={meta.cover_height}
         article={{ tags: meta_tags, published_time: meta.date }}
       >
         <link rel="stylesheet" href={`/highlight.css`} />

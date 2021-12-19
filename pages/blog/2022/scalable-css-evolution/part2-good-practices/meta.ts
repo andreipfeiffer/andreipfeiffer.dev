@@ -1,9 +1,10 @@
 import { Metadata } from "../../../../../lib/blog";
+import { meta as common_meta } from "../meta";
 
 import cover from "./good-practices-cover.png";
 
 export const meta: Metadata = {
-  title: "The evolution of scalable CSS",
+  ...common_meta,
   subtitle: "Part 2: Good practices",
   date: "2021-12-28",
   tags: ["css"],

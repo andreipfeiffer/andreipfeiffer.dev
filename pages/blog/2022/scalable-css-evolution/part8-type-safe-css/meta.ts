@@ -1,9 +1,10 @@
 import { Metadata } from "../../../../../lib/blog";
+import { meta as common_meta } from "../meta";
 
 import cover from "./type-safe-css-cover.png";
 
 export const meta: Metadata = {
-  title: "The evolution of scalable CSS",
+  ...common_meta,
   subtitle: "Part 8: Type-safe CSS",
   date: "2021-12-28",
   tags: ["css", "typescript", "ui"],
