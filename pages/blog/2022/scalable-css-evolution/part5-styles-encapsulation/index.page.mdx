@@ -1,0 +1,404 @@
+import { BlogPost } from "../../../../../components/blog/blog_post";
+import { Subheading } from "../../../../../components/blog/subheading";
+import { SideBySide, Side } from "../../../../../components/blog/sidebyside";
+import { Status } from "../../../../../components/blog/status";
+import { Note } from "../../../../../components/blog/note";
+import { Figure } from "../../../../../components/blog/figure";
+import { Quote } from "../../../../../components/blog/quote";
+import { ThemedImg } from "../../../../../components/blog/themed-img";
+import { TOC, LinkTo } from "../toc";
+
+import Image from "next/image";
+import img_light from './styles-encapsulation-light.gif';
+import img_dark from './styles-encapsulation-dark.gif';
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+const CURRENT_PART = 5;
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={CURRENT_PART} />
+
+In <LinkTo part={4} />, we've covered popular CSS methodologies and architectures such as OOCSS, BEM, SMACSS, and ITCSS. They all adopted the Semantic CSS approach, solving many maintainability issues, but only to some extent.
+
+In this article, we'll continue the Semantic CSS pathway by turning our attention to **styles encapsulation**, which elegantly solves any _naming collisions_ while keeping a _low specificity_ at the same time. These techniques profoundly changed the way we author CSS nowadays, becoming an industry standard.
+
+<Figure
+  width="grid"
+  caption={
+    "Scoped CSS was the first standard attempt to support styles encapsulation. As it didn't get traction, CSS Modules implemented encapsulation through tooling. Later, Shadow DOM was launched as a second attempt for standardization."
+  }
+>
+  <ThemedImg
+    light={img_light.src}
+    dark={img_dark.src}
+    width={1920}
+    height={880}
+    alt="Timeline of scalable CSS evolution, highlighting the main timeline or Semantic CSS (in blue) and pinpoiting all style encapsulation techniques: Scoped CSS introduced in 2008 but abandoned later, CSS Modules in 2015 and Shadow DOM in 2016"
+  />
+</Figure>
+
+## Scoped CSS
+
+For many years, developers battled against CSS scalability and maintainability issues alone, figuring out good practices and methodologies or building tools as weapons. But the problems were so critical that even WHATWG (Web Hypertext Application Technology Working Group) joined the battle at some point.
+
+Therefore, in 2011, the standards' committee proposed the addition of a [`scoped` attribute](http://html5doctor.com/the-scoped-attribute/) for CSS stylesheets, which:
+
+> [...] indicates that the styles are intended just for the subtree rooted at the style element’s parent element, as opposed to the whole Document.
+
+Before looking at how Scoped CSS is supposed to work, let's look at a trivial example using regular CSS.
+
+<Subheading>Regular CSS</Subheading>
+
+Consider having 2 styles definitions: an **outer** one and an **inner** one. Both definitions use the same CSS selector `p {}`, but they apply different text colors: the outer one `blue 🔵`, and the inner one `red 🔴` :
+
+<!-- prettier-ignore-start -->
+
+<Side header={{lang: "CSS", file: "With regular CSS"}}>
+
+```html{2,9}
+<!-- Outer styles (global scope) -->
+<style> p { color: blue; } </style>
+
+<!-- Outer styles are unexpectedly overridden -->
+<p> 🔴 Outer content </p>
+
+<header>
+  <!-- Inner styles (also global scope) -->
+  <style> p { color: red; } </style>
+
+  <!-- Inner styles override the outer styles -->
+  <p> 🔴 Inner content </p>
+</header>
+```
+</Side>
+
+<!-- prettier-ignore-end -->
+
+With regular CSS, no matter where we place the styles definitions, they all end up in the global scope, affecting the entire document, being one of the fundamental problems of CSS.
+
+<Subheading>Scoped CSS</Subheading>
+
+With the new proposal, there's a `scoped` attribute we can specify on `<style>` tags.
+
+```diff
+- <style>
++ <style scoped>
+```
+
+So, let's see what happens when we set the `scoped` attribute on the **inner** `<style>` tag from the previous example:
+
+<!-- prettier-ignore-start -->
+
+<Side header={{lang: "CSS", file: "With scoped CSS"}}>
+
+```html{8}
+<!-- Outer styles (global scope) -->
+<style> p { color: blue; } </style>
+<!-- Outer styles apply as expected -->
+<p> 🔵 Outer content </p>
+
+<header>
+  <!-- Inner styles (local scope) -->
+  <style scoped> p { color: red; } </style>
+
+  <!-- inner styles override the outer styles -->
+  <!-- local styles are scoped to parent element -->
+  <p> 🔴 Inner content </p>
+</header>
+```
+
+</Side>
+
+<!-- prettier-ignore-end -->
+
+In this example, the `scoped` attribute **prevents styles from leaking outside** their parent container, which is the `<header>` element in our case. Whatever styles we define locally for a specific component, will not affect outer components.
+
+<br />
+
+Therefore, Scoped CSS addressed the global namespace problem, allowing us to define styles that don't affect elements outside the container of our choice, enabling **styles encapsulation**. As a result, we would not need to worry about naming collisions or unexpected style overrides.
+
+<Subheading>
+  <Status type="err" /> Deprecation
+</Subheading>
+
+Unfortunately, the spec was only implemented in [Firefox](https://caniuse.com/?search=scoped) (but removed in version 55) and experimental in [Chrome](https://developers.google.com/web/updates/2012/03/A-New-Experimental-Feature-style-scoped). No other browser vendors showed any interest in implementing the scoped stylesheets.
+
+Consequently, in 2016 the `scoped` attribute was [removed from the spec](https://github.com/w3c/csswg-drafts/issues/137) in favor of **Shadow DOM**, which has its own scoping mechanism.
+
+## CSS Modules
+
+CSS features [standardization](https://css-tricks.com/css-standards-process/) is a lengthy process. It usually takes years for a feature to reach the Candidate Recommendation (CR). Thus, the developers' community couldn't just sit and wait for a standard solution to become available.
+
+Therefore, in 2015, a few smart people released [CSS Modules](https://github.com/css-modules/css-modules), implementing styles encapsulation through tooling instead of relying on standards.
+
+<Subheading>What is a CSS Module?</Subheading>
+
+Typically, a CSS Module is just a regular `.css` file, often having the `.module.css` suffix to differentiate them from plain CSS files.
+
+<Side header={{ file: "styles.module.css", lang: "CSS" }}>
+
+```css
+.heading {
+  color: blue;
+}
+```
+
+</Side>
+
+<Subheading>Differences from regular CSS</Subheading>
+
+Any `.css` file can be used as a CSS Module. However, the opposite does not apply, as CSS Modules have a few essential particularities:
+
+- CSS modules support **additional non-standard syntax**, like `:global` and `:local` switches, for controlling the selector scope.
+- CSS modules discourage ID and type selectors, recommending using **class selectors only**.
+- CSS modules are **imported** in JavaScript files instead of being referenced from HTML documents using `<link>` tags.
+
+<Subheading>Using CSS Modules</Subheading>
+
+As CSS Modules are not natively supported in browsers, we need a special [loader](https://webpack.js.org/loaders/css-loader/#modules) to handle these files. The loader will compile `.css` module files into an interchangeable format called [Interoperable CSS](https://github.com/css-modules/icss) (ICSS), exporting an `object` containing all class definitions from the `.css` module file.
+
+<!-- prettier-ignore-start -->
+
+<Side header={{ file: "page.js", lang: "JS" }}>
+
+```js
+// we import an object from the CSS module file
+import styles from "./style.module.css";
+
+const element = document.querySelector("h1");
+
+/*
+  all classes defined in the CSS module file
+  are available as fields on the imported object
+*/
+element.outerHTML = `<h1 class="${styles.heading}">Title</h1>`;
+```
+
+</Side>
+
+<!-- prettier-ignore-end -->
+
+<br />
+
+Now, the beautiful part about CSS Modules is the output, as the loader will [generate](https://www.javascriptstuff.com/what-are-css-modules/) **unique class names** for each class definition.
+
+The exact form of the generated class name can be [customized](https://webpack.js.org/loaders/css-loader/#localidentname) through the loader, but it typically has the `[filename]__[classname]__[hash]` structure:
+
+<Side header={{ file: "HTML output" }}>
+
+```html
+<!-- ✅ generated class names are hashed -->
+<h1 class="page__heading__2fcab5">Title</h1>
+```
+
+</Side>
+
+It's worth mentioning that we can control the generated output form based on the application environment. For instance:
+
+- **During development**, we can use the verbose `[filename]__[classname]__[hash]` form to enable easier debugging, as the output pinpoints the component name and the CSS class name.
+- For **production builds**, we can choose shorter names such as `[hash]` for smaller document size or `[classname]__[hash]` in case we need better debuggability in production.
+
+<br />
+
+<Subheading>
+  <Status type="ok" />
+  Main benefits
+</Subheading>
+
+So, what does this mean for us, the developers?
+
+- **We don't have to worry about naming collisions and unexpected overrides** because the tooling takes care of this.
+- We can **use class names relevant to a particular component** only. For example, different `.title` classes, defined in 2 separate components, will not collide with each other.
+
+With CSS Modules, we get all the functionality of BEM methodology, but without the hassle of manually maintaining the class names.
+
+<br />
+
+<Subheading>
+  <Status type="ok" />
+  Explicit style dependencies
+</Subheading>
+
+CSS Modules recommend having a **separate `.css` file for each component**. If we think about it, this makes perfect sense when considering component-based architectures, as all the concerns are grouped together: HTML markup, JavaScript behavior, and CSS styling.
+
+<p>
+  On the other hand, with CSS Modules we have to explicitly <code>import</code> the stylesheet used by a particular component. Therefore, styles are not{" "}
+
+  <LinkTo part={1} hash="implicit-dependencies">
+    implicit dependencies
+  </LinkTo>{" "}
+  anymore, which brings maintenance benefits that were not possible before:
+</p>
+
+- Anyone can **easily figure out the source** of the styles, since the `.css` files are explicitly imported.
+- **Unused styles don't get bundled** anymore when deleting the component, enabling dead code elimination.
+
+## Shadow DOM
+
+As we've seen, standardization is generally a lengthy process, and Shadow DOM experienced quite a bumpy ride. The specification was initially launched in 2014 as an experimental technology, called **Shadow DOM v0**. However, similar to Scoped CSS, it didn't get enough adoption, and it was [deprecated](https://www.chromestatus.com/feature/4507242028072960) in 2018.
+
+Fortunately, a new standard version was launched in 2016, called **Shadow DOM v1**. It consists of the current standard APIs known and used today.
+
+<Subheading>What is Shadow DOM?</Subheading>
+
+Without going into any details or technicalities, Shadow DOM is a set of standard APIs implemented as part of the Document Object Model (DOM). Its purpose is to fix the CSS maintainability and scalability problems that we've discussed so far, but natively, within the web platform.
+
+<!-- > Shadow DOM fixes CSS and DOM. It introduces scoped styles to the web platform. **Without tools or naming conventions** [...] -->
+
+<Quote>
+  <blockquote cite="https://developers.google.com/web/fundamentals/web-components/shadowdom">
+    <p>
+      Shadow DOM fixes CSS and DOM. It introduces scoped styles to the web
+      platform. <strong>Without tools or naming conventions</strong> [...]
+    </p>
+    <figcaption>
+      Eric Bidelman,{" "}
+      <cite>
+        <a href="https://developers.google.com/web/fundamentals/web-components/shadowdom">
+          Google Developers
+        </a>
+      </cite>
+    </figcaption>
+  </blockquote>
+</Quote>
+
+<Subheading>Creating a Shadow DOM</Subheading>
+
+To create a Shadow Tree within our DOM, the only thing we need to call is the `.attachShadow()` method on an existing DOM element, which will become the **host** of the Shadow DOM:
+
+```html{5}
+<script>
+  // create an <div> element, aka the "host"
+  const div = document.createElement("div");
+  // attach a Shadow DOM subtree
+  const shadowRoot = div.attachShadow({ mode: "open" });
+  // append the <div> to document body
+  document.body.appendChild(div);
+
+  // set Shadow DOM content
+  shadowRoot.innerHTML = `
+    <p> shadow content </p>
+  `;
+</script>
+```
+
+<Subheading>Outer styles are not applied</Subheading>
+
+Next, let's add some styles outside the Shadow DOM. We'll target all `p` elements by setting their color to `blue 🔵`:
+
+```html{2,4,11}
+<!-- Outer styles (global scope) -->
+<style> p { color: blue; } </style>
+
+<p> 🔵 Outer content </p>
+
+<script>
+  /* ... */
+
+  // Shadow DOM is not affected by outer styles
+  shadowRoot.innerHTML = `
+    <p> ⚫️ shadow content </p>
+  `;
+</script>
+```
+
+In contrast to Scoped CSS or CSS Modules, styles defined outside the Shadow DOM, which target contained elements, **do not leak inside** the Shadow DOM.
+
+<Subheading>Global styles are inherited</Subheading>
+
+It's essential to understand that **global styles are still inherited** by Shadow DOM. For example, global styles like `body { color: green; }` will pierce through the Shadow DOM barrier.
+
+```html{2,9}
+<!-- Global styles -->
+<style> body { color: green; } </style>
+
+<script>
+  /* ... */
+
+  // Global styles are inherited
+  shadowRoot.innerHTML = `
+    <p> 🟢 shadow content </p>
+  `;
+</script>
+```
+
+Likewise, targetting the **host** element, which is the `<div>` in our example, will also affect the content inside the Shadow DOM.
+
+<Subheading>Inner styles don't leak out</Subheading>
+
+Now, let's add some local styles inside the Shadow DOM, by changing all `p` elements' color to `red 🔴`:
+
+```html{11,13}
+<!-- Outer styles (global scope) -->
+<style> p { color: blue; } </style>
+
+<p> 🔵 Outer content </p>
+
+<script>
+  /* ... */
+
+  // Shadow DOM is affected by local styles
+  shadowRoot.innerHTML = `
+    <style> p { color: red; } </style>
+
+    <p> 🔴 shadow content </p>
+  `;
+</script>
+```
+
+[![Edit Shadow DOM style encapsulation](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/shadow-dom-style-encapsulation-f55lw?codemirror=1&fontsize=14&hidenavigation=1&theme=dark)
+
+Even though we target all the `p` elements, any styles defined inside the Shadow DOM **will not leak outside**. Therefore, Shadow DOM isolates its content from the outside world, encapsulating its local styles.
+
+<Subheading>
+  <Status type="ok" />
+  Better encapsulation
+</Subheading>
+
+In contrast with CSS Modules or Scoped CSS, we get a higher degree of encapsulation using Shadow DOM. Elements inside the Shadow DOM will not be affected by outer styles that target those elements.
+
+However, global inheritable styles, like `color`, `font` or `line-height` will leak inside the Shadow DOM. This behavior is convenient in application development, enabling global styles inheritance for the entire content.
+
+<Note>
+  Even though <strong>Shadow DOM</strong> is mainly used with{" "}
+  <strong>Custom Elements</strong> and <strong>HTML Templates</strong> to create{" "}
+  <strong>Web Components</strong>, their APIs are entirely separate and can be
+  used independently.
+</Note>
+
+## JavaScript Frameworks
+
+Styles encapsulation became an **industry-standard** pretty fast. It made sense. It was simple. It had no outstanding compromises. Consequently, most JavaScript frameworks nowadays implement or recommend some form of style encapsulation.
+
+- **Next.js** supports [CSS Modules](https://nextjs.org/docs/basic-features/built-in-css-support#adding-component-level-css) out of the box for any CSS file that follows the `[name].module.css` naming convention.
+
+- **React** doesn't provide a built-in mechanism for styles encapsulation, but Create React App has [built-in support for CSS Modules](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/).
+
+- **Vue.js** uses the abandoned `scoped` attribute to generate [encapsulated CSS](https://vue-loader.vuejs.org/guide/scoped-css.html) output while supporting [CSS Modules](https://vue-loader.vuejs.org/guide/css-modules.html) as an alternative.
+
+- **Angular** has two methods to handle [view encapsulation](https://angular.io/guide/view-encapsulation). The default setting is `Emulated`, which works similarly to Vue under the hood. An alternative option is `ShadowDom`, which uses an actual shadow DOM for style scoping.
+
+- **Svelte** also implements its own [style scoping](https://svelte.dev/docs#style) mechanism by default.
+
+- **Gatsby** supports [CSS Modules](https://www.gatsbyjs.com/docs/how-to/styling/css-modules/) out of the box for any CSS file containing the `.module.css` suffix.
+
+---
+
+To conclude, **styles encapsulation** forever changed the way we author CSS. Finally, we can say goodbye to all specificity-related problems, naming collisions, and the daunting task of figuring out unique names for Semantic CSS classes.
+
+> Styles encapsulation represents **the end of global CSS**.
+
+Now that we've covered all essential Semantic CSS milestones, we need to backtrack a bit as the evolution paths diverge from now on.
+
+In the next chapter, **<LinkTo part={CURRENT_PART + 1} />**, we'll explore a different CSS paradigm introduced before styles encapsulation was possible. Atomic CSS solves all the problems of Semantic CSS by contradicting the fundamental principle that _"class names should be semantic"_, using only **utility classes** that fully convey their implementation instead.
+
+<br />
+
+<Subheading> References</Subheading>
+<br />
+
+- [CSS Modules: Welcome to the Future](https://glenmaddern.com/articles/css-modules) by Glen Maddern
+- [The End of Global CSS](https://medium.com/seek-blog/the-end-of-global-css-90d2a4a06284#.4brb2kfit) by Mark Dalgleish
+- [Web Components and the future of Modular CSS](https://philipwalton.github.io/talks/2015-10-26) by Philip Walton

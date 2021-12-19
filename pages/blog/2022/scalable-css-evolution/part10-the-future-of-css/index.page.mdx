@@ -1,0 +1,41 @@
+import { BlogPost } from "../../../../../components/blog/blog_post";
+import { Subheading } from "../../../../../components/blog/subheading";
+// import { SideBySide, Side } from "../../../../../components/blog/sidebyside";
+import { Status } from "../../../../../components/blog/status";
+import { Note } from "../../../../../components/blog/note";
+// import { Figure } from "../../../../../components/blog/figure";
+import { TOC, LinkTo } from "../toc";
+// import Image from "next/image";
+// import img from './type-safe-css.png'
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+const CURRENT_PART = 10;
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={CURRENT_PART} />
+
+## CSS-in-JS is the new Semantic CSS
+
+CSS-in-JS vs Semantic CSS ... the same as Semantic CSS layouts vs Structured HTML layouts in 2003. People are resistent to change, because they would _"have to throw out everything they've learned"_. However, new developers would surely find it more easily to adopt.
+
+## Performance Precedes Preference
+
+Think about the users first, and the developers second. We build software for our consumers, not (only) for the fun of developing them.
+
+So, we like Atomic CSS, but that means a lot of HTML bloat (remember **tag soup** in 2003). If we have an online ecommerce solutin with SSR pages or a publication with Static prerendered pages, why should we deliver a small CSS file that gets cached by default + a whole junk of CSS classes attached to most HTML tags, which bloats each of the pages we deliver to each consumer?
+
+- http://www.zeldman.com/daily/0303a.shtml#csswiner
+
+What about updates? changing the "styles" requires changing the markup for Atomic CSS. The Stylesheet remains the same (cached). So, we're changing something that's not cached, which is good because it's not invalidated. So, Atomic CSS makes sense for frequent changing solutions, ie. webapps with daily/weekly releases.
+
+Anything in the grey zone benefit only to some extend from the solution we choose, regardless what exact solution we choose.
+
+### Markup / Style separation
+
+This is a long debated subject: https://simonwillison.net/2003/Apr/20/flaminCSS/
+
+---
+
+- native CSS module scripts: https://github.com/WICG/webcomponents/issues/759; https://github.com/whatwg/html/pull/4898/; https://chromestatus.com/feature/5948572598009856;

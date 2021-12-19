@@ -1,0 +1,261 @@
+import { BlogPost } from "../../../../../components/blog/blog_post";
+import { Note } from "../../../../../components/blog/note";
+import { SideBySide } from "../../../../../components/blog/sidebyside";
+import { Status } from "../../../../../components/blog/status";
+import { Subheading } from "../../../../../components/blog/subheading";
+import { Figure } from "../../../../../components/blog/figure";
+import { ThemedImg } from "../../../../../components/blog/themed-img";
+import { TOC, LinkTo } from "../toc";
+
+import Image from "next/image";
+import img_light from './methodologies-semantics-light.gif';
+import img_dark from './methodologies-semantics-dark.gif';
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+const CURRENT_PART = 4;
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={CURRENT_PART} />
+
+In the previous article, <LinkTo part={CURRENT_PART - 1} />, we've witnessed how preprocessors reduce most source code duplication while postprocessing optimizes the output code.
+
+However, one topic that we haven't touched upon yet is how to reuse larger blocks of code or organize large CSS stylesheets.
+
+In this article, we'll take a look at several **methodologies** and **architectures** built on top of many of the <LinkTo part={2}>good practices</LinkTo> that we've previously covered. We'll notice that they are more opinionated than individual practices. However, they also provide a cohesive and structured set of rules, making them easier to adopt.
+
+<br />
+
+Here's a summary of this chapter:
+
+- [**The birth of components**](#the-birth-of-components) touches upon OOCSS, which popularized identifying and reusing abstract content blocks;
+- [**Naming conventions**](#naming-conventions) covers BEM, a pioneering technique that emphasized the component-based mindset;
+- [**High-level architecture**](#high-level-architecture) looks briefly at SMACSS and ITCSS as solutions for structuring application-wide CSS code;
+- [**Semantic CSS**](#semantic-css) examines the status quo and the standard approach to CSS authoring.
+
+<Note>
+  We won't dive into the details of any methodology as there are plenty of
+  resources available. Instead, we will focus on the fundamental contributions
+  of each approach regarding the evolution of scalable CSS.
+</Note>
+
+<Figure
+  width="grid"
+  caption={
+    "Timeline of the most notable CSS Methodologies and Architectures, which played an essential role in the evolution of scalable CSS"
+  }
+>
+  <ThemedImg
+    light={img_light.src}
+    dark={img_dark.src}
+    width={1920}
+    height={818}
+    alt="Timeline of scalable CSS evolution, highlighting the main timeline or Semantic CSS (in blue) and pinpoiting the most notable CSS methodologies and architectures: OOCSS in 2008, BEM in 2010, SMACSS in 2011 and ITCSS in 2014"
+  />
+</Figure>
+
+## The birth of components
+
+In 2008, **Nicole Sullivan** introduced [**OOCSS**](https://github.com/stubbornella/oocss/wiki), which stands for **Object Oriented CSS**. It was probably the first popular approach that taught us to identify _repeating visual patterns_ and develop _re-usable abstract objects_ in CSS. However, OOCSS became popular only in 2010 with the introduction of the [media object](http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/).
+
+> An object should look the same, no matter where you put it.
+
+The term **component** was not popularized at that time, but the resemblance is obvious between how we think about components today and how Nicole described her **objects**. Not to mention that she also referred to them as _"web Lego"_.
+
+<Subheading>
+  <Status type="ok" /> Takeaways
+</Subheading>
+
+There are two essential things to take away from OOCSS that are still applicable in today's applications:
+
+1. **Separate container from content**, or in other words, the objects (or components) should provide only the abstract container, while the consumers of the objects should provide their own specific content. This way, we gain **high reusability** because each consumer of the _container_ can pass its custom _content_.
+
+   In today's terms, the _"content"_ refers to `children` in React, `<ng-content>` in Angular, or `<slot>` elements in Vue.js or Web Components.
+
+2. **Separate structure from skin**, or in other words being able to apply different skins to the same structure. This way, we gain **high extensibility and customization** because different _styles_ can be applied to the same _structure_.
+
+   Nowadays, we usually refer to _"skins"_ as component `variants` or `themes`.
+
+<Subheading>
+  <Status type="unsure" /> OOCSS Limitations
+</Subheading>
+
+OOCSS focused more on the principles of _what components are_ and _how to identify them_. Therefore, it doesn't provide details regarding the technicalities of writing the required code.
+
+## Naming conventions
+
+[**BEM**](https://en.bem.info/methodology/key-concepts/) was developed at **Yandex** long before OOCSS, used internally under different names. However, it was [open-sourced](https://en.bem.info/methodology/history/#bem-and-open-source-2010) only in 2010.
+
+BEM stands for **Block-Element-Modifier**. It taught us to think of our pages and application screens as a hierarchy of independent **Blocks**, which we call Components nowadays. Therefore, any Block could be used in any part of any page of the application. Likewise, any Block can contain other Blocks.
+
+Blocks can also contain **Elements**, which represent content dependent on their respective Block. If an Element is independent and could be used anywhere else, not only inside a specific Block, it becomes a Block itself.
+
+Last but not least, both Blocks and Elements are customizable by one or more **Modifiers**.
+
+> The BEM methodology defines **CSS selector naming conventions** that solve a range of web [development problems](https://en.bem.info/methodology/solved-problems/).
+
+As far as we know, BEM is the first approach that proposed using **a single, unique, and semantic CSS class** to identify and refer to HTML elements:
+
+- `.main-menu` could be the name of the **block** CSS class;
+- `.main-menu__item-link` could be the name of an **element** of the block, which makes no sense outside of the block it belongs to;
+- `.main-menu--sticky` and `.main-menu__item-link--active` could be the name of **modifiers** for the block and the element, respectively.
+
+<br />
+
+<Subheading>Avoid descendant combinators</Subheading>
+
+We don't need descendant combinators if we use **unique CSS class names**. Following this simple rule results in **low specificity** for the majority of our code.
+
+<!-- prettier-ignore-start -->
+```css
+/* ❌ descendants increase specificity (0.2.0) */
+.main-menu .link {}
+
+/* ✅ unique classes don't require descendants (0.1.0) */
+.main-menu__link {}
+```
+<!-- prettier-ignore-end -->
+
+<Subheading>Avoid compound selectors</Subheading>
+
+To override styles, we don't need compound selectors if we use unique CSS class names. It seems so obvious right now, so I honestly have no idea why we were so blind back then.
+
+<SideBySide left={{lang: "CSS", file: "Using compound selectors"}}  right={{lang: "CSS", file: "Using BEM modifier class selector"}}>
+
+```css
+.main-menu {
+  position: relative;
+}
+
+/* ❌ compound selectors increase specificity (0.2.0) */
+.main-menu.sticky {
+  position: sticky;
+}
+```
+
+```css
+.main-menu {
+  position: relative;
+}
+
+/* ✅ single classes have constant specificity (0.1.0) */
+.main-menu--sticky {
+  position: sticky;
+}
+```
+
+</SideBySide>
+
+Using BEM modifier classes in HTML doesn't change much from the standard approach, as we still apply two classes. The only caveat is the longer class name when considering BEM methodology.
+
+```diff
+-<ul class="main-menu sticky">
++<ul class="main-menu main-menu--sticky">
+   ...
+ </ul>
+```
+
+<Subheading>
+  <Status type="ok" /> Takeaways
+</Subheading>
+
+BEM truly emphasized the _component-based mindset_ in UI development. But probably the important legacy that BEM popularized is the **naming conventions**:
+
+- using **unique CSS class names**;
+- with **low and non-increasing specificity**.
+
+<Subheading>
+  <Status type="unsure" /> BEM Limitations
+</Subheading>
+
+These simple rules scale pretty well from a technical perspective. However, finding unique names for all CSS classes in the global namespace becomes really problematic in large applications. Therefore, it doesn't scale well from the development perspective.
+
+## High-level architecture
+
+So far, we've only looked at individual component styling techniques. But when architecting an entire website or application, structuring all the CSS code becomes an important task, as well. We need to maintain multiple categories of CSS rules: default styles, re-usable styles, non-reusable styles, utility classes, etc.
+
+That's where CSS architectures started to emerge.
+
+- [**SMACSS**](http://smacss.com/book/) is the first popular approach that addressed the topic of large-scale project-wide CSS architecture. It stands for _Scalable and Modular Architecture for CSS_ and it was coined by **Jonathan Snook** in [2011](https://snook.ca/archives/html_and_css/css-architecture).
+
+- [**ITCSS**](https://csswizardry.net/talks/2014/11/itcss-dafed.pdf) is another popular architecture introduced in 2014 by **Harry Roberts**. It stands for _Inverted Triangle CSS_.
+
+<Subheading>
+  <Status type="ok" /> Takeaways
+</Subheading>
+
+As mentioned, we won't dive into the specific details of each of these approaches. However, the essential thing to learn is that there are **multiple layers of CSS rules** that we need to consider when structuring the CSS code base for an entire application:
+
+1. We have some **base rules**, very generic styles using only type selectors, without classes. These rules contain _CSS resets_, _typography_, _variables_, etc.
+2. Then we have **layout rules** (or **objects** as called in ITCSS). These are typically abstract components containing minimal styling, used only for layout. Such components include _Grid systems_, _Media object_, _Stack_ and _Divider_ components, etc.
+3. The above layout components will contain **concrete components** (or **modules** as called in SMACSS). These are the actual UI parts, having application-specific styling including:
+   - highly re-usable and abstract components, such as _Button_, _Modal_, _Form_ elements, _Tooltip_, etc;
+   - domain-specific components bound to the application domain, like _ProductCard_, _Breadcrumb_, _Carousel_, _Avatar_, and so on;
+4. Lastly, we have **overrides** (called **trumps** in ITCSS and **state** in SMACSS). These are single-purpose _utility classes_ that override other styles.
+
+<Note>
+  OOCSS approach and BEM naming conventions can also be used along with SMACSS
+  and/or ITCSS. These methodologies don't exclude each other. They rather
+  complement themselves.
+</Note>
+
+## Semantic CSS
+
+At the time when these methodologies were coined, there was a strong buzz around [Semantic HTML](https://developer.mozilla.org/en-US/docs/Glossary/Semantics). Since CSS and HTML go hand in hand, it was a no-brainer that _"CSS should also be semantic"_. Even the [HTML5 specification](https://html.spec.whatwg.org/multipage/dom.html#:~:text=authors%20are%20encouraged%20to%20use%20values%20that%20describe%20the%20nature%20of%20the%20content%2C%20rather%20than%20values%20that%20describe%20the%20desired%20presentation%20of%20the%20content.) preaches this approach:
+
+> [...] authors are encouraged to use values that describe the nature of the content, rather than values that describe the desired presentation of the content.
+
+And indeed, everything that we've talked about so far can be included in the **semantic approach of CSS**, which says that CSS class names should convey _meaning_, not _implementation_. In other words, a semantic name should express _what it represents_ and _not how it looks_.
+
+```html
+<!-- Semantic (conveys meaning) -->
+<nav class="main-menu"></nav>
+
+<!-- Non-Semantic (conveys implementation) -->
+<nav class="flex column bg-dark pad-md align-center"></nav>
+```
+
+<br />
+
+<Subheading>Semantic CSS Frameworks</Subheading>
+
+The vast majority of CSS frameworks that we know today were built on top of many of the principles described above, imbracing the semantic CSS approach. Some popular semantic CSS frameworks include _Foundation_, _Bootstrap_, _Semantic UI_, _UIKit_, _Bulma_, and many more.
+
+<!-- - [Foundation](https://get.foundation/) released in 2011;
+- Twitter's widely adopted [Bootstrap](https://getbootstrap.com/) also released in 2011;
+- The semantical [Semantic UI](https://semantic-ui.com/) in 2013;
+- The lightweight [PureCSS](https://purecss.io/) also relesed in 2013;
+- The minimalistic [UIKit](https://getuikit.com/) released in 2015;
+- The CSS-only & no-JS [Bulma](https://bulma.io/) released in 2016, and many many more. -->
+
+<Subheading>
+  <Status type="unsure" />
+  Semantic CSS limitations
+</Subheading>
+
+If we get trapped inside the semantic bubble, we might get the impression that this is _"the right way"_ to author CSS code, especially since official guides tell us so.
+
+But when we step outside the bubble and look objectively at Semantic CSS, we have to admit that it has some serious shortcomings:
+
+1. There's usually **a lot of repetition** in the written CSS rules. We'll surely have lots of `display: flex`, `font-weight: bold`, or `position: relative` in our code, which results in larger than needed file size in the end.
+2. The size of our **CSS files will continually grow** as we develop new features, components, or pages. The reusability of styles is limited to the reusability of the components they relate to.
+3. Anytime a single CSS rule changes, the **cached `.css` file containing the rule gets invalidated**. Frequent styles updates could make the caching mechanism built in the browsers totally inefficient.
+4. Last but not least, **naming things is inherently difficult**. In addition, making sure there are no class names collisions in the global namespace, with a continually increasing codebase, is a daunting task.
+
+Therefore, considering the last reason alone, **Semantic CSS doesn't easily scale**.
+
+---
+
+Whenever there's a debatable status quo, there will always be someone to question it. The same thing happened in 2013 with Semantic CSS, when a new paradigm was born as an attempt to solve the above shortcomings. We'll cover <LinkTo part={6}>Atomic CSS</LinkTo> in a later chapter.
+
+For now, we'll continue the Semantic CSS journey with **<LinkTo part={CURRENT_PART + 1} />**, which explores different methods to write **scoped CSS**, including **CSS Modules**. These techniques enabled us to elegantly avoid naming collisions within the global namespace, eventually becoming an industry standard.
+
+<br />
+
+<Subheading>References and further reading</Subheading>
+<br />
+
+- [About HTML semantics and front-end architecture](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/) by Nicolas Gallagher
+- [CSS and Scalability](https://mrmrs.cc/writing/scalable-css/) by Adam Morse
+- [Battling BEM CSS](https://www.smashingmagazine.com/2016/06/battling-bem-extended-edition-common-problems-and-how-to-avoid-them/) by David Berner

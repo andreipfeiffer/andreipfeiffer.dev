@@ -1,0 +1,149 @@
+import { BlogPost } from "../../../../components/blog/blog_post";
+import { Subheading } from "../../../../components/blog/subheading";
+import { SideBySide } from "../../../../components/blog/sidebyside";
+import { Status } from "../../../../components/blog/status";
+import { Note } from "../../../../components/blog/note";
+import { Figure } from "../../../../components/blog/figure";
+import { Quote } from "../../../../components/blog/quote";
+import { ThemedImg } from "../../../../components/blog/themed-img";
+import { TOC, LinkTo } from "./toc";
+
+import Image from "next/image";
+import img_light from './scalable-css-evolution-light.gif';
+import img_dark from './scalable-css-evolution-dark.gif';
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+const CURRENT_PART = 0;
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={CURRENT_PART} />
+
+I wrote my first Cascading Style Sheet (CSS) in 2000. As you can imagine, a lot has changed since then regarding what we can achieve nowadays with CSS.
+
+One thing I came to understand after all these years is that there's a significant difference between the CSS code written for **small, primarily static websites** and the one developed for **large, highly dynamic applications**. For example, single developers working on a project that will end in a couple of months can write CSS in any way they consider appropriate. Either way, the project's success most likely will not be affected.
+
+On the other hand, when we think about teams with multiple developers working on the same code base, poorly written CSS can hugely influence the project's development over the course of several years. It's not a secret that **writing CSS at scale is not trivial**. We've read about it in articles and blog posts. We've heard it during conference talks. Not to mention that I've personally experienced it countless times.
+
+<br />
+
+Before 2000, the World Wide Web Consortium (W3C) set the tone for CSS features, releasing standard specifications way before their actual implementations in browsers. But with the rise of Web 2.0, things began to flip. CSS standard features started to lag behind the needs of the community. Therefore, developers had to **build their own tools** to aid them in authoring CSS at scale.
+
+You can view this series of articles as a **chronicle**, describing how CSS tools and techniques have evolved over time. The goal is to present an objective view of the current state of writing _maintainable CSS at scale_, highlighting the available tools and their applicability.
+
+> A chronicle is a recording of significant historical events in the order of their occurrence, as seen from the chronicler's perspective.
+
+<Figure
+  width="grid"
+  caption="Timeline of scalable CSS evolution milestones and turning points"
+>
+  <ThemedImg
+    light={img_light.src}
+    dark={img_dark.src}
+    width={1920}
+    height={878}
+    alt="Timeline of scalable CSS evolution, depicting important milestones such as good practices, CSS processors, CSS methodologies, styles encapsulation, but also turning points like Atomic CSS (in green) and CSS-in-JS (in yellow), branching from the main timeline of Semantic CSS (in blue)"
+  />
+</Figure>
+
+<br />
+
+<Subheading>Target audience</Subheading>
+
+This series will be appealing to you if:
+
+- You are **eager to discover** potential maintainability problems when working with CSS at scale, even if you haven't encountered them yet.
+- You have already experienced the struggles with CSS, and you're **looking for solutions** to overcome them.
+- You've **heard certain buzzwords** such as _specificity_, _semantics_, _scoping_, _encapsulation_, _Atomic CSS_, _CSS-in-JS_, _design tokens_, or _type-safety_, but you don't fully grasp their meaning.
+- You want to **understand the CSS ecosystem as a whole**, even if you master a few particular tools and techniques.
+- You're simply **curious to learn** how CSS tooling has evolved over time or why specific techniques exist today.
+
+<br />
+
+However, the audience that would benefit most from the content include:
+
+- **UI developers** or **Front-End developers** working either on client-facing interfaces or back-office applications;
+- **Full-Stack** or **Back-End developers** getting their hands dirty with CSS and user interfaces;
+- **Technical leads** or **CTOs** that have to make educated decisions in regards to their technological stack;
+- Anyone working on **projects longer than 3 months** or within **teams of at least 3 developers** writting and maintaining CSS code.
+
+## Preface
+
+Before diving into CSS-specific scalability problems, let's generalize what a **scalability issue** is.
+
+Without a doubt, the code for a software project will continually grow as new features get implemented. Therefore, when we talk about _software scalability_, we look at the **scaling factor of the maintainance effort** when we significantly increase the size of the code.
+
+> Whenever the gravity of a problem increases proportionally with the size of the code, we have a **scalability concern**.
+
+For example, we all know that we [should avoid globals](https://www.oreilly.com/library/view/maintainable-javascript/9781449328092/ch06.html). But, would it matter if we use _"a few"_ globals, in a small code base, for a personal project? Of course not.
+
+However, _using globals as a practice_, within a team of several developers working on a long-term project that spans over many years, should be a **scalability concern** for the team, as it **will undoubtedly become a substantial problem** sooner or later.
+
+<Subheading>Project size</Subheading>
+
+We all have our own definition of _"what a large project is"_ to determine when to address these scalability concerns. Based on my own experience, CSS scalability problems usually start to surface during:
+
+- projects that span **longer than 3 months**;
+- projects having **at least 3 developers** working on the UI.
+
+As you've noticed, the magic number is `3`.
+
+<Subheading>Maintainability</Subheading>
+
+Writing new code is only one of our daily activities as developers. Besides implementing new features, we'll have to **investigate** issues, **fix bugs** in existing code, perform **refactorings**, **remove** unused code, **optimize** it, and **update** it as libraries and native platforms evolve. All these responsibilities comprise the maintenance part of the code.
+
+There's a tight relationship between _scalability_ and _maintainability_. That's why I'll often use these terms interchangeably throughout this series. Any scalability concern could potentially affect the maintainability of the code, ultimately leading to [technical debt](/blog/tech-debt-tech-loan).
+
+<Subheading>Software entropy</Subheading>
+
+Whenever we begin a fresh project, we start with a clean code. But with each new line of code added to the project, the complexity grows. The initial clean state will slowly begin to decay. Say hello to [software entropy](https://en.wikipedia.org/wiki/Software_entropy).
+
+<Quote>
+  <blockquote cite="https://en.wikipedia.org/wiki/Software_entropy">
+    <p>As a system is modified, its disorder, or entropy, tends to increase.</p>
+    <figcaption>
+      <cite>
+        <a href="https://en.wikipedia.org/wiki/Software_entropy#:~:text=as%20a%20system%20is%20modified%2C%20its%20disorder%2C%20or%20entropy%2C%20tends%20to%20increase">
+          Wikipedia
+        </a>
+      </cite>
+    </figcaption>
+  </blockquote>
+</Quote>
+
+The more code we write, the faster the entropy will grow. Larger teams produce more code. Therefore, it's obvious that the difficulty of maintaining long-term projects is proportional to the team size.
+
+To avoid the continuous rise of software entropy, we have to fight it constantly: **refactor** code, **clean** it up, **remove** dead code, **analyze** and **re-design** it. But we cannot fight this war with our bare hands. We need proper weapons and tactics, like tools and techniques.
+
+> This chronicle aims to dissect the **weapons** and **tactics** at our disposal in fighting against CSS entropy.
+
+## Chronicle overview
+
+Similar to natural selection, the evolution of scalable CSS didn't take a linear path. Instead, developers had to try various approaches to figure out which ones would withstand the test of time. In addition, each project has its own challenges, and each team has its own preferences. This results in a wide range of solutions, even when addressing the same problem.
+
+<br />
+
+During this series, we'll analyze all the tools and techniques still applicable today regarding scalable and maintainable CSS code. Here's a short overview of what we'll cover.
+
+- In **<LinkTo part={1} />**, we'll explore the most significant problems that we're usually facing when writing large-scale CSS, namely **selector duplication**, **naming collisions**, **specificity wars**, **source order precedence**, **implicit dependencies**, **zombie code**, **shared variables**, and **lack of type-safety**.
+
+- **<LinkTo part={2} />** walks through some of the essential techniques introduced by various pioneers to **avoid naming collisions** and **specificity wars**. They provide the first line of defense in the battle against scalability problems.
+
+- **<LinkTo part={3} />** covers various tools that enriched CSS with new syntax, allowing us to write more maintainable source code by significantly **reducing selector duplication**. It was a small step forward but nevertheless a crucial one.
+
+- In **<LinkTo part={4} />**, we'll discuss two related topics. First, we'll look at various _CSS methodologies_ that brought together essential practices in a concise and explicit set of rules. Second, we'll discuss the _Semantic CSS approach_, encouraged by the HTML5 specification, which most CSS methodologies and frameworks embrace.
+
+- **<LinkTo part={5} />** focuses on the tools used for CSS scoping, addressing all the problems regarding **naming collisions**, **specificity wars**, **source order precedence**, and reducing the amount of **zombie code**. Styles encapsulation became an industry standard, adopted by all component-based JavaScript frameworks.
+
+- **<LinkTo part={6} />** debates an alternative approach that contradicts and breaks all the principles of Semantic CSS. This shift gave birth to a whole new set of frameworks based solely on the paradigm of _single-purpose utility classes_.
+
+- **<LinkTo part={7} />** covers a novel approach to CSS, by moving style definitions to JavaScript files, resulting in countless benefits, such as **explicit dependencies** and **shared variables**. In addition, CSS-in-JS provides all the features of styles encapsulation, CSS preprocessors, Atomic CSS, and so much more.
+
+- In **<LinkTo part={8} />**, we'll explore the missing puzzle piece when aiming for a complete **type-safe codebase**. Combining TypeScript and CSS-in-JS provides type checking for CSS styles, enabling _safe refactorings_ and _typed interfaces_ when authoring UI components.
+
+- The **<LinkTo part={9} />** includes a review discussing the current state of scalable CSS. It debates the different paradigms to address CSS today, highlighting their strong points and main applicabilities.
+
+---
+
+As you can see, we have a lot to talk about. So please grab a cup of your favorite beverage and let our journey begin with **<LinkTo part={1} />**, as we cannot discuss the solutions unless we understand the problems they are trying to solve.

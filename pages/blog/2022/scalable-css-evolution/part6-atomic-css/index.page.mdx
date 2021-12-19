@@ -1,0 +1,226 @@
+import { BlogPost } from "../../../../../components/blog/blog_post";
+import { Note } from "../../../../../components/blog/note";
+import { SideBySide } from "../../../../../components/blog/sidebyside";
+import { Status } from "../../../../../components/blog/status";
+import { Subheading } from "../../../../../components/blog/subheading";
+import { Figure } from "../../../../../components/blog/figure";
+import { ThemedImg } from "../../../../../components/blog/themed-img";
+import { TOC, LinkTo } from "../toc";
+
+import Image from "next/image";
+import img_light from './atomic-css-light.gif';
+import img_dark from './atomic-css-dark.gif';
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+const CURRENT_PART = 6;
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={CURRENT_PART} />
+
+In the previous article of this series, <LinkTo part={CURRENT_PART - 1} />, we've covered different methods to scope our styles to the component they belong to, preventing styles leaking into the global namespace.
+
+So far, we've only addressed Semantic CSS. Now it's time to branch off, and explore alternative paradigms for authoring CSS styles.
+
+This article examines **Atomic CSS**, a fundamentally different approach. In contrast with Semantic CSS, Atomic CSS employs the use of non-semantic CSS classes that explicitly express how they look.
+
+<Figure
+  width="grid"
+  caption={
+    "Atomic CSS branched off in 2013 as a completely different paradigm, currently being an alternative to the standard Semantic approach"
+  }
+>
+  <ThemedImg
+    light={img_light.src}
+    dark={img_dark.src}
+    width={1920}
+    height={708}
+    alt="Timeline of scalable CSS evolution, highlighting the Atomic CSS branch (in green) and pinpoiting notable Atomic CSS frameworks: BASSCSS in 2013, ACSS and Tachyons in 2014 and Tailwind CSS in 2017"
+  />
+</Figure>
+
+## Motivation
+
+Atomic CSS approaches were discussed for a long time, but they only started to surface around 2013. At that time, everything revolved around semantics, which was the official standard back then.
+
+However, as long as there is a _status quo_, there will always be someone to question it, similarly to [non-Euclidean geometry](https://en.wikipedia.org/wiki/Non-Euclidean_geometry). Therefore, the same thing happened with Semantic CSS.
+
+<Subheading>Status quo</Subheading>
+
+_The [Web is semantic](https://en.wikipedia.org/wiki/Semantic_Web), [HTML is semantic](https://en.wikipedia.org/wiki/Semantic_HTML), and [CSS is semantic](https://html.spec.whatwg.org/multipage/dom.html#:~:text=authors%20are%20encouraged%20to%20use%20values%20that%20describe%20the%20nature%20of%20the%20content%2C%20rather%20than%20values%20that%20describe%20the%20desired%20presentation%20of%20the%20content.)_ as well.  
+_CSS class names should describe their nature, not the desired presentation of the content._
+
+Therefore, we should NOT use the following CSS class definition:
+
+<!-- prettier-ignore-start -->
+```css
+/* non-semantic CSS class */
+.red { color: red; }
+```
+<!-- prettier-ignore-end -->
+
+<Subheading>Divergence</Subheading>
+
+_The status quo is an axiom. We consider it being true because higher authorities tell us it's true._  
+_CSS class names **should** explicitly describe their presentation, not the meaning of the content._
+
+Therefore, using the above class example is totally accepted and even encouraged.
+
+<Note>
+  Besides questioning the status quo and taking a totally different approach,
+  Atomic CSS also solves pretty much all the{" "}
+  <LinkTo part={4} hash="the-semantical-problem">
+    problems that Semantic CSS creates
+  </LinkTo>
+  . If Semantic CSS were a flawless solution, we would have probably never heard
+  of Atomic CSS.
+</Note>
+
+## Utility CSS classes
+
+**Atomic CSS** or **Utility-first CSS** consists of a collection of _atomic_, _non-semantic_, _single-purpose_, _utility CSS classes_. They typically include a single CSS rule which fully conveys their implementation, not their meaning. Therefore, the class names explicitly describe their styles.
+
+<!-- prettier-ignore-start -->
+```css
+/* atomic CSS classes */
+.flex { display: flex; }
+.column { flex-direction: column; }
+.bg-dark { background-color: black; }
+.pad-2 { padding: 2em; }
+.align-center { align-items: center; }
+```
+<!-- prettier-ignore-end -->
+
+We can apply these classes directly to HTML elements in any desired combination:
+
+```html
+<!-- atomic classes -->
+<nav class="flex column bg-dark pad-2 align-center"></nav>
+```
+
+<Subheading>Functional CSS</Subheading>
+
+Atomic CSS is also known as **Functional CSS** as it borrows various fundamental principles from functional programming:
+
+- **composition** because we can combine these CSS classes in any way we want;
+- **immutability** as we'll never override (aka mutate) defined CSS classes;
+- **purity** because the CSS classes will always render the same result, no matter where we apply them.
+
+## Usage
+
+Using Atomic CSS is fundamentally different than Semantic CSS.
+
+First of all, we don't define CSS only when needed. Instead, we define most of the CSS classes upfront, taking all the required combinations into account. So, for instance, considering text alignment options, we will write the following CSS classes:
+
+<!-- prettier-ignore-start -->
+```css
+/* atomic CSS classes for text alignment */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+```
+<!-- prettier-ignore-end -->
+
+Since all the required CSS code is defined beforehand, we **won't be adding new CSS code** in the long term. Instead, we will only reuse existing CSS classes. Thinking about it, this means most maintenance and scalability CSS issues simply disappear.
+
+<br />
+
+Now, defining all the required atomic CSS classes is not a trivial task. There are many categories of classes that we'll have to consider:
+
+- **built-in classes** for rules that have predefined values, such as `text-align`, `text-decoration`, `list-style-type`, `font-weight`, `display`, etc;
+- **custom classes** for rules that don't include predefined values, such as `font-size`, `color`, `background-color`, `padding`, `margin`, etc;
+- **media query variants** for handling responsive styles;
+- **interactive variants** for handling `hover`, `focus`, or `active` states.
+
+<br />
+
+This is where **Atomic CSS frameworks** enter the scene because they provide the complete set of CSS classes required to build complex applications.
+
+## Frameworks
+
+Only a handful of frameworks that took the Atomic CSS path became popular. There are some subtle and interesting differences between them, so let's take a closer look.
+
+<Subheading>BASSCSS</Subheading>
+
+Probably the first Atomic framework, released in 2013 based on Github Insights, is [**BASSCSS**](https://basscss.com/). It is more suited for design and rapid prototyping, as it contains utilities only for layout, spacing, and typography. Colors and element styling are available as [addons](https://github.com/basscss/addons).
+
+```html
+<p class="block center bold black"></p>
+```
+
+One thing to notice is that the class names are readable and self-explanatory.
+
+<Subheading>Tachyons</Subheading>
+
+The following year, in 2014, [**Tachyons**](https://tachyons.io/) was released. It introduced interactive pseudo-classes for `:active`, `:hover` and `:focused` states. As we can see, the syntax is less intuitive and more cryptic.
+
+```html
+<p class="db tc b black o-50 glow:hover"></p>
+```
+
+<Subheading>ACSS</Subheading>
+
+[**ACSS**](https://acss.io/frequently-asked-questions.html) or **Atomized CSS** was also released in 2014. Instead of using a predefined set of classes like the other frameworks, it included a build step to generate only the CSS classes that are actually used. The syntax, on the other hand, is even less intuitive.
+
+```html
+<p class="D(b) Ta(c) Fw(b) C(black) Op(0.5) Op(1):h"></p>
+```
+
+<Subheading>Tailwind</Subheading>
+
+In 2017 [**Tailwind CSS**](https://tailwindcss.com/) was released, gaining a lot of popularity in a short amount of time. It's worth noticing the return to more verbose and self-explanatory class names.
+
+<!-- prettier-ignore-start -->
+```html
+<p class="block text-center font-bold text-black opacity-50 hover:opacity-100"></p>
+```
+<!-- prettier-ignore-end -->
+
+## Criticism
+
+Atomic CSS is a pretty dogmatic approach. Therefore it's obvious to get a lot of [critiques](https://medium.com/simple-human/the-problem-with-atomic-css-d0c09c7aa38e), although some of them are highly opinionanted or not 100% accurate. However, there are several recurring limitations and drawbacks that should be mentioned:
+
+1. **Certain pseudo-elements cannot be implemented** using Atomic CSS principles, like `::before` and `::after`, since classes must be explicitly applied to existing elements.
+2. **Descendant and child combinators are not supported.** It's true that in large applications it's generally discouraged using such selectors, but they might be required in certain scenarios.
+3. **Debugging CSS code in browsers' devtools is cumbersome**, as we have only one style rule per CSS class.
+4. Some argue that Atomic CSS **bloats the HTML markup** because we're _simply moving code from CSS to HTML_, thus breaking the separation of concerns.
+5. And last but not least, we have to **learn a new _language_** considering the entire set of predefined classes, regardless of which Atomic CSS framework we choose.
+
+<br />
+
+Even though some of the drawbacks mentioned above are subjective or even debatable, one thing is certain: _we cannot use Atomic CSS exclusively as it doesn't support the entire CSS syntax_.
+
+### Utility-first, not Utility-only
+
+Atomic CSS frameworks are also called **Utility-first** frameworks. I don't really believe that the authors of these solutions thought about _"never writing a single line of CSS code **ever again**"_.
+
+In the end, all these frameworks and methodologies **_are just tools_**. They're built by developers to help developers easily write maintainable and consistent code. Nobody is stopping us from writing plain CSS whenever needed.
+
+### Atomic-Semantic symbiosis
+
+The semantic and atomic (non-semantic) approaches are indeed quite the opposite at the fundamental level. However, we could follow a **pragmatic and eclectic mindset** instead of being dogmatic and following a single school of thought.
+
+<br />
+
+**Most Semantic CSS frameworks also include a set of utilities**, similar to the ones we'll find with Atomic CSS. Such helper classes include `colors`, `display` properties, `margin` and `padding`, `positioning` and styling regarding typography.
+
+Likewise, we could use an Atomic CSS framework for the vast majority of styles and **resort to Semantic CSS** for extreme cases not covered by Atomic CSS. It doesn't make sense to blindly follow dogmas only because they are written somewhere by a higher authority.
+
+---
+
+Thinking about it, Atomic CSS solves most of the problems of semantic CSS. We'll leave it aside for now, but we will revisit Atomic CSS in a future chapter.
+
+In the following post, <LinkTo part={CURRENT_PART + 1} />,
+
+Another approach to encapsulate styling that I haven't mentioned here is **CSS-in-JS**. I skipped it because the topic of writing CSS in JavaScript deserves its own part within this series which we'll cover next in <LinkTo part={CURRENT_PART + 1} />.
+
+<br />
+
+**References:**
+
+- [Let’s Define Exactly What Atomic CSS is](https://css-tricks.com/lets-define-exactly-atomic-css/) by John Polacek
+- [FAQs about Atomic CSS](https://acss.io/frequently-asked-questions.html#what-is-atomic-css-) on ACSS.io
+- [CSS Utility Classes and "Separation of Concerns"](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/) by Adam Wathan
+- [Challenging CSS Best Practices](https://www.smashingmagazine.com/2013/10/challenging-css-best-practices-atomic-approach/) by Thierry Koblentz
