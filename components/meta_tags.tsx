@@ -42,7 +42,7 @@ export function MetaTags({ children, ...props }: Partial<MetaTags>) {
         <>
           <meta property="og:article:author" content="Andrei Pfeiffer" />
           <meta
-            property="og:article:published_time"
+            property="og:published_time"
             content={meta.article.published_time}
           />
           <meta
