@@ -80,6 +80,6 @@ function getPosts(year) {
   return moved_posts[year].map((post) => ({
     source: `/blog/${post}`,
     destination: `/blog/${year}/${post}`,
-    permanent: false,
+    permanent: true,
   }));
 }
