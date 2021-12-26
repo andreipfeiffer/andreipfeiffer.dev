@@ -19,9 +19,9 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-In the previous chapter, <LinkTo part={CURRENT_PART - 1} />, we analyzed the most concerning problems with writing and maintaining CSS code. Now it's time to turn our attention to solving the issues of scalable CSS.
+In the previous chapter, <LinkTo part={CURRENT_PART - 1} />, we analyzed the most concerning problems with writing and maintaining CSS code. Now it's time to turn our attention to solving these issues.
 
-Let's begin our journey by exploring how to **avoid complex CSS selectors** and **specificity wars**. Therefore, let's focus on essential good practices that equally apply nowadays, as they did many years ago:
+Let's begin our journey by exploring the first iteration of solutions to **avoid complex CSS selectors** and **specificity wars**, focusing on essential good practices that equally apply nowadays, as they did many years ago:
 
 - [Keep specificity low](#keep-specificity-low)
 - [Avoid applying styles on IDs](#avoid-applying-styles-on-ids)
@@ -74,7 +74,7 @@ Let's analyze this code for a second:
 
 <br />
 
-Thus, the above selector could be easily simplified while also reducing its specificity:
+Thus, the above selector could be easily simplified, reducing its specificity:
 
 <!-- prettier-ignore-start -->
 ```css
@@ -189,7 +189,7 @@ Let's consider an HTML block called `.profile`, which contains an `.image` eleme
 
 <br />
 
-At some point, we want to reuse the `.profile` content block on a different page, namely `post-details.html`. Unfortunately, that page already contains an `.image` element, which is used inside an **ID selector** in CSS:
+At some point, we want to reuse the `.profile` content block on a different page, namely `post-details.html`. However, that page already contains an `.image` element, which is used inside an **ID selector** in CSS:
 
 <SideBySide left={{lang: "HTML", file: "post-details.html"}}  right={{lang: "CSS", file: "style.css"}}>
 
@@ -223,7 +223,7 @@ At some point, we want to reuse the `.profile` content block on a different page
 
 In these circumstances, the `.profile .image` styles will get overridden by the more specific `#post-details .image` selector. We could change the class names to avoid collisions, but the fundamental problem still remains: **reusing HTML blocks could render different styles, depending on where we include them**.
 
-Any non-deterministic behavior is potentially a critical problem when thinking about long-term maintainability.
+Any non-deterministic behavior is potentially a critical problem when thinking about long-term projects.
 
 <Subheading>2. Lack of reusability</Subheading>
 
