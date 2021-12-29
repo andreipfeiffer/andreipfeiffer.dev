@@ -129,7 +129,7 @@ Consequently, in 2016 the `scoped` attribute was [removed from the spec](https:/
 
 ## CSS Modules
 
-CSS features [standardization](https://css-tricks.com/css-standards-process/) is a lengthy process. It usually takes years for a feature to reach the Candidate Recommendation (CR). Thus, the developers' community couldn't just sit and wait for a standard solution to become available.
+CSS features [standardization](https://css-tricks.com/css-standards-process/) is a lengthy process, as it usually takes years for a feature to reach the Candidate Recommendation (CR) stage. As a consequence, the developers' community couldn't just sit and wait for a standard solution to become available.
 
 Therefore, in 2015, a few smart people released [CSS Modules](https://github.com/css-modules/css-modules), implementing styles encapsulation through tooling instead of relying on standards.
 
@@ -169,10 +169,7 @@ import styles from "./style.module.css";
 
 const element = document.querySelector("h1");
 
-/*
-  all classes defined in the CSS module file
-  are available as fields on the imported object
-*/
+// defined CSS classes available as fields on the imported object
 element.outerHTML = `<h1 class="${styles.heading}">Title</h1>`;
 ```
 
@@ -197,8 +194,8 @@ The exact form of the generated class name can be [customized](https://webpack.j
 
 It's worth mentioning that we can control the generated output form based on the application environment. For instance:
 
-- **During development**, we can use the verbose `[filename]__[classname]__[hash]` form to enable easier debugging, as the output pinpoints the component name and the CSS class name.
-- For **production builds**, we can choose shorter names such as `[hash]` for smaller document size or `[classname]__[hash]` in case we need better debuggability in production.
+- **During development**, we can use the verbose `[file]__[class]__[hash]` form to enable easier debugging, as the output pinpoints the component name and the CSS class name.
+- For **production builds**, we can choose shorter names such as `[hash]` for smaller document size or `[class]__[hash]` in case we need better debuggability in production.
 
 <br />
 
@@ -237,7 +234,7 @@ CSS Modules recommend having a **separate `.css` file for each component**. If w
 
 ## Shadow DOM
 
-As we've seen, standardization is generally a lengthy process, and Shadow DOM experienced quite a bumpy ride. The specification was initially launched in 2014 as an experimental technology, called **Shadow DOM v0**. However, similar to Scoped CSS, it didn't get enough adoption, and it was [deprecated](https://www.chromestatus.com/feature/4507242028072960) in 2018.
+As we've seen, standardization is generally a lengthy process, and Shadow DOM experienced quite a bumpy ride as well. The specification was initially launched in 2014 as an experimental technology, called **Shadow DOM v0**. However, similar to Scoped CSS, it didn't get enough adoption, and it was [deprecated](https://www.chromestatus.com/feature/4507242028072960) in 2018.
 
 Fortunately, a new standard version was launched in 2016, called **Shadow DOM v1**. It consists of the current standard APIs known and used today.
 

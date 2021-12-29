@@ -23,7 +23,7 @@ In the previous article, <LinkTo part={CURRENT_PART - 1} />, we've witnessed how
 
 However, one topic that we haven't touched upon yet is how to reuse larger blocks of code or organize large CSS stylesheets.
 
-In this article, we'll take a look at several **methodologies** and **architectures** built on top of many of the <LinkTo part={2}>good practices</LinkTo> that we've previously covered. We'll notice that they are more opinionated than individual practices. However, they also provide a cohesive and structured set of rules, making them easier to adopt.
+In this article, we'll take a look at several **methodologies** and **architectures** built on top of many of the <LinkTo part={2}>good practices</LinkTo> that we've previously covered. We'll notice that they are more opinionated than individual practices. However, they also provide a cohesive and structured set of rules, making them easier to adopt and implement.
 
 <br />
 
@@ -196,7 +196,7 @@ As mentioned, we won't dive into the specific details of each of these approache
 
 <Note>
   OOCSS approach and BEM naming conventions can also be used along with SMACSS
-  and/or ITCSS. These methodologies don't exclude each other. They rather
+  and/or ITCSS. These methodologies don't exclude each other, but rather
   complement themselves.
 </Note>
 
@@ -206,7 +206,7 @@ At the time when these methodologies were coined, there was a strong buzz around
 
 > [...] authors are encouraged to use values that describe the nature of the content, rather than values that describe the desired presentation of the content.
 
-And indeed, everything that we've talked about so far can be included in the **semantic approach of CSS**, which says that CSS class names should convey _meaning_, not _implementation_. In other words, a semantic name should express _what it represents_ and _not how it looks_.
+Everything that we've talked about so far can be included in the **semantic approach of CSS**, which says that CSS class names should convey _meaning_, not _implementation_. In other words, a semantic name should express _what it represents_ and _not how it looks_.
 
 ```html
 <!-- Semantic (conveys meaning) -->
@@ -220,7 +220,7 @@ And indeed, everything that we've talked about so far can be included in the **s
 
 <Subheading>Semantic CSS Frameworks</Subheading>
 
-The vast majority of CSS frameworks that we know today were built on top of many of the principles described above, imbracing the semantic CSS approach. Some popular semantic CSS frameworks include _Foundation_, _Bootstrap_, _Semantic UI_, _UIKit_, _Bulma_, and many more.
+The vast majority of CSS frameworks that we know today were built on top of many of the principles described above, embracing the semantic CSS approach. Some popular semantic CSS frameworks include _Foundation_, _Bootstrap_, _Semantic UI_, _UIKit_, _Bulma_, and many more.
 
 <!-- - [Foundation](https://get.foundation/) released in 2011;
 - Twitter's widely adopted [Bootstrap](https://getbootstrap.com/) also released in 2011;
@@ -249,7 +249,7 @@ Therefore, considering the last reason alone, **Semantic CSS doesn't easily scal
 
 Whenever there's a debatable status quo, there will always be someone to question it. The same thing happened in 2013 with Semantic CSS, when a new paradigm was born as an attempt to solve the above shortcomings. We'll cover <LinkTo part={6}>Atomic CSS</LinkTo> in a later chapter.
 
-For now, we'll continue the Semantic CSS journey with **<LinkTo part={CURRENT_PART + 1} />**, which explores different methods to write **scoped CSS**, including **CSS Modules**. These techniques enabled us to elegantly avoid naming collisions within the global namespace, eventually becoming an industry standard.
+For now, we'll continue the Semantic CSS journey with **<LinkTo part={CURRENT_PART + 1} />**, which explores different methods to write **scoped CSS**. These techniques enabled us to elegantly avoid naming collisions within the global namespace, eventually becoming an industry standard.
 
 <br />
 

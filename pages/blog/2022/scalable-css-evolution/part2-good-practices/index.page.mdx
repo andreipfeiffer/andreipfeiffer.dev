@@ -31,17 +31,15 @@ Let's begin our journey by exploring the first iteration of solutions to **avoid
 
 <Note title="Important">
   It should be noted that this is not at all a comprehensive list, as the topic
-  of maintainable CSS is pretty vast. <br />
-  <br /> In addition, as their name suggests, these are <strong>
-    practices
-  </strong>, not dogmas. Even if we treat them as rules, there are always understandable{" "}
-  <strong>exceptions</strong>.
+  is pretty vast. In addition, as their name suggests, these are{" "}
+  <strong>practices</strong>, not dogmas. Even if we treat them as rules, there
+  are always understandable <strong>exceptions</strong>.
 </Note>
 
 <Figure
   width="grid"
   caption={
-    "The first recorded CSS good practices started to be published around 2005 and continue to evolve even today"
+    "CSS good practices started to be published around 2005 and continue to evolve even today"
   }
 >
   <ThemedImg
@@ -57,7 +55,7 @@ Let's begin our journey by exploring the first iteration of solutions to **avoid
 
 The <LinkTo part={1} hash="specificity-wars">specificity wars</LinkTo> are amongst the most dreadful problems to face as a UI developer. To avoid them, we must keep specificity as low as possible.
 
-Sometimes we tend to be overzealous when writing CSS selectors instead of keeping them simple. For example, defining **overly specific CSS selectors** by abusing [descendant combinators](https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator) will result in high specificity while also coupling the targeted element with the HTML structure:
+Sometimes we tend to be overzealous when writing CSS selectors instead of keeping them simple. For example, defining **overly specific CSS selectors** by abusing [descendant combinators](https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator) will always result in high specificity while also coupling the targeted element with the HTML structure:
 
 <!-- prettier-ignore-start -->
 ```css
@@ -156,9 +154,9 @@ We could easily reduce the specificity of the output CSS selectors by limiting t
 
 Keeping specificity low is definitely going to be helpful in the long run. But what exactly does "low" mean? How "low" should we keep it, and when does it become "too high"?
 
-A rule of thumb used to say that _CSS selectors should not have more than 2 descendants or levels of nesting_. Thus, it's common sense to say that:
+A rule of thumb used to say that _CSS selectors should not have more than 2 descendants or levels of nesting_. Thus, it's common sense to say that we should:
 
-- use **a single CSS class** as the goto option: `.main_menu_link`;
+- use **a single CSS class** for the vast majority of our code: `.main_menu_link`;
 - use **1 descendant** when overriding is necessary: `.dark-theme .main_menu_link`;
 - use **2 descendants only in extreme scenarios** when the previous rules don't apply.
 
@@ -258,7 +256,7 @@ Therefore, to prevent any of the problems mentioned above, we should avoid apply
   <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#linking_to_an_element_on_the_same_page">
     anchor links
   </a>
-  . But, we should <strong>avoid referencing IDs in CSS</strong> selectors.
+  . But, we should avoid referencing them in CSS selectors.
 </Note>
 
 ## Avoid type selectors
@@ -286,12 +284,12 @@ Let's look at a common example:
 
 </SideBySide>
 
-- we have a `.card` element that contains a title placed inside an `h2`;
+- we have a `.card` element that contains a title placed inside an `h2` element;
 - we apply the styles using the `.card h2` selector.
 
 <br />
 
-At some point, somebody needs to replace the `h2` with an `h3`, which is a trivial change and we shouldn't be concerned of breaking anything, right?
+At some point, somebody needs to replace the `h2` with an `h3`, which is a trivial HTML change and we shouldn't be concerned of breaking anything, right?
 
 ```diff
  <div class="card">
@@ -306,14 +304,14 @@ If we wrote this code ourselves one week ago, we might already _know_ that we ha
 
 However, on large projects, these problems grow exponentially:
 
-- Without knowing that there are styles applied to the `h2` element that we need to update as well, there's a high chance of introducing regressions.
+- Without knowing that there are styles applied to the `h2` element, which also require updates, there's a high chance of introducing regressions.
 - Debugging such a problem could be cumbersome because the styles are applied implicitly, not explicitly.
 
-Thus, the **styles will be coupled with the markup**. We cannot change the markup without updating the styles as well. Whenever we have a **tight coupling** between parts of code that should be modified independently, without affecting one other, we have a scalability problem.
+Thus, the **styles will be coupled with the markup**. We cannot change the markup without updating the styles as well. Whenever we have a **tight coupling** between parts of code that could be modified independently, without affecting one other, we have a scalability problem.
 
 <Subheading>2. Lack of isolation</Subheading>
 
-Nevertheless, **adding new markup** could also be problematic when using type selectors. For example, an existing CSS rule could match the newly added tag, **rendering unexpected results**.
+Nevertheless, **adding new markup** could also be problematic when using type selectors. For example, existing CSS rules could match newly added markup, **rendering unexpected results**.
 
 <!-- Another really annoying problem we might encounter when working with type selectors occurs when adding new HTML markup. -->
 
@@ -366,13 +364,13 @@ The solution for preventing the aforementioned problems is quite simple: avoid t
 <!-- prettier-ignore-start -->
 ```css
 /* ❌ BAD: avoid tag names */
-.card h2 {}
+.card strong {}
 
 /* 👍 BETTER: classes are more flexible & isolated */
-.card .title {}
+.card .keyword {}
 
 /* ✅ BEST: single classes are ideal */
-.card_title {}
+.card_keyword {}
 ```
 <!-- prettier-ignore-end -->
 
@@ -385,13 +383,13 @@ As a result, changing the markup will not affect the styles. In addition, classe
 
 As problematic as type selectors are, there are a few exceptions where they are helpful or even required:
 
-1. **Resetting or normalizing CSS** implicit user-agent styles;
+1. **Resetting or normalizing CSS** implicit user-agent styles, using various [CSS reset techniques](https://css-tricks.com/an-interview-with-elad-shechter-on-the-new-css-reset/);
 
-2. **Styling dynamic content from a headless CMS** because we get plain HTML content without any class names. Thus, we must target elements by their type, for instance, `.blog_post h2`.
+2. **Styling dynamic content from a headless CMS** which usually serve plain HTML content, without any class names. Thus, we must target elements by their type, for instance, `.blog_post h2`.
 
 ## Avoid mimicking HTML structure
 
-Sometimes we might be inclined to define CSS selectors based on an existing HTML structure. However, similar to type selectors, mimicking the HTML structure in our CSS code will also couple the markup with its styles, thus producing **rigid CSS code**.
+Sometimes we might be inclined to define CSS selectors based on an existing HTML structure. However, mimicking the HTML structure in our CSS code will couple the markup with its styles, resulting in **rigid CSS code**.
 
 <!-- prettier-ignore-start -->
 ```scss
@@ -408,7 +406,7 @@ Sometimes we might be inclined to define CSS selectors based on an existing HTML
 
 <Subheading>Combinator selectors</Subheading>
 
-Another related scenario is using **strict combinator selectors** such as [child combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) or [adjacent sibling combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator), also creating tight coupling.
+Another related scenario is using **strict combinator selectors** such as [child combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) or [adjacent sibling combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator), which also create tight coupling.
 
 <!-- prettier-ignore-start -->
 ```css
@@ -420,7 +418,7 @@ Another related scenario is using **strict combinator selectors** such as [child
 ```
 <!-- prettier-ignore-end -->
 
-Scenarios that absolutely require using strict combinator selectors are very scarce. Therefore using **classes simply scaled better**.
+Scenarios that absolutely require using strict combinator selectors are very scarce. Therefore using **classes simply scale better**.
 
 ## Avoid using `!important`
 
@@ -437,7 +435,7 @@ If we use `!important` to fix the specificity wars, it won't take long until the
 
 Imagine the irony: even such an important advice, as avoiding `!important`, has a few [important exceptions](https://css-tricks.com/when-using-important-is-the-right-choice/) worth mentioning:
 
-1. **Overriding 3rd party styles**, especially with high specificity, is cumbersome to override using conventional methods.
+1. **Overriding 3rd party styles**, especially those with high specificity which are cumbersome to override using conventional methods.
 
 2. **Defining utility classes** such as `.bold` or `.align-center`, because they could be easily overridden by accident.
 
@@ -449,8 +447,8 @@ Once we learn and understand all these practices, it should be fairly easy to ap
 
 - There is **no official comprehensive guide** on how to write maintainable CSS. I've only covered a few of the essential practices, but there are [so many more](http://khaidoan.wikidot.com/css-best-practices) to consider.
 - Some of the **practices don't apply equally** to every project, with every team. Also, developers tend to be very opinionated, so we rarely reach a consensus regarding a specific set of rules.
-- Due to the fact that there are so many practices, and most of them quite debatable, they are **cumbersome to learn and teach**.
-- As we've seen, there are plenty of **exceptions** that apply. It's often quite challenging to draw a line when it's acceptable to break the rule.
+- Due to the fact that there are so many practices, and some of them quite debatable, they are **cumbersome to learn and teach**.
+- As we've seen, there are plenty of **exceptions** that apply. It's often challenging to draw a line when it's acceptable to break the rule.
 - Some practices are typically **impossible to enforce**. While there are linters that can be used to enforce certain rules, we'll still have to rely on constant code review, training, and mentoring.
 - Once we have an existing large application written without these practices in mind, they become **tough to introduce into an existing codebase**. Changing CSS, in general, is a fragile task, so most developers avoid big refactorings.
 - Last but not least, **good practices don't scale**! The larger the code base, the more burdensome the maintenance will become.
@@ -465,7 +463,7 @@ But they're not perfect. They don't fix all the problems. And you know how engin
 
 ---
 
-Therefore, we still have many other problems to solve, and our journey has just begun. So let's pack our bags and move on.
+Therefore, let's pack our bags and move on. We still have many other problems to solve, and our journey has just begun.
 
 In the next chapter, **<LinkTo part={CURRENT_PART + 1} />**, we'll cover **CSS preprocessors**, which enable a cleaner source code, and **CSS postprocessors** that optimize the CSS output.
 
@@ -477,4 +475,3 @@ In the next chapter, **<LinkTo part={CURRENT_PART + 1} />**, we'll cover **CSS p
 - [CSS tips and tricks](https://www.456bereastreet.com/archive/200503/css_tips_and_tricks_part_1/) by 456 Berea Street
 - [Our (CSS) best practices are killing us](http://www.stubbornella.org/content/2011/04/28/our-best-practices-are-killing-us/) by Nicole Sullivan
 - [Code smells in CSS](https://csswizardry.com/2012/11/code-smells-in-css/) by Harry Roberts
-- [The New CSS Reset](https://css-tricks.com/an-interview-with-elad-shechter-on-the-new-css-reset/) by Elad Shechter

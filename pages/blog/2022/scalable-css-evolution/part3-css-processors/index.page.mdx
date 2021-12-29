@@ -127,15 +127,18 @@ Another major benefit of contextual styles is that media queries could also be n
 .product_title {}
 
 @media (min-width: 768px) {
+  /* 🤌 duplication with plain CSS */
   .product_title {}
 }
 
 @media (min-width: 1280px) {
+  /* 🤌 duplication with plain CSS */
   .product_title {}
 }
 ```
 
 ```scss
+/* 👌 single source of truth with SCSS */
 .product_title {
 
   @media (min-width: 768px) {}
@@ -153,6 +156,12 @@ With contextual styles, all definitions related to a particular selector are gro
 <br />
 
 Nowadays, **contextual styles are widely used in most CSS-in-JS libraries**, either supporting the parent selector `&` or using some custom syntax that provides the same behavior.
+
+<Note>
+  As of 2021, there's a proposal which introduces{" "}
+  <strong>native support</strong> for{" "}
+  <a href="https://www.w3.org/TR/css-nesting-1/">CSS Nesting</a>.
+</Note>
 
 Therefore, CSS preprocessors played a crucial role in the evolution of scalable CSS.
 
@@ -172,7 +181,7 @@ Any tool that transforms **valid CSS code**, either by **improving or optimizing
 
 PostCSS is widely used today either as a separate tool or working under the hood for many other libraries and frameworks.
 
-One thing worth mentioning is that PostCSS opened the doors for <LinkTo part={6} hash="css-modules">CSS Modules</LinkTo>, which started as a [PostCSS plugin](https://github.com/markdalgleish/postcss-local-scope-example) experiment. We'll cover CSS Modules in more detail in later chapters, as they played a critical role within the CSS ecosystem.
+One thing worth mentioning is that PostCSS opened the doors for <LinkTo part={5} hash="css-modules">CSS Modules</LinkTo>, which started as a [PostCSS plugin](https://github.com/markdalgleish/postcss-local-scope-example) experiment. We'll cover CSS Modules in more detail in later chapters, as they played a critical role within the CSS ecosystem.
 
 ---
 
