@@ -4,7 +4,7 @@ import cover from "./scalable-css-evolution-cover.png";
 
 export const meta: Metadata = {
   title: "The evolution of scalable CSS",
-  date: "2022-01-25",
+  date: "2022-01-24",
   tags: ["css", "javascript", "typescript"],
   tags_extra: ["scalability", "maintainability", "styling"],
   intro:
