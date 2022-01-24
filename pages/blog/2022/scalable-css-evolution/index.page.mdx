@@ -20,15 +20,19 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-I wrote my first Cascading Style Sheet (CSS) in 2000. As you can imagine, a lot has changed since then regarding what we can achieve nowadays with CSS.
+I wrote my first Cascading Style Sheet (CSS) in 2000. I recall that most CSS rules revolved around setting `font-family`, `font-size`, `color`, and `background`.
 
-One thing I came to understand after all these years is that there's a significant difference between the CSS code written for **small, primarily static websites** and the one developed for **large, highly dynamic applications**. For example, single developers working on a project that will end in a couple of months can write CSS in any way they consider appropriate. Either way, the project's success most likely will not be affected.
-
-On the other hand, when we think about teams with multiple developers working on the same code base, poorly written CSS can hugely influence the project's development over the course of several years. It's not a secret that **writing CSS at scale is not trivial**. We've read about it in articles and blog posts. We've heard it during conference talks. Not to mention that I've personally experienced it countless times.
+Searching my old hard drive archives, I've stumbled upon [my first commissioned website](/urban-lugoj/index.html). The entire [.css](/urban-lugoj/style.css) file for all 5 pages contains only 26 lines of code, including white space. Managing such tiny files was the least of our problems back then.
 
 <br />
 
+Besides the multitude of CSS features introduced during these past 2 decades, one thing I came to understand is that there's a significant difference between the CSS code written for **small, primarily static websites** and the one developed for **large, highly dynamic applications**. For example, single developers working on a project that will end in a couple of months can write CSS in any way they consider appropriate. Either way, the project's success most likely will not be affected.
+
+On the other hand, when we think about teams with multiple developers working on the same code base, poorly written CSS can hugely influence the project's development over the course of several years. It's not a secret that **writing CSS at scale is not trivial**. We've read about it in articles and blog posts. We've heard it during conference talks. Not to mention that I've personally experienced it countless times. Most likely, it happened to you as well.
+
 Before 2000, the World Wide Web Consortium (W3C) set the tone for CSS features, releasing standard specifications way before their actual implementations in browsers. But with the rise of Web 2.0, things began to flip. CSS standard features started to lag behind the needs of the community. Therefore, developers had to **build their own tools** to aid them in authoring CSS at scale.
+
+<br />
 
 You can view this series of articles as a **chronicle**, describing how CSS tools and techniques have evolved over time. The goal is to present an objective view of the current state of writing _maintainable CSS at scale_, highlighting the available tools and their applicability.
 
@@ -87,11 +91,9 @@ We all have our own definition of _"what a large project is"_ to determine when 
 - projects that span **longer than 3 months**;
 - projects having **at least 3 developers** working on the UI.
 
-As you've noticed, the magic number is `3`.
-
 <Subheading>Maintainability</Subheading>
 
-Writing new code is only one of our daily activities as developers. Besides implementing new features, we'll have to **investigate** issues, **fix bugs** in existing code, perform **refactorings**, **remove** unused code, **optimize** it, and **update** it as libraries and native platforms evolve. All these responsibilities comprise the maintenance part of the code.
+Writing new code is only one of our daily activities as developers. Besides implementing new features, we'll also have to **investigate** issues, **fix bugs** in existing code, perform **refactorings**, **remove** unused code, **optimize** it, and **update** it as libraries and native platforms evolve. All these responsibilities comprise the maintenance part of the code.
 
 There's a tight relationship between _scalability_ and _maintainability_. That's why I'll often use these terms interchangeably throughout this series. Any scalability concern could potentially affect the maintainability of the code, ultimately leading to [technical debt](/blog/tech-debt-tech-loan).
 
@@ -146,6 +148,10 @@ During this series, we'll analyze all the tools and techniques still applicable 
 
 ---
 
-As you can see, we have a lot to talk about. So please grab a cup of your favorite beverage and let our journey begin with **<LinkTo part={1} />**, as we cannot discuss the solutions unless we understand the problems they are trying to solve.
+<!-- As you can see, we have a lot to talk about. So please grab a cup of your favorite beverage and let our journey begin with **<LinkTo part={1} />**, as we cannot discuss the solutions unless we understand the problems they are trying to solve. -->
 
-**If you've enjoyed this article, please <a href="/subscribe">subscribe</a> to get updated when the next part will be published. Thank you so much for your interest.**
+As you can see, we have a lot to talk about. Our journey begins with **<LinkTo part={1} />**, as we cannot discuss the solutions unless we understand the problems they are trying to solve.
+
+<br />
+
+**If you've enjoyed this article, please <a href="/subscribe">subscribe</a> to get updated when the next part will be published. Your interest is highly appreciated.**
