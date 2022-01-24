@@ -47,7 +47,8 @@ export function MetaTags({ children, ...props }: Partial<MetaTags>) {
       {!!meta.article && (
         <>
           <meta property="og:article:author" content="Andrei Pfeiffer" />
-          <meta property="og:published_time" content={publish_date} />
+          <meta property="og:publish_date" content={publish_date} />
+          <meta property="og:article:published_time" content={publish_date} />
           <meta
             property="og:article:tag"
             content={meta.article.tags.join(", ")}
