@@ -78,7 +78,7 @@ export function TOC(props: Props) {
       return <strong>{part.subtitle}</strong>;
     }
 
-    return <LinkTo part={part.id as PartId} scrollToTop={false} />;
+    return <LinkTo part={part.id as PartId} scrollToTop={false} muted />;
   }
 
   function renderNew(part: Part): ReactNode {
@@ -100,6 +100,7 @@ type LinkToProps = {
   hash?: string;
   children?: ReactNode;
   scrollToTop?: boolean;
+  muted?: boolean;
 };
 
 export function LinkTo({
@@ -107,6 +108,7 @@ export function LinkTo({
   hash,
   children,
   scrollToTop = true,
+  muted = false,
 }: LinkToProps) {
   const part = getPart(id);
 
@@ -119,7 +121,7 @@ export function LinkTo({
 
   if (id > LAST_PUBLISHED_PART) {
     return (
-      <Text color="muted">
+      <Text color={muted ? "muted" : "default"}>
         {text} {id === LAST_PUBLISHED_PART + 1 && <i>(coming soon)</i>}
       </Text>
     );
