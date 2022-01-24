@@ -21,6 +21,12 @@ type MetaTags = {
 
 export function MetaTags({ children, ...props }: Partial<MetaTags>) {
   const meta: MetaTags = { ...DEFAULT_META_TAGS, ...props };
+  const publish_date = meta.article?.published_time ?? "";
+
+  // append the publish date
+  const image = !!meta.image
+    ? `${WEB_URL}${meta.image}${publish_date && `?${publish_date}`}`
+    : "";
 
   return (
     <Head>
@@ -41,10 +47,7 @@ export function MetaTags({ children, ...props }: Partial<MetaTags>) {
       {!!meta.article && (
         <>
           <meta property="og:article:author" content="Andrei Pfeiffer" />
-          <meta
-            property="og:published_time"
-            content={meta.article.published_time}
-          />
+          <meta property="og:published_time" content={publish_date} />
           <meta
             property="og:article:tag"
             content={meta.article.tags.join(", ")}
@@ -53,18 +56,19 @@ export function MetaTags({ children, ...props }: Partial<MetaTags>) {
         </>
       )}
 
-      {!!meta.image && (
+      {image && (
         <>
-          <meta property="og:image" content={`${WEB_URL}${meta.image}`} />
+          <meta property="og:image" content={image} />
           <meta property="og:image:width" content={String(meta.image_width)} />
           <meta
             property="og:image:height"
             content={String(meta.image_height)}
           />
-          <meta name="twitter:image" content={`${WEB_URL}${meta.image}`} />
+          <meta name="twitter:image" content={image} />
           <meta name="twitter:card" content="summary_large_image" />
         </>
       )}
+
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:creator" content="@pfeiffer_andrei" />
