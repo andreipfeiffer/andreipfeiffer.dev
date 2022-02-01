@@ -247,9 +247,9 @@ The downside of this approach is that there's a **lot of duplication in the code
 
 ## Naming collisions
 
-All the CSS rules that we define or import as 3rd party CSS will end up in a single **global namespace**. Therefore the likelihood of having 2 classes with the same name scales proportionally with the size of the code.
+All the CSS rules that we define or import as 3rd party CSS will end up in a **single global namespace**. Therefore the likelihood of having 2 classes with the same name scales proportionally with the size of the code.
 
-Reusable class names usually contain common nouns, like `.modal`, `.button`, `.overlay`, and so on. But, if we include an external file that defines the same class names, they could get overwritten, depending on which stylesheet we include last.
+Reusable class names usually contain common nouns, like `.modal`, `.button`, `.overlay`, and so on. If we include any external file that defines the same classes, they could get overwritten, depending on which stylesheet we include last.
 
 <Subheading>Namespacing</Subheading>
 
@@ -291,7 +291,7 @@ There are many solutions to this problem, some better than others:
 
 ## Specificity wars
 
-One way to avoid naming collisions is to increase the "strength of a selector", which we call [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity). It works great in the short term, but usually gets out of control sooner or later:
+One way to avoid naming collisions is to increase the "strength of a selector", which is called [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity). It works great in the short term, but usually gets out of control sooner or later:
 
 ```css
 /* (0,1,0) we start with a simple generic "title" class */
@@ -357,7 +357,7 @@ To illustrate, let's consider the following trivial example:
 
 </Side>
 
-Looking at the `.html` file, we might think that the text will have the `.blue` class applied. But it's not the order of CSS classes that we apply to the HTML element that matters. Instead, it's the order of the styles defined in the CSS stylesheets.
+Looking at the `.html` file, we might think that the text will have the `blue` class applied, because it should override the previously applied `red` class. But it's not the order of CSS classes that we apply to the HTML element that matters. Instead, it's the order of the styles defined in the CSS stylesheets.
 
 <!-- prettier-ignore-start -->
 
@@ -456,7 +456,7 @@ Implicit dependencies in general, not limited to CSS, are inherently problematic
 
 CSS code, like any other code, will increase in size indefinitely. The particular problem with CSS is that large `.css` files will often contain code that's not referenced anywhere in HTML.
 
-🧟 **Unused code** is also called **zombie code** because it should be dead, but somehow manages to linger around. It's not used anywhere, but it exists in an undead form. In addition, every zombie movie depicts them as being slow. The same holds true for zombie code, as it slows down the page load.
+🧟 **Unused code** is also called **zombie code** because it should be dead, but somehow manages to linger around. It's not used anywhere, but it exists in an undead form.
 
 The zombie code phenomenon usually happens when:
 
@@ -592,7 +592,7 @@ Similarly, CSS parsers are also pretty relaxed. So, we got used to its unsafe na
 However, the tables had turned when static type-checkers like **TypeScript** and **Flow** became popular and made their way into UI development. Unfortunately, they don't provide type-safety for CSS styles:
 
 - **Navigating CSS code is cumbersome** because we cannot use code editor features such as _"Go to Definition"_ or _"Find references"_, to determine which styles apply to a particular element or where specific classes are applied.
-- **Refactoring CSS code is not safe** because the tooling doesn't help to highlight syntax errors when renaming CSS class names or removing them. Consequently, developers will be afraid to touch or modify any existing code, ultimately leading to [code rot](https://en.wikipedia.org/wiki/Software_rot).
+- **Refactoring CSS code is not safe** because the tooling doesn't help to highlight syntax errors when renaming or removing CSS classes. Consequently, developers will be afraid to touch or modify any existing code, ultimately leading to [code rot](https://en.wikipedia.org/wiki/Software_rot).
 - **Editors lack productivity features support** such as auto-complete and type-checking variables, highlighting unused code, or discovering available CSS classes and variables. Without these features, developers are dependent on high cognitive load to either remember how CSS classes or variables are named or constantly copy & paste them.
 
 <Subheading>
