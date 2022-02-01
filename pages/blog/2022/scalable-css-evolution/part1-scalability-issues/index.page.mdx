@@ -19,12 +19,12 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-During the <LinkTo part={CURRENT_PART - 1} />, we've set the stage for this chronicle, covering what scalability concerns are in a broad sense. Now, it's time to turn our attention to CSS-related ones.
+During the <LinkTo part={CURRENT_PART - 1} /> we've set the stage for this chronicle, covering what scalability concerns are in a broad sense. Now, it's time to turn our attention to CSS-related ones.
 
 However, before discussing any solutions, we must understand what these issues actually are. Below is a summary of the topics covered in this first chapter:
 
 - [**The origins**](#origins) of CSS scalability problems;
-- [**Selector duplication**](#selector-duplication) when defining media queries, pseudos classes, or selectors;
+- [**Selector duplication**](#selector-duplication) when defining media queries, pseudo classes or elements;
 - [**Naming collisions**](#naming-collisions) within the global namespace;
 - [**Specificity wars**](#specificity-wars) when using CSS specificity to override styles;
 - [**Source order precedence**](#source-order-precedence) rendering unexpected results;
@@ -90,7 +90,7 @@ Entirely relying on CSS for styling was a daunting task. Developers were relucta
       creating useful resources for people who want to make the switch to CSS."
     </p>
     <figcaption>
-      Simon Willinson,{" "}
+      2003, Simon Willinson,{" "}
       <cite>
         <a href="https://simonwillison.net/2003/Nov/19/teachingCSS/">
           simonwillison.net
@@ -116,7 +116,7 @@ But, during the same year, Simon Willinson also acknowledged that maintaining CS
       <strong>stylesheet maintainability</strong>."
     </p>
     <figcaption>
-      Simon Willinson,{" "}
+      2005, Simon Willinson,{" "}
       <cite>
         <a href="https://simonwillison.net/2005/Sep/26/maintainability/">
           simonwillison.net
@@ -255,7 +255,7 @@ Reusable class names usually contain common nouns, like `.modal`, `.button`, `.o
 
 CSS lacks support for namespaces, so the language itself doesn't help us prevent style overwriting. A standard solution to this problem is to add a project-specific **prefix**, for instance, `.abc-overlay`. Third-party libraries usually implement this approach.
 
-However, prefixes **does not guarantee unique names**. For example, when dealing with many large files, how could we be sure that nobody else added the class `.abc-heading-large`? Of course, we could **search the entire code base** to see if we have a class with the same name already defined, but this only works for static classes.
+However, prefixes **do not guarantee unique names**. For example, when dealing with many large files, how could we be sure that nobody else added the class `.abc-heading-large`? Of course, we could **search the entire code base** to see if we have a class with the same name already defined, but this only works for static classes.
 
 <Note title="To keep in mind">
   As of September 2021, there is an experimental proposal called{" "}
@@ -338,7 +338,7 @@ Eventually, the only way to define new styles will be using `!important`. Once w
 Similar to naming collisions, there are many solutions to this problem:
 
 - <LinkTo part={2} /> instruct us to keep specificity "low".
-- <LinkTo part={4} /> covers concrete rules for implementing a low specificity across
+- <LinkTo part={4} /> covers concrete rules for implementing low specificity across
   the project.
 - <LinkTo part={6} /> presents out-of-the-box solutions using utility classes.
 
@@ -507,15 +507,15 @@ There are tools to [detect unused CSS](https://developer.chrome.com/docs/devtool
 
 ## Shared variables
 
-Dynamic styling with JavaScript is often implemented by toggling CSS classes on certain HTML elements. This approach creates a clear separation between styling and logic.
+Dynamic styling with JavaScript is usually implemented by adding or removing CSS classes on HTML elements. This approach creates a clear separation between styling and logic.
 
 However, there are particular scenarios when we might want to **share some values** between CSS and JavaScript. For instance:
 
 - Using **breakpoint values** in CSS media queries and [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) API for [Responsive Web Design](https://web.dev/responsive-web-design-basics/) (RWD) or [Adaptive Web Design](https://webflow.com/blog/adaptive-vs-responsive-design).
 - Using **color variables** in CSS and passing them to 3rd party libraries that require initialization from JavaScript.
-- Using **elements size or position** as CSS values for `width`, `height`, or `top` and reusing them in JavaScript computations for dynamic styling.
+- Using **elements size or position** as CSS values for `width`, `height`, `top` and reusing them in JavaScript computations for dynamic styling.
 - Using the same **animation durations** in CSS Transitions and with JavaScript animation libraries as well.
-- Last but not least, [design tokens](https://design.infor.com/product/design-tokens) are fundamental building blocks of any **design system**, so sharing such values becomes a necessity.
+- Last but not least, [design tokens](https://design.infor.com/product/design-tokens) are fundamental building blocks of any **design system**, so sharing such values becomes a necessity if we're using such a system for our UI code.
 
 Thus, let's explore a few approaches to share values between CSS and JavaScript.
 
@@ -539,7 +539,7 @@ Again, there are technical solutions for exporting JS/JSON structures to [SASS v
 As you probably saw in the examples or conclude from your personal experience, none of the implementations is trivial. They look more like workarounds instead of solid and elegant solutions. In addition:
 
 - Even though there is a single source of truth, we still have to **maintain two sets of definitions**: in (S)CSS and JS. Changing any variable name or value in one language requires a manual update of the other as well.
-- **Automatic refactorings are not available** for CSS values, so they require manual effort, which, as we know, is never fun to perform.
+- **Automatic refactorings are not available** for CSS values, so they require manual effort, which, as we know, is never fun to perform. As a consequence, their initial name will likely never change. On the long run, we could end up with definitions like `$dark_red: orange;`.
 - **Code editors cannot display suggestions** for defined (S)CSS variables, making them difficult to discover, especially to developers unfamiliar with the code. Some plugins attempt to support this limitation, but only to some extent.
 <!-- - Explicit and manual conversions require a lot of **boilerplate**. Automatic conversions create **implicit dependencies**, which have their own drawbacks, as we saw earlier. -->
 
@@ -589,11 +589,11 @@ Therefore, we are allowed to write any gibberish code, because the parsers will 
 
 Similarly, CSS parsers are also pretty relaxed. So, we got used to its unsafe nature. We had to, as there was no better alternative.
 
-However, the tables had turned when static type-checkers like **TypeScript** and **Flow** became popular and made their way into UI development. The only limitation is that they don't provide type-safety for styling, by default:
+However, the tables had turned when static type-checkers like **TypeScript** and **Flow** became popular and made their way into UI development. Unfortunately, they don't provide type-safety for CSS styles:
 
-- **Navigating code is cumbersome** because we cannot use code editor features such as _"Go to Definition"_ or _"Find references"_, to determine which styles apply to a particular element or where specific classes are applied.
-- **Refactorings are not safe** because the tooling doesn't help to highlight any syntax errors when renaming class names or removing them. Consequently, developers will be afraid to touch or modify any existing code, ultimately leading to [code rot](https://en.wikipedia.org/wiki/Software_rot).
-- **Editors lack productivity features support** such as auto-complete, type-checking identifiers, highlighting unused code, or discovering available CSS classes and variables. Without these features, developers are dependent on high cognitive load to either remember how CSS classes or variables are named or constantly copy & paste them.
+- **Navigating CSS code is cumbersome** because we cannot use code editor features such as _"Go to Definition"_ or _"Find references"_, to determine which styles apply to a particular element or where specific classes are applied.
+- **Refactoring CSS code is not safe** because the tooling doesn't help to highlight syntax errors when renaming CSS class names or removing them. Consequently, developers will be afraid to touch or modify any existing code, ultimately leading to [code rot](https://en.wikipedia.org/wiki/Software_rot).
+- **Editors lack productivity features support** such as auto-complete and type-checking variables, highlighting unused code, or discovering available CSS classes and variables. Without these features, developers are dependent on high cognitive load to either remember how CSS classes or variables are named or constantly copy & paste them.
 
 <Subheading>
   <Status type="ok" />
@@ -608,7 +608,7 @@ However, the tables had turned when static type-checkers like **TypeScript** and
 
 ---
 
-Now that we understand the most concerning problems with writing and maintaining CSS code at scale, let's turn our view to the solutions that solve them.
+Now that we understand the most concerning problems with writing and maintaining CSS code at scale, let's turn our attention to the solutions that solve them.
 
 In the following chapter, **<LinkTo part={CURRENT_PART + 1} />**, we'll explore the first iteration of methods to alleviate the problems of complex CSS selectors and specificity wars.
 
