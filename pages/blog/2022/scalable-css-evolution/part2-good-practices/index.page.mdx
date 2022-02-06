@@ -25,7 +25,7 @@ Let's begin our journey by exploring the first iteration of solutions to **avoid
 
 - [**Keep specificity low**](#keep-specificity-low)
 - [**Avoid mimicking HTML structure**](#avoid-mimicking-html-structure)
-- [**Avoid applying styles on IDs**](#avoid-applying-styles-on-ids)
+- [**Avoid ID selectors**](#avoid-id-selectors)
 - [**Avoid type selectors**](#avoid-type-selectors)
 - [**Avoid using `!important`**](#avoid-using-important)
 
@@ -55,7 +55,7 @@ Let's begin our journey by exploring the first iteration of solutions to **avoid
 
 [CSS tips and tricks](https://www.456bereastreet.com/archive/200503/css_tips_and_tricks_part_1/) from 2005 by **Roger Johansson (aka. 456 Berea St.)** is one of the first published articles on CSS good practices. Part of the content is still applicable today, but the majority is mostly outdated.
 
-As more and more developers worked extensively and intensively with CSS, their approaches also diversified according to their projects. Next, we'll cover in detail a few practices that reached consensus within the development community.
+As more and more developers worked extensively and intensively with CSS, their approaches also diversified according to their projects. Next, we'll cover in detail several fundamental practices that reached consensus within the development community when talking about **scalable and maintainable CSS**.
 
 ## Keep specificity low
 
@@ -173,7 +173,7 @@ A rule of thumb used to say that _CSS selectors should not have more than 2 desc
 
 ## Avoid mimicking HTML structure
 
-High specificity typically correlates with tight coupling between CSS selectors and the HTML structure. Mimicking the HTML structure in our stylesheets will usually produce **rigid CSS code**.
+Another problem of high specificity is that it typically correlates with tight coupling between CSS selectors and the HTML structure. Mimicking the HTML structure in our stylesheets will usually produce **rigid CSS code**, requiring us to adjust the corresponding CSS selectors whenever we change the HTML structure.
 
 <!-- prettier-ignore-start -->
 ```scss
@@ -206,8 +206,8 @@ li.item {}
 
 The problem with overqualified selectors is two-fold:
 
-1. Styles have less reusability, as they only apply for a single element type.
-2. The selector is tightly coupled with the HTML code. Changing the markup might require style definition updates as well.
+1. Styles have **less reusability**, as they only apply for a single element type.
+2. The **selector is tightly coupled** with the HTML code. Changing the markup might require style definition updates as well.
 
 <Subheading>Combinator selectors</Subheading>
 
@@ -225,7 +225,7 @@ Tight coupling is also related to **strict combinator selectors** such as [child
 
 Scenarios that absolutely require using strict combinator selectors are very scarce. Therefore, **it's advisable to use classes instead**, as they scale better.
 
-## Avoid applying styles on IDs
+## Avoid ID selectors
 
 Sometimes _we might think_ that a particular HTML block will only be displayed a single time on the page, so we could be inclined to use [ID selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors) for styling. Such examples might include the **page's header**, the **contact form**, or the **product details page**. However, two significant problems could occur when applying styles on ID selectors.
 
@@ -473,7 +473,7 @@ Imagine the irony: even such an important advice, as avoiding `!important`, has 
 
 ---
 
-## The problems with good practices
+## Practices don't scale
 
 Once we learn and understand all these practices, it should be fairly easy to apply them, right? Unfortunately, it's not a trivial task at all.
 
@@ -495,9 +495,13 @@ But they're not perfect. They don't fix all the problems. And you know how engin
 
 ---
 
-Therefore, let's pack our bags and move on. We still have many other problems to solve, and our journey has just begun.
+<!-- Therefore, let's pack our bags and move on. We still have many other problems to solve, and our journey has just begun. -->
 
 In the next chapter, **<LinkTo part={CURRENT_PART + 1} />**, we'll cover **CSS preprocessors** which remove most of the source code duplication among other features, while **CSS postprocessors** optimize CSS output and pave the way for styles encapsulation with CSS Modules, which we'll cover in one of the following chapters.
+
+<br />
+
+**If you've enjoyed this article, please <a href="/subscribe">subscribe</a> to get updated when the next part will be published. Your interest is highly appreciated.**
 
 <br />
 
