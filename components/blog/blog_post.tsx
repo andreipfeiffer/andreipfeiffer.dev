@@ -62,10 +62,13 @@ export function BlogPost(props: Props) {
     return <Draft />;
   }
 
+  let title = meta.title;
+  meta.subtitle && (title += `, ${meta.subtitle}`);
+
   return (
     <Layout className={styles.blog_main}>
       <MetaTags
-        title={meta.title}
+        title={title}
         description={meta.intro}
         image={meta.cover}
         image_width={meta.cover_width}
