@@ -223,11 +223,7 @@ As browsers cannot parse CSS defined in JavaScript files, one way to render the 
 
 Additional JavaScript code called the library runtime has to be bundled and shipped to the browser for this to work. This code will **inject** the required styles in the browser and **update** them accordingly whenever a user event triggers a style change.
 
-<Figure
-  caption={
-    "Simplified overview of how CSS-in-JS libraries with runtime stylesheets typically work"
-  }
->
+<Figure>
   <ThemedImg
     light={img_runtime_light.src}
     dark={img_runtime_dark.src}
@@ -389,17 +385,13 @@ There are a lot of complaints about CSS-in-JS regarding its **runtime overhead**
 
 However, libraries like **Astroturf**, **Linaria**, or **vanilla-extract** implement static CSS file extraction, generating actual `.css` files at build time, which are included in our document as any regular CSS Stylesheet.
 
-<Figure
-  caption={
-    "Simplified overview of how CSS-in-JS libraries with Static CSS extraction work"
-  }
->
+<Figure>
   <ThemedImg
     light={img_static_light.src}
     dark={img_static_dark.src}
     width={1400}
     height={1080}
-    alt="alt"
+    alt="At build time, Static CSS extraction libraries parse the styles defined in JavaScript and applied to component's HTML elements, generating actual CSS files with unique CSS class names"
   />
 </Figure>
 
@@ -420,13 +412,13 @@ This technique adds **zero runtime cost**. Thus, we get all the benefits of CSS-
 
 Some libraries like **Fela**, **Compiled**, **Stitches**, and **Stylex** took CSS-in-JS to another level. Instead of generating CSS classes containing all defined rules, they focused on generating unique and atomic classes.
 
-<Figure caption={"Simplified overview of how Atomic CSS-in-JS libraries work"}>
+<Figure>
   <ThemedImg
     light={img_atomic_light.src}
     dark={img_atomic_dark.src}
     width={1400}
     height={1080}
-    alt="alt"
+    alt="Atomic CSS-in-JS libraries parse the styles defined in JavaScript and applied to component's HTML elements, generating atomic class names for each unique CSS rule"
   />
 </Figure>
 
@@ -434,24 +426,20 @@ Now, the beautiful part about Atomic CSS-in-JS is that we don't have to learn th
 
 It's the library's responsibility to **generate the required atomic CSS classes**.
 
-<Subheading>Static &amp; Atomic CSS-in-JS</Subheading>
+### Statically Atomic CSS-in-JS
 
 Before we conclude, we should also mention solutions like **vanilla-extract** + **Sprinkles**, or **Style9**, which combine Static CSS extraction and Atomic CSS, bringing together the benefits of all three paradigms covered so far:
 
-- Development experience of CSS-in-JS;
-- Static CSS file caching;
-- Atomic CSS small file size, in contrast with Semantic CSS.
-
-<br />
-
-Could this be the ultimate solution to CSS authoring? The theory indeed supports this claim. We'll have to see if the practice also supports the hypothesis as the future unfolds.
+- the development experience of CSS-in-JS;
+- the small and optimized file size of Atomic CSS;
+- the trivial caching of Static stylesheets.
 
 ---
 
 Before we move on, let's take a step back and recap what CSS-in-JS is all about:
 
 - **Styles encapsulation**, so CSS Modules, Shadow DOM, or other CSS scoping techniques are not required.
-- **Variables** and **contextual styles**, like the rule nesting and parent selector, rendering CSS preprocessors obsolete.
+- **Variables** and **contextual styles**, like the rule nesting and parent selector, render CSS preprocessors obsolete.
 - **Fine-grained dead code elimination**, successfully removing any unused styles at build time out-of-the-box.
 - **Powerful code navigation** support, enabling features such as Go to definition and Find all references.
 - **Atomic classes**, eliminating the need to learn and use Atomic CSS or Utility-first frameworks.
