@@ -10,6 +10,12 @@ import { TOC, LinkTo } from "../toc";
 import Image from "next/image";
 import img_light from './css-in-js-light.gif';
 import img_dark from './css-in-js-dark.gif';
+import img_runtime_light from './runtime_light.png';
+import img_runtime_dark from './runtime_dark.png';
+import img_static_light from './static_light.png';
+import img_static_dark from './static_dark.png';
+import img_atomic_light from './atomic_light.png';
+import img_atomic_dark from './atomic_dark.png';
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -19,19 +25,26 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-In the previous part of this series, <LinkTo part={CURRENT_PART - 1} />, we've covered different methods to scope our styles to the component they belong to and prevent leaking into the global namespace.
+In the previous part of this series, <LinkTo part={CURRENT_PART - 1} />, we've covered an alternative paradigm to CSS authoring, using a predefined set of single-purpose utility classes that we reference in HTML. This paradigm removes the majority of scalability issues associated with Semantic CSS.
 
-It's worth mentioning that encapsulation was also one of the core goals of CSS-in-JS. However, CSS-in-JS brings many more additional benefits, which we'll analyze in this article:
+During this part, we'll cover a third paradigm, introduced around the same period as Atomic CSS. Instead of using `.css` files for style definition, **CSS-in-JS** moves the definition inside `.js` files, colocating the component's styles with its markup and behavior.
 
-- [**Dead code elimination**](#dead-code-elimination);
-- How to easily [**share variables**](#shared-variables);
-- How to [**navigate through code**](#code-navigation) effortlessly;
-- And lastly, some common [**CSS-in-JS myths**](#css-in-js-myths).
+<br />
+
+We won't be analyzing any particular library as their APIs differ quite a bit. Instead, we'll focus on typical CSS-in-JS approaches' fundamental principles and key features to understand the underlying technology. Here's what we'll cover next:
+
+- The [**Origins**](#origins) of CSS-in-JS;
+- [**The basics**](#the-basics) of defining styles and applying them to elements;
+- Granular [**dead code elimination**](#dead-code-elimination);
+- Trivial [**variables sharing**](#shared-variables) between styles and JS code;
+- Effortless [**code navigation**](#code-navigation) using editor tooling;
+- [**Static CSS extraction**](#static-css-extraction);
+- [**Atomic CSS-in-JS**](#atomic-css-in-js).
 
 <Figure
   width="grid"
   caption={
-    "In addition to countless features, CSS-in-JS is also able to output Atomic CSS classes, but can also generate static CSS files"
+    "In addition to countless features, specific CSS-in-JS libraries can also output Atomic CSS classes or even generate Static CSS files"
   }
 >
   <ThemedImg
@@ -43,51 +56,205 @@ It's worth mentioning that encapsulation was also one of the core goals of CSS-i
   />
 </Figure>
 
-<Figure background="red">
-  - istorie cu JSSS, chestia e veche - WC also have "CiJ" sort of - in
-  component-based approaches, style-urile fac parte din componenta, are sens sa
-  fie impreuna
+## Origins
+
+It might come as a surprise, but the idea of _"styling with JavaScript"_ is not as novel as many would believe.
+
+In 1996, Netscape implemented **JSSS**, aka. [JavaScript-Based Style Sheets](https://www.w3.org/Submission/1996/1/WD-jsss-960822) as an alternative to CSS. Netscape even submitted the specification to W3C for standardization. However, it didn't gain enough traction, as ["CSS had a much wider industry acceptance"](https://en.wikipedia.org/wiki/JavaScript_Style_Sheets#:~:text=Netscape%20stopped%20promoting%20JSSS%2C%20instead%20focusing%20on%20the%20rival%20CSS%20standard%2C%20which%20was%20also%20supported%20by%20Internet%20Explorer%20and%20had%20a%20much%20wider%20industry%20acceptance). Ultimately, in 2000, Netscape dropped all support for JSSS.
+
+### The birth of CSS-in-JS
+
+<!-- Before jumping into the main content, I think it's imperative to answer the question _"Why does CSS in JavaScript even exist?"_ to understand its purpose in this world. -->
+
+CSS-in-JS, as it is known today, was coined in 2014. There are two known pioneers of CSS-in-JS, namely [Christopher Chedeau](http://blog.vjeux.com/2014/javascript/react-css-in-js-nationjs.html) from Facebook and [Oleg Isonen](https://oleg008.medium.com/the-important-parts-131dda7f6f6f), the author of JSS (not to be confused with Netscape's JSSS from 1996).
+
+We need to recollect that CSS Modules or other popular style encapsulation approaches were not available at that time. Atomic CSS frameworks were around, but quite exotic and unpopular.
+
+<br />
+
+Therefore, **_CSS-in-JS is fundamentally an alternative solution to solve the problems of scalable CSS_**. As a consequence, there is a considerable amount of overlap between CSS-in-JS and the other approaches covered in previous chapters:
+
+- **Styles encapsulation** is a core feature of any CSS-in-JS library. CSS Modules played an essential role by [popularizing CSS class hashing](https://youtu.be/75kmPj_iUOA?t=719), a technique borrowed by most CSS-in-JS libraries to scope their styles.
+- **Explicit dependencies** enable simplified reasoning about the code because the classes applied in the markup don't reference <LinkTo part={1} hash="implicit-dependencies">implicit CSS classes</LinkTo>. Instead, there is an explicit reference between the definition of the style and its usage.
+- **Contextual styling** is another core feature of CSS-in-JS libraries, enabling us to define nested rules, media queries, and pseudos within a single style definition, thus preventing code duplication.
+- **Avoiding zombie code** is mainly a consequence of having explicit dependencies because every component defines or imports its styles. Thus, when we remove the component or don't import it anymore, its styles will also be ignored during bundling.
+
+This overlap could explain why so many developers disregard CSS-in-JS from the start. For instance, their problems might be already solved by CSS Modules or other forms of encapsulation in conjunction with a CSS processor.
+
+### Beyond static styling
+
+However, CSS-in-JS solves other problems as well, beyond what CSS Modules or CSS processors can achieve:
+
+- **Code navigation** features, such as _Go to definition_ or _Find all references_, are not available with plain CSS. JavaScript-defined styles unlock the power of tools specific to programming languages, significantly improving the development experience.
+- **Dynamic styling** is prevalent in highly interactive applications. **State-based styling** like _toggling styles_ or _component variations_ and **user-defined styles** are trivial and straightforward to implement with CSS-in-JS.
+- **Sharing variables** from (S)CSS to JavaScript and vice-versa is technically possible but requires additional boilerplate, and it's error-prone. With CSS-in-JS, we can share not only `constants` or `variables`, but also `types`, `functions`, or any other JS code.
+- **Type-checking** is not possible with regular CSS. If a style is missing or a class name misspelled, no tool will help us notice the problem. CSS-in-JavaScript unlocks the power of type-checking, covered in detail in <LinkTo part={8} />.
+
+<br />
+
+In addition, CSS-in-JS unlocked other features that turned out to be trivial to implement, thanks to having all style definitions in JavaScript:
+
+- **Theming** and especially **runtime theme toggling** is supported by most CSS-in-JS solutions.
+- **Critical CSS extraction** for Server-Side Rendered pages is implemented in all CSS-in-JS libraries that support SSR.
+- **Colocated styles** within the component file, similar to [React Native StyleSheets](https://reactnative.dev/docs/stylesheet), [Vue.js SFC](https://vuejs.org/v2/guide/single-file-components.html), or [Angular Components](https://angular.io/guide/component-styles) go hand in hand with component-based approaches.
+- **Lazy loading styles** comes out of the box with dynamically loaded components.
+
+## The basics
+
+To better understand how CSS-in-JS works, let's imagine a fictional library that supports typical CSS-in-JS features. The first thing we'll have to do is to import the styling API, typically a function called `css` or `styled`:
+
+```jsx
+import { css } from "css-in-js-library";
+```
+
+### Styles definition
+
+Depending on the library's support, the imported styling function will receive the CSS styles as input, either as a **JavaScript Object/JSON** or as a **Tagged Template** string.
+
+<SideBySide width="content" left={{lang: "JS", file: "JavaScript Object syntax"}} right={{lang: "JS", file: "Tagged Template syntax"}}>
+
+```jsx
+const title = css({
+  fontSize: "2rem",
+  color: DARK_BLUE,
+});
+```
+
+```jsx
+const title = css`
+  font-size: 2rem;
+  color: ${DARK_BLUE};
+`;
+```
+
+</SideBySide>
+
+Most libraries prefer the **Object syntax** because it's more performant, as **Tagged Templates** require an additional parsing step from `string` to `object`. However, some libraries like **Emotion**, **Goober**, **JSS**, or **Compiled** are quite flexible, supporting both syntaxes.
+
+<Note title="Further reading">
+  You can find more details on the differences between the two methods in the{" "}
+  <a href="https://css-tricks.com/a-thorough-analysis-of-css-in-js/#aa-styles-definition-syntax">
+    Thorough Analysis of CSS-in-JS
+  </a>
+  .
+</Note>
+
+### Styles attachment
+
+Now that we've defined the styles, let's explore how to apply them to HTML elements. There are three different approaches that CSS-in-JS libraries typically support.
+
+<Subheading>Class strings API</Subheading>
+
+The most intuitive and popular API returns a uniquely generated `string` representing the element's CSS class name.
+
+```js
+const title = css(/* CSS rules */);
+
+// ➡️ unique string: "1dbj"
+```
+
+The main benefit of this approach is that it resembles the traditional way of styling. But, at the same time, this method is **agnostic of the underlying JS framework**, working with any JavaScript framework, or using vanilla DOM APIs:
+
+<SideBySide left={{lang: "JSX", file: "Using JSX syntax"}}  right={{lang: "JS", file: "Using Vanilla DOM APIs"}}>
+
+```jsx
+export const Page = () => (
+  <h1 className={title}>...</h1>
+);
+```
+
+```js
+document.body.innerHTML = `
+  <h1 class="${title}">...</h1>
+`;
+```
+
+</SideBySide>
+
+<Subheading>
+  <code>Styled</code> component API
+</Subheading>
+
+A second method, popularized by the **styled-components** library, which also gave its name, takes a different approach. Instead of defining the styles first and applying them to existing HTML elements afterward, a typical `styled` API will receive the type of element along with its styles.
+
+```jsx
+const Title = styled("h1")(/* CSS rules */);
+
+// ➡️ new <Title /> component
+```
+
+As a result, it will return a new component with the CSS class already applied. This method works well with component-based approaches, encapsulating the element's definition with its styles and removing the mapping required with standard CSS.
+
+```jsx
+export const Page = () => (
+  <Title>...</Title>
+);
+```
+
+Consequently, the end result will be the same:
+
+```html
+<h1 class="1dbj">...</h1>
+```
+
+Libraries that support the `Styled` component API include **styled-components**, **Emotion**, **JSS**, **Goober**, **Compiled**, and **Stitches**. It's worth noting that this approach is mostly used with JSX-based frameworks.
+
+<Subheading>
+  <code>css</code> prop API
+</Subheading>
+
+The third method, introduced by **Glamor** and popularized by **Emotion** uses a non-standard attribute, typically named `css`, to specify the element's styles.
+
+```jsx
+export const Page = () => (
+  <h1 css={/* CSS rules */}>...</h1>
+);
+```
+
+The `css` prop API is less prevalent, being supported by fewer libraries, including **Emotion**, **styled-components**, **Compiled**, or **Goober**. This approach is typically implemented with JSX-based frameworks, where attributes are called props, hence the name of this method.
+
+<br />
+
+### Styles output
+
+So far, we've only covered a few methods to define and apply the styles to HTML elements. But how does the browser handle the styles written in JavaScript?
+
+As browsers cannot parse CSS defined in JavaScript files, one way to render the styles in the browser is to inject them at runtime. This approach is known as **runtime stylesheets**, and it's the most popular one among existing libraries.
+
+Additional JavaScript code called the library runtime has to be bundled and shipped to the browser for this to work. This code will **inject** the required styles in the browser and **update** them accordingly whenever a user event triggers a style change.
+
+<Figure
+  caption={
+    "Simplified overview of how CSS-in-JS libraries with runtime stylesheets typically work"
+  }
+>
+  <ThemedImg
+    light={img_runtime_light.src}
+    dark={img_runtime_dark.src}
+    width={1400}
+    height={1080}
+    alt="Styles defined in JavaScript and applied to component's HTML elements are parsed by the CSS-in-JS library runtime, which generates unique CSS class names, and injects the CSS rules as style tags inside the document's head"
+  />
 </Figure>
 
-## The purpose of CSS-in-JS
+The Runtime Stylesheets method is not the only approach. As we'll later see, there are libraries capable of generating [Static CSS files](#static-css-extraction) that can be referenced like any regular stylesheet. In addition, other solutions that can even generate [Atomic CSS](#atomic-css-in-js).
 
-Before jumping into the main content, I think it's imperative to answer the question _"Why does CSS in JavaScript even exist?"_ to understand its purpose in this world.
+<Note title="Further reading">
+  You can find more details regarding the styles output methods in the{" "}
+  <a href="https://css-tricks.com/a-thorough-analysis-of-css-in-js/#aa-styles-output">
+    Thorough Analysis of CSS-in-JS
+  </a>
+  .
+</Note>
 
-CSS-in-JS was introduced at the end of 2014, before CSS Modules or other popular style encapsulation approaches were available. There are two known pioneers of CSS-in-JS, namely [Christopher Chedeau](http://blog.vjeux.com/2014/javascript/react-css-in-js-nationjs.html) from Facebook and [Oleg Isonen](https://oleg008.medium.com/the-important-parts-131dda7f6f6f), the author of JSS.
-
-<br />
-
-CSS scoping was not the status quo at that time. Therefore there is some _overlap between CSS-in-JS and CSS Modules_ regarding the problems that they've set out to solve:
-
-- **Styles encapsulation** is a core feature of any CSS-in-JS solution because neither scoped CSS nor CSS Modules were available at the birth of CSS-in-JS.
-- **Explicit dependencies** enable more straightforward reasoning about the code because the classes applied in the markup don't reference <LinkTo part={1} hash="implicit-dependencies">implicit CSS classes</LinkTo> available somewhere in the codebase. Instead, there is an explicit `import` of the styles, and the applied class names explicitly reference the imported styles.
-- **Avoiding zombie code** is mainly a consequence of having explicit dependencies because every component defines or imports its own styles. Thus, when we remove the component or don't import it anymore, the styles will also be ignored during bundling.
-
-This overlap could be a reason why so many developers disregard CSS-in-JS as being a helpful technology. For instance, their problems might be already solved by CSS Modules, or other types of style encapsulation, in conjunction with a CSS processor.
-
-<br />
-
-However, CSS-in-JS solves other problems as well, beyond what CSS Modules or CSS processors could achieve:
-
-- **Dynamic styling** mainly required in highly interactive applications is straightforward to implement. **State-based styling** like _toggling styles_ or _multiple component variations_ can also be implemented with regular CSS, but with greater effort. On the other hand, **user-defined styles** cannot be implemented using CSS alone, requiring JavaScript code instead, which fits like a glove with CSS-in-JS.
-- **Sharing variables** from from (S)CSS to JavaScript or vice-versa is technically possible but requires a lot of boilerplate, and it's error-prone. Most importantly, it's not type-checked with regular CSS. With CSS-in-JS we can share not only `constants` or `variables`, but also `types`, `functions`, or any other JavaScript code.
-- **Type-checking** is not possible with regular CSS. If a style is missing or a class name is misspelled, no tool will help us notice the problem. Having the styles written in JavaScript unlocks the power of type-checking.
-
-<br />
-
-In addition, CSS-in-JS unlocked other features that turned out to be pretty easy to implement, thanks to having all style definitions in JavaScript:
-
-- **Theming** and especially **runtime theme toggling** became trivial with CSS-in-JS.
-- **Critical CSS extraction** for Server-Side Rendered pages is implemented in all CSS-in-JS libraries that support SSR.
-- **Lazy loading styles** comes out of the box with dynamically loaded components.
-- **Colocated styles** within the component file, similar to [React Native StyleSheets](https://reactnative.dev/docs/stylesheet), [Vue.js SFC](https://vuejs.org/v2/guide/single-file-components.html), or [Angular Components](https://angular.io/guide/component-styles) is pretty convenient.
+Now that we've covered the basics, let's turn our attention to several features that set CSS-in-JS apart from other authoring paradigms.
 
 ## Dead code elimination
 
-As we've seen, removing unused code is not limited to CSS-in-JS, as it also works with CSS Modules. However, with CSS-in-JS we get more fine-grained and efficient results:
+Removing unused code is not limited to CSS-in-JS, as it also works with CSS Modules. However, with CSS-in-JS we get more fine-grained and efficient results:
 
 - with CSS Modules, dead code elimination works at **component or file level**;
-- while CSS-in-JS dead code elimination works at **element or style level**.
+- but dead code elimination works at the **element or style level** in CSS-in-JS.
 
 <br />
 
@@ -113,7 +280,7 @@ export function Footer() {
   color: "black";
 }
 
-/* although this class isn't referenced, it will be bundled */
+/* 😡 will be bundled, even thow it's not used */
 .copyright {
   color: "grey";
 }
@@ -123,9 +290,11 @@ export function Footer() {
 
 **All styles defined in the imported CSS Module will be bundled, even the unused ones**. There is no trivial way to ensure that a particular class isn't actually used in the code.
 
-As long as the `<Footer />` component is imported somewhere in the application, the entire `.css` file will also be bundled. However, if the `<Footer />` component is not needed anymore, thus not imported at all, then the `.css` file will also be skipped during bundling.
+As long as the `<Footer />` component is imported somewhere in the application, the entire `.css` file will also be bundled. However, if the `<Footer />` component is not imported anymore, the `.css` file will also be removed from the bundle.
 
 <br />
+
+Next, let's look at the same implementation, but using CSS-in-JS instead:
 
 <!-- prettier-ignore-start -->
 
@@ -135,6 +304,8 @@ As long as the `<Footer />` component is imported somewhere in the application, 
 import { css } from "css-in-js-library";
 
 const contact_styles = css({ color: "black" });
+
+// 😌 will not be bundled, as it is not referenced
 const copyright_styles = css({ color: "grey" });
 
 export function Footer() {
@@ -151,15 +322,15 @@ export function Footer() {
 
 <!-- prettier-ignore-end -->
 
-With CSS-in-JS, on the other hand, we have a more direct reference between styles definition and their usage. In our example, `copyright_styles` is just a JavaScript constant. Since it's not referenced anywhere in the component code, the styles won't be bundled.
+With CSS-in-JS, on the other hand, we have a more direct reference between styles definition and its usage. In our example, `copyright_styles` is just a JavaScript constant. Its styles won't be bundled since it's not referenced anywhere in the component code.
 
-In addition, linters can highlight that we have [unused identifiers](https://eslint.org/docs/2.0.0/rules/no-unused-vars) that can be safely deleted. Therefore, removing unused styles is dead simple.
+In addition, linters can highlight [unused identifiers](https://eslint.org/docs/2.0.0/rules/no-unused-vars), which we can safely delete. Therefore, the source code is also easier to maintain.
 
 ## Shared variables
 
-There are many reasons for <LinkTo part={1} hash="shared-variables">sharing custom values</LinkTo> between CSS and JavaScript code, even in small websites. On the other hand, larger applications using a **design system** will require us to share certain **design tokens**.
+There are many reasons for <LinkTo part={1} hash="shared-variables">sharing custom values</LinkTo> between CSS and JavaScript code, even in small websites. On the other hand, larger applications, especially those using a **design system**, will likely require us to share **design tokens**.
 
-With CSS-in-JS, we don't have to perform explicit conversions or rely on any tools to automate the conversions between (S)CSS and JS variables. Since all styles are defined and applied in JavaScript, they have access to any JS code:
+With CSS-in-JS, we don't have to perform explicit conversions or rely on tools to automate the conversions between (S)CSS and JS variables. Since all styles are defined and applied in JavaScript, they can reference any JS identifiers:
 
 ```jsx
 import { css } from "css-in-js-library";
@@ -173,7 +344,7 @@ const heading_styles = css({
    // imported design token
   padding: theme.default_spacing,
    // computed value
-  background: desaturate(0.5, COLOR),
+  background: desaturate(0.2, COLOR),
 });
 
 export function Title() {
@@ -183,11 +354,11 @@ export function Title() {
 
 <br />
 
-It's needless to say that sharing any code between logic and styles becomes straightforward with CSS-in-JS.
+It's needless to say that sharing any code between logic, styles, and markup becomes straightforward with CSS-in-JS.
 
 ## Code navigation
 
-As we've all probably experienced by now, we read, debug, and change code more often than writing it. That's why navigating through code easily and effortlessly is essential.
+As we've all probably experienced by now, we read, debug, and change code more often than writing it. That's why navigating effortlessly through code is essential, especially with large or unfamiliar codebases.
 
 Consider a simple task as _exploring what CSS rules are defined for a particular CSS class applied to an element_:
 
@@ -199,148 +370,104 @@ Consider a simple task as _exploring what CSS rules are defined for a particular
   Go to Definition
 </Subheading>
 
-With CSS-in-JS, all styles are JavaScript constants. By pressing `Ctrl + click` (`CMD + click` on Mac) or selecting [Go to Definition](https://code.visualstudio.com/Docs/editor/editingevolved#_go-to-definition) from the context menu, the editor will instantly take us to the style definition.
+With CSS-in-JS, all styles are JavaScript constants. The editor will instantly open the style definition using `Ctrl + click` (`CMD + click` on Mac) or selecting [Go to Definition](https://code.visualstudio.com/Docs/editor/editingevolved#_go-to-definition).
 
 <Subheading>
   <Status type="ok" />
   Find all References
 </Subheading>
 
-The opposite task is also simple. To discover where is a style (or any other variable) referenced, we can `Right-click` on the identifier and select [Find All References](https://code.visualstudio.com/updates/v1_29#_references-view) from the context menu.
+The opposite task is also simple. To discover the usages of a style referenced (or any other variable, for that matter), we can `Right-click` on the identifier and select [Find All References](https://code.visualstudio.com/updates/v1_29#_references-view) from the context menu.
 
 <br />
 
 Navigating code easily is not a measurable feature, but once we get used to it and feel its usefulness, it becomes obvious that it dramatically improves the overall development experience.
 
-## CSS-in-JS myths
+## Static CSS Extraction
 
-We need to debunk a few myths and misconceptions regarding CSS-in-JS, so let's explore _"What CSS-in-JS is not about"_.
+There are a lot of complaints about CSS-in-JS regarding its **runtime overhead**, as it requires additional code to evaluate, inject, and update styles in the browser. Indeed, this overhead exists and varies between `1.1 kB` and `18.2 kB` gzipped and minified.
 
-<Subheading>CSS-in-JS is not only for React</Subheading>
+However, libraries like **Astroturf**, **Linaria**, or **vanilla-extract** implement static CSS file extraction, generating actual `.css` files at build time, which are included in our document as any regular CSS Stylesheet.
 
-While it's true that some CSS-in-JS libraries are specifically built for React and cannot be used without it, the large majority of them are [framework agnostic](https://css-tricks.com/a-thorough-analysis-of-css-in-js/#react-specific-or-framework-agnostic). So, CSS-in-JS libraries can be used without React as well.
+<Figure
+  caption={
+    "Simplified overview of how CSS-in-JS libraries with Static CSS extraction work"
+  }
+>
+  <ThemedImg
+    light={img_static_light.src}
+    dark={img_static_dark.src}
+    width={1400}
+    height={1080}
+    alt="alt"
+  />
+</Figure>
 
-<!-- prettier-ignore-start -->
+This technique adds **zero runtime cost**. Thus, we get all the benefits of CSS-in-JS regarding the development experience and at the same time having no runtime cost, similar to regular CSS.
 
-```jsx
-// consider this the API of a typical CSS-in-JS library
-import { css } from "css-in-js-library";
-
-// this will return a string representing a unique CSS class name
-const title_styles = css({ color: "blue" });
-
-// the class name can be applied as any regular CSS class
-const template = `<h1 class="${title_styles}">Title</h1>`
-```
-
-<!-- prettier-ignore-end -->
-
-On the other hand, what _is true_ is that there aren't notable or popular implementations of CSS-in-JS libraries in other frameworks, at least as of September 2021.
-
-<Subheading>CSS-in-JS doesn't mean inlining styles</Subheading>
-
-None of the existing CSS-in-JS libraries use inline styles as output.
-
-However, what _is true_ is that a few libraries like [Radium](https://formidable.com/blog/2019/radium-maintenance/) and [Glamor](https://github.com/threepointone/glamor) used inline styles, but both have been discontinued.
-
-It is known that inline styles have limited support for CSS syntax, making it impossible to define certain pseudo-classes, pseudo-elements, or media queries. Not to mention that common pseudo-classes like `:hover` or `:focus` required suboptimal workarounds, by attaching DOM event listeners and triggering style updates using JavaScript.
-
-<Subheading>CSS-in-JS supports all the CSS syntax</Subheading>
-
-All _modern_ CSS-in-JS libraries support the full CSS syntax.
-
-I have [analyzed more than 10 libraries](https://github.com/andreipfeiffer/css-in-js/), focusing primarily on features such as **pseudo-classes and elements**, **media queries**, and **keyframe animations**. As far as my knowledge and understanding go, there aren't any CSS syntax or features that CSS-in-JS do not support.
-
-<Subheading>CSS-in-JS is not equivalent with "styled components"</Subheading>
-
-One of the popular libraries that use CSS-in-JS is indeed called [styled-components](https://styled-components.com/). However, this is only one of the CSS-in-JS libraries.
-
-Furthermore, they also introduced a new way to apply the JS styles to the desired HTML elements, a technique that's also called [**Styled components**](https://css-tricks.com/a-thorough-analysis-of-css-in-js/#using-a-styled-component).
-
-<!-- prettier-ignore-start -->
-
-```jsx
-// consider this the API of a typical CSS-in-JS library
-import { styled } from "css-in-js-library";
-
-const Title = styled("h1")({
-  color: "blue"
-});
-```
-
-<!-- prettier-ignore-end -->
-
-If you're not confused enough yet, other libraries have also used this approach, or added support for this syntax, because of its rising popularity. But in the end, **a Styled component is only a technique to attach CSS styles to a DOM element or an existing component**.
-
-<Subheading>CSS-in-JS doesn't force writing "styles as objects"</Subheading>
-
-Plenty of CSS-in-JS libraries support the [tagged templates syntax](https://css-tricks.com/a-thorough-analysis-of-css-in-js/#tagged-templates-syntax), which allows developers to write styles exactly like regular CSS syntax, with `kekab-case` property names.
-
-<!-- prettier-ignore-start -->
-
-```jsx
-// consider this the API of a typical CSS-in-JS library
-import { css } from "css-in-js-library";
-
-const title = css`
-  background-color: blue;
-`;
-```
-
-<!-- prettier-ignore-end -->
-
-What _is true_ is that most of the libraries (also) support the [object styles syntax](https://css-tricks.com/a-thorough-analysis-of-css-in-js/#object-styles-syntax) because it's simpler, more lightweight, and more optimal, as it doesn't require additional parsing.
-
-<Subheading>CSS-in-JS is not for CSS ignorants</Subheading>
-
-CSS-in-JS is not for developers that don't know CSS. Using CSS-in-JS without knowing regular CSS won't fill any language knowledge gaps. However, it will remove most of the friction regarding CSS code architecture.
-
-> CSS-in-JS is simply a technique that helps us write scalable and maintainable CSS.
-
-### Static CSS Extraction
-
-There are a lot of complaints about CSS-in-JS regarding its **runtime overhead** because it requires additional code to evaluate, inject and update styles in the browser. Indeed, this overhead exists and varies between `1.1 kB` and `18.2 kB` gzipped & minified, based on my [analysis](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#overview).
-
-However, some libraries implement [static CSS file extraction](https://css-tricks.com/a-thorough-analysis-of-css-in-js/#static-css-file-extraction), generating a real `.css` file at build time. These files are included in our document as any regular CSS Stylesheet. This technique adds **zero runtime cost**. Thus, we get all the benefits of CSS-in-JS regarding the development experience and at the same time having no runtime cost, similar to regular CSS.
-
-<Note>
+<Note title="Performance considerations">
   It's important to understand that fewer transferred bytes don't imply faster
   load metrics like <strong>First Paint</strong> or{" "}
-  <strong>Time To Interactive</strong>. For more details, check out this debate
-  regarding performance between{" "}
+  <strong>Time To Interactive</strong>. Check out this debate regarding
+  performance between{" "}
   <a href="/blog/css-in-js-styles-output">
     Runtime Stylesheets and Static CSS extraction
   </a>
-  .
+  for more details.
 </Note>
 
-### Atomic CSS-in-JS
+## Atomic CSS-in-JS
 
-At the end of <LinkTo part={5} />, I mentioned that _"we will revisit [Atomic CSS] in a future chapter"_. Atomic CSS is also possible using CSS-in-JS, hence the term [Atomic CSS-in-JS](https://css-tricks.com/a-thorough-analysis-of-css-in-js/#atomic-css).
+Some libraries like **Fela**, **Compiled**, **Stitches**, and **Stylex** took CSS-in-JS to another level. Instead of generating CSS classes containing all defined rules, they focused on generating unique and atomic classes.
 
-Now, the beautiful part about Atomic CSS-in-JS is that we don't have to learn the specific set of class names of a particular library. Instead, we write the styles like we usually do with CSS-in-JS.
+<Figure caption={"Simplified overview of how Atomic CSS-in-JS libraries work"}>
+  <ThemedImg
+    light={img_atomic_light.src}
+    dark={img_atomic_dark.src}
+    width={1400}
+    height={1080}
+    alt="alt"
+  />
+</Figure>
 
-It's the library that takes care at build time to **generate atomic CSS classes only for the CSS rules that were actually used** in our code.
+Now, the beautiful part about Atomic CSS-in-JS is that we don't have to learn the specific set of class names of a particular Atomic CSS framework. Instead, we write the styles like we usually do with CSS-in-JS.
+
+It's the library's responsibility to **generate the required atomic CSS classes**.
+
+<Subheading>Static &amp; Atomic CSS-in-JS</Subheading>
+
+Before we conclude, we should also mention solutions like **vanilla-extract** + **Sprinkles**, or **Style9**, which combine Static CSS extraction and Atomic CSS, bringing together the benefits of all three paradigms covered so far:
+
+- Development experience of CSS-in-JS;
+- Static CSS file caching;
+- Atomic CSS small file size, in contrast with Semantic CSS.
+
+<br />
+
+Could this be the ultimate solution to CSS authoring? The theory indeed supports this claim. We'll have to see if the practice also supports the hypothesis as the future unfolds.
 
 ---
 
-So, let's recap what CSS-in-JS provides:
+Before we move on, let's take a step back and recap what CSS-in-JS is all about:
 
-- **Styles encapsulation**, so we don't need CSS Modules anymore.
-- **Variables and contextual styles** like the nesting and parent selector, rendering CSS preprocessors obsolete.
-- **Atomic classes**, so there's no need to use Atomic CSS or Utility-first frameworks.
-- **Static stylesheets**, for those that consider runtime cost a reason for not using CSS-in-JS.
-
-<br />
-
-But, there's more. So far, we have only talked about CSS-in-JS. In the final article, <LinkTo part={CURRENT_PART + 1} />, we'll see how CSS-in-JS paired with TypeScript provides all the benefits of type safety for our CSS code.
+- **Styles encapsulation**, so CSS Modules, Shadow DOM, or other CSS scoping techniques are not required.
+- **Variables** and **contextual styles**, like the rule nesting and parent selector, rendering CSS preprocessors obsolete.
+- **Fine-grained dead code elimination**, successfully removing any unused styles at build time out-of-the-box.
+- **Powerful code navigation** support, enabling features such as Go to definition and Find all references.
+- **Atomic classes**, eliminating the need to learn and use Atomic CSS or Utility-first frameworks.
+- **Static stylesheets**, when runtime cost is a deal-breaker for using CSS-in-JS.
 
 <br />
 
-**References**:
+But, there's more. In the final chapter, <LinkTo part={CURRENT_PART + 1} />, we'll explore the benefits of using TypeScript on top of existing CSS-in-JS solutions, providing **type safety** for our CSS code.
 
-- [See the Past, Present, and Future of CSS-in-JS](https://www.youtube.com/watch?v=75kmPj_iUOA) by Max Stoiber
+<br />
+
+<Subheading>References and further reading</Subheading>
+<br />
+
 - [What actually is CSS-in-JS?](https://medium.com/dailyjs/what-is-actually-css-in-js-f2f529a2757) by Oleg Isonen
-- [CSS-in-JS 101](https://github.com/stereobooster/css-in-js-101) by stereobooster
-- [A thorough analysis of CSS-in-JS](https://github.com/andreipfeiffer/css-in-js) by Andrei Pfeiffer
+- [Past, Present, and Future of CSS-in-JS](https://www.youtube.com/watch?v=75kmPj_iUOA) by Max Stoiber
+<!-- - [CSS-in-JS 101](https://github.com/stereobooster/css-in-js-101) by stereobooster -->
 - [Atomic CSS-in-JS](https://sebastienlorber.com/atomic-css-in-js) by Sébastien Lorber
+- [A thorough analysis of CSS-in-JS](https://github.com/andreipfeiffer/css-in-js) by Andrei Pfeiffer
