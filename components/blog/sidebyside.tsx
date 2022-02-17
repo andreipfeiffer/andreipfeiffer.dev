@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 
 import { useBreakpoint } from "../layout/useBreakpoint";
@@ -12,21 +13,49 @@ type SideBySideProps = {
   children: JSX.Element[];
   left?: Header;
   right?: Header;
+  /**
+   * - "page" (default): fills the entire width
+   * - "content": fills only the content width
+   */
+  width?: "page" | "content";
 };
 
-export function SideBySide({ children, left, right }: SideBySideProps) {
+export function SideBySide({
+  children,
+  left,
+  right,
+  width = "page",
+}: SideBySideProps) {
+  const { breakpoint } = useBreakpoint();
+
+  if (width === "page" || !breakpoint) {
+    return (
+      <Fullpage>
+        <div className={classNames(s.container, s.width_page)}>
+          {renderContent()}
+        </div>
+      </Fullpage>
+    );
+  }
+
   return (
-    <Fullpage>
-      <div className={s.container}>
+    <div className={classNames(s.container, s.width_content)}>
+      {renderContent()}
+    </div>
+  );
+
+  function renderContent() {
+    return (
+      <>
         <Side fullwidth={false} header={left}>
           {children[0]}
         </Side>
         <Side fullwidth={false} header={right}>
           {children[1]}
         </Side>
-      </div>
-    </Fullpage>
-  );
+      </>
+    );
+  }
 }
 
 type SideProps = {

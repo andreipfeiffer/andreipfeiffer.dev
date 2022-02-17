@@ -5,10 +5,19 @@
 
   display: grid;
   gap: var(--gap);
-  padding: 0 21px;
 
   @include breakpoint(md) {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+.width_page {
+  padding: 0 21px;
+}
+
+.width_content {
+  @include breakpoint(md, max) {
+    padding: 0 21px;
   }
 }
 
