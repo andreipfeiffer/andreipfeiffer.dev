@@ -6,7 +6,7 @@ import cover from "./css-processors-cover.png";
 export const meta: Metadata = {
   ...common_meta,
   subtitle: "Part 3: CSS Processors",
-  date: "2021-12-28",
+  date: "2022-02-23",
   tags: ["css"],
   tags_extra: [
     "scalability",
@@ -19,7 +19,7 @@ export const meta: Metadata = {
     "postcss",
   ],
   intro:
-    "There are two types of tools regarding CSS processing that we'll analyze. Preprocessors introduce support for contextual styles, which remove a lot of the source code duplication. Postprocessors optimize the final CSS output while also paving the way for future tools that we'll touch upon in later chapters.",
-  visibility: "private",
+    "There are two types of tools regarding CSS processing that we'll analyze. Preprocessors introduce support for contextual styles, removing most source code duplication. Postprocessors optimize the final CSS output, while also paving the way for future tools that we'll touch upon in later chapters.",
+  visibility: "unlisted",
   cover: cover.src,
 };

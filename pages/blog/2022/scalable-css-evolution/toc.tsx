@@ -20,8 +20,7 @@ import styles from "./toc.module.scss";
 
 type PartId = typeof SERIES[number]["id"];
 
-const LAST_PUBLISHED_PART: PartId = 2;
-const DISPLAY_NEW = false;
+const LAST_PUBLISHED_PART: PartId = 3;
 
 const SERIES_BASE_URL = "/blog/2022/scalable-css-evolution";
 
@@ -42,6 +41,8 @@ const SERIES = [
   { ...part8, id: 8, path: "part8-type-safe-css" },
   { ...part9, id: 9, path: "part9-epilogue" },
 ] as const;
+
+const DISPLAY_NEW = LAST_PUBLISHED_PART < SERIES[SERIES.length - 1].id;
 
 type Props = {
   current: PartId;

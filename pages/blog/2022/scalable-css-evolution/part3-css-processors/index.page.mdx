@@ -70,9 +70,9 @@ Any **CSS authoring tool** that uses **non-standard CSS syntax**, allowing devel
 
 <br />
 
-Thinking about it, many CSS preprocessors features are focused on **avoiding code duplication**. For instance, _variables_ allow us to re-use concrete values, while _mixins_ enable us to re-use entire blocks of CSS rules.
+Thinking about it, many CSS preprocessor features are focused on **avoiding code duplication**. For instance, _variables_ allow us to re-use concrete values, while _mixins_ enable us to re-use entire blocks of CSS rules.
 
-CSS preprocessors also introduced numerous additional features such as _nesting_, _interpolation_, _conditionals_, _operators_, _functions_, and much more. We won't go into their details, as most of them are outside the scope of this article.
+CSS preprocessors also introduced numerous additional features such as _interpolation_, _conditionals_, _operators_, _functions_, and much more. We won't go into their details, as most of them are outside the scope of this article.
 
 However, there are two particular features that we're interested in, which completely changed the way we author CSS styles even today, namely **nesting** and **parent selector**, as they enable **contextual styles** definition.
 
@@ -157,13 +157,13 @@ With contextual styles, all definitions related to a particular selector are gro
 
 Nowadays, **contextual styles are widely used in most CSS-in-JS libraries**, either supporting the parent selector `&` or using some custom syntax that provides the same behavior.
 
-<Note>
+<Note title="To keep in mind">
   As of 2021, there's a proposal which introduces{" "}
   <strong>native support</strong> for{" "}
   <a href="https://www.w3.org/TR/css-nesting-1/">CSS Nesting</a>.
 </Note>
 
-Therefore, CSS preprocessors played a crucial role in the evolution of scalable CSS.
+We can clearly see the power of the crowd here. Tools created by individuals and used by many can set the status quo and influence the standards. Therefore, **CSS preprocessors played a crucial role** in the evolution of scalable CSS.
 
 ## CSS postprocessing
 
@@ -188,3 +188,7 @@ One thing worth mentioning is that PostCSS opened the doors for <LinkTo part={5}
 To recap, CSS processors are essential tools, widely used even today. Moreover, they are cornerstones in the evolution of scalable CSS. Preprocessors introduced **contextual styles**, while postprocessors provided the foundation for **styles encapsulation** covered in later chapters.
 
 In the next part of this series, **<LinkTo part={CURRENT_PART + 1} />**, we'll explore several approaches to organize CSS code, consisting of structured and cohesive sets of rules.
+
+<br />
+
+**If you've enjoyed this article, please <a href="/subscribe">subscribe</a> to get updated when the next part will be published. Your interest is highly appreciated.**
