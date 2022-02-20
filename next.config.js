@@ -1,18 +1,18 @@
-const withPlugins = require("next-compose-plugins");
+import withPlugins from "next-compose-plugins";
 
-const html = require("remark-html");
-const prism = require("remark-prism");
-const slug = require("remark-slug");
-const headings = require("remark-autolink-headings");
-const externalLinks = require("remark-external-links");
+import nextMDX from "@next/mdx";
+import html from "remark-html";
+import prism from "remark-prism";
+import slug from "remark-slug";
+import headings from "rehype-autolink-headings";
+import externalLinks from "rehype-external-links";
 
-const withMDX = require("@next/mdx")({
+const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [
-      [prism, { showSpotlight: true }],
-      html,
-      slug,
+    remarkPlugins: [[prism, { showSpotlight: true }], html, slug],
+    rehypePlugins: [
+      [externalLinks, { target: false, rel: ["noopener"] }],
       [
         headings,
         {
@@ -24,7 +24,6 @@ const withMDX = require("@next/mdx")({
           },
         },
       ],
-      [externalLinks, { target: false, rel: ["noopener"] }],
     ],
   },
 });
@@ -51,7 +50,7 @@ const nextConfig = {
   },
 };
 
-module.exports = withPlugins([
+export default withPlugins([
   // https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions
   [withMDX, { pageExtensions: ["page.ts", "page.tsx", "page.mdx"] }],
 
