@@ -5,7 +5,6 @@ const prism = require("remark-prism");
 const slug = require("remark-slug");
 const headings = require("remark-autolink-headings");
 const externalLinks = require("remark-external-links");
-const toc = require("remark-toc");
 
 const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
@@ -26,7 +25,6 @@ const withMDX = require("@next/mdx")({
         },
       ],
       [externalLinks, { target: false, rel: ["noopener"] }],
-      [toc, { maxDepth: 2 }],
     ],
   },
 });
