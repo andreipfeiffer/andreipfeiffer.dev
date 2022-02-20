@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
@@ -15,16 +14,12 @@ import { useBreakpoint } from "../layout/useBreakpoint";
 import { MetaTags } from "../meta_tags";
 import { Spacer } from "../spacer";
 import { Text } from "../text";
-import { useCustomDarkMode } from "../useCustomDarkMode";
 
 import { Fullpage } from "./fullpage";
 import { Tag } from "./tag";
 import { TagsList } from "./tags_list";
 
 import styles from "./blog_post.module.scss";
-import hightlight_dark from "./highlight-dark.module.scss";
-import hightlight_light from "./highlight-light.module.scss";
-import hightlight from "./highlight.module.scss";
 
 type Props = {
   meta: Metadata;
@@ -41,12 +36,6 @@ export function BlogPost(props: Props) {
   // not very accurate, but good enough
   const readTime = readingTime(getReactNodeText(children));
   const readTimePercent = (Math.ceil(readTime.minutes) * 100) / MAX_READ_TIME;
-
-  const darkMode = useCustomDarkMode();
-
-  const hightlight_theme = darkMode.value
-    ? hightlight_dark.theme
-    : hightlight_light.theme;
 
   const [email, setEmail] = React.useState("");
 
@@ -84,9 +73,7 @@ export function BlogPost(props: Props) {
 
       {breakpoint && <Spacer vertical="60" />}
 
-      <article
-        className={classNames(styles.post, hightlight.post, hightlight_theme)}
-      >
+      <article className={styles.post}>
         <header>
           <Fullpage>
             <Grid.Full className={styles.title}>
