@@ -15,6 +15,7 @@ export const MainLink = ({
   activeClass,
   exact = false,
 }: Props) => {
+  const router = useRouter();
   let className = children.props.className || "";
 
   // we check only the first segment to match
@@ -27,14 +28,12 @@ export const MainLink = ({
       {React.cloneElement(children, { className })}
     </NextLink>
   );
-};
 
-function isActivePath(path: string, exact: boolean) {
-  const router = useRouter();
+  function isActivePath(path: string, exact: boolean) {
+    if (exact) {
+      return router.pathname === path;
+    }
 
-  if (exact) {
-    return router.pathname === path;
+    return `/${router.pathname.split("/")[1]}`.startsWith(path);
   }
-
-  return `/${router.pathname.split("/")[1]}`.startsWith(path);
-}
+};

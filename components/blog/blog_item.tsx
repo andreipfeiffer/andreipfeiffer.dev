@@ -16,7 +16,7 @@ type Props = {
   post: Post;
 };
 
-const private_statuses = ["draft", "unlisted"] as const;
+// const private_statuses = ["draft", "unlisted"] as const;
 
 export function BlogItem({ post }: Props) {
   const { id, meta } = post;

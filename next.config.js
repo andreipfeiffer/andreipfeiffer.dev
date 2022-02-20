@@ -36,6 +36,7 @@ const nextConfig = {
   images: {
     deviceSizes: [320, 768, 1024, 1200, 1900],
   },
+  swcMinify: true,
 
   async redirects() {
     return [

@@ -11,10 +11,7 @@ import { Spacer } from "../components/spacer";
 import { Text } from "../components/text";
 
 import { getRssPosts } from "../lib/blog";
-import { SUBSCRIBE_URL } from "../lib/utils";
-
-// export const RSS_FEED_URL = "rss/feed.xml";
-export const ATOM_FEED_URL = "rss/atom.xml";
+import { ATOM_FEED_URL, SUBSCRIBE_URL } from "../lib/utils";
 
 interface Props {
   // rss_feed: string;

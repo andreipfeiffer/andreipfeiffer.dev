@@ -54,6 +54,7 @@ export const useBreakpoint = () => {
         console.warn(e);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { breakpoint };

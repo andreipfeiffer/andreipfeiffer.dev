@@ -17,7 +17,7 @@ type Props = {
 const useBrowserLayoutEffect =
   typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
 
-export function ThemedImg({ dark, light, ...props }: Props) {
+export function ThemedImg({ dark, light, alt, ...props }: Props) {
   const darkMode = useCustomDarkMode();
   const ref = useRef<HTMLElement>(null);
 
@@ -39,6 +39,7 @@ export function ThemedImg({ dark, light, ...props }: Props) {
         }}
         layout={"responsive"}
         unoptimized={true}
+        alt={alt}
         {...props}
       />
     </picture>

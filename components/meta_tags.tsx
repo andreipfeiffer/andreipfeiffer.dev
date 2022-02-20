@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React, { ReactNode } from "react";
 
-import { ATOM_FEED_URL } from "../pages/subscribe.page";
+import { ATOM_FEED_URL } from "../lib/utils";
 
 type MetaTags = {
   title: string;
@@ -108,11 +108,6 @@ export function MetaTags({ children, ...props }: Partial<MetaTags>) {
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="theme-color" content="#ffffff" />
       <meta name="color-scheme" content="light dark" />
-
-      <link
-        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap"
-        rel="stylesheet"
-      />
     </Head>
   );
 }

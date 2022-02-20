@@ -38,8 +38,8 @@ export default function BlogPostPreview() {
         <p>Regular short paragraph.</p>
         <p>
           Regular very long paragraph that should not fit on a single line
-          because this is very long indeed and it shouldn't fit on one line as I
-          said.
+          because this is very long indeed and it {"shouldn't"} fit on one line
+          as I said.
         </p>
         <p>
           Another paragraph with <code>some js code</code> inside and some more{" "}
@@ -95,12 +95,13 @@ export default function BlogPostPreview() {
         <ul>
           <li>
             very long list item that should not fit on a single line because
-            this is very long indeed and it shouldn't fit on one line as I said
+            this is very long indeed and it {"shouldn't"} fit on one line as I
+            said
           </li>
           <li>
             another very long list item that should not fit on a single line
-            because this is very long indeed and it shouldn't fit on one line as
-            I said
+            because this is very long indeed and it {"shouldn't"} fit on one
+            line as I said
           </li>
           <li>short list item, on one line</li>
           <li>
@@ -110,8 +111,8 @@ export default function BlogPostPreview() {
               <li>another short list item</li>
               <li>
                 very long list item that should not fit on a single line because
-                this is very long indeed and it shouldn't fit on one line as I
-                said
+                this is very long indeed and it {"shouldn't"} fit on one line as
+                I said
               </li>
             </ul>
           </li>
@@ -125,12 +126,13 @@ export default function BlogPostPreview() {
         <ol>
           <li>
             very long list item that should not fit on a single line because
-            this is very long indeed and it shouldn't fit on one line as I said
+            this is very long indeed and it {"shouldn't"} fit on one line as I
+            said
           </li>
           <li>
             another very long list item that should not fit on a single line
-            because this is very long indeed and it shouldn't fit on one line as
-            I said
+            because this is very long indeed and it {"shouldn't"} fit on one
+            line as I said
           </li>
           <li>short list item, on one line</li>
           <li>
@@ -140,8 +142,8 @@ export default function BlogPostPreview() {
               <li>another short list item</li>
               <li>
                 very long list item that should not fit on a single line because
-                this is very long indeed and it shouldn't fit on one line as I
-                said
+                this is very long indeed and it {"shouldn't"} fit on one line as
+                I said
               </li>
             </ol>
           </li>

@@ -43,9 +43,9 @@ export const talks: Talk[] = [
         </p>
         <br />
         <p>
-          We'll analyze various solutions we have at our disposal to address the
-          scalability limitations of CSS, looking at methodologies, CSS-in-JS
-          and type systems.
+          {"We'll"} analyze various solutions we have at our disposal to address
+          the scalability limitations of CSS, looking at methodologies,
+          CSS-in-JS and type systems.
         </p>
       </>
     ),
@@ -116,7 +116,7 @@ export const talks: Talk[] = [
         </p>
         <br />
         <p>
-          We'll also take a look at the ECMAScript{" "}
+          {"We'll"} also take a look at the ECMAScript{" "}
           <code>
             <strong>Intl</strong>
           </code>{" "}
@@ -149,8 +149,8 @@ export const talks: Talk[] = [
         </p>
         <br />
         <p>
-          We'll explore different methods for tackling software complexity, by
-          deeply understanding our users and deciding where to place the
+          {"We'll"} explore different methods for tackling software complexity,
+          by deeply understanding our users and deciding where to place the
           control: in the implementation, or in the consumer.
         </p>
       </>
@@ -175,8 +175,9 @@ export const talks: Talk[] = [
     abstract: (
       <p>
         This presentation walks through 3 different layout examples using CSS
-        grids. We'll start by focusing on markup semantics, then sprinkle some
-        lesser known CSS properties to implement solid and flexible layouts.
+        grids. {"We'll"} start by focusing on markup semantics, then sprinkle
+        some lesser known CSS properties to implement solid and flexible
+        layouts.
       </p>
     ),
     image: { path: "css-grid-layouts.png" },
@@ -197,14 +198,15 @@ export const talks: Talk[] = [
       <>
         <p>
           This is a 2-part talk. The first part is an introduction to John
-          Conway's Game of Life and some of it's practical applications today.
-          The second part walks through an implementation of Game of Life in
-          React.
+          {"Conway's"} Game of Life and some of {"it's"} practical applications
+          today. The second part walks through an implementation of Game of Life
+          in React.
         </p>
         <br />
         <p>
-          We'll measure rendering performance and code execution performance,
-          identify bottlenecks and optimize our solution to run at 60fps.
+          {"We'll"} measure rendering performance and code execution
+          performance, identify bottlenecks and optimize our solution to run at
+          60fps.
         </p>
       </>
     ),
@@ -225,13 +227,13 @@ export const talks: Talk[] = [
     abstract: (
       <>
         <p>
-          React is fast enough, until it becomes slow. In this talk we'll
-          examine the limitations of React's rendering performance.
+          React is fast enough, until it becomes slow. In this talk {"we'll"}
+          examine the limitations of {"React's"} rendering performance.
         </p>
         <br />
         <p>
-          We'll take a look at different situations when rendering bottlenecks
-          can occur, measure rendering performance using{" "}
+          {"We'll"} take a look at different situations when rendering
+          bottlenecks can occur, measure rendering performance using{" "}
           <strong>React Profiler</strong> and optimize it using{" "}
           <code>
             <strong>React.memo()</strong>
@@ -325,9 +327,9 @@ export const talks: Talk[] = [
           <a href="https://teabreak.e-spres-oh.com/swift-in-react-native-the-ultimate-guide-part-1-modules-9bb8d054db03">
             Ultimate Guide for Swift in React Native
           </a>
-          . We'll create a native module in Swift and implement a React Native
-          bridge, allowing us to exchange data back and forth between JavaScript
-          code and native iOS code written in Swift.
+          . {"We'll"} create a native module in Swift and implement a React
+          Native bridge, allowing us to exchange data back and forth between
+          JavaScript code and native iOS code written in Swift.
         </p>
       </>
     ),
@@ -345,9 +347,9 @@ export const talks: Talk[] = [
     abstract: (
       <>
         <p>
-          Code breakpoints is something we're all used to. But Chrome Devtools
-          provide additional debugging methods that allow us to break on DOM
-          manipulations, XHR requests, and various DOM events.
+          Code breakpoints is something {"we're"} all used to. But Chrome
+          Devtools provide additional debugging methods that allow us to break
+          on DOM manipulations, XHR requests, and various DOM events.
         </p>
       </>
     ),
@@ -378,10 +380,10 @@ export const talks: Talk[] = [
     abstract: (
       <>
         <p>
-          Developers want to become "full-stack". Companies hire full-stack
+          Developers want to become {'"full-stack"'}. Companies hire full-stack
           developers. Some say that full-stack means{" "}
-          <em>"jack of all trades, master of none"</em>. The answer must be
-          somewhere in the middle. We'll analyze the history of the term and
+          <em>{'"jack of all trades, master of none"'}</em>. The answer must be
+          somewhere in the middle. {"We'll"} analyze the history of the term and
           debate what it really means from the developement and management point
           of view.
         </p>
@@ -398,10 +400,10 @@ export const talks: Talk[] = [
       <>
         <p>
           Breaking changes are a great way to improve software, by changing poor
-          design and removing the bad parts. It's what all languages do at some
-          point. However, JavaScript cannot afford to do that. We'll explore why
-          is JavaScript different in this regard and what options does it have
-          for improvement.
+          design and removing the bad parts. {"It's"} what all languages do at
+          some point. However, JavaScript cannot afford to do that. {"We'll"}{" "}
+          explore why is JavaScript different in this regard and what options
+          does it have for improvement.
         </p>
       </>
     ),

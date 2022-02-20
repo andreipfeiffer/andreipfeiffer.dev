@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
@@ -21,6 +22,9 @@ import { Tag } from "./tag";
 import { TagsList } from "./tags_list";
 
 import styles from "./blog_post.module.scss";
+import hightlight_dark from "./highlight-dark.module.scss";
+import hightlight_light from "./highlight-light.module.scss";
+import hightlight from "./highlight.module.scss";
 
 type Props = {
   meta: Metadata;
@@ -40,7 +44,9 @@ export function BlogPost(props: Props) {
 
   const darkMode = useCustomDarkMode();
 
-  const theme = darkMode.value ? "dark" : "light";
+  const hightlight_theme = darkMode.value
+    ? hightlight_dark.theme
+    : hightlight_light.theme;
 
   const [email, setEmail] = React.useState("");
 
@@ -74,18 +80,13 @@ export function BlogPost(props: Props) {
         image_width={meta.cover_width}
         image_height={meta.cover_height}
         article={{ tags: meta_tags, published_time: meta.date }}
-      >
-        <link rel="stylesheet" href={`/highlight.css`} />
-        <link rel="stylesheet" href={`/highlight-${theme}.css`} />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
-          rel="stylesheet"
-        ></link>
-      </MetaTags>
+      />
 
       {breakpoint && <Spacer vertical="60" />}
 
-      <article className={styles.post}>
+      <article
+        className={classNames(styles.post, hightlight.post, hightlight_theme)}
+      >
         <header>
           <Fullpage>
             <Grid.Full className={styles.title}>

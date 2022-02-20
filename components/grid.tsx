@@ -31,7 +31,7 @@ function Item({ children, span = 1, as = "div", className }: ItemProps) {
 
 // used for single full width element
 // similar with having a Grid + Col span 12
-Grid.Full = ({ children, as = "div", className }: Props) => {
+Grid.Full = function GridFull({ children, as = "div", className }: Props) {
   return React.createElement(
     as,
     { className: classNames(styles.layout, className) },

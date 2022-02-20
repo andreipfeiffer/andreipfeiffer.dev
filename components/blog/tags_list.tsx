@@ -26,6 +26,7 @@ export function TagsList({ tags, activeTag, filled = false }: Props) {
 
       return (
         <Tag
+          key={tag_name}
           tag={tag}
           type={filled ? "filled" : "lg"}
           active={activeTag === tag}

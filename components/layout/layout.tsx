@@ -46,6 +46,7 @@ export function Layout(props: Props) {
         <header className={headerStyles}>
           <MainLink href="/">
             <a className={styles.logo}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={`/images/logo_${logo}.svg`}
                 alt="Andrei Pfeiffer logo"

@@ -1,0 +1,151 @@
+.theme :global {
+  /**
+  Name:   Base2Tone-Lake Light
+  Author: by Bram de Haan, adapted from DuoTone themes by Simurai (http://simurai.com/projects/2016/01/01/duotone-themes)
+
+  http://atelierbram.github.io/Base2Tone-prism/demo/evening/light/
+  Prism template for Base2Tone by Bram de Haan (http://atelierbram.github.io/syntax-highlighting/prism/)
+  Generated with Base16 Builder (https://github.com/base16-builder/base16-builder)
+  */
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    background: #f3f3f0;
+    color: #499fbc;
+  }
+
+  pre[class*="language-"]::-moz-selection,
+  pre[class*="language-"] ::-moz-selection,
+  code[class*="language-"]::-moz-selection,
+  code[class*="language-"] ::-moz-selection {
+    text-shadow: none;
+    background: #c0e1ec;
+  }
+
+  pre[class*="language-"]::selection,
+  pre[class*="language-"] ::selection,
+  code[class*="language-"]::selection,
+  code[class*="language-"] ::selection {
+    text-shadow: none;
+    background: #c0e1ec;
+  }
+
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #c2c1b7;
+    font-style: italic;
+  }
+
+  .token.punctuation {
+    color: #c2c1b7;
+  }
+
+  .token.namespace {
+    opacity: 0.7;
+  }
+
+  .token.tag,
+  .token.operator,
+  .token.number {
+    color: #2f7289;
+  }
+
+  .token.property,
+  .token.function {
+    color: #b7a21a;
+  }
+
+  .token.tag-id,
+  .token.selector,
+  .token.atrule-id {
+    color: #84740b;
+  }
+
+  .class-name,
+  .maybe-class-name {
+    color: #8c7c04;
+  }
+
+  code.language-javascript,
+  .token.attr-name {
+    color: #b7a21a;
+  }
+
+  code.language-css,
+  code.language-scss,
+  .token.boolean,
+  .token.string,
+  .token.entity,
+  .token.url,
+  .language-css .token.string,
+  .language-scss .token.string,
+  .style .token.string,
+  .token.attr-value,
+  .token.keyword,
+  .token.control,
+  .token.directive,
+  .token.unit,
+  .token.statement,
+  .token.regex,
+  .token.atrule {
+    color: #074b61;
+  }
+
+  .token.placeholder,
+  .token.variable {
+    color: #7dc2d9;
+  }
+
+  .token.deleted {
+    color: #f23d67;
+  }
+
+  .token.inserted {
+    color: #24aa02;
+  }
+
+  .token.italic {
+    font-style: italic;
+  }
+
+  .token.important,
+  .token.bold {
+    font-weight: bold;
+  }
+
+  .token.important {
+    color: #b7a21a;
+  }
+
+  .token.entity {
+    cursor: help;
+  }
+
+  pre > code.highlight {
+    outline: 0.4em solid #b7a21a;
+    outline-offset: 0.4em;
+  }
+
+  /** overrides color-values for the Line Numbers plugin
+  * http://prismjs.com/plugins/line-numbers/
+  */
+  .line-numbers .line-numbers-rows {
+    border-right-color: #e8e7e3;
+  }
+
+  .line-numbers-rows > span:before {
+    color: #d5d4cd;
+  }
+
+  /** overrides color-values for the Line Highlight plugin
+  * http://prismjs.com/plugins/line-highlight/
+  * alpha transparency in 8 digits hex notation coming to a browser near you soon:
+  * https://drafts.csswg.org/css-color/#hex-notation
+  */
+  .remark-highlight-code-line {
+    background: #84740b1c;
+    border-color: #dca908;
+  }
+}
