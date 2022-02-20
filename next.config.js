@@ -3,16 +3,16 @@ import withPlugins from "next-compose-plugins";
 import nextMDX from "@next/mdx";
 import html from "remark-html";
 import prism from "remark-prism";
-import slug from "remark-slug";
+import slug from "rehype-slug";
 import headings from "rehype-autolink-headings";
 import externalLinks from "rehype-external-links";
 
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [[prism, { showSpotlight: true }], html, slug],
+    remarkPlugins: [[prism, { showSpotlight: true }], html],
     rehypePlugins: [
-      [externalLinks, { target: false, rel: ["noopener"] }],
+      slug,
       [
         headings,
         {
@@ -24,6 +24,7 @@ const withMDX = nextMDX({
           },
         },
       ],
+      [externalLinks, { target: false, rel: ["noopener"] }],
     ],
   },
 });
