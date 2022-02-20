@@ -14,7 +14,8 @@
     "isolatedModules": true,
     "downlevelIteration": true,
     "jsx": "preserve",
-    "types": ["node", "webpack-env"]
+    "types": ["node", "webpack-env"],
+    "incremental": false
   },
   "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
