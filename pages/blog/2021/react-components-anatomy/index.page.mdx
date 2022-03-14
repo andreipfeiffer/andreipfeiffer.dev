@@ -113,7 +113,7 @@ module.exports = {
 
 Below the imports section, we have the **file-level constants** and the **type definitions** when using a static type-checker like TypeScript or Flow. Let's go through each of them in detail.
 
-<Subheading>Constants</Subheading>
+### Constants
 
 Any [magic value](https://refactoring.guru/replace-magic-number-with-symbolic-constant), like a `string` or a `number`, is placed at the top of the file, below the import statements. Since these are static constants, meaning that their value doesn't change, it makes no sense to place them inside the component because they would be recreated on every re-render.
 
@@ -131,7 +131,7 @@ For more complex static data structures, I prefer to extract them in a separate 
   we know at compile time.
 </Note>
 
-<Subheading>Type definitions</Subheading>
+### Type definitions
 
 Since I'm using TypeScript, the next thing to declare is the `Props` interface shape:
 
@@ -386,8 +386,6 @@ export function Article(props: Props) {
 
 <Subheading>Why not extract them as components?</Subheading>
 
-<br />
-
 There's a debate regarding partial render functions that suggests avoiding returning JSX from any local function defined inside a component. An alternative would be to extract these functions as separate components.
 
 ```tsx
@@ -525,8 +523,6 @@ function getInitials(str: string) {}
 </SideBySide>
 
 <Subheading>Why outside the component?</Subheading>
-
-<br />
 
 First of all, pure functions **don't have dependencies**, like props, state, or local variables, because they receive all dependencies as arguments. This means that we can place them virtually anywhere. However, there are also additional reasons to place them outside the function that defines our component:
 
