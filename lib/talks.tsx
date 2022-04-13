@@ -197,7 +197,7 @@ export const talks: Talk[] = [
     abstract: (
       <>
         <p>
-          This is a 2-part talk. The first part is an introduction to John
+          This is a 2-part talk. The first part is an introduction to John{" "}
           {"Conway's"} Game of Life and some of {"it's"} practical applications
           today. The second part walks through an implementation of Game of Life
           in React.
