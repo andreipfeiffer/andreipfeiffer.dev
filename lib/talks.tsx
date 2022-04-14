@@ -107,7 +107,7 @@ export const talks: Talk[] = [
       <>
         <p>
           This talk explains the difference between{" "}
-          <em>Internationalisation</em> and <em>Localisation</em> and how to
+          <em>Internationalization</em> and <em>Localization</em> and how to
           implement translations and pluralisations using{" "}
           <code>
             <strong>i18next</strong>
