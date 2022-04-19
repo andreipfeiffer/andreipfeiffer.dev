@@ -24,6 +24,14 @@ In <LinkTo part={4} />, we've covered popular CSS methodologies and architecture
 
 In this article, we'll continue the Semantic CSS pathway by turning our attention to **styles encapsulation**, which elegantly solves any _naming collisions_ while keeping a _low specificity_ at the same time. These techniques profoundly changed the way we author CSS nowadays, becoming an industry standard.
 
+<br />
+
+We'll cover 3 different styles encapsulation techniques:
+
+- [**Scoped CSS**](#scoped-css), which was abandoned before it got popular;
+- [**CSS Modules**](#css-modules), which solved styles encapsulation through tooling;
+- [**Shadow DOM**](#shadow-dom), which is the standard approach built within the web platform.
+
 <Figure
   width="grid"
   caption={
@@ -152,7 +160,9 @@ Any `.css` file can be used as a CSS Module. However, the opposite does not appl
 
 - CSS modules support **additional non-standard syntax**, like `:global` and `:local` switches, for controlling the selector scope.
 - CSS modules discourage ID and type selectors, recommending using **class selectors only**.
-- CSS modules are **imported** in JavaScript files instead of being referenced from HTML documents using `<link>` tags.
+- CSS modules are **imported** in JavaScript files instead of being directly referenced from HTML documents using `<link>` tags.
+- CSS modules require a **build step** to generate the final `.css` file containing the encapsulated styles.
+- CSS modules promote using **one CSS file per component** instead of defining all styles in a single CSS file.
 
 <Subheading>Using CSS Modules</Subheading>
 
@@ -291,7 +301,7 @@ Next, let's add some styles outside the Shadow DOM. We'll target all `p` element
 <p> 🔵 Outer content </p>
 
 <script>
-  /* ... */
+  /* ... create & attach Shadow DOM */
 
   // Shadow DOM is not affected by outer styles
   shadowRoot.innerHTML = `
@@ -311,7 +321,7 @@ It's essential to understand that **global styles are still inherited** by Shado
 <style> body { color: green; } </style>
 
 <script>
-  /* ... */
+  /* ... create & attach Shadow DOM */
 
   // Global styles are inherited
   shadowRoot.innerHTML = `
@@ -330,10 +340,11 @@ Now, let's add some local styles inside the Shadow DOM, by changing all `p` elem
 <!-- Outer styles (global scope) -->
 <style> p { color: blue; } </style>
 
+<!-- Outer elements are not affected by Shadow DOM styles -->
 <p> 🔵 Outer content </p>
 
 <script>
-  /* ... */
+  /* ... create & attach Shadow DOM */
 
   // Shadow DOM is affected by local styles
   shadowRoot.innerHTML = `
