@@ -31,31 +31,27 @@ export interface Talk {
 
 export const talks: Talk[] = [
   {
-    title: "Scalable CSS",
-    date: "March 2021",
+    title: "The Evolution of Scalable CSS",
+    date: "April 2022",
     type: "Slides only",
     abstract: (
       <>
         <p>
-          CSS is easy to learn, but difficult to master, even at small scale.
-          Developing and maintaining a large CSS code base requires a lot of
-          effort, strict rules and proper tooling.
+          CSS is easy to learn but challenging to master. Writing and maintaining a large CSS codebase requires constant effort, strict rules, and proper tooling.
         </p>
         <br />
         <p>
-          {"We'll"} analyze various solutions we have at our disposal to address
-          the scalability limitations of CSS, looking at methodologies,
-          CSS-in-JS and type systems.
+          This talk is a well-researched chronicle describing how CSS tools and techniques have evolved during the past 20 years. The goal is to present an objective view of the current and future state of writing maintainable CSS at scale, dissecting the weapons and tactics at our disposal in fighting against CSS entropy.
         </p>
       </>
     ),
     urls: [
-      {
-        type: "slides",
-        url: "/slides/scalable-css.pdf",
-      },
+      // {
+      //   type: "slides",
+      //   url: "/slides/scalable-css.pdf",
+      // },
     ],
-    image: { path: "scalable-css.png" },
+    image: { path: "evolution-of-scalable-css.png" },
   },
 
   {
