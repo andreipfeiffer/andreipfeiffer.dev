@@ -55,6 +55,10 @@
 
 .main {
   padding: 3rem 0;
+
+  @include breakpoint(sm, max) {
+    min-height: calc(100vh - 80px - 2rem);
+  }
 }
 
 .padded {
