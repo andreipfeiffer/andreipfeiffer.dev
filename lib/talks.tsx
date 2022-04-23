@@ -127,6 +127,11 @@ export const talks: Talk[] = [
         type: "slides",
         url: "/slides/i18n-and-l10n.pdf",
       },
+      {
+        type: "code",
+        url: "https://github.com/andreipfeiffer/i18n-l10n",
+        label: "Code"
+      },
     ],
   },
 
