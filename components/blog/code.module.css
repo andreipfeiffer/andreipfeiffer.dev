@@ -1,0 +1,6 @@
+.err {
+  text-decoration-style: wavy;
+  text-decoration-line: underline;
+  text-decoration-skip-ink: none;
+  text-decoration-color: red;
+}
