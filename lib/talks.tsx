@@ -37,11 +37,17 @@ export const talks: Talk[] = [
     abstract: (
       <>
         <p>
-          CSS is easy to learn but challenging to master. Writing and maintaining a large CSS codebase requires constant effort, strict rules, and proper tooling.
+          CSS is easy to learn but challenging to master. Writing and
+          maintaining a large CSS codebase requires constant effort, strict
+          rules, and proper tooling.
         </p>
         <br />
         <p>
-          This talk is a well-researched chronicle describing how CSS tools and techniques have evolved during the past 20 years. The goal is to present an objective view of the current and future state of writing maintainable CSS at scale, dissecting the weapons and tactics at our disposal in fighting against CSS entropy.
+          This talk is a well-researched chronicle describing how CSS tools and
+          techniques have evolved during the past 20 years. The goal is to
+          present an objective view of the current and future state of writing
+          maintainable CSS at scale, dissecting the weapons and tactics at our
+          disposal in fighting against CSS entropy.
         </p>
       </>
     ),
@@ -124,13 +130,17 @@ export const talks: Talk[] = [
     image: { path: "i18n-l10n.png", bw: true },
     urls: [
       {
+        type: "video",
+        url: "https://www.youtube.com/watch?v=t0I5GdJfFds",
+      },
+      {
         type: "slides",
         url: "/slides/i18n-and-l10n.pdf",
       },
       {
         type: "code",
         url: "https://github.com/andreipfeiffer/i18n-l10n",
-        label: "Code"
+        label: "Code",
       },
     ],
   },
