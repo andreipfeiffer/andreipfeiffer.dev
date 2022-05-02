@@ -1,0 +1,7 @@
+@import "../../styles/mixins";
+
+.top {
+  @include breakpoint(md) {
+    padding-top: 1em;
+  }
+}

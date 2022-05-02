@@ -164,6 +164,10 @@ export function BlogPost(props: Props) {
           </form>
         </Box>
       </article>
+
+      <a href="#top" className={styles.scrollTop}>
+        <Arrow direction="up" text="Scroll to top" />
+      </a>
     </Layout>
   );
 

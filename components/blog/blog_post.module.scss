@@ -353,3 +353,38 @@
     --size: 2px;
   }
 }
+
+.scrollTop {
+  position: fixed;
+  right: 50%;
+  transform: translateX(1em);
+  bottom: 0.5em;
+
+  @include breakpoint(sm) {
+    transform: none;
+    right: 1em;
+    bottom: 1em;
+  }
+
+  opacity: 0;
+  pointer-events: none;
+  background-color: var(--background);
+  border: 1px var(--color) solid;
+  border-radius: 0.75em;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: height 0.3s;
+
+  [data-scrolled="true"] & {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &:hover {
+    height: 3em;
+  }
+}
