@@ -6,7 +6,7 @@ import cover from "./atomic-css-cover.png";
 export const meta: Metadata = {
   ...common_meta,
   subtitle: "Part 6: Atomic CSS",
-  date: "2021-12-28",
+  date: "2022-05-13",
   tags: ["css"],
   tags_extra: [
     "reusability",
@@ -19,7 +19,7 @@ export const meta: Metadata = {
     "functional css",
   ],
   intro:
-    "Atomic CSS contradicts and breaks all the principles of Semantic CSS. This mindset gave birth to a new set of frameworks based solely on single-purpose utility classes.",
-  visibility: "draft",
+    "Atomic CSS contradicts and breaks all the principles of Semantic CSS. This mindset gave birth to a new generation of frameworks based solely on single-purpose utility classes.",
+  visibility: "unlisted",
   cover: cover.src,
 };

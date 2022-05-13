@@ -20,7 +20,7 @@ import styles from "./toc.module.scss";
 
 type PartId = typeof SERIES[number]["id"];
 
-const LAST_PUBLISHED_PART: PartId = 5;
+const LAST_PUBLISHED_PART: PartId = 6;
 
 const SERIES_BASE_URL = "/blog/2022/scalable-css-evolution";
 
