@@ -366,6 +366,12 @@
     bottom: 1em;
   }
 
+  @include breakpoint(md) {
+    transform: none;
+    right: 2em;
+    bottom: 2em;
+  }
+
   opacity: 0;
   pointer-events: none;
   background-color: var(--background);
@@ -377,7 +383,7 @@
   align-items: center;
   justify-content: center;
 
-  transition: height 0.3s;
+  transition: height 0.3s, opacity 0.5s, right 0.5s;
 
   [data-scrolled="true"] & {
     opacity: 1;
