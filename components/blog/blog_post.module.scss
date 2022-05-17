@@ -357,17 +357,18 @@
 .scrollTop {
   position: fixed;
   right: 50%;
-  transform: translateX(1em);
-  bottom: 0.5em;
+  transform: translateX(1em) translateY(4em);
+  bottom: 1em;
+
+  box-shadow: 0 0 0 5px var(--background);
 
   @include breakpoint(sm) {
-    transform: none;
+    transform: translateY(4em);
     right: 1em;
     bottom: 1em;
   }
 
   @include breakpoint(md) {
-    transform: none;
     right: 2em;
     bottom: 2em;
   }
@@ -383,14 +384,22 @@
   align-items: center;
   justify-content: center;
 
-  transition: height 0.3s, opacity 0.5s, right 0.5s;
+  transition: height 0.3s, opacity 0.5s, right 0.5s, transform 0.7s,
+    background 0.2s, box-shadow 0.2s;
 
   [data-scrolled="true"] & {
     opacity: 1;
     pointer-events: all;
+    transform: translateX(1em);
+
+    @include breakpoint(sm) {
+      transform: translateY(0);
+    }
   }
 
-  &:hover {
-    height: 3em;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      height: 3em;
+    }
   }
 }
