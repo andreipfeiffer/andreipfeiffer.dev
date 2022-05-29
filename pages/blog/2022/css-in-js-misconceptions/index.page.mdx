@@ -25,56 +25,57 @@ Therefore, this article is focused on shedding some light regarding **what CSS-i
 
 <EmojiList>
   <EmojiList.Item emoji="⚛️">
-    <a href="#css-in-js-is-not-react-only">CSS-in-JS is not only for React</a>
+    <a href="#is-css-in-js-for-react-only">Is CSS-in-JS for React only?</a>
   </EmojiList.Item>
 
   <EmojiList.Item emoji="🖇">
-    <a href="#css-in-js-doesnt-use-inline-styles">CSS-in-JS doesn't use inline styles</a>
+    <a href="#does-css-in-js-use-inline-styles">Does CSS-in-JS use inline styles?</a>
   </EmojiList.Item>
 
   <EmojiList.Item emoji="🌈">
-    <a href="#css-in-js-supports-all-the-css-syntax">CSS-in-JS supports all the CSS syntax</a>
+    <a href="#does-css-in-js-support-all-css-syntax">Does CSS-in-JS support all CSS syntax?</a>
   </EmojiList.Item>
 
   <EmojiList.Item emoji="💅">
-    <a href="#css-in-js-is-not-equivalent-with-styled-components">CSS-in-JS is not equivalent with "styled components</a>
+    <a href="#is-css-in-js-equivalent-with-styled-components">Is CSS-in-JS equivalent with "styled components"?</a>
   </EmojiList.Item>
 
   <EmojiList.Item emoji="🐪">
-    <a href="#css-in-js-doesnt-enforce-camelcase-syntax">CSS-in-JS doesn't enforce camelCase syntax</a>
+    <a href="#does-css-in-js-enforce-camelcase-syntax">Does CSS-in-JS enforce camelCase syntax?</a>
   </EmojiList.Item>
 
   <EmojiList.Item emoji="🤓">
-    <a href="#css-in-js-is-not-for-ignorants">CSS-in-JS is not for ignorants</a>
+    <a href="#is-css-in-js-only-for-ignorants">Is CSS-in-JS only for ignorants?</a>
   </EmojiList.Item>
 
   <EmojiList.Item emoji="🎳">
-    <a href="#css-in-js-breaks-the-separation-of-concerns">CSS-in-JS breaks the separation of concerns</a>
+    <a href="#does-css-in-js-break-the-separation-of-concerns">Does CSS-in-JS break the separation of concerns?</a>
   </EmojiList.Item>
 
   <EmojiList.Item emoji="⚙️">
-    <a href="#css-in-js-requires-an-additional-build-step">CSS-in-JS requires an additional build step</a>
+    <a href="#does-css-in-js-require-an-additional-build-step">Does CSS-in-JS require an additional build step?</a>
   </EmojiList.Item>
 
   <EmojiList.Item emoji="🚚">
-    <a href="#css-in-js-ships-additional-code">CSS-in-JS ships additional code</a>
+    <a href="#does-css-in-js-ship-additional-code">Does CSS-in-JS ship additional code?</a>
   </EmojiList.Item>
 
   <EmojiList.Item emoji="🎓">
-    <a href="#css-in-js-requires-learning-another-library">CSS-in-JS requires learning another library</a>
+    <a href="#does-css-in-js-require-learning-another-library">Does CSS-in-JS require learning another library?</a>
   </EmojiList.Item>
 
   <EmojiList.Item emoji="🍡">
-    <a href="#css-in-js-doesnt-enforce-styles-colocation">CSS-in-JS doesn't enforce styles colocation</a>
+    <a href="#does-css-in-js-enforce-styles-colocation">Does CSS-in-JS enforce styles colocation?</a>
   </EmojiList.Item>
 </EmojiList>
 
-<!--
-- 🧮 CSS-in-JS is less performant
-- 🐌 CSS-in-JS is not slow
--->
+### Is CSS-in-JS for React only?
 
-### CSS-in-JS is not React only
+<Subheading>Short Answer</Subheading>
+
+No. CSS-in-JS as a paradigm is framework agnostic.
+
+<Subheading>Long Answer</Subheading>
 
 While it's true that some CSS-in-JS libraries are specifically built for React, the large majority of them are [framework agnostic](https://css-tricks.com/a-thorough-analysis-of-css-in-js/#aa-react-specific-or-framework-agnostic). Any library that generates CSS class names can be used with any JavaScript framework, or with no framework at all:
 
@@ -96,9 +97,15 @@ Additionally, [JSS](https://cssinjs.org/) is the first CSS-in-JS library, which 
 
 On the other hand, what **_is true_** is that CSS-in-JS is more prevalent within the React ecosystem, as there's no built-in solution for style encapsulation. For instance, Angular, Vue, or Svelte have built-in support for scoping styles. Therefore there aren't notable or popular implementations of CSS-in-JS libraries in other frameworks, at least as of May 2022.
 
-### CSS-in-JS doesn't use inline styles
+### Does CSS-in-JS use inline styles?
 
-None of the currently existing CSS-in-JS libraries use inline styles as output. Libraries like [Radium](https://formidable.com/blog/2019/radium-maintenance/) and [Glamor](https://github.com/threepointone/glamor) used inline styles, but both libraries have been discontinued.
+<Subheading>Short Answer</Subheading>
+
+No, none of the currently existing CSS-in-JS libraries use inline styles as output.
+
+<Subheading>Long Answer</Subheading>
+
+Libraries like [Radium](https://formidable.com/blog/2019/radium-maintenance/) and [Glamor](https://github.com/threepointone/glamor) used inline styles, but both libraries have been discontinued.
 
 Inline styles have limited support for CSS syntax, making it impossible to define certain pseudo-classes, pseudo-elements, or media queries. In addition, common pseudo-classes like `:hover` or `:focus` required sub-optimal workarounds by attaching DOM event listeners and triggering style updates using JavaScript.
 
@@ -122,13 +129,25 @@ const Title = <h1 css={{ color: "blue" }}>Title</h1>;
 <!-- prettier-ignore-end -->
 
 
-### CSS-in-JS supports all the CSS syntax
+### Does CSS-in-JS support all CSS syntax?
+
+<Subheading>Short Answer</Subheading>
+
+Yes.
+
+<Subheading>Long Answer</Subheading>
 
 All modern CSS-in-JS libraries support the full CSS syntax. I have [analyzed more than 10 libraries](https://github.com/andreipfeiffer/css-in-js/), focusing primarily on features such as **pseudo-classes and elements**, **media queries**, and **keyframe animations**.
 
 Each library provides its own syntax and APIs to support the above features, but they generally have a low learning curve. As far as my knowledge and understanding go, there aren't any CSS syntax or features that CSS-in-JS does not support.
 
-### CSS-in-JS is not equivalent with _styled components_
+### Is CSS-in-JS equivalent with _styled components_?
+
+<Subheading>Short Answer</Subheading>
+
+No. Styled components is only one of the CSS-in-JS libraries, which also popularized a revolutionary way to define styles, also called Styles components.
+
+<Subheading>Long Answer</Subheading>
 
 One of the popular libraries that use CSS-in-JS is called [styled-components](https://styled-components.com/). Furthermore, they also introduced a new way to apply the JS styles to the desired HTML elements, a technique which is also called **Styled components**.
 
@@ -147,7 +166,13 @@ This approach eliminates the mapping between HTML elements and their styles, ret
 
 But in the end, **_a Styled component is only a technique to attach CSS styles to a DOM element or an existing component_**. There are alternative solutions for <LinkTo part={7} hash="styles-attachment">CSS-in-JS styles attachment</LinkTo> if there's a reason for not using the _Styled_ syntax.
 
-### CSS-in-JS doesn't enforce camelCase syntax
+### Does CSS-in-JS enforce camelCase syntax?
+
+<Subheading>Short Answer</Subheading>
+
+No. Standard CSS syntax using `kebab-case` is also supported.
+
+<Subheading>Long Answer</Subheading>
 
 The object styles syntax, which uses `camelCase` CSS rules, is one way to define CSS-in-JS styles. The alternative is the **tagged templates syntax**, supported by libraries like [styled-components](https://styled-components.com/docs/advanced#tagged-template-literals), [Emotion](https://emotion.sh/docs/css-prop#string-styles), [Goober](https://goober.js.org/api/styled/#tagged-templates-functions), and [Compiled](https://compiledcssinjs.com/docs/api-css-prop#template-literal-rules), allowing developers to write styles exactly like regular CSS.
 
@@ -168,7 +193,13 @@ What **_is true_** is that **object syntax** is the preferred method for [CSS-in
 
 Switching from regular CSS syntax using `kebab-case` properties to the object syntax using `camelCase` syntax might seem daunting. But in reality, you get the hang of it within days.
 
-### CSS-in-JS is not for ignorants
+### Is CSS-in-JS only for ignorants?
+
+<Subheading>Short Answer</Subheading>
+
+No. CSS-in-JS is simply another paradigm for scaling CSS, besides Semantic and Atomic CSS.
+
+<Subheading>Long Answer</Subheading>
 
 One recurring prejudice that you'll often find is that most developers that use CSS-in-JS don't really understand how CSS works.
 
@@ -178,7 +209,13 @@ Secondly, let's think about <LinkTo part={5}>styles encapsulation</LinkTo>, to e
 
 On the contrary, fully understanding the pitfalls of the CSS cascade and global styles should determine us to circumvent them, especially in large scale applications.
 
-### CSS-in-JS breaks the separation of concerns
+### Does CSS-in-JS break the separation of concerns?
+
+<Subheading>Short Answer</Subheading>
+
+No, not in the context of component-based architectures.
+
+<Subheading>Long Answer</Subheading>
 
 When this argument comes up, it typically refers to the separation of content (HTML), styles (CSS), and behavior (JS). This separation makes perfect sense when thinking of websites or applications where content is king, like blogs, documentation, presentational websites, etc.
 
@@ -186,9 +223,15 @@ React was the first library to _put the HTML in JS_ in the form of `JSX`. Later 
 
 This mindset is also adopted by [Angular components](https://angular.io/guide/component-styles), [React Native StyleSheets](https://reactnative.dev/docs/stylesheet), [Vue Single-File Components](https://vuejs.org/guide/scaling-up/sfc.html), and [Lit components](https://lit.dev/docs/components/styles/#add-styles). The reason is quite simple: _code maintenance_ is essential when developing large applications.
 
-### CSS-in-JS requires an additional build step
+### Does CSS-in-JS require an additional build step?
 
-This argument only makes sense when writing pure CSS, without CSS Processors. But, honestly, if no such tools are needed, then it doesn't make sense to use CSS-in-JS in the first place.
+<Subheading>Short Answer</Subheading>
+
+Yes, as any other tool which uses non-standard features.
+
+<Subheading>Long Answer</Subheading>
+
+The only scenario which doesn't require a build step is when writing pure CSS, without CSS Processors. But, let's face it: if no such tools are needed, then it doesn't make sense to use CSS-in-JS, or any other scalable paradigms in the first place.
 
 However, any CSS-related tooling requires some sort of processing, performed during one or more build steps. This includes CSS Processors, CSS Modules, Atomic CSS, etc.
 
@@ -198,15 +241,29 @@ Considering that any CSS-in-JS library already provides everything other tools o
 
 asd -->
 
-### CSS-in-JS ships additional code
+### Does CSS-in-JS ship additional code?
+
+<Subheading>Short Answer</Subheading>
+
+It depends.
+
+<Subheading>Long Answer</Subheading>
 
 Most popular CSS-in-JS libraries, like **styled-components**, **Emotion**, **JSS**, and others output their styles as <LinkTo part={7} hash="runtime-stylesheets">runtime stylesheets</LinkTo>. They indeed require additional code to be shipped, which varies between `6kB` and `18kB` minified and gzipped.
 
 However, there are also very _**lightweight CSS-in-JS**_ solutions like **Goober**, which ships only `1kB` of additional code.
 
+<br />
+
 Additionally, if that is still too much, there's always the alternative of <LinkTo part={7} hash="static-css-extraction">static CSS extraction</LinkTo>. This approach is implemented by **vanilla-extract**, which doesn't require any additional runtime code, having the same impact as _plain old regular CSS_.
 
-### CSS-in-JS requires learning another library
+### Does CSS-in-JS require learning another library?
+
+<Subheading>Short Answer</Subheading>
+
+Yes, of course.
+
+<Subheading>Long Answer</Subheading>
 
 Well, this is undeniable. If we want to use a CSS-in-JS library, we'll have to learn its syntax.
 
@@ -218,9 +275,15 @@ However, when this argument is used against CSS-in-JS as a paradigm, we'll have 
 
 In the end, if we want to use any tools for managing CSS, _we'll have to learn_ how to use them.
 
-### CSS-in-JS doesn't enforce styles colocation
+### Does CSS-in-JS enforce styles colocation?
 
-Not everyone agrees that styles belong in their respective component file. Fortunately, with CSS-in-JS, we can always move the styles in a separate file:
+<Subheading>Short Answer</Subheading>
+
+No. They can also be imported from separate files.
+
+<Subheading>Long Answer</Subheading>
+
+Not everyone agrees that styles belong in their respective component file. Fortunately, with CSS-in-JS, we can always move the styles in a separate file, just like any other JavaScript code:
 
 <Side header={{ file: "title.styles.js", lang: "JS" }}>
 
@@ -252,6 +315,10 @@ export function Title() {
 Therefore, we can colocate styles for relatively small components with CSS-in-JS, removing one layer of [indirection](https://en.wikipedia.org/wiki/Indirection). But we also have the flexibility to extract them in separate files.
 
 On the other hand, with regular CSS, we have only one option.
+
+<!-- ### Is CSS-in-JS less performant?
+
+It depends... -->
 
 ---
 
