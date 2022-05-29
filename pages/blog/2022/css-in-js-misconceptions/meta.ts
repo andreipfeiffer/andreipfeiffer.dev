@@ -9,6 +9,6 @@ export const meta: Metadata = {
   tags_extra: [],
   intro:
     "Despite its versatility and potential, CSS-in-JS received a significant kickback from the community. We'll analyze the most recurring misconceptions, shedding some light regarding what CSS-in-JS is, but more importantly, what CSS-in-JS is not.",
-  visibility: "unlisted",
+  visibility: "public",
   cover: cover.src,
 };
