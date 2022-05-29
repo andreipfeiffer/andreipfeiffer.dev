@@ -374,6 +374,7 @@
   }
 
   opacity: 0;
+  z-index: 1;
   pointer-events: none;
   background-color: var(--background);
   border: 1px var(--color) solid;
