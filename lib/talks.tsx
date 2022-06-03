@@ -52,10 +52,10 @@ export const talks: Talk[] = [
       </>
     ),
     urls: [
-      // {
-      //   type: "slides",
-      //   url: "/slides/scalable-css.pdf",
-      // },
+      {
+        type: "slides",
+        url: "/slides/evolution-of-scalable-css.pdf",
+      },
     ],
     image: { path: "evolution-of-scalable-css.png" },
   },
