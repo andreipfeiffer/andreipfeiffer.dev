@@ -17,7 +17,7 @@ export const meta: Metadata = {
     "refactoring",
   ],
   intro:
-    "Adding TypeScript on top of CSS-in-JS enables safe refactorings and typed interfaces when authoring UI components. Therefore, CSS-in-TypeScript provides the missing puzzle piece when aiming to achieve complete type-safe code.",
+    "Adding TypeScript on top of CSS-in-JS enables safe refactoring and typed interfaces when authoring UI components. Therefore, CSS-in-TypeScript provides the missing puzzle piece when aiming to achieve complete type-safe code.",
   visibility: "unlisted",
   cover: cover.src,
 };
