@@ -6,17 +6,18 @@ import cover from "./type-safe-css-cover.png";
 export const meta: Metadata = {
   ...common_meta,
   subtitle: "Part 8: Type-safe CSS",
-  date: "2021-12-28",
-  tags: ["css", "typescript", "ui"],
+  date: "2022-06-06",
+  tags: ["css", "typescript"],
   tags_extra: [
     "scalability",
     "maintainability",
     "styling",
     "type checking",
     "type safety",
+    "refactoring",
   ],
   intro:
-    "Adding TypeScript on top of CSS-in-JS enables safe refactorings and typed interfaces when authoring UI components. Therefore, CSS-in-TypeScript provides the missing puzzle piece when aiming for a complete type-safe code base.",
-  visibility: "draft",
+    "Adding TypeScript on top of CSS-in-JS enables safe refactorings and typed interfaces when authoring UI components. Therefore, CSS-in-TypeScript provides the missing puzzle piece when aiming to achieve complete type-safe code.",
+  visibility: "unlisted",
   cover: cover.src,
 };

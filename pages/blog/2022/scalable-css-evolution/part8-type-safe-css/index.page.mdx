@@ -3,6 +3,7 @@ import { Subheading } from "../../../../../components/blog/subheading";
 import { SideBySide, Side } from "../../../../../components/blog/sidebyside";
 import { Status } from "../../../../../components/blog/status";
 import { Note } from "../../../../../components/blog/note";
+import { Quote } from "../../../../../components/blog/quote";
 import { Code, Err } from "../../../../../components/blog/code";
 import { Figure } from "../../../../../components/blog/figure";
 import { ThemedImg } from "../../../../../components/blog/themed-img";
@@ -23,9 +24,11 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 To be honest, if I haven't started using TypeScript, I would probably still think that _CSS Modules paired with SCSS is all we need, because we can't do any better_. But I couldn't have been more wrong. -->
 
-In the previous article of this series, <LinkTo part={CURRENT_PART - 1} />, we've covered CSS-in-JS, an alterative paradigm to classic semantic or atomic styles definition. Depending on the specific CSS-in-JS library, we could output styles either dynamically or statically, either as atomic classes or semantic encapsulated classes.
+In the previous article of this series, <LinkTo part={CURRENT_PART - 1} />, we've covered a third paradigm, bsides Semantic CSS and Atomic styles definition. Depending on the specific CSS-in-JS library, we could output styles either dynamically or statically, either as atomic classes or semantic encapsulated classes.
 
 In this part, we'll take CSS-in-JS one step forward, pairing it with TypeScript to solve the missing piece of the puzzle regarding type-safe UI development: **type safety for components' styles**.
+
+<br />
 
 Here's what we'll cover:
 
@@ -33,6 +36,8 @@ Here's what we'll cover:
 - [**Typed themes**](#typed-themes) for design systems.
 - [**Typed interfaces**](#typed-interfaces) for UI components design.
 - [**Safe refactorings**](#safe-refactorings) either manual or using specialized tools.
+
+<br />
 
 <Figure
   width="grid"
@@ -51,9 +56,22 @@ Here's what we'll cover:
 
 ## What is type safety?
 
-Before jumping into Type-safe CSS, let's understand what **_type safety_** means in a broader context. As [Wikipedia](https://en.wikipedia.org/wiki/Type_safety#:~:text=type%20safety%20is%20the%20extent%20to%20which%20a%20programming%20language%20discourages%20or%20prevents%20type%20errors) states:
+User interface development using HTML, CSS, and JavaScript lacks type safety by default. Browser engines are built to ignore most errors and make a best effort to render whatever they can. This means that developers cannot rely on tools to highlight potential problems in their code, so they have to be extra cautious during development. This becomes a scalability problem during long term projects.
 
-> Type safety is the extent to which a programming language **discourages or prevents type errors**.
+<Quote>
+  <blockquote cite="https://en.wikipedia.org/wiki/Type_safety">
+    <p>
+      Type safety is the extent to which a programming language <strong>discourages or prevents type errors</strong>.
+    </p>
+    <figcaption>
+      <cite>
+        <a href="https://en.wikipedia.org/wiki/Type_safety#:~:text=type%20safety%20is%20the%20extent%20to%20which%20a%20programming%20language%20discourages%20or%20prevents%20type%20errors">
+          Wikipedia
+        </a>
+      </cite>
+    </figcaption>
+  </blockquote>
+</Quote>
 
 Firstly, CSS is not a programming language per se, therefore it doesn't have its own compiler to check for code errors. Instead, CSS makes sense when applied to HTML content, either as static or dynamically manipulated styles using JavaScript.
 
@@ -61,15 +79,29 @@ So let's cover a few categories of **type errors** that could surface when writi
 
 <Subheading>Invalid CSS properties or values</Subheading>
 
-Most code editors include support for CSS, either via plugins or built-in, providing suggestions, code completion, and validating CSS rules and their respective values. To enforce even more the correctness of CSS code, there are also linters such as [Stylelint](https://stylelint.io/).
+Most code editors include support for CSS, providing suggestions, code completion, and validating CSS rules and their respective values. But if we want to check the correctness of the code, we'd have to use linters such as [Stylelint](https://stylelint.io/) to enforce valid syntax.
 
-Most CSS-in-JS libraries that implement Object Syntax use [CSSType](https://www.npmjs.com/package/csstype) to provide type definitions for static type checkers like TypeScript or Flow.
+```css
+.notification {
+  /* 🚫 incorrect CSS rule & value */
+  font-thickness: big;
+}
+```
+
+CSS-in-JS libraries that implement Object Syntax for styles definition typically use [CSSType](https://www.npmjs.com/package/csstype) to provide type definitions for static type checkers like TypeScript or Flow.
 
 <Subheading>Mispelled CSS variables</Subheading>
 
-[Nesting](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#inheritance_of_custom_properties) CSS custom properties or using [invalid variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#what_happens_with_invalid_variables) are too complex to analyze, therefore type safety is probably unachievable. Not to mention that any markup or style can be manipulated at runtime. Any browser will silently ignore such errors.
+Using nested CSS custom properties or invalid CSS variables are too complex to analyze. It's highly unlikely to detect such errors with linters of other static analysis tools. Not to mention that any markup or style can be manipulated at runtime. Therefore, browsers will silently ignore any non-existent CSS variables.
 
-CSS-in-JS approaches on the otherhand use JavaScript variables, which have to exist at compile time, making them trivial to type check.
+```css
+.notification {
+  /* 🚫 incorrect CSS custom property name */
+  color: var(--color-missing);
+}
+```
+
+With CSS-in-JS we use plain JavaScript variables, which have to exist at compile time to reference them, making them trivial to type check.
 
 <Subheading>Mispelled or missing CSS classes</Subheading>
 
@@ -77,21 +109,26 @@ When applying CSS classes to HTML elements we might misspell them, or specify a 
 
 For CSS modules there's a [TypeScript language service plugin](https://www.npmjs.com/package/typescript-plugin-css-modules) that checks if the applied class names are defined in the imported CSS files. However, it has its limitations and it doesn't support refactoring.
 
+```html
+ <!-- 🚫 misspelled CSS class name -->
+<div class="notification_item">
+```
+
 Since CSS-in-JS solutions work with JS/TS identifiers instead of untyped strings, type checking is trivial since it's performed by the JavaScript language service, or by the respective static type checker in the case of TypeScript or Flow.
 
-<Note title="Code completion vs Type checking">
+<Note title="Code Completion vs. Type Checking" uppercase={false}>
   Most code editors and IDEs provide{" "}
-  <strong>code completion, suggestions, or IntelliSense</strong>, either by
-  default or via plugins. Such features are helpful only when we writing code.
-  However, when we change code, a <strong>type checker</strong> is required to
-  re-validate the correctness of the updated code.
+  <strong>code completion, suggestions, and IntelliSense</strong> for CSS rules and valid values, either by
+  default or via plugins. Such features are helpful when writing code as we don't have to manually type the entire code ourselves.<br /><br />
+  However, when we make any changes, a <strong>type checker</strong> is required to
+  re-validate the correctness of the updated code. A common scenario is when changing a component's interface that is used in multiple places. A type checker would throw errors, while code completion alone would have no effect.
 </Note>
 
-Using CSS-in-JS, paired with a static type checker, unlocks the power of type safety for CSS code, preventing a large class of errors to reach production code. Additionaly, static types also enable better component interface design and trivial refactorings.
+Using CSS-in-JS, paired with a static type checker, unlocks the power of type safety for CSS code, preventing a large class of errors to reach production code. Additionaly, static types also enable **better component interface design**, but also **trivial refactorings** which are essential during long-term code maintenance.
 
 ## Typed themes
 
-Design tokens defined in JavaScript that can be easily shared between logic and styles are very useful, especially when working with design systems. We could define an entire theme using a plain object:
+Design tokens defined in JavaScript, that can be easily <LinkTo part={1} hash="shared-variables">shared between logic and styles</LinkTo>, are very useful especially when working with design systems. We could define an entire theme using a plain JavaScript object:
 
 <Side header={{ file: "theme.ts", lang: "TS" }}>
 
@@ -110,25 +147,46 @@ export const theme = {
 
 </Side>
 
+The theme can be easily shared across an entire application by explicitly importing it:
+
+<Side header={{ file: "component.ts", lang: "TSX" }}>
+
+```tsx
+import { css } from "css-in-js-library";
+import { theme } from "./theme";
+
+const styles = css({
+  background: theme.colors.success
+});
+
+export const Notification = () => (
+  <div className={styles}>...</div>
+);
+```
+
+</Side>
+
 - we get **auto complete** for all of its properties, so we'll never have to remember them;
 - we get instant **type checking**, so we'll never misspell any of its properties.
 
 <br />
 
 <Code>
-  <span>theme.colors.brand</span>
+  <span>theme.colors.warning</span>
   <br />
-  <span className="token comment">// ✅ "#f45919"</span>
+  <span className="token comment">// ✅ "#f7b228"</span>
   <br />
   <br />
-  <span>theme.colors.<Err>bramd</Err></span>
+  <span>theme.colors.<Err>warn</Err></span>
   <br />
-  <span className="token comment">// ❌ Property 'bramd' does not exist</span>
+  <span className="token comment">// ❌ Property 'warn' does not exist</span>
 </Code>
+
+Additionally, type checking also kicks in whenever someone changes the definition of the `theme`. Without having to search for all occurrences, the type system will highlight them, guiding us in solving all type errors.
 
 ## Typed interfaces
 
-Let's consider a `Notification` component that accepts a `color` prop. We could set its type to `string`, which is not wrong. However, this might be too permissive:
+Let's consider a `Notification` component that accepts a `color` prop. We could set its type to `string`. It's not wrong, however, it might be too permissive:
 
 ```tsx
 interface NotificationProps {
@@ -137,8 +195,8 @@ interface NotificationProps {
 }
 ```
 
-- component's consumers could pass any color, like `red` or `#ff0000`, which are not defined in our color theme;
-- consumers will not know what colors should they use unless they manually look at the color palette definition.
+- Component's **authors** would have to implement manual checks to validate the input and allow only accepted values.
+- Component's **consumers** could pass any color, like `red` or `#ff0000`, which are not defined in our color theme. They will not know what colors are valid unless they manually look at the color palette definition or understand the component's source code.
 
 <br />
 
@@ -169,8 +227,9 @@ interface NotificationProps {
 
 <!-- prettier-ignore-end -->
 
-- consumers will get [IntelliSense](https://code.visualstudio.com/docs/editor/intellisense) with all the available color options, so they don't have to remember or to type them manually;
-- passing any other value will result in a compile-time error.
+- **Consumers** will get [IntelliSense](https://code.visualstudio.com/docs/editor/intellisense) with all the available color options, so they don't have to remember or to type them manually.
+- The **authors** don't have to implement any additional checks, as the type system would throw compile-time errors when passing invalid input.
+- Last but not least, **typed code is self documented**, therefore understanding what the code does becomes trivial.
 
 <br />
 
@@ -188,6 +247,8 @@ interface NotificationProps {
 ```
 
 <!-- prettier-ignore-end -->
+
+And the best part is that everything is interconnected. Whenever we change the `theme.colors` object and rename or remove one of the colors, all component interfaces and all consumers that use those components will throw compile errors, highlighting the problems that we need fix.
 
 <br />
 
@@ -213,12 +274,40 @@ Let's consider that we'll manually rename the `theme` object to `tokens`:
 
 </Side>
 
-In this case, we'll get instant compile error(s) in all the files that import the old `theme` object. Thus, type checking will aid us in manually fixing all the problems without missing any occurrences, which is not possible with plain JavaScript.
+In this case, we'll get instant compile error(s) in all the files that import the old `theme` object. Thus, type checking will aid us in manually fixing all the problems without missing any occurrences.
 
 ```shell
 # ✅ instant compile-time errors
 Module '"./theme"' has no exported member 'theme'.
 ```
+
+With plain JavaScript, this particular error would occur during transpilation, so it would be instant with [HMR](https://webpack.js.org/concepts/hot-module-replacement/).
+
+<br />
+
+But what is we change the name of a specific theme color?
+
+<Side header={{ file: "theme.ts", lang: "TS" }}>
+
+```diff
+  export const theme = {
+    colors: {
+-     brand: "#f45919",
++     primary: "#f45919",
+    },
+  };
+```
+
+</Side>
+
+In the case of TypeScript, we'll also get instant compile-time errors, highlighting all the occurences that we need to replace.
+
+```shell
+# ✅ instant compile-time errors
+Property 'brand' does not exist.
+```
+
+With plain JavaScript on the other hand, this particular error would occur only at runtime, once that particular code will be executed. Unfortunately, it could slip away without even noticing it, surfacing unexpentedly at a later time.
 
 <Subheading>
   <Status type="ok" />
@@ -253,7 +342,7 @@ Right-clicking the `theme` object, selecting **"Rename symbol"** from the dropdo
 
 Since CSS classes are typically handled as strings, there are no refactoring tools available for us to support automatic renaming. On the other hand, manual renaming is quite error prone, since it's not trivial to determine all the usages of a single CSS class or selector.
 
-So, instead of introducing potential bugs, we often choose not to perform CSS refactorings at all. This is unfortunate and problematic because the existing code will only worsen due to [entropy](https://en.wikipedia.org/wiki/Software_entropy), without any real possibility to improve it.
+So, instead of introducing potential bugs, we often choose not to perform CSS refactorings at all. This is unfortunate and problematic because the existing code will only worsen due to [entropy](https://en.wikipedia.org/wiki/Software_entropy), without any real option to improve it.
 
 <Subheading>
   <Status type="err" />
@@ -279,7 +368,7 @@ With TypeScript and CSS-in-JS, we benefit from automatic refactorings out of the
 
 ### Extracting components
 
-Without type safety, extracting a component along with its styles into a separate file is a daunting task. That might the reason why we're relunctant to perform such refactorings.
+Without type safety, extracting a component along with its styles into a separate file is a daunting task. That might be the reason why we're relunctant to perform such refactorings.
 
 The most challenging task during component extraction is making sure that we have **moved all the required styles**, without leaving any styles behind that aren't needed anymore.
 
@@ -288,7 +377,7 @@ The most challenging task during component extraction is making sure that we hav
   Type-unsafe extraction
 </Subheading>
 
-Let's go step by step through a manual process of component extraction:
+Let's go step by step through a manual process of component extraction. Considering we have already extracted the markup and logic into a separate file, we have to to the same for all the used styles:
 
 1. First, we have to **search for all CSS classes**, static or dynamic, used by the extracted component.
 2. For each class, we have to **check if it's referenced in the old component** as well.
@@ -307,13 +396,13 @@ With CSS-in-TypeScript, we have the type system as a sidekick, pointing out whic
 
 ---
 
-User interface development using HTML, CSS, and JavaScript lacks type safety by default. Browser engines are built to ignore most errors and make a best effort to render whatever they can. This means that developers cannot rely on tools to highlight potential problems in their code, so they have to be extra cautious during development. This becomes a scalability problem during long term projects.
-
-Static type checkers were built to prevent a large category of such errors. There's even an official ECMAScript proposal for [Types as comments](https://tc39.es/proposal-type-annotations/) to be supported in JavaScript engines without additional tools.
-
-So far, static type checkers like TypeScript have an increasing adoption in web development, allowing us to write **type-safe business logic**. Additionaly, TSX enables **type-safe JSX markup**, being officially supported by TypeScript. Finally, CSS-in-TypeScript provides **type-safe styles**.
+Static type checkers like TypeScript have an increasing adoption in web development, allowing us to write **type-safe business logic**. Additionaly, TSX enables **type-safe JSX markup**, being officially supported by TypeScript. Finally, CSS-in-TypeScript provides **type-safe styles**.
 
 With these weapons at our disposal, scalability and maintainability become less problematic, regardless of the number of team members, the codebase's size, or the project's length.
+
+<br />
+
+As we're slowly approaching the present day, before ending the chronicle let's take a step back and synthesize in the **<LinkTo part={CURRENT_PART + 1} />** everything that we've covered so far.
 
 <br />
 
