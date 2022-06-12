@@ -54,12 +54,12 @@ export default function About() {
               <strong>Eclectic</strong> because I {"don't"} follow a specific
               technology or a school of thought in a dogmatic way. Instead, I
               apply various practices and technologies that suit the problem{" "}
-              {"I'm"}
+              {"I'm "}
               facing, in a pragmatic fashion.
             </p>
 
             <p>
-              <strong>Code designer</strong> has a double meaning. First of all,
+              <strong>Code designer</strong> has a double meaning. First of all,{" "}
               {"I'm"} very keen about <strong>code design</strong> and
               maintaining a clean code base. But {"I'm"} also a hybrid between
               designer and developer, having a passion for aesthetics,
@@ -93,7 +93,7 @@ export default function About() {
 
             <br />
 
-            <Button as="a" href="/andrei-pfeiffer-resume-v4.pdf" size="large">
+            <Button as="a" href="/andrei-pfeiffer-resume-v5.pdf" size="large">
               View full resumee
             </Button>
           </section>
