@@ -5,10 +5,14 @@ ul.list {
   padding: 0;
   padding-left: 1.5em;
   margin: 0;
+  
+  @include breakpoint(md) {
+    padding-left: 3em;
+  }
 
   .item {
     position: relative;
-  
+
     &::before {
       content: attr(data-emoji);
       display: inline-block;
@@ -18,4 +22,3 @@ ul.list {
     }
   }
 }
-

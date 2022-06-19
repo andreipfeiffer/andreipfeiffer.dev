@@ -1,15 +1,14 @@
 import { BlogPost } from "../../../../../components/blog/blog_post";
 import { Subheading } from "../../../../../components/blog/subheading";
-// import { SideBySide, Side } from "../../../../../components/blog/sidebyside";
 import { Status } from "../../../../../components/blog/status";
 import { Note } from "../../../../../components/blog/note";
-// import { Figure } from "../../../../../components/blog/figure";
+import { Figure } from "../../../../../components/blog/figure";
 import { EmojiList } from "../../../../../components/blog/emoji-list";
-
+import { ThemedImg } from "../../../../../components/blog/themed-img";
 import { TOC, LinkTo } from "../toc";
-// import Image from "next/image";
-// import img from './type-safe-css.png'
 
+import img_light from "./css-paradigms-light.png";
+import img_dark from "./css-paradigms-dark.png";
 
 import { meta } from "./meta";
 export { meta } from "./meta";
@@ -19,139 +18,239 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-Phew, what a ride we had so far! During this series we've covered almost two decades of innovation regarding CSS authoring tools.
+During this series, we've covered almost two decades of innovation regarding CSS authoring tools and techniques. Since we're slowly approaching the present day and also the end of this chronicle, it's time to take a step back, reflect on the knowledge we've gained, and draw some conclusions.
 
-Since we're slowly approaching the current day, and also the end of this chronicle, it's time to take a step back, reflect on the knowledge we've gained, and draw some conclusions.
+Here's a summary of what we'll cover in this epilogue:
 
-(end even dare to look inside the chrystal ball to see what the future of CSS tooling might look like)
-
-Here's a brief summary of what we'll cover:
-
-- Recap three different [**CSS authoring paradigms**](#paradigms), namely **Semantic CSS**, **Atomic CSS**, and **CSS-in-JS**;
-- Analyze two different [**stylesheets loading techniques**](#techniques), such as **Static stylesheets** in contrast with **Dynamic stylesheets**;
-- [Type-safety](#type-safety)
-- Applicability [FAQs](#faqs)
-- [Closing thoughts](#closing-thoughts)
+- [**Paradigms**](#paradigms):  
+  [Semantic CSS](#semantic-css), [Atomic CSS](#atomic-css) & [CSS in JS](#css-in-js)
+- [**Static vs. Runtime Stylesheets**](#static-vs-runtime-stylesheets)
+- [**Type safety**](#type-safety)
+- [**Closing thoughts**](#closing-thoughts)
+- [**Acknowledgments**](#acknowledgments)
 
 ## Paradigms
 
-To simplify things, there are two paradigms that we can choose from: **semantic** or **atomic** CSS. We'll usually choose one of them as our main paradigm, but it's important to keep in mind that they're **not mutually exclusive**.
+To simplify things, we have three different paradigms we can choose from to address the scalabilities issues of CSS. Of course, we'll usually choose one of them, but it's essential to remember that they are **not mutually exclusive**.
 
-In practice, we'll most likely use both of them in an average `95% / 5%` ratio, regardless which one we use as the main paradigm. For instance:
+In practice, no matter which approach we choose as our primary paradigm, we'll probably use the others as well in particular situations. For instance:
 
-- With Semantic CSS we'll surely use some [atomic utility classes](https://getbootstrap.com/docs/5.1/utilities/api/) like Bootstrap includes.
-- Similarly, with Atomic CSS well have to use semantic classes to define styles for CSS Animations or certain pseudo-classes such as `::before` or `::after`.
+- With **Semantic CSS**, we'll most probably use a fair amount of [atomic utility classes](https://getbootstrap.com/docs/5.1/utilities/api/) like all Semantic CSS frameworks include.
+- Similarly, with **Atomic CSS**, we'll have to use semantic classes to define styles for CSS animations, descendant selectors, or pseudo-classes.
+- In **dynamic applications**, where the user defines styles for an element's `position`, `size`, or `color`, we'll have to update those styles from JavaScript.
+- Even with **CSS in JS**, we'll have to turn to regular stylesheets whenever we need to override 3rd party CSS code.
+
+<br />
+
+So, let's recap and synthesize what these paradigms are all about.
 
 ### Semantic CSS
 
-It's safe to say that <LinkTo part={4} hash="semantic-css">Semantic CSS</LinkTo> always was the de facto standard within the developers community. It promotes the usage of CSS class names that describe the meaning of the HTML element they represent, not their implementation. Such class names include `.card`, `.button`, or `.video-player` and contain all the required styles for that particular element. This approach creates a _clear separation between content and style_.
+It's safe to say that <LinkTo part={4} hash="semantic-css">Semantic CSS</LinkTo> is the _de facto_ standard within the developers' community and the traditional paradigm of CSS styling.
 
-However, there are some things worthmentioning about Semantic CSS when we think about CSS maintainability and scalability:
+Semantic CSS encourages using class **names that describe the meaning** of the HTML element they represent, not their implementation. Such class names include `.card`, `.button`, or `.video-player` and contain all the required styles for that particular element. This approach creates a _clear separation between content and style_.
 
-- 😕 The **CSS code will continually grow** as we add new features, which could potentially lead to large `.css` files. If they are frequently updated, caching doesn't help that much.
-- 🧐 I dare to say that **CSS Modules** are essential for scaling and maintaining Semantic CSS. Without them, we'll have to address scalability issues using certain <LinkTo part={4}>CSS methodologies and architectures</LinkTo> which, as we saw, are not trivial to scale.
-- 😉 We'll probably use a **CSS (pre) processors** as well for nesting and contextual styles.
-
-### Atomic CSS
-
-In contrast, <LinkTo part={5}>Atomic CSS</LinkTo> takes a totally different approach, fully embracing single purpose utility classes such as `.text-bold`, `.background-red-50`, or `.display-flex`. These classes explicitly describe their implementation and contain a single CSS rule.
-
-- 🤩 The CSS code will not grow indefinitely and the **total CSS size will be considerable lower** in comparison with Semantic CSS. It can also be cached for long periods of time, as it will rarely change.
-- 🤨 There will be an **increase in markup size**, as we'll need to attach more classes on HTML elements.
-- 😌 We **don't need other tools** for scaling CSS, since the paradigm itself addresses most scalability issues.
-- 🧐 We'll have to **learn a framework**, unless we want to implement our own.
-
-### CSS-in-JS
-
-In highly interactive applications, where most of the styles are dynamically computed based on user actions, it makes sense to co-locate styles definitions next to the logic. If the styles depend solely on behaviour, separating them will only impede development and maintenance as well.
-
-<!-- prettier-ignore-start -->
-```js
-// we'll use Goober as the CSS-in-JS library for this example
-import { css } from "goober";
-
-container.addEventListener("touchmove", (e) => {
-  // a naive user interaction computation
-  const xPos = e.touches[0].clientX;
-
-  element.className = css({
-    // dynamic styling 👇
-    transform: `translateX(${xPos}px)`,
-
-    // but also static styling 👍
-    color: "#F45919",
-  });
-});
-```
-<!-- prettier-ignore-end -->
-
-Using a JavaScript framework, the syntax becomes less imperative. This is especially true for React, which has a highly declarative syntax, but also lacks a built-in scalable CSS authoring solution.
-
-But nowadays CSS-in-JS usefulness is not limited to highly dynamic UIs:
+However, some things are worth mentioning about Semantic CSS when we think about CSS maintainability and scalability:
 
 <EmojiList>
-<EmojiList.Item emoji="😊">
-  <p>
-    Certain CSS-in-JS libraries implement{" "}
-    <strong>
-      static <code>.css</code> files extraction
-    </strong>{" "}
-    from the styles definitions. This means that we get all the benefits of
-    CSS-in-JS and Static CSS at once.
-  </p>
-  <p>
-    Popular libraries that implement static CSS files extraction are{" "}
-    <a href="https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#vanila-extract">
-      vanilla-extract
-    </a>{" "}
-    or{" "}
-    <a href="https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#linaria">
-      Linaria
-    </a>
-    .
-  </p>
-</EmojiList.Item>
-
-<EmojiList.Item emoji="😎">
-  <p>
-    Other libraries are inspired from utility-first frameworks, giving birth to{" "}
-    <strong>atomic CSS-in-JS</strong>. In contrast with existing Atomic CSS
-    solutions, developers are not required to learn a framework or to change
-    their authoring approach. They write the style definitions in typical
-    CSS-in-JS fashion. It's the underlying library that take care or generating
-    unique atomic class names for all required styles.
-  </p>
-  <p>
-    Such atomic CSS-in-JS libraries include{" "}
-    <a href="https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#fela">
-      Fela
-    </a>
-    , <a href="https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#stylex">
-      stylex
-    </a> and vanilla-extract + <a href="">Sprinkles</a>
-  </p>
-</EmojiList.Item>
-
-  <EmojiList.Item emoji="😌">
-    <p>We also need to add that any CSS-in-JS library provides <strong>support for contextual styles and styles encapsulation</strong>, thus CSS preprocessors or CSS Modules are no longer required.</p>
+  <EmojiList.Item emoji="😕">
+    <p>
+      The <strong>CSS code will continually grow</strong> as we add new
+      features, which could potentially lead to large <code>.css</code> files.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="🧐">
+    <p>
+      <strong>Styles encapsulation</strong> using{" "}
+      <LinkTo part={5} hash="css-modules">
+        CSS Modules
+      </LinkTo>{" "}
+      or{" "}
+      <LinkTo part={5} hash="shadow-dom">
+        Shadow DOM
+      </LinkTo>{" "}
+      is essential for scaling and maintaining Semantic CSS. Without them, we'll
+      have to address the global namespace problem using{" "}
+      <LinkTo part={4}>CSS methodologies and architectures</LinkTo>, which, as
+      we saw, are not trivial to scale or maintain in the long term.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="😉">
+    <p>
+      We'll probably use <LinkTo part={3}>CSS Processors</LinkTo> for{" "}
+      <strong>nesting and contextual styles</strong>, which are key features,
+      especially when using media queries in Responsive Web Design.
+    </p>
   </EmojiList.Item>
 </EmojiList>
 
 <br />
 
-Probably the most difficult and annoying aspect of CSS-in-JS is that there are more than 50 different libraries to choose from. **Picking one library is really difficult.** Not to mention that many of them are experimental or have been abandoned. Considering that we're working on a long-term project, choosing a solution that will still be maintained a few years from now is essential.
+Even though the large majority of classes have semantic names, we'll also be using a fair amount of non-semantic and reusable utility classes for quick and punctual style overrides.
 
-I've spent 2 months [thouroughly analizing most CSS-in-JS libraries](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#overview) so I personally know the pain. Hopefully, you can find useful information from the study.
+### Atomic CSS
+
+As an alternative, <LinkTo part={6}>Atomic CSS</LinkTo> takes a totally different approach, fully embracing non-semantic and reusable utility classes such as `.text-bold` or `.display-flex`. These classes explicitly describe their implementation and contain a single CSS rule.
+
+<EmojiList>
+  <EmojiList.Item emoji="🤩">
+    <p>
+      The CSS code will not grow indefinitely, and the{" "}
+      <strong>total CSS size will be considerably smaller</strong> than Semantic
+      CSS.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="😴">
+    <p>
+      Stylesheets can have <strong>longer cache time</strong>, as we'll mostly
+      use existing CSS definitions without adding new ones.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="🤨">
+    <p>
+      There will be an <strong>increase in markup size</strong>, as we'll need
+      to attach more classes on HTML elements.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="😌">
+    <p>
+      We <strong>don't need other tools</strong> for scaling CSS since the
+      fundamental principles of Atomic styles address most CSS scalability
+      issues.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="🧐">
+    <p>
+      We'll have to <strong>learn a framework</strong> unless we want to
+      implement our own.
+    </p>
+  </EmojiList.Item>
+</EmojiList>
+
+<br />
+
+Some edge-cases might require traditional semantic classes for CSS animations, descendant or compound selectors, or certain pseudo-classes such as `::before` or `::after`.
+
+### CSS-in-JS
+
+When the styles depend tightly on behavior, separating them will only impede development and maintenance as well. That's why <LinkTo part={7}>CSS in JS</LinkTo> is a perfect fit for **highly interactive applications**, where most styles are **dynamically computed** based on user actions.
+
+<EmojiList>
+  <EmojiList.Item emoji="🤲">
+    <p>
+      Any CSS-in-JS library provides support for{" "}
+      <strong>contextual styles</strong> and{" "}
+      <strong>styles encapsulation</strong>, therefore we don't need additional
+      tools like CSS Processors or CSS Modules.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="✊">
+    <p>
+      We have the option to <strong>colocate</strong> the styles with their
+      respective component file. Doing so removes one layer of indirection and
+      improves component maintenance.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="🤝">
+    <p>
+      We can easily <strong>share variables</strong> between styles and logic,
+      which could play an important role in dynamic applications or design
+      systems.
+    </p>
+  </EmojiList.Item>
+</EmojiList>
+
+<br />
+
+But nowadays, CSS-in-JS use cases are not limited to highly dynamic applications.
+
+<EmojiList>
+<EmojiList.Item emoji="😊">
+  <p>
+    Libraries such as{" "}
+    <a href="https://vanilla-extract.style/documentation/">
+      vanilla-extract
+    </a>{" "}
+    or{" "}
+    <a href="https://linaria.dev/">
+      Linaria
+    </a>{" "}
+    support <strong>
+      static <code>.css</code> files extraction
+    </strong>, providing the development experience of CSS in JS besides the caching advantages of traditional stylesheets.
+  </p>
+</EmojiList.Item>
+
+<EmojiList.Item emoji="😎">
+  <p>
+    Other approaches, such as{" "}
+    <a href="https://vanilla-extract.style/documentation/sprinkles-api/">
+      vanilla-extract + Sprinkles
+    </a>{" "}
+    and <a href="https://github.com/johanholmerin/style9">style9</a>, output{" "}
+    <strong>Atomic styles</strong> on top of static CSS extraction. This
+    eclectic approach provides the benefits of all 3 paradigms simultaneously.
+  </p>
+</EmojiList.Item>
+
+</EmojiList>
+
+<!-- Probably the most difficult and annoying aspect of CSS-in-JS is that there are more than 50 different libraries to choose from. **Picking one library is really difficult.** Not to mention that many of them are experimental or have been abandoned. Considering that we're working on a long-term project, choosing a solution that will still be maintained a few years from now is essential.
+
+I've spent 2 months [thouroughly analizing most CSS-in-JS libraries](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#overview) so I personally know the pain. Hopefully, you can find useful information from the study. -->
 
 ---
 
-## Techniques
+<Figure
+  width="content"
+  caption={"Each CSS paradigm uses a different language for styles authoring"}
+>
+  <ThemedImg
+    light={img_light.src}
+    dark={img_dark.src}
+    width={1920}
+    height={583}
+    alt="Styles for text color blue and font weight bold defined in 3 different paradigms: first, Semantic CSS which uses CSS stylesheets for styles definitions; second, Atomic CSS where styles are specified in the HTML markup by applying existing CSS classes; and third, CSS in JS where styles are defined in JavaScript files"
+  />
+</Figure>
 
-So far, we've looked at CSS from the **authoring** perspective. Another angle we can explore is by analysing the **output and loading** of the stylesheets. Therefore, we have **static** and **dynamic** stylesheets, so let's dig a bit deeper.
+<br />
+
+An interesting observation is that each CSS paradigm employs one of the 3 languages used for front-end web development:
+
+<EmojiList>
+  <EmojiList.Item emoji="🔵">
+    <p>
+      With <strong>Semantic CSS</strong>, we use regular CSS stylesheets to
+      define the styles. We also touch HTML markup to apply the classes, but the
+      actual CSS rules are written in CSS files.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="🟢">
+    <p>
+      With <strong>Atomic CSS</strong>, we apply existing CSS classes directly
+      to HTML elements. The atomic classes might be defined in CSS stylesheets,
+      but from the authoring perspective, we'll actually touch only the markup
+      files during development.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="🟡">
+    <p>
+      With <strong>CSS in JS</strong>, as the name implies, all style
+      definitions are moved to JavaScript files. Even if we use static CSS
+      extraction or Atomic CSS-in-JS, the actual style definition takes place in
+      JS/JSX files.
+    </p>
+  </EmojiList.Item>
+</EmojiList>
+
+## Static vs. Runtime Stylesheets
+
+So far, we've looked at CSS from the **authoring** perspective. Another angle we can explore is analyzing the **output and loading** of the stylesheets.
 
 ### Static Stylesheets
 
-Whether we're using Semantic or Atomic CSS, CSS processors, or CSS Modules, what we get in the end is one or more static `.css` files that we'll include in the `<head>` of our document:
+Whether we're using _Semantic_ or _Atomic CSS_, _CSS processors_, _CSS Modules_, or _CSS-in-JS with static extraction_, what we get in the end is one or more static `.css` files that we'll include in the `<head>` of our document:
 
 ```html
 <link rel="stylesheet" href="styles.css" />
@@ -159,105 +258,173 @@ Whether we're using Semantic or Atomic CSS, CSS processors, or CSS Modules, what
 
 <br />
 
-Every single web developer has used this way to load CSS as this is the standard approach. However, there are some considerations to keep in mind:
+Every single web developer is familiar with this method to load CSS, as this is the standard approach. However, there are some considerations to keep in mind:
 
-- 🤐 By default, any `.css` file included in the document `<head>` is a [rendering blocking resource](https://web.dev/render-blocking-resources/). Depending on the filesize, compression ratio, network conditions, server response time, latency, user bandwidth and CPU power, downloading a `.css` file could degrade the [Speed Index](https://web.dev/speed-index/) or the page.
+<EmojiList>
+  <EmojiList.Item emoji="🤐">
+    <p>
+      By default, any <code>.css</code> file included in the document's{" "}
+      <code>head</code> element is a{" "}
+      <a href="https://web.dev/render-blocking-resources/">
+        rendering blocking resource
+      </a>
+      . Depending on the file size, compression ratio, network conditions, server
+      response time, latency, user bandwidth, and CPU power, loading a <code>
+        .css
+      </code> file could degrade the <a href="https://web.dev/speed-index/">
+        Speed Index
+      </a> or the page.
+    </p>
+    <p>
+      <a href="https://web.dev/extract-critical-css/">
+        Extracting critical CSS
+      </a>{" "}
+      aka. <em>above-the-fold CSS</em> is a solution, but not a trivial one to
+      implement, especially with dynamic websites and applications.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="🤔">
+    <p>
+      CSS files are <strong>easily cached</strong> by browsers, preventing
+      unnecessary requests for the same file. However, this brings no benefit if
+      any style change invalidates the entire CSS file. Frequent changes defeat
+      the purpose of caching.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="😇">
+    <p>
+      Content and styling are strictly separated, meaning we can{" "}
+      <strong>update content without invalidating the CSS cache</strong>.
+      Therefore static stylesheets are beneficial during Server-Side Rendering.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="😟">
+    <p>
+      On the other hand, the initially loaded <code>.css</code> file{" "}
+      <strong>must contain all the dynamic styles</strong> required by user
+      events unless we lazy-load them at runtime.
+    </p>
+  </EmojiList.Item>
+</EmojiList>
 
-  [Extracting critical CSS](https://web.dev/extract-critical-css/) aka. _above-the-fold CSS_ is a solution, but not a trivial one to implement, especially with dynamic websites and applications.
+### Runtime Stylesheets
 
-- 🤔 CSS files are cached are **easily cached** by the browser, which prevents unnecessary requests for the same file. However, this brings no benefit if any style change invalidates the entire CSS file. Frequent changes defeats the purpose of caching.
+Whenever we have to deal with user interaction, we'll probably need to update some styles as well. Some basic examples might be adding, removing, or toggling CSS classes from JavaScript event handlers.
 
-- 😇 Content and styling are strictly separated. This means we can **update content without invalidating CSS cache**, being highly beneficial during Server-Side Rendering.
+**Dynamic styles**, popularized by CSS in JS libraries, will be bundled in JavaScript files during the build. When the JavaScript bundle reaches the browser, the CSS in JS runtime will inject the styles directly into the CSSOM.
 
-- 😟 On the other hand, the initially loaded `.css` file **must contain all the required dynamic styles** that might be triggered by user events, unless we lazy-load them at runtime.
+<EmojiList>
+  <EmojiList.Item emoji="🥱">
+    <p>
+      <strong>Lazy-loading</strong> the styles for a particular component
+      becomes trivial, since the styles are bundled with their respective
+      component.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="🧟">
+    <p>
+      <strong>Dead code elimination</strong> is provided out of the box, as
+      unreferenced style definitions will not end up in the JavaScript bundle.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="😧">
+    <p>
+      Dynamic stylesheets typically require more code to be shipped to the
+      browser. Extra <strong>runtime code</strong> is necessary to handle
+      dynamic styles, varying between <code>1.1 kB</code> and{" "}
+      <code>18.2 kB</code>. In addition, the{" "}
+      <strong>critically extracted styles will be shipped twice</strong> during
+      Server-Side Rendering: once for the initial render and second when bundled
+      in JS files during the build.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="🧐">
+    <p>
+      <strong>First paint metrics might be faster</strong>, even though we're
+      shipping more bytes. Since regular stylesheets block the rendering of the
+      page, removing them altogether should speed up the loading.
+    </p>
+  </EmojiList.Item>
+</EmojiList>
 
-### Dynamic Stylesheets
+## Type safety
 
-Whenever there we have to deal with user interaction, we'll probably need to update some styles as well. Some basic examples might be adding, removing, or toggling CSS classes from event handlers defined in JavaScript.
+Traditional web technologies like HTML, CSS, and JS typically lack any kind of type safety, leading to cumbersome maintenance and fear of touching existing code.
 
-However, when the styling depends on **user behaviour**, we cannot pre-generate all of them to be included in the `.css` file. This occurs during complex user events such as **dragging**, **pinching**, or **selecting arbitrary styling values** such as a color picker. To implement such styling, we'll have to fully switch to JavaScript:
+Using **static type checkers** like TypeScript or Flow provides type safety for the logical part of the code. With JSX-based syntax, type checkers also provide type safety for the component's markup. But adding static type checkers on top of CSS in JS, we can finally achieve type safety for styles as well.
 
-```js
-// attach event handler
-container.addEventListener("touchmove", (e) => {
-  // a naive user interaction computation
-  const xPos = e.touches[0].clientX;
-
-  // dynamic styling 👇
-  element.style.transform = `translateX(${xPos}px)`;
-});
-```
-
-<br />
-
-We might argue that with component-based architectures, managing styles based on user behaviour could become convoluted. Having the static styles defined in `.css` files and the dynamic styles in `.js` files could get tricky in certain types of applications, like [Excalidraw](https://excalidraw.com/).
-
-This is where a new paradigm makes its entrance.
-
-## Type-safety
-
-The primary reason for conducting the aforementioned study of CSS-in-JS libraries was to find a way to get **styling type-checking**. When we think about code scalability and long term maintainability, type-safety plays an essential role that shouldn't be overlooked.
-
-As front-end/UI developers, we got used to the lack the type-safety because of JavaScript and CSS. We all know the fear of refactoring. We don't touch existing code because we don't know what might brake. But this lack of confidence impedes any effort in maintaining our code and fighting software entropy.
-
-Unfortunately, the only current way to benefit from type-safety in CSS is to adopt CSS-in-JS. Or should I say **CSS-in-TypeScript**, because we need a static type checker, like TypeScript or Flow.
-
-Once we're comfortable with TypeScript, we get gradual benefits, depending on the level of safety we're looking for:
-
-- 🧭 code navigation tools embedded in most editors and IDEs to quickly go to styles definition or find their usage.
-- 🧰 refactoring tools to aid us in renaming, extracting, and moving code around. Code refactoring has never been easier.
-- 🔔 instant type-checking for unused definitions or misspelled identifiers, which is undoubtedly a game changer.
-- 🔐 the option to implement typed design tokens or typed component variants, enforcing strong contracts between the component's logic and it's styles.
-
-## FAQs
-
-1. Why is CSS-in-JS not popular and widely used? - conservative, we stick to what we've invested in so far
-2. What about design systems? - they're complex tools, built on to of techniques described here
-3. ... we believe it's "normal" what we grow up with. those who grew up with "semantics" will believe that's normal. if we would teach someone css-in-js or atomic css, they would believe that's the normal. it's only a matter of perspective.
-4. Do we need to learn all the techniques presented here? - No, we don't _need_ to, but it _helps_ to know they exist. Understading _how_ and _when_ a particular tool or technique is applicable will only enrich our knowledge, allowing us to make educated technical decisions.
+<EmojiList>
+  <EmojiList.Item emoji="🧭">
+    <p>
+      <strong>Code navigation tools</strong> embedded in most editors and IDEs
+      are beneficial to go to styles definition quickly or find their usage
+      within a large code base.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="🧰">
+    <p>
+      <strong>Refactoring tools</strong> aid us when renaming, extracting, and
+      moving code around. Code refactoring is essential during long-term
+      maintenance.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="🔔">
+    <p>
+      <strong>Instant type checking</strong> highlights any unused definitions,
+      misspelled identifiers, or incorrect function calls.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="🔐">
+    <p>
+      <strong>Typed interfaces</strong> for UI components enforce solid
+      contracts for the consumers. Passing invalid input becomes very unlikely.
+    </p>
+  </EmojiList.Item>
+  <EmojiList.Item emoji="📚">
+    <p>
+      Static types are typically <strong>self-documented</strong>, being
+      beneficial for any developer reading the code.
+    </p>
+  </EmojiList.Item>
+</EmojiList>
 
 ## Closing thoughts
 
-I've spent a reasonable amount of time asking myself why are we so divided as a community. A simple explanation would be that we have different needs, therefore we require different tools.
+In the end, it's just a matter of scalability. For example, we could compare code maintenance with traveling from one place to another, considering that the effort scales proportionally with the distance. Additionally, the more people we travel with, the more difficult it is to coordinate them.
 
-But there's another explanation I'm debating lately, which analyzes our own evolution as software developers. I remember [Kent Beck's quote](https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast):
+<Subheading>🚶 Walking</Subheading>
 
-> Make it work. Make it right. Make it fast.
+First, let's consider walking. We don't need any rules or regulations as the traveling speed is relatively low. To decrease traveling time, we can choose to **run**, or even take a **bike**.
 
-There are many interpretations for this statement. One of them is to 1️⃣ get the code working correctly, don't optimize prematurely, 2️⃣ refactor the code, clean it up, 3️⃣ and lastly optimize it for performance.
+However, none of these approaches will get us very far. In addition, each person traveling with us will have to put in the same amount of effort. In the context of CSS, the same limitations apply to **standard Semantic CSS** and the **good practices** necessary for scaling.
+
+<!-- Therefore, to travel long distances, we would need to use a different method. -->
+
+<Subheading>🚙 Driving</Subheading>
+
+If we want to travel farther, we'll probably take a car. This method scales a bit better, as the effort to travel long distances is considerably lower than walking. We can also take additional people with us, without additional costs on their side.
+
+But driving on public roads requires specific rules and regulations: we must have a driving license, learn the priority signs, use signaling lights, etc. In the context of scalable CSS, this translates to using **CSS methodologies** for individual components and high-level architecture.
+
+We might even take the highways at some point, as they are specifically designed to enable higher speeds. Using **styles encapsulation**, learning an **Atomic CSS framework**, or choosing a **CSS-in-JS solution**, provide similar benefits, as they remove a considerable part of the manual effort required to manage the code.
+
+<Subheading>✈️ Flying</Subheading>
+
+Now, what if we have to travel even farther or get to a different continent over the seas? Even driving exclusively on highways could take days to reach our destination. On the other hand, taking a plane allows us to reach faraway places quickly and with minimal effort.
+
+However, getting on a plane is not straightforward: we need a passport, get through security checks, and follow strict regulations during the flight. Both the airport and the flight company have to enforce stringent security measures.
+
+**Type-safe CSS** using a static type checker provide similar mechanics. They enforce safety checks, which allows us to move faster and farther, without a proportional amount of effort.
 
 <br />
 
-Here's my own interpretation of Kent Beck's quote in the larger context of scalable and maintainable CSS:
-
-<Subheading>1️⃣ Make it work</Subheading>
-
-In the beginning, we struggle with learning the CSS language iself and the tools, techniques and practices described in this chronicle. We don't think a lot about _"what's scalable or optimal"_. Our only focus is to make the code do what it's supposed to do. We're concerned only for the short term and we mostly think about our own code. At this stage, any CSS paradigm or technique we choose or work with will do the job.
-
-<Subheading>2️⃣ Make it right</Subheading>
-
-At some point we get comfortable with the technicalities. We can easily make it work. Thus, we can turn our attention to longer term concerns, like _"how do I make it extensible, scalable, or maintainable"_. At this stage, we can debate what tools and techniques can aid us on the long term. Our main focus shifts from ourselves to our team.
-
-<Subheading>3️⃣ Make it fast</Subheading>
-
-After a while we'll get to try various approaches, experience the pros and cons, understand where each of them shine. When the code maintainability and scalability problems are dealt with, we can finally turn our attention to performance. We shift the focus from the team, to the users. At this stage, we debate _what tools and approaches work best for our users_. We're already comfortable using any approach, but we understand that choosing a specific paradigm or technique will be more beneficial for our end users.
-
-<br />
-
-In practice, "our own evolution" is not a linear timeline. Everytime we learn something new, we get back to step 1. Sometimes we jump from step 1 directly to step 3, because it's required. Other times we don't even get the step 3 at all.
-
-In the end, the work we're doing is called [engineering](https://en.wikipedia.org/wiki/Engineering#Definition) which is defined as:
-
-> The creative application of scientific principles to design or develop [...]
-
-Therefore, it's expected from us to analyze, design, build and maintain according to our project goals. Since we're not all working on the same project, we have different goals. It's obvious that we're all unique.
-
-- make educated decisions, don't always rely on the status quo
-- learn from others, build upon other's work, that's how science evolved
-- discern between old teachings that are still valid today, and the ones that were valid in the context of their definition ... thus, if the context changed, the "rule" doesn't apply anymore
+> Figuring out how far we want to go will help us make educated decisions regarding what tools best suits our journey.
 
 ---
 
-<Subheading>Acknowledgements</Subheading>
+## Acknowledgments
 
-First of all, to Adi, Alex & Andrei for their thourough review and valuable feedback that shaped the content to reach this final form.
+Before we close this chronicle, there is a handful of people I would like to pass my gratitude to.
+
+- First of all, a huge shoutout to **Adi Fâciu** [@adrianfaciu](https://twitter.com/adrianfaciu), **Alex Moldovan** [@alexnmoldovan](https://twitter.com/alexnmoldovan), and **Andrei Antal** [@andrei_antal](https://twitter.com/andrei_antal) for their thorough review of this chronicle. Their valuable feedback considerably shaped the content to reach this final form.
+- Last but not least, I would also like to thank **Oleg Isonen** [@oleg008](https://twitter.com/oleg008) for his constructive criticism of my analysis of CSS in JS, which helped me better understand the underlying technology.
