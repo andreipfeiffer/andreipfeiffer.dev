@@ -7,6 +7,9 @@
     "build": "rm -rf .next && next build",
     "start": "next start -p 8002"
   },
+  "engines": {
+    "node": ">=14"
+  },
   "dependencies": {
     "@mdx-js/loader": "1.6.19",
     "@next/mdx": "12.1.0",
