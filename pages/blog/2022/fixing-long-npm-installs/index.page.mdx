@@ -18,12 +18,11 @@ This short post will analyze a case study to detect slow dependencies during ins
 
 ## Case study
 
-Before diving into the problem, let's describe our context to understand the premises:
+Before diving into the problem, let's describe our context to understand the premises. We've experienced long installation times for our dependencies on the continuous integration (CI) server. However, the problem wasn't the CI itself, as we could also reproduce the same problem locally.
 
-- We currently use continuous integration (CI) to install dependencies and create the production build.
 - We're using **npm** for dependencies management.
 - We're executing **`npm ci --production`** to install dependencies on the CI.
-- We have properly set up the **cache folder** for npm on CodeShip.
+- We have properly set up the **cache folder** for npm.
 
 <Note>
   The{" "}
@@ -41,7 +40,9 @@ Before diving into the problem, let's describe our context to understand the pre
   micro-optimization.
 </Note>
 
-We've noticed that the dependencies install time was surprisingly high, around 6 minutes. However, when the dependencies are cached and haven't changed from the previous build, they should have been copied from the cache, resulting in short install times.
+We've noticed that the dependencies install time was surprisingly high, more than **6 minutes**. However, when the dependencies are cached and haven't changed from the previous build, they should have been copied from the cache, which would result in short install times.
+
+However, this wasn't working as expected.
 
 <br />
 
