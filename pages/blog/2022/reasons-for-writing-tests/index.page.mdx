@@ -1,0 +1,125 @@
+import { BlogPost } from "../../../../components/blog/blog_post";
+import { Subheading } from "../../../../components/blog/subheading";
+import { Note } from "../../../../components/blog/note";
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+Software developers usually either love or hate writing automated tests. Fortunately, I enjoy writing tests, mostly because I have experienced their benefits.
+
+In this post, I'll describe **my personal reasons for writing tests**, which took shape during the last decade, writing all kinds of tests with the majority of available frameworks and tools within the JavaScript ecosystem.
+
+<Note>
+  Throughout this article, I will not be referring to a particular type of
+  testing, such as <em>unit, integration, or end-to-end</em>. Instead, I'm
+  addressing the <strong>general practice of writing automated tests</strong>{" "}
+  for our code to ensure it behaves as intended.
+  {/* Choosing between isolated
+  or integrated approaches is a detail that should be debated on a case by case basis,
+  which is out of scope for this blog post. */}
+</Note>
+
+## Faster development
+
+It might be counterintuitive that spending extra time writing tests could speed up development. However, without automated tests, we'll still have to _"validate"_ somehow that the code behaves as expected, right? So, we'll have to perform _manual tests_.
+
+Now, let's imagine a practical example of **transforming URL strings into HTML anchor links**:
+
+```html
+<!-- Before -->
+https://andreipfeiffer.dev
+
+<!-- After -->
+<a href="https://andreipfeiffer.dev">andreipfeiffer.dev</a>
+```
+
+Manually typing a URL into a comment box and pressing a submit button to see the result should take between `5 and 10 seconds`. However, we'll have to verify multiple URL formats, so a full suite of tests would take around `2 minutes`.
+
+<!-- - **Implement a shopping cart page**, where we can add and remove items, change quantities, calculate shipping cost based on location, apply discounts taxes, calculate taxes, and display the total amount to pay. Manually performing a full suite of tests could take around `5 minutes`.
+- **Add a new API endpoint to update a resource**. Without a test framework setup, we'll have to call the endpoint manually using a tool like [Postman](https://www.postman.com/). We'll specify the required payload or query params and observe the response and potential side effects, like database updates or calls to other services. When considering endpoints that read and update multiple resources, performing a full suite of tests can take up to `10 minutes`. -->
+
+<br />
+
+Setting up a framework for unit tests usually takes a couple of hours, but that's only a one-time effort. From personal experience, a complete set of tests usually takes around **20 times** the effort of one manual test of the entire suite. Therefore, **automated tests become faster** if we perform the full suite of tests more than 20 times.
+
+<Note>
+  It's worth mentioning that the <strong>20 times rule</strong> usually applies
+  to any type of tests, like UI components, API endpoints, or end-to-end full
+  system tests, not only to unit tests like the example above.
+</Note>
+
+## Easier debugging
+
+We rarely write bug-free code. Therefore, we'll often have to chase these bugs in a process called **debugging**. The most critical part of debugging is being able to **reproduce the bug**. At soon as we understand when the bug occurs, it should be reasonably easy to fix.
+
+Without any tests, we'll have to perform manual testing, try to reproduce the bug, then verify that the fix worked.
+
+With automated tests, we have two weapons at our disposal:
+
+1. When new code is pushed to the repository, an **existing test suite might catch the bug immediately** in case the tests get executed in a CI.
+2. Even if there is no test to cover the new bug, once we understand when the bug occurs, it should be fairly **easy to add a new test case** to see that it fails, fix the bug, and re-run the test to make sure it passes.
+
+Additionally, the same bug is unlikely to resurface in the future, as we already have a test case for it.
+
+## Proof of work
+
+Writing the required code to implement a feature or fix a bug is only part of the entire development process. Unfortunately, many developers stop at this step, leaving the **testing** part to testers, QA engineers, their team leads, or even to the clients themselves. This is unprofessional practice.
+
+As developers, we should put an active effort into all the steps of the [development process](https://en.wikipedia.org/wiki/Software_development): _researching_, _designing_, _programming_, _documenting_, _maintaining_, and _**testing**_.
+
+On the other hand, manual testing rarely proves that the written code works as expected. When somebody tells me, _"I've tested the feature, and it works"_, I have no idea what that means:
+
+- What use cases have been tested?
+- What validations were performed to conclude that it works?
+
+On the other hand, automated tests are **hard evidence** that the code works as implemented. Furthermore, tests are relatively easy to read. Therefore there's nothing ambiguous about **what is tested** and **how it's tested**.
+
+<!-- Now, code could be implemented incorrectly, and the tests might pass because they make faulty assertions. However, problems like this should be caught during the QA process. -->
+
+## Regression prevention
+
+Software applications evolve. Features get entangled. Changing code in some parts of the application could influence functionalities unexpectedly.
+
+Did it ever happen to you to change a single line of code, committing it, deploying the code without testing your _"trivial change"_ and breaking the application? It happened to me countless times.
+
+The sad truth is that **developers never perform a full suite of manual regressions tests**, mainly because it's not feasible:
+
+- It would take too much time to perform all the tests manually.
+- We usually hate repeating ourselves, performing the same set of manual tests over and over;
+
+Without automated tests, it **could take a long time until we even discover bugs**, especially on features that are not very frequently used. But, most of the time, we don't even know all features of the application we're working on. This brings us to the next chapter.
+
+## Documentation
+
+While developing large applications, it becomes virtually **impossible to keep track of all features**, even when being involved in the development of each and every functionality. In addition, requirements can change so often that two developers could have different opinions about how a particular feature should work.
+
+Furthermore, new team members would have a hard time understanding how a particular code should work.
+
+Fortunately, automated tests are a great source of documentation:
+
+- **Reading the tests provides an excellent overview** of the feature they assert. Even if the test names are not self-explanatory, reading the test code should give quicker insights regarding what the code does without thoroughly dissecting and understanding the whole source.
+- **Tests don't get outdated.** If we put effort into executing tests regularly and maintaining them like any other source code, they will always reflect what's currently implemented.
+
+## Confident refactoring
+
+Have you ever been scared of changing existing code because you didn't want to break any existing functionality? You're not the only one. It usually happens when we have no tests.
+
+A suite of tests that assert how the code should work **empowers us to safely and confidently refactor** our code anytime we consider it necessary. Whenever we break existing functionality, we should know about it, as the tests will fail.
+
+## Loose coupling
+
+Writing isolated unit tests or partially integrated tests will greatly influence the way write our source code also. However, tightly coupled code is not trivial to test and often requires refactoring before making it testable.
+
+As time goes by, we'll learn how to apply good practices and techniques for writing testable and loosely coupled code:
+
+- **Extract smaller, single-purpose functions** that perform specific and explicit logic.
+- **Extract core logic in pure functions**, as they are easier to test than stateful functions.
+- **Implement inversion of control** to reduce dependencies to the bare minimum, etc.
+
+The above techniques will not only aid us when writing tests. Instead, it will make us better developers overall, forever changing how we write code and how we look at code.
+
+---
+
+In case you're wondering why developers choose to avoid automated testing, here's a breakdown of the most popular [**excuses not to write tests**](/blog/2022/excuses-for-not-writing-tests).

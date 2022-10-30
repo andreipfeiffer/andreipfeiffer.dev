@@ -1,0 +1,127 @@
+import { BlogPost } from "../../../../components/blog/blog_post";
+import { Subheading } from "../../../../components/blog/subheading";
+import { Note } from "../../../../components/blog/note";
+import { Quote } from "../../../../components/blog/quote";
+
+import { meta } from "./meta";
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+It's not a secret that writing automated tests is not the software developers' cup of tea. That's unfortunate because the benefits will always outweigh the effort.
+
+In this post I'll describe the **most popular excuses** I've heard so far when asking others about the lack of automated tests in their code. As we'll see, most of them are fallacies or unfounded arguments.
+
+## Too time-consuming
+
+One of the most frequent excuses is that _**writing tests take too much time**_ and features need to be delivered quickly. But has anyone wondered if _"are features really delivered quicker when skipping automated testing?"_
+
+Indeed, developers will finish their work much quicker. However, somebody else will have to do the testing, which will probably be manual labor. We all know that automated tests execute orders of magnitude faster than their manual counterpart, considering even the initial learning curve and test framework setup.
+
+Therefore, the myth that automated testing is _"time-consuming"_ is nothing but a fallacy because no one takes into account the cost and time of manually testing over and over and over.
+
+## Extra code to maintain
+
+This one is actually true. From my own experience, **test files are usually considerably larger than the source code** they assert.
+
+So, I don't have any counterarguments here. However, I'm arguing if the reason for maintaining extra code is powerful enough to refuse the practice all along.
+
+## Who tests the tests?
+
+Since tests are also written using code, some might ask _**"Now, who the hack is going to test the test code?"**_
+
+The answer is simple: **the source code tests the tests**. Since the test files assert a specific behavior of the source code, the tests would fail whenever we unintentionally change that behavior. Automated tests showcase their true value when they fail due to an accidental change. Whenever we intentionally change behavior and the tests fail, we just need to update them.
+
+Therefore, tests assert the source, and the source verifies the tests.
+
+## We'll write tests after the release
+
+My favorite excuse is postponing the tests after the development phase. C'mon, let's not lie ourselves. When all work is done and validated in some way, we'll either fix bugs and regressions or move on to the next feature.
+
+In addition, tests are easier to write when we're familiar with the source code. So, when do you think it's the best occasion for writing the tests? You got it: we should **write the tests along with the source code** because that's when we fully understand what the code should do.
+
+## We can't test everything
+
+Testing every functionality or asserting every line of code is difficult. Not to mention that specific kinds of tests cannot be automated, for instance, making sure that:
+
+- the layout is accurately aligned;
+- content is written correctly;
+- colors are properly used, etc.
+
+<br />
+
+Now, let's consider dental hygiene. Even if we brush our teeth daily, it doesn't guarantee we won't get cavities. But is that a reason to stop brushing our teeth at all? Eventually, that will undoubtedly lead to bigger problems.
+
+Following a pragmatic approach, we should **test whatever makes sense**. Start with the critical code, such as core business logic. Continue with code that frequently changes and evolves. Finally, follow the [Pareto principle](https://en.wikipedia.org/wiki/Pareto_principle) and stop when the effort to write and maintain a test is higher than the value of the respective source code.
+
+<!--
+## We don't have testers
+
+A fairly rare excuse is that _"developers write code, and testers test it"_.
+
+The whole development cycle also includes the practice of testing. Imagine you call a plumber to fix your water pipe, and after finishing his work he tell you _"Well, good day, I hope it works. I have no tester to test it."_
+
+<Subheading>Black or white?</Subheading>
+
+It is true that there is the so-called **black-box testing**, which can be performed by different persons than the one that wrote the code, as black-box testing doesn't require to understand the internal implementation.
+
+However, black-box testing is suited for testing an entire application or system from the user's perspective, usually deployed somewhere or using a production build. This type of testing of testing is very valuable as it integrates all the subsystems of the entire application.
+
+The downside is that it's slow, and it requires a full build and deployment of the application. Therefore, the feedback loop is very slow. Plus, it makes no sense to
+
+Testers test the system.
+Developers test their code.
+-->
+
+## We don't have time now
+
+Not having time to test is surely the number one excuse. But the honest truth is that **we'll never have time**. Therefore, **we'll have to make time**.
+
+Developers often believe that it's the client's or manager's responsibility to allocate time for testing. This is also a consequence of considering testing a separate task from writing the code.
+
+Whenever you take your car to the service shop, is it your responsibility as a client to tell the mechanics that you also want them to test the vehicle after they fix it? Or do you consider that the testing is implied, being part of their job?
+
+So, we must treat testing as a subtask of the development effort to have time.
+
+## Our code is not testable
+
+Code doesn't magically become testable. We'll have to put in the effort to refactor it and make it easier to test. Unless we start writing tests, forcing us to write [loosely coupled](/blog/2022/reasons-for-writing-tests#loose-coupling) code, we'll never understand what testable code looks like.
+
+To give an analogy, you cannot explain to someone what it feels like to be a parent. You'll have to experience parenthood to fully understand the feeling. The same holds true for testable code.
+
+## TDD is too difficult
+
+At some point, we might hear about **Test-Driven Development** and the practice of writing tests before the source code. After reading books about TDD, we'll see that it's not only about writing the test first but also about letting the tests drive the design of the implementation. That could be quite intimidating, as TDD is a very dogmatic technique.
+
+In all honestly, **no one actually cares _when_ we write the tests**. So write them before, after, or even in the middle of development. As long as we don't move on to the next task before writing the tests, everyone's happy.
+
+As soon as we become comfortable writing tests after the implementation, we could and should experiment with writing the tests before. With precise requirements it should be fairly easy to define our expectations as tests and implement the source code afterwards.
+
+When we're comfortable with that as well, we can also give TDD a try, starting with only one test, see it fail, implement the quickest solution to make the test pass, refactor the code until we're happy with it, write the next test, and repeat.
+
+## We have no experience
+
+No one is born with automated testing experience. There is no talent for that. Like anything in life, it will be rough in the beginning.
+
+We would surely fall a few times when learning to ride the bike. Remember that even Neo, which is _"the chosen one"_, felt when he made his first jump.
+
+<Quote>
+  <blockquote>
+    <p>Everybody falls the first time</p>
+    <figcaption>
+      <cite>&mdash; Cypher, The Matrix (1999) &mdash;</cite>
+    </figcaption>
+  </blockquote>
+</Quote>
+
+Have you ever played a Role-Playing Game? You start from level 1. You have a rusty knife as a weapon, and you fight boars and insects. You have low health, almost no armour, you don't have any magic spells, and no money to buy items.
+
+But after a few minutes, you get to level 2 and then to level 3. You find a decent sword, and now you fight skeletons and zombies. Your health pool has improved. You found some leather armor, got your first magic spell, and even collected money to buy mana potions.
+
+If you continue playing, you'll eventually reach level 60. You'll have legendary weapons and armor, obliterating all your enemies in a single blow.
+
+**We only need to start. The rest will follow.**
+
+---
+
+But enough with the negativism. If you're looking for positive arguments regarding automated testing, here are my personal [**reasons for writing tests**](/blog/2022/reasons-for-writing-tests).
