@@ -52,14 +52,14 @@ Setting up a framework for unit tests usually takes a couple of hours, but that'
 
 ## Easier debugging
 
-We rarely write bug-free code. Therefore, we'll often have to chase these bugs in a process called **debugging**. The most critical part of debugging is being able to **reproduce the bug**. At soon as we understand when the bug occurs, it should be reasonably easy to fix.
+We rarely write bug-free code. Therefore, we'll often have to chase these bugs in a process called **debugging**. The most critical part of debugging is being able to **reproduce the bug**. As soon as we understand when the bug occurs, it should be reasonably easy to fix.
 
 Without any tests, we'll have to perform manual testing, try to reproduce the bug, then verify that the fix worked.
 
 With automated tests, we have two weapons at our disposal:
 
 1. When new code is pushed to the repository, an **existing test suite might catch the bug immediately** in case the tests get executed in a CI.
-2. Even if there is no test to cover the new bug, once we understand when the bug occurs, it should be fairly **easy to add a new test case** to see that it fails, fix the bug, and re-run the test to make sure it passes.
+2. Even if there is no test to cover the new bug, once we understand when the bug occurs, it should be fairly **easy to add a new test case** to see that it fails, fix the bug, then re-run the test to make sure it passes.
 
 Additionally, the same bug is unlikely to resurface in the future, as we already have a test case for it.
 
@@ -80,7 +80,7 @@ On the other hand, automated tests are **hard evidence** that the code works as 
 
 ## Regression prevention
 
-Software applications evolve. Features get entangled. Changing code in some parts of the application could influence functionalities unexpectedly.
+Software applications evolve. Features get entangled. Changing code in some parts of the application could negatively impact existing functionalities.
 
 Did it ever happen to you to change a single line of code, committing it, deploying the code without testing your _"trivial change"_ and breaking the application? It happened to me countless times.
 
@@ -89,7 +89,7 @@ The sad truth is that **developers never perform a full suite of manual regressi
 - It would take too much time to perform all the tests manually.
 - We usually hate repeating ourselves, performing the same set of manual tests over and over;
 
-Without automated tests, it **could take a long time until we even discover bugs**, especially on features that are not very frequently used. But, most of the time, we don't even know all features of the application we're working on. This brings us to the next chapter.
+Without automated tests, it **could take a long time until we even discover bugs**, especially on features that are not very frequently used. But, most of the time, we don't even know all the existing features. This brings us to the next chapter.
 
 ## Documentation
 
@@ -100,13 +100,13 @@ Furthermore, new team members would have a hard time understanding how a particu
 Fortunately, automated tests are a great source of documentation:
 
 - **Reading the tests provides an excellent overview** of the feature they assert. Even if the test names are not self-explanatory, reading the test code should give quicker insights regarding what the code does without thoroughly dissecting and understanding the whole source.
-- **Tests don't get outdated.** If we put effort into executing tests regularly and maintaining them like any other source code, they will always reflect what's currently implemented.
+- **Tests don't get outdated.** If we put the effort into executing tests regularly and maintaining them like any other code, they will always reflect what's currently implemented.
 
 ## Confident refactoring
 
 Have you ever been scared of changing existing code because you didn't want to break any existing functionality? You're not the only one. It usually happens when we have no tests.
 
-A suite of tests that assert how the code should work **empowers us to safely and confidently refactor** our code anytime we consider it necessary. Whenever we break existing functionality, we should know about it, as the tests will fail.
+A suite of tests that assert how the code should work **empowers us to safely and confidently refactor** our code anytime we consider necessary. Whenever we break existing functionality, we should know about it, as the tests would fail.
 
 ## Loose coupling
 
@@ -118,7 +118,7 @@ As time goes by, we'll learn how to apply good practices and techniques for writ
 - **Extract core logic in pure functions**, as they are easier to test than stateful functions.
 - **Implement inversion of control** to reduce dependencies to the bare minimum, etc.
 
-The above techniques will not only aid us when writing tests. Instead, it will make us better developers overall, forever changing how we write code and how we look at code.
+The above techniques will not only aid us when writing tests. Instead, it will make us better developers overall, forever changing how we write code, but also how we generally look at code.
 
 ---
 
