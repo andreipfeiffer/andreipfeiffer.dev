@@ -24,17 +24,25 @@ export default function Contact() {
 
       <Grid.Full>
         <p>
-          The easier way to get in touch is by email{" "}
+          📧 The easier way to get in touch is by email{" "}
           <a href="mailto:andrei@upsidedown.ro" className="code">
             <strong>andrei@upsidedown.ro</strong>
           </a>
           .
         </p>
-        <Spacer vertical={breakpoint ? "8" : "32"} />
+        <Spacer vertical={breakpoint ? "16" : "32"} />
         <p>
-          Using Twitter instead? my DMs are open{" "}
+          🐦 Using Twitter instead? my DMs are open{" "}
           <a href="https://twitter.com/pfeiffer_andrei" className="code">
             <strong>@pfeiffer_andrei</strong>
+          </a>
+          .
+        </p>
+        <Spacer vertical={breakpoint ? "16" : "32"} />
+        <p>
+          🐘 Have you left Twitter? or prefer Mastodon? You can also find me at{" "}
+          <a href="https://techhub.social/@andreipfeiffer" className="code">
+            <strong>@andreipfeiffer@techhub.social</strong>
           </a>
           .
         </p>
