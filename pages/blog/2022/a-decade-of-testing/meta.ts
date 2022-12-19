@@ -1,6 +1,6 @@
 import { Metadata } from "../../../../lib/blog";
 
-import cover from "./my-2022-testing-approach-cover.png";
+import cover from "./a-decade-of-testing-cover.png";
 
 export const meta: Metadata = {
   title: "A decade of testing",
