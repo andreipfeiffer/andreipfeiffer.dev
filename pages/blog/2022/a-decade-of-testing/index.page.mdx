@@ -526,32 +526,3 @@ Cypress recently added support for **isolated component testing in a real browse
 To conclude, there is no holy grail, a single all-in-one approach to cover all our needs. **End-to-end tests provide the highest confidence level**. However, they take a long time to execute, encourage a slow development iteration cycle, and integrate many dependencies, making them flaky. Lastly, a failing end-to-end test is hard to debug, as the system is treated like a _black box_.
 
 Therefore, more granular and _white-box tests_, like unit or integration, complement the missing pieces of having a complete testing suite.
-
-<!--
-## Isolation vs integration
-
-In the end, we'll always have the debate whether to isolate the system under test, or to integrate it with its dependencies.
-
-- **Isolated** tests, like unit tests, are usually simple, fast, and easy to setup. The downside is they only prove that the code we tested works as expected in isolation, therefore we have to guarantee that the entire system will work properly after we integrate all the components.
-- **Integrated** tests prove that multiple components work together as expected. Fully integrated tests are also known as end-to-end tests. However, integrated tests typically require complex setup and are generally slow.
-
-Since isolated tests cannot guarantee the proper functionality on the entire system, it's obvious that we cannot use this strategy alone. Therefore, we might be inclined to write integrated tests only.
-
-Writting only integrated tests might definitely be a good idea in theory. It might also actually work in some particular situations as well. However, not every system is feasible to be tested only at integrated level, for various reasons:
-
-- It might take too long to run a single suite of tests.
-- Communicating with 1st or 3rd party APIs might be unstable, resulting in false negative tests.
-- Dependencies out of our control might change frequently.
-- Stubbing or setting up the application state might be too complex to handle.
-- Having a core service with complex logic use by different parts of the system, might end up to redundant tests asserting the same code.
-
-Sociable vs solitary tests
-
-"What do I want to test?"
-
-Can I control dependencies? Can I stub/mock them? Are they reliable and stable?
-
-Integrate as much as possible and mock as little as possible, tests become unstable or flacky resulting in false negative test runs.
-
-Isolated tests assert that a specific and encapsulated piece of code works as expected regardless if its dependencies.
- -->
