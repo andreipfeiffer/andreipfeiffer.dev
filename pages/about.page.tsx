@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 
 import { Button } from "../components/button";
@@ -20,12 +21,21 @@ export default function About() {
     <Layout className={styles.about}>
       <MetaTags title={`About me: ${META_TITLE}`} />
 
-      {breakpoint && <Spacer vertical="100" />}
+      {breakpoint && <Spacer vertical="40" />}
 
-      <Grid.Full>
+      <Grid.Full className={styles.heading}>
         <Text size="h00" as="h1">
           {"Hi, I'm Andrei"}
         </Text>
+
+        <figure className={styles.photo}>
+          <Image
+            src={`/images/andrei-pfeiffer.png`}
+            layout={"fill"}
+            unoptimized={true}
+            alt={"Andrei Pfeiffer black and white close-up photo"}
+          />
+        </figure>
       </Grid.Full>
 
       <Spacer vertical="60" />
