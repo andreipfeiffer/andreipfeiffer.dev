@@ -43,7 +43,7 @@ export default function About() {
       <Grid>
         <Grid.Col span={8}>
           <p>
-            {"I'm currently"} {getAge()} years old, living in Timişoara,
+            {"I'm currently"} {getAge()} years old, living in Timișoara,
             Romania.
           </p>
 
