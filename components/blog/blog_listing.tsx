@@ -38,6 +38,9 @@ export function BlogListing(props: BlogListingProps) {
         <Text size="h00" as="h1" className={styles.h1}>
           Blog
         </Text>
+        <Text color="muted" as="p" className={styles.subtitle}>
+          All posts are entirely written by me, without the help of synthetic text generative tools.
+        </Text>
       </Grid.Full>
 
       <Spacer vertical={breakpoint ? "80" : "40"} />

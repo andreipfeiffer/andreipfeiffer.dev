@@ -21,17 +21,21 @@ export function ThemedImg({ dark, light, alt, ...props }: Props) {
   const darkMode = useCustomDarkMode();
   const ref = useRef<HTMLElement>(null);
 
+  const src = darkMode.value ? dark : light;
+
   useBrowserLayoutEffect(() => {
     // hiding the image when dark mode is toggled
     // because it creates an annoying background flicker
     // as the CSS background color transitions, but the img does not
-    ref.current?.classList.add(styles.hide);
+    if (dark !== light) {
+      ref.current?.classList.add(styles.hide);
+    }
   }, [darkMode.value]);
 
   return (
     <picture ref={ref} className={styles.wrapper}>
       <Image
-        src={darkMode.value ? dark : light}
+        src={src}
         onLoad={() => {
           // after the image has loaded, display it
           // which also includes a fade-in transition

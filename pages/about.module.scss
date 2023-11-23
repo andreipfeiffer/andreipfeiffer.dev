@@ -1,5 +1,48 @@
+@import "../styles/mixins";
+
 .about {
   p {
     margin: 1em 0;
+  }
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+
+  @include breakpoint(sm) {
+    flex-direction: row;
+    gap: 1em;
+  }
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  position: relative;
+  border: 1px transparent solid;
+
+  [data-darkmode="true"] & {
+    border: 1px #333 solid;
+  }
+
+  @include breakpoint(sm) {
+    width: 50vw;
+    height: 50vw;
+  }
+
+  @include breakpoint(md) {
+    width: 35vw;
+    height: 35vw;
+  }
+
+  @include breakpoint(md) {
+    width: 30vw;
+    height: 30vw;
   }
 }

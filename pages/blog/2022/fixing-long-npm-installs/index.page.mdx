@@ -12,18 +12,17 @@ export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-Have you ever wondered _**why does it take entire minutes to install npm dependencies on your CI server, even when they should be fully cached?**_ We have experienced such an issue, taking more than **`6 minutes`** to install the npm dependencies, even when they haven't changed between builds, and being fully cached by the CI service.
+Have you ever wondered _**why it takes minutes to install npm dependencies on your CI server, even when they should be fully cached?**_ We have experienced such an issue, taking more than **`6 minutes`** to install the npm dependencies, even when they haven't changed between builds, and being fully cached by the CI service.
 
-In this short post, we'll analyze a case study to detect slow dependencies during instalation.
+This short post will analyze a case study to detect slow dependencies during installation and debug the source of the problem.
 
 ## Case study
 
-Before diving into the problem, let's describe our context to understand the premises:
+Before diving into the problem, let's describe our context to understand the premises. We've experienced long installation times for our dependencies on the continuous integration (CI) server. However, the problem wasn't the CI itself, as we could also reproduce the same problem locally.
 
-- We're currently using **CodeShip** for continuous integration (CI) to install dependencies and create the production build.
 - We're using **npm** for dependencies management.
 - We're executing **`npm ci --production`** to install dependencies on the CI.
-- We have properly set up the **cache folder** for npm on CodeShip.
+- We have properly set up the **cache folder** for npm.
 
 <Note>
   The{" "}
@@ -31,30 +30,32 @@ Before diving into the problem, let's describe our context to understand the pre
     <code>npm ci</code>
   </a>{" "}
   command performs a clean install, deleting any existing{" "}
-  <code>node_modules</code> folder, and installing dependencies based solely on
+  <code>node_modules</code> folder and installing dependencies based solely on
   the exact versions found in the <code>package-lock.json</code> file.
   <br />
   <br />
   Additionally, the <a href="https://docs.npmjs.com/cli/v8/commands/npm-install#see-also:~:text=With%20the%20%2D%2Dproduction%20flag">
     <code>--production</code>
   </a> flag will skip installing <code>devDependencies</code>, which for us was a
-  micro optimization.
+  micro-optimization.
 </Note>
 
-We've noticed that the dependencies install time was susprizingly high, around 6 minutes. However, when the dependencies are cached on the CI server, and they haven't changed from the previous build, they should have been copied from cache, which should result in short install times.
+We've noticed that the dependencies install time was surprisingly high, more than **6 minutes**. However, when the dependencies are cached and haven't changed from the previous build, they should have been copied from the cache, which would result in short install times.
+
+However, this wasn't working as expected.
 
 <br />
 
 <Figure
   status="err"
-  caption="Screenshot from CodeShip, displaying long npm install time, even with a full and valid cache"
+  caption="Screenshot from CI, displaying long npm install time, even with a full and valid cache"
 >
   <Image src={before} width="2085" height="787" alt="" />
 </Figure>
 
 ## Detecting slow dependencies
 
-To get to the root of the problem, we needed a way to tap into the npm installation process and collect some cold metrics. My collegue [Nicu Surdu](https://surdu.me/) found a neat package called [**`slow-deps`**](https://www.npmjs.com/package/slow-deps) built by [Nolan Lawson](https://nolanlawson.com/), which is a:
+To get to the root of the problem, we needed a way to tap into the npm installation process and collect some cold metrics. My colleague [Nicu Surdu](https://surdu.me/) found a neat package called [**`slow-deps`**](https://www.npmjs.com/package/slow-deps) built by [Nolan Lawson](https://nolanlawson.com/), which is a:
 
 > CLI to measure which dependencies in a project are the slowest to npm install.
 
@@ -78,15 +79,15 @@ Analyzing 170 dependencies...
 # ...
 ```
 
-In our case, the output appalled us: one of the smallest packages in size, `4.6MB`, took the longest time to install: `7m 42.9s`. `react-toolbox` is an old and discontinued components library for React, which we were using in our project.
+In our case, the output appalled us: one of the smallest packages, with only `4.6MB`, took the longest time to install: `7m 42.9s`. `react-toolbox` is an old and discontinued components library for React, which we used in our project.
 
-Now the question was what is so special about `react-toolbox`?
+Now the question was, _what is so special about `react-toolbox`_?
 
 ## The problem
 
-So far, we know what exactly is causing the problem, but we don't know why. Another one of my collegues, [Cristian Diaconescu](https://www.linkedin.com/in/cristian-diaconescu-023a752b/), took a peek at our `package.json` file, where he discovered something interesting.
+So far, we know what exactly is causing the problem, but we don't know why. So another one of my colleagues, [Cristian Diaconescu](https://www.linkedin.com/in/cristian-diaconescu-023a752b/), took a peek at our `package.json` file, where he discovered something interesting.
 
-Apparently, `react-toolbox` was **installed directly from a github repository**, not from the npm registry. The reason is that the package was abandoned in the past, so we had to fork it and maintain our own version of the package.
+Apparently, `react-toolbox` was **installed directly from a github repository**, not from the npm registry. The reason for this is that the package was abandoned in the past, so we had to fork it and maintain our own version of the library.
 
 ```json{8}
 {
@@ -101,26 +102,74 @@ Apparently, `react-toolbox` was **installed directly from a github repository**,
 }
 ```
 
+<br />
+
+Now, there are 2 potential problems here:
+
+1. First of all, **npm didn't cache the dependency**. Subsequent installs should have been quite fast, regardless of how long the first download takes.
+2. Secondly, **downloading the package is way too slow**. This could indicate a problem with the Github repository.
+
+As we couldn't find any documentation regarding the lack of caching for dependencies loaded directly from Github, we took a deeper look at the second problem.
+
+<Subheading>Verbose logs</Subheading>
+
+Cristi also ran a verbose npm install to get more details regarding what's happening during the installation of the package:
+
+```bash
+npm install -ddd
+# -ddd flag outputs the most verbose log
+```
+
+Searching for something meaningful, we've found an intriguing clue in the output:
+
+```text
+[...]
+Retrying git command: ls-remote -h -t git://github.com/********/react-toolbox.git attempt # 2
+Retrying git command: ls-remote -h -t git://github.com/********/react-toolbox.git attempt # 3
+git manifest for react-toolbox@github:********/react-toolbox#9d38c6 fetched in 394569ms
+[...]
+```
+
+<Subheading>Repository url protocol</Subheading>
+
+There were some failed attempts to read the repository using `git ls-remote` command. A third colleague, namely [Florin Sarghe](https://www.linkedin.com/in/florinsarghe/), ran the same command in isolation, confirming that, indeed, this was the bottleneck:
+
+```bash
+> git ls-remote -h -t git://github.com/********/react-toolbox.git
+
+# 🚫 fatal: unable to connect to github.com: errno=Operation timed out
+```
+
+<br />
+
+Notice that we used the **`git://` protocol** for the repository url. However, Florin also discovered that running the same command, but using the **`https` protocol** instead, resulted in an instant response:
+
+```bash
+> git ls-remote -h -t https://github.com/********/react-toolbox.git
+
+# ✅ instant response
+```
+
 ### Optimization
 
-Fortunately for us, the problematic library wasn't shared across multiple projects in different repositories. Therefore, we could **move the entire library inside our repository**.
+Fortunately, we didn't share the library across multiple projects in different repositories. Therefore, we could **move the entire library inside our repository** since it was already forked and maintained internally.
 
-Surprinzingly, after this simple refactoring we have witnessed a huge boost in installation time, from more then `6:30 minutes` down to `30 seconds`.
+Surprisingly, after this simple refactoring, we have witnessed a huge speed boost, from more than `6:30 minutes` down to `30 seconds`, as we expected in the first place.
 
 <br />
 
 <Figure
   status="ok"
-  caption="Screenshot from CodeShip after optimization, displaying short npm install time as expected"
+  caption="Screenshot from CI after optimization, displaying short npm install time as expected"
 >
   <Image src={after} width="2085" height="787" alt="" />
 </Figure>
 
-<br />
+## Takeaways
 
-<Subheading>So, what's the problem with git urls?</Subheading>
+In case you're experiencing slow npm install command, locally or on your CI, there are some easy ways to debug potential bottlenecks:
 
-Well, we weren't able to track down the root of the problem and how to solve it differently:
-
-- It could have been a problem with CodeShip's caching mechanism, which could get invalidated when fetching dependencies with git urls.
-- It could have been a problem with `npm` itself, although we couldn't find any other resources describing this problem.
+- Run **`npx slow-deps`** on your repository to get an idea regarding which packages are slow to install.
+- Use **`npm install -ddd`** if you need verbose logs and timings during the installation process.
+- In case you're using git urls for the slow dependencies with the `git://` protocol, try switching to **`https://`**.
+- Use `git ls-remote -h -t <repository-url>` to confirm that the optimization actually worked.

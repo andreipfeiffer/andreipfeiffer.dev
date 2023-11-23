@@ -9,7 +9,7 @@ export const meta: Metadata = {
   tags: ["javascript"],
   tags_extra: ["npm", "dependencies", "slow", "optimization"],
   intro:
-    "In this case study, we'll analyze how to detect npm packages with long instalation times and how to potentially optimize them. We have faced this problem during builds on the CI server.",
+    "In this case study, we'll analyze how to detect npm packages with long instalation times, use different techniques for debugging the cause of the problem, and optimize once we understand the issue.",
   visibility: "public",
   cover: cover.src,
 };

@@ -31,6 +31,42 @@ export interface Talk {
 
 export const talks: Talk[] = [
   {
+    title: "Waterbed Code",
+    date: "May 2023",
+    type: "Slides only",
+    abstract: (
+      <>
+        <p>
+          In the mid-1980s, Larry Tesler stated that{" "}
+          <em>
+            “every application has an inherent amount of complexity that must be
+            dealt with, either in product development or in user interaction”
+          </em>
+          .
+        </p>
+        <br />
+        <p>
+          This adagio is also known as the WaterBed theory and is mostly
+          referenced in product design. However, I believe that it equally
+          applies to any type of “interface” between an author and its
+          consumers, such as UI components, functions, API endpoints, and more.
+        </p>
+      </>
+    ),
+    urls: [
+      // {
+      //   type: "slides",
+      //   url: "/slides/evolution-of-scalable-css.pdf",
+      // },
+      {
+        type: "video",
+        url: "https://www.youtube.com/watch?v=QXUHpJ8HsGY",
+      },
+    ],
+    image: { path: "waterbed-code.png" },
+  },
+
+  {
     title: "The Evolution of Scalable CSS",
     date: "April 2022",
     type: "Slides only",
@@ -55,6 +91,10 @@ export const talks: Talk[] = [
       {
         type: "slides",
         url: "/slides/evolution-of-scalable-css.pdf",
+      },
+      {
+        type: "video",
+        url: "https://www.youtube.com/watch?v=eekrjAdviO4",
       },
     ],
     image: { path: "evolution-of-scalable-css.png" },

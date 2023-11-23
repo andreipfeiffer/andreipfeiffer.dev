@@ -20,8 +20,9 @@ export default function BlogPostPreview() {
         tags: [
           "javascript",
           "css",
-          "html",
+          // "html",
           "entropy",
+          "testing",
           "learning",
           "misc",
           "react",

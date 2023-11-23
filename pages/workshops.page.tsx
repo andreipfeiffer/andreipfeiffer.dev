@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 import { Grid } from "../components/grid";
@@ -28,11 +29,18 @@ export default function Workshops() {
       <Spacer vertical="60" />
 
       <Grid.Full>
-        <Text size="h04" as="p" display="block">
+        {/* <Text size="h04" as="p" display="block">
           Workshops content is under construction!
-        </Text>
+        </Text> */}
         <Text as="p" display="block">
-          It will become available in the upcoming weeks...
+          Currently, I am not focusing on workshops content. <br /> However, if
+          you need a technical training, {"let's"}{" "}
+          <Link href="/contact">
+            <a>
+              <strong>get in touch</strong>
+            </a>
+          </Link>
+          .
         </Text>
       </Grid.Full>
     </Layout>

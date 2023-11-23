@@ -119,11 +119,12 @@ export interface Metadata {
 
 export type Tag =
   | "css"
-  | "html"
+  // | "html"
   | "react"
   | "javascript"
   | "typescript"
   | "entropy"
+  | "testing"
   | "learning"
   | "misc"
   | "ui";
@@ -143,13 +144,13 @@ export const TAGS: { [key in Tag]: TagDetails } = {
     description:
       "Articles related to styling using either the plain CSS language, pre or post processors, tools, frameworks, or methologies.",
   },
-  html: {
-    name: "HTML",
-    color: "#FF7829",
-    text: "light",
-    description:
-      "Articles related to web content, markup, semantics, or accessibility.",
-  },
+  // html: {
+  //   name: "HTML",
+  //   color: "#FF7829",
+  //   text: "light",
+  //   description:
+  //     "Articles related to web content, markup, semantics, or accessibility.",
+  // },
   react: {
     name: "React",
     color: "#61DAFB",
@@ -197,5 +198,12 @@ export const TAGS: { [key in Tag]: TagDetails } = {
     text: "dark",
     description:
       "Articles that cover any engineering or design aspects of UI development.",
+  },
+  testing: {
+    name: "Testing",
+    color: "#f54444",
+    text: "light",
+    description:
+      "Articles covering testing practies.",
   },
 } as const;
