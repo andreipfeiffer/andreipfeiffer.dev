@@ -8,9 +8,9 @@ export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-Recently, I came across a peculiar result in TypeScript which baffled me a bit, while trying out various methods to use Hash Maps in TypeScript. If you're not familiar with the term **Hash Map**, it refers to a simple data structure of **key-value pairs**, also known as **Hash Table**, **Record**, **Dictionary**, **Associative Array**, etc.
+Recently, I came across an unexpected outcome, while trying out various methods to use **Hash Maps** in TypeScript. If you're not familiar with the term [Hash Map](https://en.wikipedia.org/wiki/Hash_table), it refers to a simple **key-value pair** data structure, also known as **Hash Table**, **Record**, **Dictionary**, **Associative Array**, etc.
 
-In this post, we'll explore two different typical methods to implement Hash Maps with optional items in JavaScript, type them using TypeScript, and analyze the type-safety when accessing the items.
+In this post, we'll explore different methods to implement Hash Maps with optional items in TypeScript and analyze the type-safety when accessing the items.
 
 - [Using a Plain JavaScript `Object`](#plain-javascript-objects)
 - [Using a JavaScript `Map`](#javascript-maps)
@@ -19,7 +19,9 @@ In this post, we'll explore two different typical methods to implement Hash Maps
 
 ---
 
-The use case we'll be exploring is to define a type for a key-value data structure, where the **keys are strings** and the **values are booleans**. Then, we'll initialize the data structure and dynamically access its members.
+The use case we'll be exploring next is a data structure where the **keys are strings** and the **values are booleans**.
+
+We'll be using [strict type checking](https://www.typescriptlang.org/tsconfig#strict), therefore we need to 1) define a type for the Hash Map, then 2) we'll initialize the data structure and 3) dynamically access its members.
 
 ```ts
 // 1️⃣ define the type
@@ -36,9 +38,7 @@ The goal is to **analyze the type-safety of the dynamic member access** using va
 
 ## Plain JavaScript Objects
 
-Let's start with the most simple way to define a Hash Map in JavaScript, using Plain Old JavaScript Objects aka POJOs. We'll be using [strict type checking](https://www.typescriptlang.org/tsconfig#strict), therefore we need to provide a type for the Hash Map.
-
-The most straightforward way to define the type is to use [Index Signatures](https://www.typescriptlang.org/docs/handbook/2/objects.html#index-signatures), by telling the compiler we'll deal with _objects having `strings` as keys and `booleans` as values_.
+Let's start with the most simple way to define a Hash Map in JavaScript, using Plain Old JavaScript Objects aka POJOs. The most straightforward way to define the type is to use [Index Signatures](https://www.typescriptlang.org/docs/handbook/2/objects.html#index-signatures), by telling the compiler we'll deal with _objects having `strings` as keys and `booleans` as values_.
 
 ```ts
 // 1️⃣ define the type
@@ -62,11 +62,11 @@ const item = hashMap["third"];
 
 For some reason, the type system sees the `item` being a `boolean`, even with `strictNullChecks: true`.
 
-Personally I was expecting to evaluate as `boolean | undefined`, because there is no guarantee that the Hash Map will contain a particular member. This behavior imprints a **false sense of safety**.
+I was expecting to infer the type as `boolean | undefined`, because there is no guarantee that the Hash Map will contain a particular member. This behavior imprints a **false sense of safety**.
 
-<br />
+<Subheading>Explicit optional members</Subheading>
 
-To fix this behavior and to enforce strict null checks in this case, we'll have to explicitly define the property as optional:
+To fix this behavior and to enforce strict null checks in this case, we'll have to explicitly define the properties as optional:
 
 ```ts{2}
 type HashMap = {
@@ -79,7 +79,7 @@ const item = hashMap["third"];
 // ✅ item: boolean | undefined
 ```
 
-Now the compiler will correctly infer `item` as being potentally `undefined`, thus enforcing strict null checks.
+Now the compiler will correctly infer `item` as being potentally `undefined`, thus enforcing strict null checks where ever we might use the result.
 
 <Subheading>Using <code>Record</code> utility type</Subheading>
 
@@ -91,6 +91,8 @@ type HashMap = Record<string, boolean>;
 
 However, if you look at the implementation, underneath it uses the same Index Signature as we used above. Therefore, the behavior is exactly the same.
 
+<br />
+
 To make the properties optional, we'll have to wrap the `Record` in a [Partial](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype) utility type:
 
 ```ts
@@ -99,7 +101,7 @@ type HashMap = Partial<Record<string, boolean>>;
 
 ## JavaScript Maps
 
-A second approach is to use a JavaScript [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), a dedicated construct for defining Hash Maps. TypeScript supports Maps out of the box, forcing us to explicitly define the types for the keys and values.
+A second approach is to use a JavaScript [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), a dedicated construct for defining Hash Maps. TypeScript supports Maps out of the box.
 
 ```ts
 // 1️⃣ define the type
@@ -122,6 +124,6 @@ However, when we access an item from the Map, TypeScript correctly infers its ty
 
 ---
 
-As a non-expert in type systems, my judgement is that a JavaScript `Map` is more type-safe out of the box than POJOs, when we have to deal with keys that we cannot guarantee to be present in the Hash Map at runtime.
+As a non-expert in type systems, my judgement is that a JavaScript `Map` provides better type-safety than POJOs, especially when dealing with keys that we cannot guarantee to be present in the Hash Map at runtime.
 
 To get the same type-safe behavior with POJOs, we have to keep in mind that we must **explicitly define the items as being optional**.
