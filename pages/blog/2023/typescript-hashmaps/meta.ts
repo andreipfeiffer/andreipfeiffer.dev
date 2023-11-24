@@ -8,7 +8,7 @@ export const meta: Metadata = {
   tags: ["typescript"],
   tags_extra: [],
   intro:
-    "In this post, we'll explore two different typical methods to implement Hash Maps with optional items in TypeScript and analyze the member access type-safety.",
+    "In this post, we'll explore two different methods to implement Hash Maps with optional items in TypeScript and analyze the member access type-safety.",
   visibility: "private",
   cover: cover.src,
 };
