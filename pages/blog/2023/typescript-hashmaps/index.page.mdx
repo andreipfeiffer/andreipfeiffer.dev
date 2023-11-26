@@ -82,7 +82,9 @@ const A = letters["A"]; // 👍 boolean | undefined
 const X = letters["X"]; // ✅ boolean | undefined
 ```
 
-Now the compiler correctly infers the members as being potentially `undefined`, thus enforcing strict null checks wherever we use the result. But now, even the members that are explicitly defined at initialization are seen as optional.
+Now the compiler correctly infers the members as being potentially `undefined`, thus enforcing strict null checks wherever we use the result. But now, even the members that are explicitly defined during initialization are seen as optional.
+
+I guess a little pesimism is safer that too much optimism, so that's fine.
 
 ### Using <code>Record</code> utility type
 
