@@ -65,7 +65,7 @@ For some reason, the type system sees an inexistent member as being a `boolean`,
 
 I was expecting to infer the type as `boolean | undefined`, because there is no guarantee that the Hash Map will contain a particular member. This behavior imprints a **false sense of safety**.
 
-<Subheading>Explicit optional members</Subheading>
+### Explicit optional members
 
 To fix this behavior and to enforce strict null checks in this case, we'll have to **explicitly define the properties as optional**:
 
@@ -78,13 +78,13 @@ const letters: HashMap = {
   "A": true,
 }
 
-const A = letters["A"]; // 🟡 boolean | undefined
+const A = letters["A"]; // 👍 boolean | undefined
 const X = letters["X"]; // ✅ boolean | undefined
 ```
 
 Now the compiler correctly infers the members as being potentially `undefined`, thus enforcing strict null checks wherever we use the result. But now, even the members that are explicitly defined at initialization are seen as optional.
 
-<Subheading>Using <code>Record</code> utility type</Subheading>
+### Using <code>Record</code> utility type
 
 TypeScript also provides a [Record](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type) utility type for more succinct type definitions.
 
@@ -102,7 +102,7 @@ To make the properties optional, we'll have to wrap it in a [`Partial`](https://
 type HashMap = Partial<Record<string, boolean>>;
 ```
 
-<Subheading>Using <code>noUncheckedIndexedAccess</code> compiler option</Subheading>
+### Using <code>noUncheckedIndexedAccess</code> compiler option
 
 My body [Titian](https://twitter.com/TitianCernicova) highlighted that in version 4.1, released exactly 3 years ago in November 2020, TypeScript introduced a new compiler option called [`noUncheckedIndexedAccess`](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) to address exactly this sort of problems.
 
@@ -130,7 +130,7 @@ const letters: HashMap = {
   "A": true,
 }
 
-const A = letters["A"]; // 🟡 boolean | undefined
+const A = letters["A"]; // 👍 boolean | undefined
 const X = letters["X"]; // ✅ boolean | undefined
 ```
 
@@ -157,19 +157,39 @@ type HashMap = Map<string, boolean>;
 In contrast with POJOs, Maps are more complex data structures, providing their own API to insert, retrieve, and delete items.
 ```ts
 // 2️⃣ initialize with data
-const hashMap: HashMap = new Map();
-hashMap.set("first", true);
-hashMap.set("second", false);
+const letters: HashMap = new Map();
+hashMap.set("A", true);
 
 // 3️⃣ dynamic member access
-const item = hashMap.get("third");
-// ✅ item: boolean | undefined
+const A = hashMap.get("A"); // 👍 boolean | undefined
+const X = hashMap.get("X"); // ✅ boolean | undefined
 ```
 
 However, when we access an item from the Map, TypeScript correctly infers its type as potentially `undefined` even without the `noUncheckedIndexedAccess` option. TypeScript performs only static analysis. Thus, it cannot guarantee that the item will actually be in the Map when the code will be executed at runtime.
+
+<Subheading>Bulk initialization</Subheading>
+
+Notice that I've used `.set()` method to add new members after instantiating a `new Map()`. The constructor can receive initial values sa well, by passing an [Array of key-value tuples](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#relation_with_array_objects):
+
+```ts
+const letters: HashMap = new Map([
+  ["A", true],
+  ["B", false],
+]);
+```
+
+We can also convert a plain Object, by using `Object.entries()` since it returns an `Array<[key, value]>`, which is exactly what the Map constructor needs:
+
+```ts
+const letters: HashMap = new Map(Object.entries({
+  "A": true,
+  "B": false,
+}));
+```
+
 
 ## To conclude
 
 As a non-expert in type systems, a **JavaScript `Map`** provides better type safety than POJOs, especially with data structures requiring dynamic access.
 
-To get the same type-safe behavior with POJOs, we must remember to **explicitly define the items as optional**. Enforcing strict checks at the compiler level with `noUncheckedIndexedAccess` is probably a bit too aggressive.
+To get the same type-safe behavior with POJOs, we must remember to **explicitly define the items as optional**. Enforcing strict checks using `noUncheckedIndexedAccess` might be a bit too aggressive and potentially having unexpected behaviors.
