@@ -106,7 +106,7 @@ type HashMap = Partial<Record<string, boolean>>;
 
 ### Using <code>noUncheckedIndexedAccess</code> compiler option
 
-My body [Titian](https://twitter.com/TitianCernicova) highlighted that in version 4.1, released exactly 3 years ago in November 2020, TypeScript introduced a new compiler option called [`noUncheckedIndexedAccess`](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) to address exactly this sort of problems.
+My buddy [Titian](https://twitter.com/TitianCernicova) highlighted that in version 4.1, released exactly 3 years ago in November 2020, TypeScript introduced a new compiler option called [`noUncheckedIndexedAccess`](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) to address exactly this sort of problems.
 
 <Side header={{ file: "tsconfig.json", lang: "JSON" }}>
 
@@ -136,7 +136,7 @@ const A = letters["A"]; // 👍 boolean | undefined
 const X = letters["X"]; // ✅ boolean | undefined
 ```
 
-The behavior is similar to the one with Explicit optional members.
+The behavior is similar to the one using [Explicit optional members](#explicit-optional-members).
 
 However, `noUncheckedIndexedAccess` also affects Arrays member access, which is a bit too aggressive according to the community, adding extra `undefined` inference, even when it's not necessary.
 
@@ -156,7 +156,7 @@ A second approach to define Hash Maps is to use a [JavaScript Map](https://devel
 type HashMap = Map<string, boolean>;
 ```
 
-In contrast with POJOs, Maps are more complex data structures, providing their own API to insert, retrieve, and delete items.
+In contrast to POJOs, Maps are more complex data structures, providing their own API to insert, retrieve, and delete items.
 ```ts
 // 2️⃣ initialize with data
 const letters: HashMap = new Map();
@@ -167,11 +167,11 @@ const A = hashMap.get("A"); // 👍 boolean | undefined
 const X = hashMap.get("X"); // ✅ boolean | undefined
 ```
 
-However, when we access an item from the Map, TypeScript correctly infers its type as potentially `undefined` even without the `noUncheckedIndexedAccess` option. TypeScript performs only static analysis. Thus, it cannot guarantee that the item will actually be in the Map when the code will be executed at runtime.
+When accessing an item from the Map, TypeScript correctly infers its type as potentially `undefined` even without the `noUncheckedIndexedAccess` option. TypeScript performs only static analysis. Thus, it cannot guarantee that the item will actually be in the Map when the code will be executed at runtime.
 
 <Subheading>Bulk initialization</Subheading>
 
-Notice that I've used `.set()` method to add new members after instantiating a `new Map()`. The constructor can receive initial values sa well, by passing an [Array of key-value tuples](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#relation_with_array_objects):
+Notice that I've used `.set()` to add new members after instantiating a `new Map()`. The constructor can also receive initial values sa well, by passing an [Array of key-value tuples](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#relation_with_array_objects):
 
 ```ts
 const letters: HashMap = new Map([
@@ -180,7 +180,7 @@ const letters: HashMap = new Map([
 ]);
 ```
 
-We can also convert a plain Object, by using `Object.entries()` since it returns an `Array<[key, value]>`, which is exactly what the Map constructor needs:
+We can also pass a plain Object by using `Object.entries()`, since it returns an `Array<[key, value]>` which is exactly what the Map constructor needs:
 
 ```ts
 const letters: HashMap = new Map(Object.entries({
