@@ -30,7 +30,7 @@ type HashMap = /* TBD */;
 // 2️⃣ initialize with data
 const letters: HashMap = /* TDB */
 // 3️⃣ dynamic member access
-const A = hashMap["A"];
+const A = letters["A"];
 ```
 
 The goal is to **analyze the type-safety of the dynamic member access** using various methods.
@@ -57,8 +57,8 @@ const letters: HashMap = {
 }
 
 // 3️⃣ dynamic member access
-const A = hashMap["A"]; // ✅ boolean
-const X = hashMap["X"]; // ❌ boolean
+const A = letters["A"]; // ✅ boolean
+const X = letters["X"]; // ❌ boolean
 ```
 
 For some reason, the type system sees an inexistent member as being a `boolean`, even with the `strict` compiler option enabled.
@@ -160,11 +160,11 @@ In contrast to POJOs, Maps are more complex data structures, providing their own
 ```ts
 // 2️⃣ initialize with data
 const letters: HashMap = new Map();
-hashMap.set("A", true);
+letters.set("A", true);
 
 // 3️⃣ dynamic member access
-const A = hashMap.get("A"); // 👍 boolean | undefined
-const X = hashMap.get("X"); // ✅ boolean | undefined
+const A = letters.get("A"); // 👍 boolean | undefined
+const X = letters.get("X"); // ✅ boolean | undefined
 ```
 
 When accessing an item from the Map, TypeScript correctly infers its type as potentially `undefined` even without the `noUncheckedIndexedAccess` option. TypeScript performs only static analysis. Thus, it cannot guarantee that the item will actually be in the Map when the code will be executed at runtime.
