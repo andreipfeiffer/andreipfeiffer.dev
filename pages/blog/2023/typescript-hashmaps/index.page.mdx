@@ -2,6 +2,7 @@ import { BlogPost } from "../../../../components/blog/blog_post";
 import { Subheading } from "../../../../components/blog/subheading";
 import { Note } from "../../../../components/blog/note";
 import { Side } from "../../../../components/blog/sidebyside";
+import { Status } from "../../../../components/blog/status";
 // import { Quote } from "../../../../components/blog/quote";
 
 import { meta } from "./meta";
@@ -64,6 +65,23 @@ const X = letters["X"]; // ❌ boolean
 For some reason, the type system sees an inexistent member as being a `boolean`, even with the `strict` compiler option enabled.
 
 I was expecting to infer the type as `boolean | undefined`, because there is no guarantee that the Hash Map will contain a particular member. This behavior imprints a **false sense of safety**.
+
+<Subheading>
+  <Status type="err" />
+  Lack of type-safety
+</Subheading>
+
+I want to go into more detail regarding my astonishment when I experienced the above behavior. My mental model regarding TypeScript's strict mode was that it models the behavior of JavaScript. I expect it to be more pessimistic rather than too optimistic.
+
+The `string` type represents an unlimited set of values. Since the compiler doesn't enforce comprehensive initialization to make me set all the possible keys, it shouldn't be able to guarantee that the hash map contains any key that I access dynamically. Not to mention that we can mutate the hash map at any given time.
+
+I expected the same behavior as accessing DOM elements, nullable in non-strict mode and non-nullable in strict mode:
+
+```js
+const button = document.querySelector(".submit");
+// "Element" in non-strict mode
+// "Element | null" in strict mode
+```
 
 ### Explicit optional members
 
