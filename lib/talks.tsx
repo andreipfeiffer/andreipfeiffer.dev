@@ -54,10 +54,10 @@ export const talks: Talk[] = [
       //   type: "slides",
       //   url: "/slides/evolution-of-scalable-css.pdf",
       // },
-      {
-        type: "video",
-        url: "https://www.youtube.com/watch?v=QXUHpJ8HsGY",
-      },
+      // {
+      //   type: "video",
+      //   url: "https://www.youtube.com/watch?v=QXUHpJ8HsGY",
+      // },
     ],
     image: { path: "ssr-streaming.png" },
   },
