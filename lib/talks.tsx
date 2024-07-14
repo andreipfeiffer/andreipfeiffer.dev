@@ -31,6 +31,38 @@ export interface Talk {
 
 export const talks: Talk[] = [
   {
+    title: "Modern SSR Streaming using Web Standards",
+    date: "Jul 2024",
+    type: "Live coding demo",
+    abstract: (
+      <>
+        <p>
+          Few things are more annoying than waiting for a heavy webpage to load
+          and not seeing any visual progress.
+        </p>
+        <br />
+        <p>
+          In this talk we’ll examine how popular frameworks perform SSR
+          Streaming, while showcasing a novel approach using Declarative Shadow
+          DOM to load webpages progressively, out of order, without JavaScript,
+          using Server-Side rendering and web standards.
+        </p>
+      </>
+    ),
+    urls: [
+      // {
+      //   type: "slides",
+      //   url: "/slides/evolution-of-scalable-css.pdf",
+      // },
+      {
+        type: "video",
+        url: "https://www.youtube.com/watch?v=QXUHpJ8HsGY",
+      },
+    ],
+    image: { path: "ssr-streaming.png" },
+  },
+
+  {
     title: "Waterbed Code",
     date: "May 2023",
     type: "Slides only",
