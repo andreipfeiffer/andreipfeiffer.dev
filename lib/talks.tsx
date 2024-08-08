@@ -50,10 +50,11 @@ export const talks: Talk[] = [
       </>
     ),
     urls: [
-      // {
-      //   type: "slides",
-      //   url: "/slides/evolution-of-scalable-css.pdf",
-      // },
+      {
+        type: "code",
+        url: "https://github.com/andreipfeiffer/html-streaming",
+        label: "Code",
+      },
       // {
       //   type: "video",
       //   url: "https://www.youtube.com/watch?v=QXUHpJ8HsGY",
