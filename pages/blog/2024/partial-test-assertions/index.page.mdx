@@ -73,7 +73,7 @@ Some use cases where this approach is handy include:
 
 - **Date objects**, which are not relevant for the test.
 - Non-deterministic data, such as **time** or **timezones**, which could return unexpected values when running in CI.
-- **UUID foreign keys** that are not exposed by the API, which are not relevant for the test. They are deterministic, but sometimes require additional queries which might not bring any added value.
+- **UUIDs** or **foreign keys** not relevant for the test. They are usually deterministic, but sometimes require additional queries which might not bring any added value.
 - **Internally generated data** might be impossible to assert unless we expose and stub the internal logic. If the logic is important to test, we can add unit tests for that particular code.
 
 <br />
