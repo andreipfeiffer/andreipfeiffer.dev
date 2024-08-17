@@ -45,18 +45,18 @@ test("buySubscription() should generate invoice file", () => {
   const subscription = buySubscription({ userId: user.id });
   // assert
   const invoice = getInvoiceById(subscription.invoiceId);
-  const file = getFileById(invoice.fileId); // ⛔️ Object is possibly 'null'
+  const file = getFileById(invoice.fileId);
+  // ⛔️ Object is possibly 'null' ☝️
   expect(file).toBeDefined();
 });
 ```
 
+
 The problem here is that we're trying to **access a property on nullable object**. At runtime, this error would probably not occur, because we're creating the entity before, unless something breaks within the source code.
 
-However, the type system cannot statically infer that we're creating the required before accessing it. The `getFileById()` function is clearly defined as potentially returning `null`. Therefore, it could potentially result in a `TypeError` at runtime when reading `invoice.fileId`:
+However, the type system cannot statically infer that we're creating the required before accessing it. The `getFileById()` function is clearly defined as potentially returning `null`. Therefore, it could potentially result in a `TypeError` at runtime when reading `invoice.fileId`.
 
-```md
-Uncaught TypeError: Cannot read properties of null (reading 'fileId')
-```
+<br />
 
 This problem is most prevalent in **non-trivial integration tests**, especially when dealing with side effects.
 
