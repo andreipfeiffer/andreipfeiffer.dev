@@ -1,0 +1,174 @@
+import { BlogPost } from "../../../../components/blog/blog_post";
+import { Note } from "../../../../components/blog/note";
+import { Side } from "../../../../components/blog/sidebyside";
+import { Status } from "../../../../components/blog/status";
+import { Subheading } from "../../../../components/blog/subheading";
+
+import { meta } from "./meta";
+
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+This blog post describes in detail **the obscure `fail()` API in various testing frameworks**, which is helpful when dealing with nullable types inside tests. We'll cover multiple popular libraries and even a custom simple solution you could use, in case your testing framework doesn't support this API.
+
+- [Jest](#jest)
+- [Vitest](#vitest)
+- [Node test runner](#node-test-runner)
+- [Custom implementation](#custom-implementation)
+
+<br />
+
+This post assumes you're **writing tests using TypeScript** with <a href="https://www.typescriptlang.org/tsconfig/#strictNullChecks"><code>strictNullChecks</code></a> enabled. Without this option, you will not encounter the problem described below. However, if you're not using `strictNullChecks`, I strongly recommend that you do, as it will greatly increase the sturdiness of the code and prevent a multitude of runtime errors from occurring.
+
+Before jumping into the solution, let's look at the problem we're trying to solve.
+
+## The problem
+
+Let's consider we want to test a function called `buySubscription()`, which has some side effects. Besides adding a `subscription`, it will also create an `invoice` that references a generated `file`.
+
+To assert the side effects, we have to use some helper functions that return [Nullable Types](https://en.wikipedia.org/wiki/Nullable_type). Common use cases would be functions that return single values from some sort of **storage**, like a database, local storage, cloud, etc. All these values fall into the category of _Nullable types_ because we don't know at compile time if the value will actually exist at runtime.
+
+```ts
+declare function getInvoiceById(id: string): Invoice | null;
+```
+
+<br />
+
+Here's the test code:
+
+```ts{8}
+test("buySubscription() should generate invoice file", () => {
+  // arrange
+  const user = addUser();
+  // act
+  const subscription = buySubscription({ userId: user.id });
+  // assert
+  const invoice = getInvoiceById(subscription.invoiceId);
+  const file = getFileById(invoice.fileId); // ⛔️ Object is possibly 'null'
+  expect(file).toBeDefined();
+});
+```
+
+The problem here is that we're trying to **access a property on nullable object**. At runtime, this error would probably not occur, because we're creating the entity before, unless something breaks within the source code.
+
+However, the type system cannot statically infer that we're creating the required before accessing it. The `getFileById()` function is clearly defined as potentially returning `null`. Therefore, it could potentially result in a `TypeError` at runtime when reading `invoice.fileId`:
+
+```md
+Uncaught TypeError: Cannot read properties of null (reading 'fileId')
+```
+
+This problem is most prevalent in **non-trivial integration tests**, especially when dealing with side effects.
+
+We could use [type assertions](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions) to make the type system happy. However, that's a pretty poor solution, plus it might introduce other problems because we're telling lies to the type system. Fortunately, there is a **much better alternative**.
+
+## Jest
+
+If you're using Jest, you can use `fail()` within a conditional to explicitly specify that the test will fail if it encounters a `null` value.
+
+```ts{5}
+test("...", () => {
+  // ...
+  const invoice = getInvoiceById(subscription.invoiceId);
+  if (!invoice) {
+    fail();
+  }
+  const file = getFileById(invoice.fileId); // ✅
+  // ...
+});
+```
+
+Using `fail()` has 2 benefits:
+
+- At **runtime**, it will make the test fail in case the invoice is `null`, which should happen only if there is an issue with the source code.
+- At **compile time** it will narrow the type, inferring the `invoice` as being NonNullable, therefore allowing us to safely access its properties.
+
+<Subheading>Documentation</Subheading>
+
+Unfortunately, there is no Jest documentation for `fail()`, which is probably the reason you might have never heard of it.
+
+Jest is using Jasmine matchers which include a [global fail()](https://jasmine.github.io/api/5.2/global.html#fail) function. Since Jest version 20, [Jasmine was forked](https://jestjs.io/blog/2017/05/06/jest-20-delightful-testing-multi-project-runner#breaking-changes) by the Jest team, which might be the reason there's no clear separation today regarding the dependency on Jasmine.
+
+This brings the question if the Jest team is aware of the global `fail()` API or not.
+
+<Subheading>Types</Subheading>
+
+In order to use `fail()` in a TypeScript project you must import the global `@types/jest`, which includes the [global `fail()` function declaration](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/jest/index.d.ts#L1569).
+
+However, if you don't want to use implicit globals, and you want to explicitly import the Jest dependencies, please note that **`@jest/globals` does not expose `fail()`**.
+
+As a workaround, you could use either [Node test runner's](#node-test-runner) built-in method or a simple [custom implementation](#custom-implementation) instead.
+
+
+## Vitest
+
+It's not a secret that Vitest's API is almost similar to Jest, therefore it includes [`assert.fail()`](https://vitest.dev/api/assert.html#fail) which has the same effect.
+
+```ts{1,5}
+import { assert } from "vitest";
+
+// ...
+if (!invoice) {
+  assert.fail();
+}
+```
+
+Hats off to the Vitest team. I wonder if they "found" this API in the Jest source code, or if it was inspired by other solutions.
+
+## Node test runner
+
+If you prefer built-in solutions, you should know that Node.js already has a built-in assertion library, which includes an [assert.fail()](https://nodejs.org/api/assert.html#assertfailmessage) method.
+
+```ts{1,5}
+import { fail } from "node:assert";
+
+// ...
+if (!invoice) {
+  fail();
+}
+```
+
+It's worth mentioning that even though the native test runner was stable only since Node.js 20, the assertion library is available from the very beginning.
+
+## Custom implementation
+
+If you're using a different testing framework that doesn't expose a `fail()` method, you can easily use your own implementation, which is pretty basic:
+
+```ts
+function fail(message?: string): never {
+  throw new ReferenceError(message);
+}
+```
+
+<Subheading>How does it work?</Subheading>
+
+The only thing that this function does is to **throw an Error**, with an optional message.
+
+However, the magic here, when it comes to type checking, is the return type [`never`](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#the-never-type). Placing this function inside an `if` statement will **narrow down the type of invoice**, thanks to TypeScript's [control flow analysis](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis).
+
+```ts
+const invoice = getInvoiceById(subscription.invoiceId);
+// 1️⃣ invoice: Invoice | null
+
+if (!invoice) {
+  // 2️⃣ invoice: null
+  fail();
+  // 3️⃣ unreachable code
+}
+
+// 4️⃣ invoice: Invoice
+const file = getFileById(invoice.fileId);
+```
+
+Let's dissect this in more detail:
+
+1. We start with the `invoice` being a union type of `Invoice | null`, as returned by `getInvoiceById()`. Because there is the possibility of being `null`, we cannot safely access `invoice.fileId`, because `null.fileId` would throw a runtime TypeError exception.
+2. Using the `if` statement with the negation `!invoice`, we take the `null` path inside the conditional. Therefore, `invoice` will be `null`, both at compile time, but also at runtime as well.
+3. Thanks to the `never` type returned by the `fail()` function, the code will never reach the line after the `fail()` call. The `throw` statement in the implementation guarantees runtime behavior, while the `never` type guarantees compile type correlation.
+4. TypeScript compiler performs control flow analysis, being able to understand code branching and narrowing types based on control flow statements. In this case, it knows that if the code takes the conditional path, where `invoice` is `null`, it will never continue beyond that point. Therefore, if the code does not enter the conditional, the only type that it could have is `Invoice`.
+
+---
+
+Using the `fail()` API allows us to easily deal with Nullable Types in tests, without employing poor alternatives such as type assertions or `//@ts-ignore` comments.
+
+There is an unwritten rule that we shouldn't use `if` statements in our tests. However, we're not using them to branch the test logic. They are used only for type safety purposes.
