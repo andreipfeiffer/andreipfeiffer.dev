@@ -2,8 +2,6 @@ import { Metadata } from "../../../../lib/blog";
 
 import cover from "./nullable-type-narrowing-cover.png";
 
-let x: {x: 1} | null = null;
-
 export const meta: Metadata = {
   title: "Nullable type narrowing in tests",
   date: "2024-08-17",
