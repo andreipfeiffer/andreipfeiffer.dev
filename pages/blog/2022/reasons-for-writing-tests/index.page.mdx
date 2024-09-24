@@ -1,8 +1,9 @@
 import { BlogPost } from "../../../../components/blog/blog_post";
-import { Subheading } from "../../../../components/blog/subheading";
 import { Note } from "../../../../components/blog/note";
+import { Subheading } from "../../../../components/blog/subheading";
 
 import { meta } from "./meta";
+
 export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
@@ -35,19 +36,20 @@ https://andreipfeiffer.dev
 <a href="https://andreipfeiffer.dev">andreipfeiffer.dev</a>
 ```
 
-Manually typing a URL into a comment box and pressing a submit button to see the result should take between `5 and 10 seconds`. However, we'll have to verify multiple URL formats, so a full suite of tests would take around `2 minutes`.
+Manually typing a URL into a comment box and pressing a submit button to see the result should take between `5 and 10 seconds`. However, we'll have to verify multiple URL formats, so a full suite of tests could take around `2 minutes`.
 
 <!-- - **Implement a shopping cart page**, where we can add and remove items, change quantities, calculate shipping cost based on location, apply discounts taxes, calculate taxes, and display the total amount to pay. Manually performing a full suite of tests could take around `5 minutes`.
 - **Add a new API endpoint to update a resource**. Without a test framework setup, we'll have to call the endpoint manually using a tool like [Postman](https://www.postman.com/). We'll specify the required payload or query params and observe the response and potential side effects, like database updates or calls to other services. When considering endpoints that read and update multiple resources, performing a full suite of tests can take up to `10 minutes`. -->
 
 <br />
 
-Setting up a framework for unit tests usually takes a couple of hours, but that's only a one-time effort. From personal experience, a complete set of tests usually takes around **20 times** the effort of one manual test of the entire suite. Therefore, **automated tests become faster** if we perform the full suite of tests more than 20 times.
+Setting up a framework for unit tests usually takes a couple of hours, but that's only a one-time effort. From personal experience, writing a complete set of tests usually takes around **20 times** the effort of one manual test of the entire suite. Therefore, **automated tests become faster** if we perform the full suite of tests more than 20 times.
 
 <Note>
-  It's worth mentioning that the <strong>20 times rule</strong> usually applies
-  to any type of tests, like UI components, API endpoints, or end-to-end full
-  system tests, not only to unit tests like the example above.
+  It's worth mentioning that the <strong>"20 times rule"</strong> usually
+  applies to any type of tests, like UI components, API endpoints, or End-to-End
+  full system tests, not only to unit tests like the example above. Also, "20"
+  is a rough value. It could vary drastically from scenario to scenario.
 </Note>
 
 ## Easier debugging
@@ -87,13 +89,13 @@ Did it ever happen to you to change a single line of code, committing it, deploy
 The sad truth is that **developers never perform a full suite of manual regressions tests**, mainly because it's not feasible:
 
 - It would take too much time to perform all the tests manually.
-- We usually hate repeating ourselves, performing the same set of manual tests over and over;
+- We usually hate repeating ourselves, performing the same set of manual tests over and over.
 
 Without automated tests, it **could take a long time until we even discover bugs**, especially on features that are not very frequently used. But, most of the time, we don't even know all the existing features. This brings us to the next chapter.
 
 ## Documentation
 
-While developing large applications, it becomes virtually **impossible to keep track of all features**, even when being involved in the development of each and every functionality. In addition, requirements can change so often that two developers could have different opinions about how a particular feature should work.
+While developing large applications, it becomes **daunting to keep track of all features**, even when being involved in the development of each and every functionality. In addition, requirements can change so often that two developers could have different opinions about how a particular feature should work.
 
 Furthermore, new team members would have a hard time understanding how a particular code should work.
 
@@ -110,7 +112,7 @@ A suite of tests that assert how the code should work **empowers us to safely an
 
 ## Loose coupling
 
-Writing isolated unit tests or partially integrated tests will greatly influence the way write our source code also. However, tightly coupled code is not trivial to test and often requires refactoring before making it testable.
+Writing isolated [unit tests](/blog/2022/a-decade-of-testing#unit-testing) or partially [integrated tests](/blog/2022/a-decade-of-testing#api-endpoints-testing) will greatly influence the way write our source code also. However, tightly coupled code is not trivial to test and often requires refactoring before making it testable.
 
 As time goes by, we'll learn how to apply good practices and techniques for writing testable and loosely coupled code:
 
