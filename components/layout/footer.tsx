@@ -35,8 +35,7 @@ export function Footer() {
       </nav>
 
       <Text size="m02">
-        Follow me on Twitter{" "}
-        <a href="https://twitter.com/pfeiffer_andrei">@pfeiffer_andrei</a> or{" "}
+        <a href="/contact">Get in touch</a> or{" "}
         <Link href="/subscribe">
           <a>subscribe</a>
         </Link>{" "}
