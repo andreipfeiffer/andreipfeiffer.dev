@@ -40,9 +40,9 @@ export default function Contact() {
         </p>
         <Spacer vertical={breakpoint ? "16" : "32"} />
         <p>
-          🐘 Have you left Twitter? or prefer Mastodon? You can also find me at{" "}
-          <a href="https://techhub.social/@andreipfeiffer" className="code">
-            <strong>@andreipfeiffer@techhub.social</strong>
+          🦋 Have you left Twitter? You can also find me on Bluesky{" "}
+          <a href="https://bsky.app/profile/andreipfeiffer.bsky.social" className="code">
+            <strong>@andreipfeiffer.bsky.social</strong>
           </a>
           .
         </p>
