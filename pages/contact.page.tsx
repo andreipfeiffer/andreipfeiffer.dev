@@ -24,7 +24,7 @@ export default function Contact() {
 
       <Grid.Full>
         <p>
-          📧 The easier way to get in touch is by email{" "}
+          📧 The easiest way to get in touch is by email{" "}
           <a href="mailto:andrei@upsidedown.ro" className="code">
             <strong>andrei@upsidedown.ro</strong>
           </a>
@@ -45,6 +45,16 @@ export default function Contact() {
             <strong>@andreipfeiffer.bsky.social</strong>
           </a>
           .
+        </p>
+        <Spacer vertical={breakpoint ? "40" : "60"} />
+        <p>
+          Prefer other methods? I also hang out on{" "}
+          <a href="https://www.linkedin.com/in/andreipfeiffer/" className="code">
+            <strong>Linkedin</strong>
+          </a>{" "} and{" "}
+          <a href="https://github.com/andreipfeiffer" className="code">
+            <strong>Github</strong>
+          </a>.
         </p>
       </Grid.Full>
     </Layout>
