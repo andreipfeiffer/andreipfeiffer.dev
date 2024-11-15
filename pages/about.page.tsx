@@ -107,7 +107,7 @@ export default function About() {
 
             <br />
 
-            <Button as="a" href="/andrei-pfeiffer-resume-v5.1.pdf" size="large">
+            <Button as="a" href="/andrei-pfeiffer-resume-v5.2.pdf" size="large">
               View full resumee
             </Button>
           </section>
