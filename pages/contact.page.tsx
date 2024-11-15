@@ -41,8 +41,8 @@ export default function Contact() {
         <Spacer vertical={breakpoint ? "16" : "32"} />
         <p>
           🦋 Have you left Twitter? You can also find me on Bluesky{" "}
-          <a href="https://bsky.app/profile/andreipfeiffer.bsky.social" className="code">
-            <strong>@andreipfeiffer.bsky.social</strong>
+          <a href="https://bsky.app/profile/andreipfeiffer.dev" className="code">
+            <strong>@andreipfeiffer.dev</strong>
           </a>
           .
         </p>
