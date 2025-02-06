@@ -46,3 +46,9 @@
     height: 30vw;
   }
 }
+
+.donations_list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}

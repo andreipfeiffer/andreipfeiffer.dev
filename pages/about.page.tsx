@@ -1,5 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { Button } from "../components/button";
@@ -24,9 +24,24 @@ export default function About() {
       {breakpoint && <Spacer vertical="40" />}
 
       <Grid.Full className={styles.heading}>
-        <Text size="h00" as="h1">
-          {"Hi, I'm Andrei"}
-        </Text>
+        <header>
+          <Text size="h00" as="h1">
+            {"Hi, I'm Andrei"}
+          </Text>
+
+          <Spacer vertical="60" />
+
+          <Text size="p01" as="p">
+            {"I'm currently"} {getAge()} years old, living in Timișoara,
+            Romania.
+          </Text>
+
+          <Text size="p01" as="p">
+            {"I've"} been designing &amp; developing websites and web apps since
+            2000 and went through all the stages of web development: from
+            HTML3/jQuery to HTML5/ES6/TS and beyond.
+          </Text>
+        </header>
 
         <figure className={styles.photo}>
           <Image
@@ -42,18 +57,6 @@ export default function About() {
 
       <Grid>
         <Grid.Col span={8}>
-          <p>
-            {"I'm currently"} {getAge()} years old, living in Timișoara,
-            Romania.
-          </p>
-
-          <p>
-            {"I've"} been designing &amp; developing websites and web apps since
-            2000 and went through all the stages: from HTML3/jQuery to HTML5/ES6
-            and beyond. I like to think of myself as an{" "}
-            <strong>eclectic code designer</strong>.
-          </p>
-
           <Spacer vertical="100" />
 
           <section>
@@ -61,11 +64,16 @@ export default function About() {
               Eclectic Code Designer
             </Text>
 
+            <Text size="p01" as="p">
+              I like to think of myself as an{" "}
+              <strong>eclectic code designer</strong>.
+            </Text>
+
             <p>
               <strong>Eclectic</strong> because I {"don't"} follow a specific
               technology or a school of thought in a dogmatic way. Instead, I
-              apply various practices and technologies that suit the problem{" "}
-              {"I'm "}
+              apply various principles, practices, and technologies that
+              actually suit the problem {"I'm "}
               facing, in a pragmatic fashion.
             </p>
 
@@ -75,7 +83,7 @@ export default function About() {
               maintaining a clean code base. Additionally, {"I'm"} also a hybrid
               between a <em>designer</em> and a <em>developer</em>. Besides
               being a software engineer working with <strong>code</strong>, I
-              also have a strong passion for aesthetics, animations,
+              also have a strong passion for aesthetics, animations, structure,
               interaction, and everything related to <strong>design</strong> in
               a broad sense.
             </p>
@@ -100,10 +108,10 @@ export default function About() {
               Refactoring, Automated Testing, Code Reviews, and Team
               Collaboration.
             </p>
-            <p>
+            {/* <p>
               My primary tech stack currently include React/React Native,
               TypeScript and Next.js.
-            </p>
+            </p> */}
 
             <br />
 
@@ -136,6 +144,14 @@ export default function About() {
               driven JavaScript conference.
             </p>
             <p>
+              I'm also an <strong>Ambassador</strong> of{" "}
+              <a href="https://jsheroes.io/">
+                <strong>JSHeroes</strong>
+              </a>
+              , a must-attend JavaScript conference organized by wonderful
+              people in Cluj-Napoca, Romania.
+            </p>
+            <p>
               Last, but not least, I enjoy sharing my knowledge during meetup
               and conference{" "}
               <Link href="/talks">
@@ -157,6 +173,47 @@ export default function About() {
               </Link>
               .
             </p>
+          </section>
+
+          <Spacer vertical="100" />
+
+          <section>
+            <Text size="h02" as="h2">
+              Backing & Support
+            </Text>
+
+            <p>
+              I'm currently supporting with recurring donations several
+              organizations that managed to achieve trully beneficial outcomes.
+              This requires a collective effort and I'm thrilled to be their
+              backer:
+            </p>
+
+            <ul className={styles.donations_list}>
+              <li>
+                <a href="https://en.wikipedia.org/">
+                  <strong>Wikipedia</strong>
+                </a>{" "}
+                for providing open and free information for our entire
+                civilisation. I'm an occasional supporter since 2016 and a
+                regular donor since Mar 2023.
+              </li>
+              <li>
+                <a href="https://daruiesteviata.ro/">
+                  <strong>Daruieste Viata</strong>
+                </a>{" "}
+                for building a childrens' hospital, something that not even the
+                romanian authorities are capable to do. I'm their backer since
+                Oct 2018.
+              </li>
+              <li>
+                <a href="https://recorder.ro/">
+                  <strong>Recorder</strong>
+                </a>{" "}
+                for their trully meaningful press investigations and honest
+                journalism. I've been supporting them since Feb 2024.
+              </li>
+            </ul>
           </section>
         </Grid.Col>
       </Grid>
