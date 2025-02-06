@@ -43,5 +43,8 @@
     "eslint-config-next": "12.1.0",
     "typescript": "4.5.4"
   },
+  "overrides": {
+    "react": "17.0.2"
+  },
   "type": "module"
 }
