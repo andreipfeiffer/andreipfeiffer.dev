@@ -18,13 +18,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--light);
+  background-color: var(--background);
+
+  background: linear-gradient(
+    to bottom,
+    var(--background) 88%,
+    color-mix(in srgb, var(--background) 0%, transparent)
+  );
 
   transition: background-color 0.2s, padding 0.5s;
-
-  [data-darkmode="true"] & {
-    background-color: var(--dark);
-  }
 
   [data-scrolled="true"] & {
     padding-top: 20px;
