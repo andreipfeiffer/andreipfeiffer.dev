@@ -144,7 +144,7 @@ export default function About() {
               driven JavaScript conference.
             </p>
             <p>
-              I'm also an <strong>Ambassador</strong> of{" "}
+              {"I'm"} also an <strong>Ambassador</strong> of{" "}
               <a href="https://jsheroes.io/">
                 <strong>JSHeroes</strong>
               </a>
@@ -183,9 +183,9 @@ export default function About() {
             </Text>
 
             <p>
-              I'm currently supporting with recurring donations several
+              {"I'm"} currently supporting with recurring donations several
               organizations that managed to achieve trully beneficial outcomes.
-              This requires a collective effort and I'm thrilled to be their
+              This requires a collective effort and {"I'm"} thrilled to be their
               backer:
             </p>
 
@@ -195,15 +195,15 @@ export default function About() {
                   <strong>Wikipedia</strong>
                 </a>{" "}
                 for providing open and free information for our entire
-                civilisation. I'm an occasional supporter since 2016 and a
+                civilisation. {"I'm"} an occasional supporter since 2016 and a
                 regular donor since Mar 2023.
               </li>
               <li>
                 <a href="https://daruiesteviata.ro/">
                   <strong>Daruieste Viata</strong>
                 </a>{" "}
-                for building a childrens' hospital, something that not even the
-                romanian authorities are capable to do. I'm their backer since
+                for building a {"childrens'"} hospital, something that not even the
+                romanian authorities are capable to do. {"I'm"} their backer since
                 Oct 2018.
               </li>
               <li>
@@ -211,7 +211,7 @@ export default function About() {
                   <strong>Recorder</strong>
                 </a>{" "}
                 for their trully meaningful press investigations and honest
-                journalism. I've been supporting them since Feb 2024.
+                journalism. {"I've"} been supporting them since Feb 2024.
               </li>
             </ul>
           </section>
