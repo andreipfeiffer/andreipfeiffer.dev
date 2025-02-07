@@ -20,11 +20,11 @@
   align-items: center;
   background-color: var(--background);
 
-  background: linear-gradient(
-    to bottom,
-    var(--background) 88%,
-    color-mix(in srgb, var(--background) 0%, transparent)
-  );
+  // background: linear-gradient(
+  //   to bottom,
+  //   var(--background) 88%,
+  //   color-mix(in srgb, var(--background) 0%, transparent)
+  // );
 
   transition: background-color 0.2s, padding 0.5s;
 
