@@ -128,7 +128,7 @@ export default function About() {
             </Text>
 
             <p>
-              For more than 10 years I've been an active member of the local,
+              For more than 10 years {"I've"} been an active member of the local,
               national and international JavaScript Community, both as an
               attendee and as a speaker we well.
             </p>
