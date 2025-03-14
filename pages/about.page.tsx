@@ -128,29 +128,59 @@ export default function About() {
             </Text>
 
             <p>
-              Since 2013, {"I've"} been deeply involved in the local JavaScript
-              community, co-organizing{" "}
-              <a href="http://timjs.ro">
-                <strong>tim.js</strong>
-              </a>
-              , a monthly meetup dedicated to the entire JavaScript ecosystem.
+              For more than 10 years I've been an active member of the local,
+              national and international JavaScript Community, both as an
+              attendee and as a speaker we well.
             </p>
-            <p>
-              Together with an wonderful team, {"we're"} organizing{" "}
-              <a href="http://revojs.ro">
-                <strong>revo.js</strong>
-              </a>
-              , an annual technically focused, not-for-profit, and community
-              driven JavaScript conference.
-            </p>
-            <p>
-              {"I'm"} also an <strong>Ambassador</strong> of{" "}
-              <a href="https://jsheroes.io/">
-                <strong>JSHeroes</strong>
-              </a>
-              , a must-attend JavaScript conference organized by wonderful
-              people in Cluj-Napoca, Romania.
-            </p>
+
+            <Spacer vertical="16" />
+
+            <dl className={styles.communities_list}>
+              <dt className={styles.community_logo}>
+                <span
+                  style={{ maskImage: "url(/images/logo-timjs.svg)" }}
+                ></span>
+              </dt>
+              <dd>
+                Since 2013, {"I've"} been deeply involved in the local
+                JavaScript community, co-organizing{" "}
+                <a href="http://timjs.ro">
+                  <strong>tim.js</strong>
+                </a>
+                , a monthly meetup dedicated to the entire JavaScript ecosystem.
+              </dd>
+
+              <dt className={styles.community_logo}>
+                <span
+                  style={{ maskImage: "url(/images/logo-revojs.svg)" }}
+                ></span>
+              </dt>
+              <dd>
+                Together with an wonderful team, {"we're"} organizing{" "}
+                <a href="http://revojs.ro">
+                  <strong>revo.js</strong>
+                </a>
+                , an annual technically focused, not-for-profit, and community
+                driven JavaScript conference.
+              </dd>
+
+              <dt className={styles.community_logo}>
+                <span
+                  style={{ maskImage: "url(/images/logo-jsheroes.svg)" }}
+                ></span>
+              </dt>
+              <dd>
+                {"I'm"} also an <strong>Ambassador</strong> of{" "}
+                <a href="https://jsheroes.io/">
+                  <strong>JSHeroes</strong>
+                </a>
+                , a must-attend JavaScript conference organized by wonderful
+                people in Cluj-Napoca, Romania.
+              </dd>
+            </dl>
+
+            <Spacer vertical="16" />
+
             <p>
               Last, but not least, I enjoy sharing my knowledge during meetup
               and conference{" "}
@@ -202,9 +232,9 @@ export default function About() {
                 <a href="https://daruiesteviata.ro/">
                   <strong>Daruieste Viata</strong>
                 </a>{" "}
-                for building a {"childrens'"} hospital, something that not even the
-                romanian authorities are capable to do. {"I'm"} their backer since
-                Oct 2018.
+                for building a {"childrens'"} hospital, something that not even
+                the romanian authorities are capable to do. {"I'm"} their backer
+                since Oct 2018.
               </li>
               <li>
                 <a href="https://recorder.ro/">

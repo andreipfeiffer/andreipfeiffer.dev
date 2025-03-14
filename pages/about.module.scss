@@ -47,6 +47,56 @@
   }
 }
 
+.communities_list {
+  @include breakpoint(md) {
+    row-gap: 1.5em;
+    grid-template-columns: auto 1fr;
+  }
+
+  dd {
+    margin: 0;
+    text-indent: 0.5em;
+    text-wrap: balance;
+
+    &:not(:last-child) {
+      margin-bottom: 2em;
+    }
+  }
+}
+.community_logo {
+  --height: 50px;
+  --cutoff: calc(var(--height) / 5);
+  float: left;
+  margin: 0.25em 0.5em;
+
+  background-color: var(--color);
+  display: flex;
+  align-items: center;
+  padding: 0.5em 1em;
+  height: var(--height);
+  clip-path: polygon(
+    var(--cutoff) 0,
+    100% 0,
+    calc(100% - var(--cutoff)) 100%,
+    0 100%
+  );
+
+  span {
+    display: block;
+    width: 80px;
+    height: 100%;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    background-color: var(--background);
+  }
+
+  img {
+    display: none;
+    width: 80px;
+  }
+}
+
 .donations_list {
   display: flex;
   flex-direction: column;
