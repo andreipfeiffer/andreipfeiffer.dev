@@ -1,5 +1,9 @@
 export function getAge() {
-  return getCurrentYear() - 1982;
+  return getYearsFrom(1982);
+}
+
+export function getYearsFrom(year: number) {
+  return getCurrentYear() - year;
 }
 
 export function getCurrentYear() {

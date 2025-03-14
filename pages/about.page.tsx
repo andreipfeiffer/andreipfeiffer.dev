@@ -10,7 +10,7 @@ import { MetaTags, META_TITLE } from "../components/meta_tags";
 import { Spacer } from "../components/spacer";
 import { Text } from "../components/text";
 
-import { getAge } from "../lib/utils";
+import { getAge, getYearsFrom } from "../lib/utils";
 
 import styles from "./about.module.scss";
 
@@ -127,11 +127,11 @@ export default function About() {
               Community involvement
             </Text>
 
-            <p>
-              For more than 10 years {"I've"} been an active member of the local,
-              national and international JavaScript Community, both as an
-              attendee and as a speaker we well.
-            </p>
+            <Text size="p01" as="p">
+              For {getYearsFrom(2013)} years {"I've"} been an active member of
+              the local, national and international JavaScript Community, both
+              as an attendee and as a speaker we well.
+            </Text>
 
             <Spacer vertical="16" />
 

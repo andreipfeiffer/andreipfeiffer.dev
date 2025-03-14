@@ -57,6 +57,7 @@
     margin: 0;
     text-indent: 0.5em;
     text-wrap: balance;
+    font-style: italic;
 
     &:not(:last-child) {
       margin-bottom: 2em;
@@ -65,9 +66,9 @@
 }
 .community_logo {
   --height: 50px;
-  --cutoff: calc(var(--height) / 5);
+  --cutoff: calc(var(--height) / 4);
   float: left;
-  margin: 0.25em 0.5em;
+  margin: 0.30em 0.5em;
 
   background-color: var(--color);
   display: flex;
