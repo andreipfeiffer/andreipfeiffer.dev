@@ -97,16 +97,16 @@ export default function About() {
             </Text>
 
             <p>
-              {"I'm"} currently working as an{" "}
-              <strong>User Interface Developer</strong> switching between{" "}
-              <strong>web</strong> and <strong>mobile</strong>.
+              Most of my experience revolves around{" "}
+              <strong>User Interface development</strong>
+              for web, mobile web, and native mobile as well.
             </p>
             <p>
               My everyday battles revolve around Clean Code Design, User &amp;
               Developer Experience, UI Interaction &amp; Design, and{" "}
               <strong>fighting software entropy</strong> through constant
-              Refactoring, Automated Testing, Code Reviews, and Team
-              Collaboration.
+              Refactoring, Automated Testing, Performance Optimizations, Code
+              Reviews, and Team Collaboration.
             </p>
             {/* <p>
               My primary tech stack currently include React/React Native,
