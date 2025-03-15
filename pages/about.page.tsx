@@ -97,9 +97,9 @@ export default function About() {
             </Text>
 
             <p>
-              Most of my experience revolves around{" "}
-              <strong>User Interface development</strong>
-              for web, mobile web, and native mobile as well.
+              Most of my past experience focused on{" "}
+              <strong>User Interface development</strong>{" "}
+              for web, mobile web, and native mobile.
             </p>
             <p>
               My everyday battles revolve around Clean Code Design, User &amp;
