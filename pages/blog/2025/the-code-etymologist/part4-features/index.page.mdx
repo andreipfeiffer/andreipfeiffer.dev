@@ -1,0 +1,101 @@
+import Image from "next/image";
+
+import { BlogPost } from "../../../../../components/blog/blog_post";
+import { Figure } from "../../../../../components/blog/figure";
+import { Subheading } from "../../../../../components/blog/subheading";
+
+import { TOC, LinkTo } from "../toc";
+
+import flow_chart from "./flow-chart.png";
+import { meta } from "./meta";
+import sequence from "./sequence-diagram.png";
+import state_chart from "./state-chart.png";
+
+export { meta } from "./meta";
+const CURRENT_PART = 4;
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={CURRENT_PART} />
+
+## Specifications
+
+Software projects have features. Some of them are small, others are huge. We often use various terminology to refer to them depending on their size and scope: acceptance criteria, use case, user story, epic, etc.
+
+These features are usually described in [software requirements specification (SRS)](https://en.wikipedia.org/wiki/Software_requirements_specification) documents before the development phase, to make sure that everybody involved in the delivery of the feature are on the same page.
+
+However, new features often interact with, impact, or change existing features. Different teams might end up working on the same code base, changing existing behavior in different ways.
+
+So, the big question is: **_How do you maintain and keep up-to-date the list of current features?_** The theory is simple: you just update the SRS documents constantly. But as simple as it might be in theory, the practice demonstrates that **written documentation gets easily outdated**. The reasons could be multiple: lack of ownership, unclear who's responsible for their maintenance, deprioritisation in favor of other urgent tasks, lack of communication of feature changes, etc.
+
+## Automated tests
+
+Now, I'm sorry that I use **tests** and **documentation** in the same sentence, knowing that both of them are usually dreaded by most software developers, but that's the truth. **Automated tests provide feature documentation.** They show how the software currently works.
+
+In contrast to written documentation, tests don't get outdated so easily. Well, they do if we don't execute them. But if we do run them in a CI or a regular basis, the tests will prompt us once they get outdated, so we know when to update them.
+
+Some larger features or complex scenarios that integrate multiple features might be more suitable for end-to-end tests, even if they don't cover all edge cases and acceptance criteria. Other smaller features or business logic details might be more suitable to be tested in isolation. The level of isolation or integration used in testing a specific business requirement depends and should be debated on a case by case scenario.
+
+<br />
+
+It is true that not every feature can be automated and we cannot test "everything". For instance, interacting with a `<canvas>` element and asserting the result is not trivial at all. Depending on 3rd party services that we don't control, will probably force us to focus on isolated tests, leaving the integration for manual testing. That's completely fine. Just because we cannot reach 100%, it doesn't imply that we shouldn't settle for less.
+
+> If it's trivial to write automated tests even for 20% of the features (which is just an arbitrary percent), it's a huge win, compared to 0%
+
+<Subheading>Maintenance cost</Subheading>
+
+In the end, it's a matter of measuring the effort. What's more cumbersome?
+
+- Writting, executing, and maintaining automated tests?
+- Or writting and updating SRS documents?
+
+From my experience, SRS documents are useful and mandatory before development. But on the long term, they are non-trivial to maintain.
+
+Keep in mind that these documents should be reliable, developers and testers should be able to use them and understand how the product works. The question is **_What level of detail should be used to describe the specifications?_**
+
+- We can list only the use cases with their acceptance criteria, skipping all the test cases and corner cases. This might be easier to digest, but lacks some details.
+- Or we could include comprehensive details regarding what buttons to click and what data to input in forms. This might include all the required information, but it would be a nightmare to read, digest, search, and maintain.
+
+<br />
+
+To conclude, the question of having automated tests is simply a matter of cost. The downside is that we don't have any formula or tool to calculate this cost. I'm sorry to say, but I really believe that LLMs and AI won't ever help in this regard either.
+
+Therefore, we have to rely on our best judgement and experience to estimate if an automated test makes for sense for a specific use case or not.
+
+## Diagrams
+
+While written documentation and automated tests provide a great level of detail, it's often difficult to **"visualize"** the feature as a whole. This is typically problematic in situations where we have either a **sequence of linear steps** or multiple **chained decisions** resulting in a multitude of logical paths.
+
+### Sequence diagrams
+
+To help us visualize a particular scenario of a use case, we can use [sequence diagrams](https://en.wikipedia.org/wiki/Sequence_diagram). They are useful to describe the **data exchange** between different parts of a system and to understand the **communication between two or multiple actors**.
+
+<Figure background={"#fff"}>
+  <Image src={sequence} width="3500" height="2190" />
+</Figure>
+
+One such example is the [account binding](https://api.slack.com/tutorials/account-binding) sequence diagram from Slack tutorials. The above diagram can fully replace a written specification document, as it encapsulates all the important details. Additionally, it helps us understand in which part of the system each action takes place.
+
+### Flow charts
+
+To better visualize and understand a feature that includes a multitude of scenarios based on various decisions, [flow charts](https://en.wikipedia.org/wiki/Flowchart) are a great solution. One popular example is the [notification decision flow](https://slack.engineering/reducing-slacks-memory-footprint/) documented by the Slack engineering team:
+
+<Figure background={"#fff"}>
+  <Image src={flow_chart} width="2200" height="1184" />
+</Figure>
+
+Imagine explaining this entire graph using only written text. While text offers a higher degree of details, it can spread on a multitude of pages. As a result, the readers might be _unable to see the wood for the trees_. In contrast, flow charts enable us to see the forest as a whole.
+
+### State charts
+
+[State machines](https://en.wikipedia.org/wiki/Finite-state_machine) are powerful tools, capable of modelling and defining logical flows between a finite number of states. State machines are typically defined using a programming language.
+
+[State charts](https://statecharts.dev/) represent the graphical extension to state machines. In addition, [SCXML](https://www.w3.org/TR/scxml/) is a **W3C standard**, which describes a formal format to define state machines.
+
+The benefit of state charts is that from a single source of truth, defined in a standard format, we can **generate the visual diagram** to help us understand the state machine, but we can also **generate the executable code** for the state machine.
+
+<Figure background={"#fff"}>
+  <Image src={state_chart} width="1662" height="994" />
+</Figure>
+
+In addition, since all the behavior is encapsulated in the formal definition, we can create interactive diagrams to **simulate and experience the behavior** of the state machine. Some tools that support interactive state diagrams include [Stately Studio](https://stately.ai/registry/editor/embed/1c962847-2829-45e2-b6fc-5f42fa3f8b6b?colorMode=light&mode=Simulate&machineId=dbcfca1c-075d-4cd6-a865-efcbd7be1544) and [StateSmith](https://statesmith.github.io/fundamentals-1/).

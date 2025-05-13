@@ -1,0 +1,141 @@
+import { BlogPost } from "../../../../../components/blog/blog_post";
+import { Figure } from "../../../../../components/blog/figure";
+import { Note } from "../../../../../components/blog/note";
+import { Quote } from "../../../../../components/blog/quote";
+import { SideBySide, Side } from "../../../../../components/blog/sidebyside";
+import { Status } from "../../../../../components/blog/status";
+import { Subheading } from "../../../../../components/blog/subheading";
+import { ThemedImg } from "../../../../../components/blog/themed-img";
+
+import { TOC, LinkTo } from "../toc";
+
+import deprecation from "./deprecation.png";
+import { meta } from "./meta";
+
+export { meta } from "./meta";
+const CURRENT_PART = 7;
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={CURRENT_PART} />
+
+### Technical decisions
+
+I'm personally a big supporter of self-explanatory code. I spend a lot of time thinking about suggestive and intuitive names, designing and structuring the code so others have an easy time understanding what it does.
+
+However, there are various categories of information that cannot be incorporated into code. Therefore, we often need to fallback to written text, usually as **code comments** or **external documents**.
+
+Let's see some examples.
+
+#### Code comments
+
+Sometimes we spend a lot of time debugging and fixing a problem. We often end up learning and discovering new information during these adventures.
+
+At times, the fix itself could be very simple or short. The code itself could be intuitive regarding _what it does_, but it's not obvious _**why is it needed**_.
+
+Therefore, it helps a great deal to write down the decision to add that fix, to record the knowledge that came along with finding the solution for the problem.
+
+<Side header={{ file: "jest.config.json" }}>
+
+```json
+{
+  // ...
+  /**
+   * !IMPORTANT: Jest apparently needs a lot of memory.
+   * Node 16.11 introduced a memory leak, effectively depleating the entire heap.
+   * The tests fail with "JavaScript heap out of memory" on 4GB machines, and sometimes even on 8GB.
+   * https://github.com/jestjs/jest/issues/11956#issuecomment-994914988
+   *
+   * The problem has been fixed in Node 20.10: https://github.com/nodejs/node/releases/tag/v20.10.0
+   * We're currently using Node 20.15, but the issue is still present.
+   * The heap reaches 2.7GB (instead 3.5GB with Node 16.18).
+   *
+   * Jest 29 exposes a workaround which seems to work, since it keeps the heap at a constant value:
+   * https://jestjs.io/docs/configuration/#workeridlememorylimit-numberstring
+   */
+  "workerIdleMemoryLimit": "1GB"
+}
+```
+
+</Side>
+
+In the example above, the fix itself is a one line of code, which is pretty intuitive. However, the comment above explains and communicates so much more:
+
+- what was the initial problem, linked to official issue report;
+- fix attempts that didn't work;
+- links to detailed documentation for the final solution.
+
+#### Deprecations
+
+Existing requirements are often changed by product teams. At the technical level, this might require data migrations. To better exemplify, let's take a concrete scenario.
+
+Let's consider that we have a `UserSettings` model which contains the `isDarkTheme` field, among others. This works as expected for `"light"` and `"dark"` values, since it is a `boolean`. But once we introduce a third option, like `"system"`, we need to make some changes:
+
+- change its type to allow specific values;
+- change its name to `theme` to better reflect its meaning;
+
+<br />
+
+```ts
+type UserSettings = {
+  theme: "light" | "dark" | "system"; // new field
+  isDarkTheme: boolean; // old field
+};
+```
+
+Ideally, we would completely remove the old `isDarkTheme` field. However, we might have to keep it longer for **backwards compatibility**. So, now we have two different fields, that contain pretty much the same information.
+
+But how do we communicate to all developers and consumers of the code which field should they use? Verbal communication and cognitive load work at small scale, but they have their limitations.
+
+<br />
+
+Fortunately, TypeScript provides a simple way to mark code as [deprecated](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html#deprecated) using JSDoc syntax:
+
+```ts{5}
+type UserSettings = {
+  theme: "light" | "dark" | "system";
+
+  /** @deprecated use `theme` field instead */
+  isDarkTheme: boolean;
+}
+```
+
+This is a standard way to signal that certain code should not be used anymore. Additionally, we can also provide guidance to alternative solutions. We're not only documenting that this field **should not be used**, we're also telling others **what to do instead**.
+
+<Figure background={"#fff"}>
+  <Image src={deprecation} width="2388 " height="774" />
+</Figure>
+
+Furthermore, we can experience the effects of this approach on the consumer side as well. When accessing a deprecated property, the code editor will:
+
+- add a ~~strikethrough~~ style on the deprecated field signaling that it shouldn't be used;
+- display the code comment when hovering the property, so consumers know how to fix the deprecation;
+
+#### Architectural Decisions
+
+Some technical decisions might not be that isolated. They might have system-wide effects at the architectural level. A better place to document such decisions is next to other product-related documents.
+
+Such documents are ofted called [Architectural Decision Records (ADR)](https://adr.github.io/). There are various standard formats that can be used, however the most important thing to remember is the **practice of documenting the important decisions**, the reasons behind the chosen solution, and the alternatives taken into consideration that were eventually discarded.
+
+#### Requests For Comments
+
+Some technical decisions are not clear from the beginning and might need some iterations before a final decision is made. We start from an initial proposal, collect feedback, and iterate until a consensus is reached. This process is often refered to as a [Request For Comments (RFC)](https://www.ietf.org/process/rfcs/), a term introduced by The Internet Engineering Task Force (IETF) in 1969.
+
+Depending on the type of software, RFCs can be large documents, where only the table of contents spreads over multiple pages, like the [RFC 2616 for the HTTP/1.1 protocol](https://www.rfc-editor.org/rfc/rfc2616).
+
+In contrast, React also adopted RFCs as a standard practice to introduce new features. They follow a much [simpler format](https://github.com/reactjs/rfcs/blob/main/0000-template.md), inspired from [Rust RFC Process](https://github.com/rust-lang/rfcs).
+
+<br />
+
+At the application level, some proposals suitable for an RFC, include:
+
+- Changing the branching strategy, from trunk-based to Gitflow;
+- Changing the project's file structure from packaging by type to package by feature;
+- Setting strict type-checking for the TypeScript compiler;
+- Migrating to a monorepo solution, etc.
+
+If you have a difficult time understanding when to choose between Architectural Decision Records and Requests For Comments, here's a great [comparison between ADRs and RFCs](https://www.linkedin.com/pulse/power-rfcs-adrs-engineering-managing-change-feedback-arvidsson-exn8f/). The article also includes an easy to follow diagram at the end.
+
+---
+
+The bottom line is that some code simply cannot be explained using code alone. Written documentation in the source code or in a separate document is sometimes needed to record important technical approaches and decisions.

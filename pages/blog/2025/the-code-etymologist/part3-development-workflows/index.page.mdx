@@ -1,0 +1,121 @@
+import Image from "next/image";
+
+import { BlogPost } from "../../../../../components/blog/blog_post";
+import { Figure } from "../../../../../components/blog/figure";
+import { Note } from "../../../../../components/blog/note";
+
+import { TOC, LinkTo } from "../toc";
+
+import amlpr from "./aml-pr.png";
+import gitflow from "./git-flow.png";
+import kiepr from "./kie-pr-flowchart.png";
+import { meta } from "./meta";
+import nodejs from "./nodejs.png";
+import tasklifecycle from "./task-lifecycle.png";
+import typo3gitflow from "./typo3-git-flow.png";
+
+export { meta } from "./meta";
+const CURRENT_PART = 3;
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={CURRENT_PART} />
+
+### Development workflows
+
+Having the project running locally and knowing the coding guidelines, we can start writting some code. But software development is not only about writting the code, but delivering it to our end-users, which include multiple steps and various workflows.
+
+Unless we're explicitly handling only certain steps of the entire software lifecycle, we need to understand how to get the code from our local computer to the final client.
+
+<Note>
+  Any <strong>workflow</strong>, <strong>lifecycle</strong>, or{" "}
+  <strong>sequence</strong> is easier to explain and understand using a{" "}
+  <strong>visual drawing</strong>. Text is definitely useful to describe the
+  details, while a visual diagram provides a concise overview.
+</Note>
+
+Next, we'll cover some typical workflows that deserve to be well-documented and available to all team members involved in the development lifecycle.
+
+#### Branching strategy
+
+Before working on any task, we must know how to use the Version Control System, in case there is such a system implemented. There are multiple strategies for using branches: Git Flow, GitLab Flow, Github Flow, Trunk-based development, Forking workflow, etc.
+
+If the team uses exactly one of the well-known and documented strategies, it's suficient to simply mention it and link to its detailed documentation.
+
+<Figure
+  background={"#fff"}
+  caption={
+    <p>
+      The original Git Flow diagram, proposed by{" "}
+      <a href="https://nvie.com/posts/a-successful-git-branching-model/">
+        Vincent Driessen
+      </a>{" "}
+      in 2010
+    </p>
+  }
+>
+  <Image src={gitflow} width="2570" height="1524" />
+</Figure>
+
+<br />
+
+However, if the team uses a customized strategy, simpler or more complex, or with different branch names, it's important to document all these details.
+
+<Figure
+  background={"#fff"}
+  caption={
+    <p>
+      The{" "}
+      <a href="https://fluid-typo3-documentation.readthedocs.io/en/rewrite/5.Appendix/5.2.GitWorkflow/">
+        The Fluid powered TYPO3
+      </a>{" "}
+      Git workflow
+    </p>
+  }
+>
+  <Image src={typo3gitflow} width="2500" height="1459" />
+</Figure>
+
+#### Code review
+
+There are various reasons to submit code for review. While some teams use code reviews as an optional practice to encourage knowledge sharing, others enforce code review as part of their integration workflow to control what gets merged in to the main repository.
+
+<br />
+
+Some code review flows might be pretty **simple** and somewhat linear, like the one from [Holistics](https://docs.holistics.io/docs/git-version-control/code-review). One think I'd highlight in the diagram below is the separation between internal and external actions, to know were each of them take place.
+
+<Figure background={"#fff"}>
+  <Image src={amlpr} width="3000" height="1431" />
+</Figure>
+
+But there are also more **complex**, involving different validation levels from different roles. One such example is the pull request review process from [Red Hat KIE/BA](https://redhat-documentation.github.io/doc-guidelines/bpm/#github-pull-request-reviews). Notice the visual separation of actions, using different colors for each role involved.
+
+<Figure background={"#f3f4f4"}>
+  <Image src={kiepr} width="2500" height="1400" />
+</Figure>
+
+#### Task lifecycle
+
+Most development teams have their own tasks workflow. Since most team members will be working with tasks and tickets, no matter what software we use for task management, it's important to have a clearly defined lifecycle.
+
+Below is a diagram of our own internal workflow defined in the issue tracker. It depincts all the states and possible transitions between them.
+
+<Figure background={"#fff"}>
+  <Image src={tasklifecycle} width="1648" height="978" />
+</Figure>
+
+#### Release cycle
+
+In case you have a well-defined release plan, it's crucial to have it recorded, so all people involved can refer to the same information.
+
+For instance, Node.js Foundation publicly shared their [release lifecycle](https://nodesource.com/blog/understanding-how-node-js-release-lines-work) documentation, including the terminology and how Long Term Support works.
+
+<Figure background={"#fff"}>
+  <Image src={nodejs} width="1278" height="492" />
+</Figure>
+
+The schedule diagram displays how LTS applies only to even number versions, not to odd versions. In addition, it's easy to see that each LTS lasts for 18 months, while Maintenance lasts for another 12 months. This diagram is also displayed on the [Node.js Releases](https://nodejs.org/en/about/previous-releases#release-schedule) page, showing the actual versions.
+
+---
+
+In the end, the important take away is **using images and drawings to communicate information**. While written text offer a great level of details, visual diagrams provide a concise overview and an intuitive companion.

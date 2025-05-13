@@ -1,0 +1,59 @@
+<!--
+
+<Subheading>Example 2</Subheading>
+
+Another example is a function that's fairly easy to figure out what it does. However, it includes a somewhat weird `if` statement:
+
+```ts
+function getEUVatCountryCode(countryCode: string, administrativeArea: string) {
+  /**
+   * NOTES:
+   * 1. Northern Ireland changed VAT number after Brexit
+   *    https://ec.europa.eu/taxation_customs/vies/?locale=en
+   * 2. Google API returns Northern Ireland as an administrative area of GB
+   */
+  if (administrativeArea.toLowerCase() === "northern ireland") {
+    return "XI";
+  }
+
+  if (isEuCountry(countryCode)) {
+    return countryCode;
+  }
+
+  return "";
+}
+```
+
+Since the code itself is not entirely self-explanatory, we could add additional comments to explain:
+
+- What is the magic string `"XI"`?
+- Why do we check the `administrativeArea` when dealing with countries?
+
+<br />
+
+Even if we refactor our code and extract it as explanatory identifiers, they still don't fully convey the "why". Therefore, **code comments are valuable to document the "why"**.
+
+```ts
+it("return empty string for non-EU location", () => {});
+it("return 'XI' for Northern Ireland", () => {});
+it.each(EU_COUNTRIES)("return CountryCode for EU (%s)", (code) => {});
+```
+
+```ts
+function getEUVatCountryCode(countryCode: string, administrativeArea: string) {
+  // https://ec.europa.eu/taxation_customs/vies/?locale=en
+  const NORTHERN_IRELAND_VAT_CODE_AFTER_BREXIT = "XI";
+
+  if (isNorthernIreland(administrativeArea)) {
+    return NORTHERN_IRELAND_VAT_CODE_AFTER_BREXIT;
+  }
+
+  // ...
+}
+
+function isNorthernIreland(administrativeArea: string) {
+  // Google API returns Northern Ireland as an administrative area of GB
+  return administrativeArea.toLowerCase() === "northern ireland";
+}
+```
+-->

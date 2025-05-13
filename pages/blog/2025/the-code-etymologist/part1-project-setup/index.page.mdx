@@ -1,0 +1,130 @@
+import { BlogPost } from "../../../../../components/blog/blog_post";
+import { Figure } from "../../../../../components/blog/figure";
+import { Note } from "../../../../../components/blog/note";
+import { Quote } from "../../../../../components/blog/quote";
+import { SideBySide, Side } from "../../../../../components/blog/sidebyside";
+import { Status } from "../../../../../components/blog/status";
+import { Subheading } from "../../../../../components/blog/subheading";
+import { ThemedImg } from "../../../../../components/blog/themed-img";
+
+import { TOC, LinkTo } from "../toc";
+
+import { meta } from "./meta";
+
+export { meta } from "./meta";
+const CURRENT_PART = 1;
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={CURRENT_PART} />
+
+One of the first tasks as a new team member is to setup the project locally. With JavaScript projects, as soon as we get access to the code repository, part of the setup process is self-documented:
+
+1. **clone** the repository;
+2. **install** dependencies;
+3. and search the `package.json` file for a script that **starts the project** in development mode, usually `npm start` or `npm run dev`.
+
+<br />
+
+However, we usually need additional steps to perform to get the project running locally, that depend from project to project.
+
+- what prerequisites do we need to install?
+- how to setup and connect to the database server(s)?
+- what environment variables are needed and where to get their values from? etc.
+
+If this information is already written down, we're part of a great team. If not, we have to do detective work and ask around. Or, we might get help from _"the person(s) that knows how to setup the project"_.
+
+Now, this is the ideal occasion to write down all the necessary steps to setup the project locally. If we don't do it now, when we have the most fresh information, it's likely that it won't happen in the future neither. So, the next team member that will join the team will have to go through the same process all over again.
+
+## The Readme
+
+Usually, any kind of documentation should be placed close to where it's needed. For the project setup, the most common place is a `README.md` file in the root folder of the project's repository.
+
+While setting up the project, we should write down in the `README.md` all the required steps to get the project running locally, by adding missing steps, updating old and incorrect information, and delete obsolete content.
+
+<Subheading>How do we test it?</Subheading>
+
+One way to verify that the documentation is accurate is to delete the project entirely and start fresh by strictly following the documentation we have written and update it where necessary. However, we might have had some global configs or preinstalled applications that we missed to document, like Docker, VPN, etc.
+
+Therefore, the true test is when the next team member will join. Ask them to follow the documentation and see if they can setup the project without any additional help. They might have a different operating system than us, thus the documentation should be updated to include all the missing puzzle pieces.
+
+## Dockerfiles
+
+The README file described above can also include any prerequisites like what servers are required for database persistence. However, there is much better alternative to ensure that all team members use the same infrastructure.
+
+[Dockerfiles](https://docs.docker.com/reference/dockerfile/) provide a formal way to define infrastructure details, which stands for living documentation. In addition, the same definition can be used to build images automatically and provide the actual infrastructure.
+
+```yaml
+version: "3.8"
+
+services:
+  mysql:
+    image: mariadb:10.3.36
+    ports:
+      - 55008:3306
+    environment:
+      DB_PASS: idiguplostknowledge
+      DB_NAME: local-db
+
+  redis:
+    image: redis:6.2.6
+    ports:
+      - 55006:6379
+```
+
+The above code is an example of a Dockerfile which defines a MariaDB server and a Redis service. Even if we not familiar with the syntax, this file is easy to read and understand the presequisites of the project.
+
+## Constraints
+
+Some projects require a specific **Node.js** version. We could mention the required versions in the `README.md` file, but it's likely that it will be overlooked, especially if we have multiple projects with different required versions.
+
+A more suitable place to specify the required Node.js version is inside the `package.json` file, within the [`engines`](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#engines) section:
+
+<Side header={{ file: "package.json" }}>
+
+```json
+{
+  // ...
+  "engines": {
+    "node": "22.14.x"
+  }
+}
+```
+
+</Side>
+
+Now, this alone won't have any additional effect, but there are a few more tricks we can do to enforce an explicit Node.js version. We can add a [`.npmrc`](https://docs.npmjs.com/cli/v9/configuring-npm/npmrc) file and enable the [`engine-strict`](https://docs.npmjs.com/cli/v9/using-npm/config#engine-strict) flag.
+
+<Side header={{ file: ".npmrc" }}>
+
+```bash
+engine-strict=true
+```
+
+</Side>
+
+This will make sure that the Node.js version specified in the `package.json` file is used. If the current Node.js version doesn't match the required one while running `npm install`, the installation will fail.
+
+```bash
+npm ERR! code EBADENGINE
+npm ERR! engine Unsupported engine
+npm ERR! notsup Not compatible with your version of node/npm
+npm ERR! notsup Required: {"node":"22.14.x"}
+npm ERR! notsup Actual:   {"npm":"9.8.1","node":"v18.18.2"}
+```
+
+If we're using [nvm](https://github.com/nvm-sh/nvm) to manage multiple Node.js versions, we can also add a [`.nvmrc`](https://github.com/nvm-sh/nvm?tab=readme-ov-file#nvmrc) file. This file should also specify the required Node.js version for the project.
+
+<Side header={{ file: ".nvmrc" }}>
+
+```bash
+22.14
+```
+
+</Side>
+
+Now, when we switch between projects, we can run `nvm use` and it will automatically switch to the specified Node.js version.
+
+<br />
+
+In other words, writing down specific project settings is a great first step. But sometimes we can go a step further and even enforce them, preventing any accidental misuses.
