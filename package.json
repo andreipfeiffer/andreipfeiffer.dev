@@ -8,7 +8,7 @@
     "start": "next start -p 8002"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=20"
   },
   "dependencies": {
     "@mdx-js/loader": "1.6.19",
