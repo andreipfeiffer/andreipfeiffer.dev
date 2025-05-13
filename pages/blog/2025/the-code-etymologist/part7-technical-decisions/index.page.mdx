@@ -1,11 +1,8 @@
+import Image from "next/image";
+
 import { BlogPost } from "../../../../../components/blog/blog_post";
 import { Figure } from "../../../../../components/blog/figure";
-import { Note } from "../../../../../components/blog/note";
-import { Quote } from "../../../../../components/blog/quote";
-import { SideBySide, Side } from "../../../../../components/blog/sidebyside";
-import { Status } from "../../../../../components/blog/status";
-import { Subheading } from "../../../../../components/blog/subheading";
-import { ThemedImg } from "../../../../../components/blog/themed-img";
+import { Side } from "../../../../../components/blog/sidebyside";
 
 import { TOC, LinkTo } from "../toc";
 
@@ -19,15 +16,13 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-### Technical decisions
-
 I'm personally a big supporter of self-explanatory code. I spend a lot of time thinking about suggestive and intuitive names, designing and structuring the code so others have an easy time understanding what it does.
 
 However, there are various categories of information that cannot be incorporated into code. Therefore, we often need to fallback to written text, usually as **code comments** or **external documents**.
 
 Let's see some examples.
 
-#### Code comments
+## Code comments
 
 Sometimes we spend a lot of time debugging and fixing a problem. We often end up learning and discovering new information during these adventures.
 
@@ -65,7 +60,7 @@ In the example above, the fix itself is a one line of code, which is pretty intu
 - fix attempts that didn't work;
 - links to detailed documentation for the final solution.
 
-#### Deprecations
+## Deprecations
 
 Existing requirements are often changed by product teams. At the technical level, this might require data migrations. To better exemplify, let's take a concrete scenario.
 
@@ -111,13 +106,13 @@ Furthermore, we can experience the effects of this approach on the consumer side
 - add a ~~strikethrough~~ style on the deprecated field signaling that it shouldn't be used;
 - display the code comment when hovering the property, so consumers know how to fix the deprecation;
 
-#### Architectural Decisions
+## Architectural Decisions
 
 Some technical decisions might not be that isolated. They might have system-wide effects at the architectural level. A better place to document such decisions is next to other product-related documents.
 
 Such documents are ofted called [Architectural Decision Records (ADR)](https://adr.github.io/). There are various standard formats that can be used, however the most important thing to remember is the **practice of documenting the important decisions**, the reasons behind the chosen solution, and the alternatives taken into consideration that were eventually discarded.
 
-#### Requests For Comments
+## Requests For Comments
 
 Some technical decisions are not clear from the beginning and might need some iterations before a final decision is made. We start from an initial proposal, collect feedback, and iterate until a consensus is reached. This process is often refered to as a [Request For Comments (RFC)](https://www.ietf.org/process/rfcs/), a term introduced by The Internet Engineering Task Force (IETF) in 1969.
 

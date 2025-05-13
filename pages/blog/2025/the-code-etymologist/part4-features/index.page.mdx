@@ -2,7 +2,6 @@ import Image from "next/image";
 
 import { BlogPost } from "../../../../../components/blog/blog_post";
 import { Figure } from "../../../../../components/blog/figure";
-import { Subheading } from "../../../../../components/blog/subheading";
 
 import { TOC, LinkTo } from "../toc";
 
@@ -40,27 +39,21 @@ Some larger features or complex scenarios that integrate multiple features might
 
 It is true that not every feature can be automated and we cannot test "everything". For instance, interacting with a `<canvas>` element and asserting the result is not trivial at all. Depending on 3rd party services that we don't control, will probably force us to focus on isolated tests, leaving the integration for manual testing. That's completely fine. Just because we cannot reach 100%, it doesn't imply that we shouldn't settle for less.
 
-> If it's trivial to write automated tests even for 20% of the features (which is just an arbitrary percent), it's a huge win, compared to 0%
-
-<Subheading>Maintenance cost</Subheading>
+### Tests maintenance cost
 
 In the end, it's a matter of measuring the effort. What's more cumbersome?
 
 - Writting, executing, and maintaining automated tests?
 - Or writting and updating SRS documents?
 
-From my experience, SRS documents are useful and mandatory before development. But on the long term, they are non-trivial to maintain.
+SRS documents are definitely mandatory before development. But on the long term, they are non-trivial to maintain. And these documents should be reliable, developers and testers should be able to use them and understand how the product works. The question is **_What level of detail should be used to describe the specifications?_**
 
-Keep in mind that these documents should be reliable, developers and testers should be able to use them and understand how the product works. The question is **_What level of detail should be used to describe the specifications?_**
-
-- We can list only the use cases with their acceptance criteria, skipping all the test cases and corner cases. This might be easier to digest, but lacks some details.
-- Or we could include comprehensive details regarding what buttons to click and what data to input in forms. This might include all the required information, but it would be a nightmare to read, digest, search, and maintain.
+- We can maintain a **superficial list** containing only the use cases with their acceptance criteria, skipping the test cases and corner cases. This might be easier to digest, but lacks some details.
+- Or we could include **comprehensive details** regarding what buttons to click and what data to input in forms. This might include all the required information, but it would be a nightmare to read, digest, search, and maintain.
 
 <br />
 
-To conclude, the question of having automated tests is simply a matter of cost. The downside is that we don't have any formula or tool to calculate this cost. I'm sorry to say, but I really believe that LLMs and AI won't ever help in this regard either.
-
-Therefore, we have to rely on our best judgement and experience to estimate if an automated test makes for sense for a specific use case or not.
+In the end, the question of having automated tests is simply a matter of cost. However, there is no formula, tool, or LLM to calculate this cost. Therefore, we have to rely on our **best judgement and experience** to estimate if an automated test makes for sense for a specific use case or not.
 
 ## Diagrams
 

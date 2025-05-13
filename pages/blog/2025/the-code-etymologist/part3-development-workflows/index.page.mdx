@@ -21,8 +21,6 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-### Development workflows
-
 Having the project running locally and knowing the coding guidelines, we can start writting some code. But software development is not only about writting the code, but delivering it to our end-users, which include multiple steps and various workflows.
 
 Unless we're explicitly handling only certain steps of the entire software lifecycle, we need to understand how to get the code from our local computer to the final client.
@@ -36,7 +34,7 @@ Unless we're explicitly handling only certain steps of the entire software lifec
 
 Next, we'll cover some typical workflows that deserve to be well-documented and available to all team members involved in the development lifecycle.
 
-#### Branching strategy
+## Branching strategy
 
 Before working on any task, we must know how to use the Version Control System, in case there is such a system implemented. There are multiple strategies for using branches: Git Flow, GitLab Flow, Github Flow, Trunk-based development, Forking workflow, etc.
 
@@ -76,35 +74,35 @@ However, if the team uses a customized strategy, simpler or more complex, or wit
   <Image src={typo3gitflow} width="2500" height="1459" />
 </Figure>
 
-#### Code review
+## Code reviews
 
 There are various reasons to submit code for review. While some teams use code reviews as an optional practice to encourage knowledge sharing, others enforce code review as part of their integration workflow to control what gets merged in to the main repository.
 
 <br />
 
-Some code review flows might be pretty **simple** and somewhat linear, like the one from [Holistics](https://docs.holistics.io/docs/git-version-control/code-review). One think I'd highlight in the diagram below is the separation between internal and external actions, to know were each of them take place.
+Some code review flows might be pretty **simple** and somewhat linear, like the one from [Holistics](https://docs.holistics.io/docs/git-version-control/code-review). One thing I'd like to highlight in the diagram below is the separation between internal and external actions, to know were each of them take place.
 
 <Figure background={"#fff"}>
   <Image src={amlpr} width="3000" height="1431" />
 </Figure>
 
-But there are also more **complex**, involving different validation levels from different roles. One such example is the pull request review process from [Red Hat KIE/BA](https://redhat-documentation.github.io/doc-guidelines/bpm/#github-pull-request-reviews). Notice the visual separation of actions, using different colors for each role involved.
+But code reviews could get really **complex**, involving different validation levels from different roles. One such example is the pull request review process from [Red Hat KIE/BA](https://redhat-documentation.github.io/doc-guidelines/bpm/#github-pull-request-reviews). Notice the visual separation of actions, using different colors for each role involved.
 
 <Figure background={"#f3f4f4"}>
   <Image src={kiepr} width="2500" height="1400" />
 </Figure>
 
-#### Task lifecycle
+## Task lifecycle
 
-Most development teams have their own tasks workflow. Since most team members will be working with tasks and tickets, no matter what software we use for task management, it's important to have a clearly defined lifecycle.
+Most development teams have their own tasks workflow. Since most team members will be working with tasks and tickets, no matter what software is used for task management, it's important to have a clearly defined lifecycle.
 
-Below is a diagram of our own internal workflow defined in the issue tracker. It depincts all the states and possible transitions between them.
+Below is a diagram of our own internal workflow defined in the issue tracker. It depincts all the states and possible transitions between them. This is helpful for engineering, design, testing, and product teams as well.
 
 <Figure background={"#fff"}>
   <Image src={tasklifecycle} width="1648" height="978" />
 </Figure>
 
-#### Release cycle
+## Release cycle
 
 In case you have a well-defined release plan, it's crucial to have it recorded, so all people involved can refer to the same information.
 

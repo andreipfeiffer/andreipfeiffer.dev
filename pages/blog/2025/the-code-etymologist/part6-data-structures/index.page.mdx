@@ -1,11 +1,6 @@
 import { BlogPost } from "../../../../../components/blog/blog_post";
-import { Figure } from "../../../../../components/blog/figure";
 import { Note } from "../../../../../components/blog/note";
-import { Quote } from "../../../../../components/blog/quote";
-import { SideBySide, Side } from "../../../../../components/blog/sidebyside";
-import { Status } from "../../../../../components/blog/status";
-import { Subheading } from "../../../../../components/blog/subheading";
-import { ThemedImg } from "../../../../../components/blog/themed-img";
+import { Side } from "../../../../../components/blog/sidebyside";
 
 import { TOC, LinkTo } from "../toc";
 
@@ -17,8 +12,6 @@ const CURRENT_PART = 6;
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
-
-### Data structures
 
 There's an neverending debate between compile time and runtime. Between types and values. Between static analisys and dynamic analisys. Between type checkers and unit tests. Which side is more valuable? Personally, I've been pivoting a lot between the two sides quite a lot. They are both valuable, but in different ways.
 
@@ -91,7 +84,7 @@ Now, if we encounter the above situation in real life, we don't have much of a c
 
 So, let's improve the type definitions to convey more information about the data structure.
 
-#### Enums
+## Enums
 
 Whenever we have to deal with a limited set of values, it's very helpful to define them separately:
 
@@ -129,7 +122,7 @@ The above declaration includes additional valuable information, regardless if we
   compliant syntax.
 </Note>
 
-#### Literal Unions
+## Literal Unions
 
 An alternative to Enums is to define all possible values as an Union of literal types. This applies especially for `string` values, because they are self-explanatory and don't require an additional key to explain the value. For instance, we might deal with 2 types of messages:
 
@@ -154,7 +147,7 @@ The above improvement answers our 2nd question above regarding the possible valu
   <code>strings</code>.
 </Note>
 
-#### Discriminated Unions
+## Discriminated Unions
 
 Whenever we are dealing with _different types of an object_, there's a good chance that their structures are slightly different, even if they have a lot of common fields. In such scenarios, a [discriminated union](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#discriminated-unions) is usually hiding, waiting to be discovered.
 
@@ -191,7 +184,11 @@ Using the above discriminated union, we're answering the 3rd question above. The
 
 Discriminated unions provide valuable information about the entities and the relationships between them. Additionally, the typescript language service deeply understands them, providing great control flow analysis and [type narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions).
 
-#### Explaining Type
+## Schemas
+
+> TODO
+
+## Explaining Type
 
 Let's look at a different example of improving a type definition. In the below example, we have a Record type for storing the last read messages in order to display which messages are unread for each chat room. In practice, this is a key-value pair between a `chatRoomId` and a `messageId`.
 

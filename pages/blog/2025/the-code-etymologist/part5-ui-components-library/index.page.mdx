@@ -3,11 +3,7 @@ import Image from "next/image";
 import { BlogPost } from "../../../../../components/blog/blog_post";
 import { Figure } from "../../../../../components/blog/figure";
 import { Note } from "../../../../../components/blog/note";
-import { Quote } from "../../../../../components/blog/quote";
-import { SideBySide, Side } from "../../../../../components/blog/sidebyside";
-import { Status } from "../../../../../components/blog/status";
 import { Subheading } from "../../../../../components/blog/subheading";
-import { ThemedImg } from "../../../../../components/blog/themed-img";
 
 import { TOC, LinkTo } from "../toc";
 
@@ -20,8 +16,6 @@ const CURRENT_PART = 5;
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
-
-### UI Components library
 
 Nowadays, we don't have to rebuild reusable UI components from scratch. There are plenty of libraries and frameworks out there, both free and premium, that provide a wide range of commonly used UI components: [Tailwind Plus](https://tailwindcss.com/plus), [Radix](https://www.radix-ui.com/), [shadcn/ui](https://ui.shadcn.com/), [Headless UI](https://headlessui.com/), [Material UI](https://mui.com/), [Chakra UI](https://chakra-ui.com/), [Ant Design](https://ant.design/), [Bootstrap](https://getbootstrap.com/), and many more.
 
@@ -41,7 +35,9 @@ Now, imagine looking for a UI components library that answer only the the first 
 
 <Subheading>Interactivity</Subheading>
 
-Since UI components are tightly coupled with the visual aspect of the project, it makes sense to document them accordingly. That's the reason why any popular UI library offers **interactive documentation**. There are several open source tools that offer the possibility to document our own UI components, however I would like to highlight [**Storybook**](https://storybook.js.org/) simply because it's feature-rich and framework agnostic.
+Since UI components are tightly coupled with the visual aspect of the project, it makes sense to document them accordingly. That's the reason why any popular UI library offers **interactive documentation**.
+
+There are several open source tools that offer the possibility to document our own UI components, however I would like to highlight [**Storybook**](https://storybook.js.org/) simply because it's feature-rich and framework agnostic.
 
 There are plenty of real-world examples on their [showcase](https://storybook.js.org/showcase/projects) page that you can play with. One you might be familiar with is the [VSCode UI Toolkit](https://microsoft.github.io/vscode-webview-ui-toolkit).
 
@@ -55,7 +51,7 @@ There are plenty of real-world examples on their [showcase](https://storybook.js
 - we can change the inputs using the auto-generated controls;
 - we can see, and edit, the code that produces an actual output.
 
-These are all built-in and out-of-the-box features. There are plenty of [addons](https://storybook.js.org/addons) that we can use, such as Light/Dark theming, Viewport controls, Accessibility checks, and many many more.
+These are all built-in and out-of-the-box features. Additionally, there are plenty of [addons](https://storybook.js.org/addons) that we can use, such as Light/Dark theming, Viewport controls, Accessibility checks, and many many more.
 
 <br />
 
