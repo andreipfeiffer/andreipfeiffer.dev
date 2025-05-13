@@ -1,6 +1,9 @@
 import React from "react";
 
+
+
 import { Text } from "../components/text";
+
 
 interface Video {
   type: "video";
@@ -15,6 +18,11 @@ interface Code {
   url: string;
   label: string;
 }
+interface Article {
+  type: "article";
+  url: string;
+  label: string;
+}
 
 export interface Talk {
   title: React.ReactNode;
@@ -26,10 +34,50 @@ export interface Talk {
     path: string;
     bw?: boolean;
   };
-  urls?: Array<Video | Slides | Code>;
+  urls?: Array<Video | Slides | Code | Article>;
 }
 
 export const talks: Talk[] = [
+  {
+    title: "The Code Etymologist",
+    date: "May 2025",
+    type: "Slides only",
+    abstract: (
+      <>
+        <p>
+          In ancient times, knowledge was passed down through word of mouth,
+          like an endless game of telephone where details changed with each
+          retelling. Without a written record, information was often distorted
+          or lost.
+        </p>
+        <br />
+        <p>
+          This talk draws a parallel to software teams that work without
+          documentation. Just like etymology traces the origins of words,
+          documentation preserves knowledge, ensuring that all team members
+          share a common understanding.
+        </p>
+      </>
+    ),
+    urls: [
+      // {
+      //   type: "code",
+      //   url: "https://github.com/andreipfeiffer/html-streaming",
+      //   label: "Code",
+      // },
+      // {
+      //   type: "video",
+      //   url: "https://www.youtube.com/watch?v=QXUHpJ8HsGY",
+      // },
+      // {
+      //   type: "article",
+      //   url: "/blog/2025/the-code-etymologist",
+      //   label: "Article",
+      // },
+    ],
+    image: { path: "code-etymologist.png" },
+  },
+
   {
     title: "Modern SSR Streaming using Web Standards",
     date: "Jul 2024",
@@ -128,6 +176,11 @@ export const talks: Talk[] = [
       {
         type: "video",
         url: "https://www.youtube.com/watch?v=eekrjAdviO4",
+      },
+      {
+        type: "article",
+        url: "/blog/2022/scalable-css-evolution",
+        label: "Article",
       },
     ],
     image: { path: "evolution-of-scalable-css.png" },

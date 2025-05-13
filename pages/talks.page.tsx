@@ -2,6 +2,8 @@ import classNames from "classnames";
 import Image from "next/image";
 import React from "react";
 
+
+
 import { Button } from "../components/button";
 import { Flex } from "../components/flex";
 import { Grid } from "../components/grid";
@@ -14,6 +16,7 @@ import { Text } from "../components/text";
 import { talks, Talk } from "../lib/talks";
 
 import styles from "./talks.module.scss";
+
 
 export default function Talks() {
   const { breakpoint } = useBreakpoint();
@@ -190,7 +193,7 @@ export default function Talks() {
 type PreviewButtonProps = {
   children: string;
   url: string;
-  type: "video" | "slides" | "code";
+  type: "video" | "slides" | "code" | "article";
 };
 
 function PreviewButton({ url, type, children }: PreviewButtonProps) {
