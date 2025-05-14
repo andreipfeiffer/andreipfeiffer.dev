@@ -1,11 +1,17 @@
 @import "../../styles/mixins";
 
 .content {
-  border-radius: 1rem;
+  border-radius: 0.25rem;
   overflow: hidden;
-
+  padding: 0.5rem;
+  
   @include breakpoint(md) {
+    border-radius: 1rem;
     padding: 2rem;
+  }
+
+  & > span {
+    display: block !important;
   }
 }
 
