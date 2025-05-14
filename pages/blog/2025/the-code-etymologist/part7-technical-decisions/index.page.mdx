@@ -37,7 +37,7 @@ Therefore, it helps a great deal to write down the decision to add that fix, to 
   // ...
   /**
    * !IMPORTANT: Jest apparently needs a lot of memory.
-   * Node 16.11 introduced a memory leak, effectively depleating the entire heap.
+   * Node 16.11 introduced a memory leak, effectively depleting the entire heap.
    * The tests fail with "JavaScript heap out of memory" on 4GB machines, and sometimes even on 8GB.
    * https://github.com/jestjs/jest/issues/11956#issuecomment-994914988
    *
@@ -54,9 +54,9 @@ Therefore, it helps a great deal to write down the decision to add that fix, to 
 
 </Side>
 
-In the example above, the fix itself is a one line of code, which is pretty intuitive. However, the comment above explains and communicates so much more:
+In the example above, the fix itself is a one-line of code, which is pretty intuitive. However, the comment above explains and communicates so much more:
 
-- what was the initial problem, linked to official issue report;
+- what was the initial problem, linked to the official issue report;
 - fix attempts that didn't work;
 - links to detailed documentation for the final solution.
 
@@ -64,7 +64,7 @@ In the example above, the fix itself is a one line of code, which is pretty intu
 
 Existing requirements are often changed by product teams. At the technical level, this might require data migrations. To better exemplify, let's take a concrete scenario.
 
-Let's consider that we have a `UserSettings` model which contains the `isDarkTheme` field, among others. This works as expected for `"light"` and `"dark"` values, since it is a `boolean`. But once we introduce a third option, like `"system"`, we need to make some changes:
+Let's consider that we have a `UserSettings` model that contains the `isDarkTheme` field, among others. This works as expected for `"light"` and `"dark"` values, since it is a `boolean`. But once we introduce a third option, like `"system"`, we need to make some changes:
 
 - change its type to allow specific values;
 - change its name to `theme` to better reflect its meaning;
@@ -78,7 +78,7 @@ type UserSettings = {
 };
 ```
 
-Ideally, we would completely remove the old `isDarkTheme` field. However, we might have to keep it longer for **backwards compatibility**. So, now we have two different fields, that contain pretty much the same information.
+Ideally, we would completely remove the old `isDarkTheme` field. However, we might have to keep it longer for **backwards compatibility**. So, now we have two different fields that contain pretty much the same information.
 
 But how do we communicate to all developers and consumers of the code which field should they use? Verbal communication and cognitive load work at small scale, but they have their limitations.
 
@@ -95,7 +95,7 @@ type UserSettings = {
 }
 ```
 
-This is a standard way to signal that certain code should not be used anymore. Additionally, we can also provide guidance to alternative solutions. We're not only documenting that this field **should not be used**, we're also telling others **what to do instead**.
+This is a standard way to signal that a certain code should not be used anymore. Additionally, we can also provide guidance to alternative solutions. We're not only documenting that this field **should not be used**, we're also telling others **what to do instead**.
 
 <Figure background={"#fff"}>
   <Image src={deprecation} width="2388 " height="774" />
@@ -118,19 +118,19 @@ Some technical decisions are not clear from the beginning and might need some it
 
 Depending on the type of software, RFCs can be large documents, where only the table of contents spreads over multiple pages, like the [RFC 2616 for the HTTP/1.1 protocol](https://www.rfc-editor.org/rfc/rfc2616).
 
-In contrast, React also adopted RFCs as a standard practice to introduce new features. They follow a much [simpler format](https://github.com/reactjs/rfcs/blob/main/0000-template.md), inspired from [Rust RFC Process](https://github.com/rust-lang/rfcs).
+In contrast, React also adopted RFCs as a standard practice to introduce new features. They follow a much [simpler format](https://github.com/reactjs/rfcs/blob/main/0000-template.md), inspired by [Rust RFC Process](https://github.com/rust-lang/rfcs).
 
 <br />
 
 At the application level, some proposals suitable for an RFC, include:
 
-- Changing the branching strategy, from trunk-based to Gitflow;
+- Changing the branching strategy;
 - Changing the project's file structure from packaging by type to package by feature;
 - Setting strict type-checking for the TypeScript compiler;
 - Migrating to a monorepo solution, etc.
 
-If you have a difficult time understanding when to choose between Architectural Decision Records and Requests For Comments, here's a great [comparison between ADRs and RFCs](https://www.linkedin.com/pulse/power-rfcs-adrs-engineering-managing-change-feedback-arvidsson-exn8f/). The article also includes an easy to follow diagram at the end.
+If you have a difficult time understanding when to choose between Architectural Decision Records and Requests For Comments, here's a great [comparison between ADRs and RFCs](https://www.linkedin.com/pulse/power-rfcs-adrs-engineering-managing-change-feedback-arvidsson-exn8f/). The article also includes an easy-to-follow diagram at the end.
 
 ---
 
-The bottom line is that some code simply cannot be explained using code alone. Written documentation in the source code or in a separate document is sometimes needed to record important technical approaches and decisions.
+The bottom line is that not all code can be self-explanatory. Writen documentation in the source code or in a separate document is often needed to record important technical decisions.

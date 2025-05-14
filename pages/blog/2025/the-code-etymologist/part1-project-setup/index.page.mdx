@@ -40,7 +40,7 @@ While setting up the project, we should write down in the `README.md` all the re
 
 <Subheading>How do we test it?</Subheading>
 
-One way to verify that the documentation is accurate is to delete the project entirely and start fresh by strictly following the documentation we have written and update it where necessary. However, we might have had some global configs or preinstalled applications that we missed to document, like Docker, VPN, etc.
+One way to verify that the documentation is accurate is to delete the project entirely and start fresh by strictly following the documentation we have written, and update it where necessary. However, we might have had some global configs or preinstalled applications that we missed to document, like Docker, VPN, etc.
 
 Therefore, the true test is when the next team member will join. Ask them to follow the documentation and see if they can setup the project without any additional help. They might have a different operating system than us, thus the documentation should be updated to include all the missing puzzle pieces.
 
@@ -68,11 +68,11 @@ services:
       - 55006:6379
 ```
 
-The above code is an example of a Dockerfile which defines a MariaDB server and a Redis service. Even if we not familiar with the syntax, this file is easy to read and understand the presequisites of the project.
+The above code is an example of a Dockerfile that defines a MariaDB server and a Redis service. Even if we're not familiar with the syntax, this file is easy to read and understand the prerequisites of the project.
 
 ## Constraints
 
-Some projects require a specific **Node.js** version. We could mention the required versions in the `README.md` file, but it's likely that it will be overlooked, especially if we have multiple projects with different required versions.
+Some projects require a specific **Node.js** version. We could mention the required versions in the `README.md` file, but it will likely be overlooked, especially if we have multiple projects with different required versions.
 
 A more suitable place to specify the required Node.js version is inside the `package.json` file, within the [`engines`](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#engines) section:
 
@@ -119,8 +119,10 @@ If we're using [nvm](https://github.com/nvm-sh/nvm) to manage multiple Node.js v
 
 </Side>
 
-Now, when we switch between projects, we can run `nvm use` and it will automatically switch to the specified Node.js version.
+Now, when we switch between projects, we can run `nvm use`, which will automatically switch to the specified Node.js version.
 
 <br />
 
 In other words, writing down specific project settings is a great first step. But sometimes we can go a step further and even enforce them, preventing any accidental misuses.
+
+**Continue reading <LinkTo part={CURRENT_PART + 1} />**

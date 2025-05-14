@@ -19,17 +19,17 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 Nowadays, we don't have to rebuild reusable UI components from scratch. There are plenty of libraries and frameworks out there, both free and premium, that provide a wide range of commonly used UI components: [Tailwind Plus](https://tailwindcss.com/plus), [Radix](https://www.radix-ui.com/), [shadcn/ui](https://ui.shadcn.com/), [Headless UI](https://headlessui.com/), [Material UI](https://mui.com/), [Chakra UI](https://chakra-ui.com/), [Ant Design](https://ant.design/), [Bootstrap](https://getbootstrap.com/), and many more.
 
-However, we often need to customize them, creating our own wrappers. Most of the times, we only need to **customize the styles**, but sometimes we also need to **extend** or **change their behavior**. Additionally, we often need to **build our own project-specific components**.
+However, we often need to customize them, creating our own wrappers. Most of the time, we only need to **customize the styles**, but sometimes we also need to **extend** or **change their behavior**. Additionally, we often need to **build our own project-specific components**.
 
 <br />
 
-As a team member, new or old, we might a few questions, especially in regard to the customized and project-specific UI components:
+As a team member, new or old, we might have a few questions, especially regarding the customized and project-specific UI components:
 
 1. **_How can we discover the components library?_** If they are groupped together inside a single folder or extracted in a separate repository, then it's trivial to discover them.
 
 2. **_What can they do?_** Declaring a typed interface is useful to discover their capabilities, to prevent using invalid input, and to aid during refactorings.
 
-3. **_What do they look like and how to they behave?_** The behavior aspect of UI components can be covered by automated tests. However, the visual aspect can only be consumed with our own eyes.
+3. **_What do they look like and how do they behave?_** The behavior aspect of UI components can be covered by automated tests. However, the visual aspect can only be consumed with our own eyes.
 
 Now, imagine looking for a UI components library that answer only the the first 2 questions. Imagine they only display the list of components and their public interface, without showing us how they look and behave. We would have to install the library and play around with the input to discover the visual output. It's tedious. To be honest, no serios library would put their potential users through this experience.
 
@@ -46,13 +46,15 @@ There are plenty of real-world examples on their [showcase](https://storybook.js
 </Figure>
 
 - we can browse the UI components: `Button`, `Panels`, `Radio`, etc;
-- we can see what they can do, for instance [Buttons](https://microsoft.github.io/vscode-webview-ui-toolkit/?path=/docs/library-button--default) can have **Default** or **Secondary** appearance, can have **Autofocus**, can be **Disabled**, or can include **Icons**;
-- we can see the public API, the inputs/props and their types;
+- we can see what they can do, for instance, [Buttons](https://microsoft.github.io/vscode-webview-ui-toolkit/?path=/docs/library-button--default) can have **Default** or **Secondary** appearance, can have **Autofocus**, can be **Disabled**, or can include **Icons**;
+- we can see the public API, the inputs/props, and their types;
 - we can change the inputs using the auto-generated controls;
-- we can see, and edit, the code that produces an actual output.
+- we can see, and edit the code that produces an actual output.
 
-These are all built-in and out-of-the-box features. Additionally, there are plenty of [addons](https://storybook.js.org/addons) that we can use, such as Light/Dark theming, Viewport controls, Accessibility checks, and many many more.
+These are all built-in and out-of-the-box features. Additionally, there are plenty of [addons](https://storybook.js.org/addons) that we can use, such as Light/Dark theming, Viewport controls, Accessibility checks, and many more.
 
 <br />
 
 This kind of documentation is valuable for developers and designers, as well. You can read more about [isolated components driven development](/blog/2021/isolated-components-driven-development) which I wrote about in 2021 and it's still relevant today. It's an approach to UI components implementation, useful not only for documentation purposes, but also during development and debugging.
+
+**Continue reading <LinkTo part={CURRENT_PART + 1} />**

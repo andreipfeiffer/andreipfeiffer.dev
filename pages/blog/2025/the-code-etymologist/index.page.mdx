@@ -19,7 +19,7 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={0} />
 
-There is a general belief that spoken [languages](https://en.wikipedia.org/wiki/Origin_of_language) emerged more than a hundred thousands of years ago. Even though the [first writings](https://en.wikipedia.org/wiki/History_of_writing) were invented around 3000 BC, [formal education](<https://en.wikipedia.org/wiki/History_of_education#Formal_education_in_the_Middle_Ages_(500%E2%80%931500_AD)>) was introduced much later, in the Middle Ages. However, it was limited to churches, monasteries, and the upper class.
+There is a general belief that spoken [languages](https://en.wikipedia.org/wiki/Origin_of_language) emerged more than 100,000 years ago. Even though the [first writings](https://en.wikipedia.org/wiki/History_of_writing) were invented around 3000 BC, [formal education](<https://en.wikipedia.org/wiki/History_of_education#Formal_education_in_the_Middle_Ages_(500%E2%80%931500_AD)>) was introduced much later, in the Middle Ages. However, it was limited to churches, monasteries, and the upper class.
 
 <Figure background={"#fff"}>
   <Image src={history} width="1676 " height="304" />
@@ -33,7 +33,7 @@ Mass [public education](https://en.wikipedia.org/wiki/History_of_education#After
 
 Even words themselves and their meaning changed over time. We know that thanks to [etymology](https://en.wikipedia.org/wiki/Etymology), which studies and documents the origin of words.
 
-Today, we leave in a world with real-time worldwide video communication, collaborative drawing tools, virtual reality, LLMs capable to read text, to create poems, and to generate videos. In contrast, software development teams often use ancient methods to pass knowledge from one member to another: **verbal communication**.
+Today, we live in a world with real-time worldwide video communication, collaborative drawing tools, virtual reality, LLMs capable of reading text, creating poems, and generating videos. In contrast, software development teams often use ancient methods to pass knowledge from one member to another: **verbal communication**.
 
 <Figure background={"#fff"}>
   <Image src={telephone} width="1400 " height="690" />
@@ -43,15 +43,15 @@ As a new team member, the onboarding process becomes an adventure. We must searc
 
 > "There is no documentation!"
 
-When was the last time you heard, or even said it yourself: _“There is no documentation”_? I have started hearing and saying it myself once I began working on _large_ projects, that spread over multiple years and having multiple team members.
+When was the last time you heard, or even said it yourself: _“There is no documentation”_? I have started hearing and saying it myself once I began working on _large_ projects, which spread over multiple years and had multiple team members.
 
-So, we have to ask ourselves **_"Why is there no documentation?"_**  
+So, we have to ask ourselves, **_"Why is there no documentation?"_**  
 The obvious answer is that **_"Because nobody wrote it."_**
 
-But, **_"Why haven't anybody wrote it by now?"_**  
+But, **_"Why hasn't anybody written it by now?"_**  
 Well, **_"Because it takes time and effort."_**
 
-If _it works_ without it, why bother, right? However, the cost will be eventually paid later, with interest. Team members, new or old, will eventually search for answers. They will have to find the right person, which will have to recall the details or even rediscover lost knowledge. This too requires time and effort. The difference is that this scenario will occur multiple times.
+If _it works_ without it, why bother, right? However, the cost will eventually be paid, at a later time, with interest. Team members, new or old, will eventually search for answers. They will have to find the right person, which will have to recall the details or even rediscover lost knowledge. This too requires time and effort. The difference is that this scenario will occur multiple times.
 
 The problem is that it's too difficult to measure the cost of missing documentation, in contrast to measuring the time it takes to write it.
 
@@ -61,12 +61,12 @@ The next question we should probably ask is **_"Who's responsible for writing do
 
 Could it be the **"documentarists"**? Well, that's a term mostly used in the film industry. They are responsible for creating documentaries.
 
-What about **"technical writers"**? Well, they are usually focused on external, user documentation. They write manuals, guides, and tutorials. This article focuses on internal documentation, which is aimed at the team members.
+What about **"technical writers"**? Well, they are usually focused on external user documentation. They write manuals, guides, and tutorials. This article focuses on internal documentation, which is aimed at the team members.
 
 <Quote>
   <blockquote cite="https://en.wikipedia.org/wiki/Software_development">
     <p>
-      Software development involves many skills and job specializations
+      Software development involves many skills and job specializations,
       including programming, testing, <strong>documentation</strong>, graphic
       design, user support, marketing, and fundraising.
     </p>
@@ -80,26 +80,28 @@ What about **"technical writers"**? Well, they are usually focused on external, 
   </blockquote>
 </Quote>
 
-So, there is no clear role responsible for writing internal documentation. It is just one of the various skills that **software developers** should have. And these skills overlap to a large extend with the responsibilities of a dedicated technical writer.
+So, there is no clear role responsible for writing internal documentation. It is just one of the various skills that **software developers** should have. And these skills overlap to a large extent with the responsibilities of a dedicated technical writer.
 
 ## Forms of documentation
 
-Software development is a complex process, therefore its corresponding documentation cannot be simple. Depending on what exactly we want to document, there are various forms to record and communicate that knowledge:
+Software development is a complex process, therefore, its corresponding documentation cannot be simple. Depending on what exactly we want to document, there are various forms to record and communicate that knowledge:
 
-- **Text** is the most basic and simple form to record and share knowledge. Written documentation equally applies to relatively small content, such as <LinkTo part={7} hash="code-comments">code comments</LinkTo>, <LinkTo part={1} hash="the-readme">project setup</LinkTo> and to larger content such as <LinkTo part={2}>coding guidelines</LinkTo>, <LinkTo part={7}>technical decisions</LinkTo>, <LinkTo part={4} hash="requirements-specifications">requirements specifications</LinkTo>, etc.
-- **Graphics** provide a more intuitive alternative to text, that helps us visualise information in a concise manner. Graphical approaches are best suited for documenting <LinkTo part={3}>development workflows</LinkTo>, or to explain how a system works using <LinkTo part={4} hash="flow-charts">flow charts</LinkTo> or <LinkTo part={4} hash="sequence-diagrams">sequence diagrams</LinkTo>.
-- **Code** has the added benefit of being executable besides representing a source of documentation as a secondary trait. Documentation as code is suitable for <LinkTo part={4} hash="automated-tests">automated tests</LinkTo>, <LinkTo part={6}>data structures</LinkTo> and contracts, <LinkTo part={7} hash="deprecations">deprecation</LinkTo> warnings, or defining infrastructure using <LinkTo part={1} hash="dockerfiles">Dockerfiles</LinkTo>.
-- **Tools** are great at enforcing practices for all tam members to ensure a consistent development process. Such practices include <LinkTo part={2} hash="code-formatters">code formatting</LinkTo>, <LinkTo part={2} hash="linters">linting</LinkTo>, or <LinkTo part={1} hash="constraints">constraining</LinkTo> a specific Node.js version.
-- **Interactive** interfaces provide a whole new level of documentation, which is helpful both for visual elements such as <LinkTo part={5}>UI components</LinkTo> or design systems, but also to non-visual systems such as <LinkTo part={4} hash="state-charts">state charts</LinkTo>.
+- **Text** is the most basic and simple form to record and share knowledge. Written documentation equally applies to relatively small content, such as <LinkTo part={7} hash="code-comments">code comments</LinkTo>, <LinkTo part={1} hash="the-readme">project setup</LinkTo>, and to larger content, such as <LinkTo part={2}>coding guidelines</LinkTo>, <LinkTo part={7}>technical decisions</LinkTo>, <LinkTo part={4} hash="requirements-specifications">requirements specifications</LinkTo>, etc.
+- **Graphics** provide a more intuitive alternative to text, which helps us visualise information in a concise manner. Graphical approaches are best suited for documenting <LinkTo part={3}>development workflows</LinkTo>, or explaining how a system works using <LinkTo part={4} hash="flow-charts">flow charts</LinkTo> or <LinkTo part={4} hash="sequence-diagrams">sequence diagrams</LinkTo>.
+- **Code** has the added benefit of being executable, besides representing a source of documentation as a secondary trait. Documentation as code is suitable for <LinkTo part={4} hash="automated-tests">automated tests</LinkTo>, <LinkTo part={6}>data structures</LinkTo> and contracts, <LinkTo part={7} hash="deprecations">deprecation</LinkTo> warnings, or defining infrastructure using <LinkTo part={1} hash="dockerfiles">Dockerfiles</LinkTo>.
+- **Tools** are great at enforcing practices for all team members to ensure a consistent development process. Such practices include <LinkTo part={2} hash="code-formatters">code formatting</LinkTo>, <LinkTo part={2} hash="linters">linting</LinkTo>, or <LinkTo part={1} hash="constraints">constraining</LinkTo> a specific Node.js version.
+- **Interactive** interfaces provide a whole new level of documentation, which is helpful both for visual elements such as <LinkTo part={5}>UI components</LinkTo> or design systems, but also for non-visual systems such as <LinkTo part={4} hash="state-charts">state charts</LinkTo>.
 
 ## In closing
 
 Before we conclude, I would like to recap that documentation, in a general sense, is about **communicating knowledge**, which can be achieved in different ways. We can speak. We can write. We can draw. We can code. We can enforce certain activities. We can even build interactive experiences.
 
-If we don't get passed the speaking method, it is certain that someone will eventually become a code etymologist, doomed to search for lost or opaque information.
+If we don't get passed the speaking method, without any doubt someone will eventually become a code etymologist, doomed to search for lost or opaque information.
 
 > We all appreciate good documentation.  
 > We all blame the lack of documentation.  
 > But still, we avoid writing it.
 
 In the end, code etymology is about reading the source code, refactoring it, talking to team members, asking questions, understanding decisions, and eventually documenting them so others won't have to go through the same effort.
+
+**Continue reading <LinkTo part={1} />**

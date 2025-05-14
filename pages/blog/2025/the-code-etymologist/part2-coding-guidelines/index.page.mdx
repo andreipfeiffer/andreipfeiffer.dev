@@ -13,11 +13,11 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 <TOC current={CURRENT_PART} />
 
-As soon as we have the project running locally, we ca get to actual work and start coding. However, every team has its own coding style, practices, and standards, regardless if they are written somewhere or not.
+As soon as we have the project running locally, we can get to actual work and start coding. However, every team has its own coding style, practices, and standards, regardless of whether they are written somewhere or not.
 
 The question is, _**"How can we discover these guidelines as new team members?"**_. In case there's no written documentation, we'll most likely discover them during **code reviews**.
 
-To avoid repeting the same comments to different team members, writting down repeating (anti) patterns, along with explanations of the problem and solution examples, can eventually become the **internal coding guidelines document**. Some examples of such documents include:
+To avoid repeating the same comments to different team members, writing down repeating (anti) patterns, along with explanations of the problem and solution examples, can eventually become the **internal coding guidelines document**. Some examples of such documents include:
 
 - [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 - [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html)
@@ -30,19 +30,19 @@ However, there is a vast set of guidelines, both stylistic and functional, that 
 
 ## Code formatters
 
-**Code formatters** like [Prettier](https://prettier.io/) or [Biome](https://biomejs.dev/) trully impacted our development cycle. Instead of manually spending time to align and indent code blocks, managing spaces and newlines before or after curly braces, having endless disputes over _tabs vs spaces_ or _single vs double quotes_, we let the tools handle all these stylistic concerns automatically in miliseconds.
+**Code formatters** like [Prettier](https://prettier.io/) or [Biome](https://biomejs.dev/) truly impacted our development cycle. Instead of manually spending time to align and indent code blocks, managing spaces and newlines before or after curly braces, having endless disputes over _tabs vs spaces_ or _single vs double quotes_, we let the tools handle all these stylistic concerns automatically in milliseconds.
 
 And all it takes is a simple [configuration file](https://prettier.io/docs/configuration#basic-configuration) that we need to define, to ensure every team member will use the same set of rules for code style. It's worth mentioning that the formatter will use the project-level configuration instead of a global one, therefore different projects can have different configurations.
 
 There are multiple ways to use code formatters. We can either run them:
 
-- Inside our [code editors](https://prettier.io/docs/editors) and configure them to always format when we save the file. However, this is not a guarantee that all team members properly configure their code editors.
+- Inside our [code editors](https://prettier.io/docs/editors) and configure them to always format when we save the file. However, this is not a guarantee that all team members will properly configure their code editors.
 - As a [pre-commit hook](https://prettier.io/docs/precommit), before pushing code to the central repository. But even this approach is not 100% bulletproof, as we still rely on local git configurations, which can ultimately be bypassed.
-- On our [continuous integration](https://prettier.io/docs/ci) solution, to either verify that the code is properly formatted or perform automatic formatting as well. This centralized approach offers the highest degree of confidence to prevent malformed code being merged.
+- On our [continuous integration](https://prettier.io/docs/ci) solution, to either verify that the code is properly formatted or perform automatic formatting as well. This centralized approach offers the highest degree of confidence to prevent malformed code from being merged.
 
 ## Linters
 
-**Linters** on the other hand, such as [ESLint](https://eslint.org/), [Biome](https://biomejs.dev/), or [Stylelint](https://stylelint.io/) provide deeper static analysis to detect **broken coding rules**, or even **potential errors**.
+**Linters**, on the other hand, such as [ESLint](https://eslint.org/), [Biome](https://biomejs.dev/) or [Stylelint](https://stylelint.io/), provide deeper static analysis to detect **broken coding rules**, or even **potential errors**.
 
 Most coding guidelines can be easily enforced using linters. We can start from a [recommended predefined configuration](https://eslint.org/docs/latest/use/configure/configuration-files#using-predefined-configurations) and customize it to suit our own preferences.
 
@@ -57,11 +57,11 @@ We can use linters in various ways:
 Sometimes the predefined rules bundled in linters are not sufficient. Sometimes it helps to add project-specific custom rules to enforce certain practices. Some examples include:
 
 - **Preventing deprecated imports** is a useful technique, especially during code migrations. The [`no-restricted-imports`](https://eslint.org/docs/latest/rules/no-restricted-imports) rule allows us to define forbidden imports and provide custom messages to instruct team members what to do instead.
-- **Implementing architectural boundaries** to prevent certain folders to depend on others is helpful to maintain a structured file hierarchy. The [`eslint-plugin-import`](https://github.com/import-js/eslint-plugin-import) is built exactly for this purpose.
+- **Implementing architectural boundaries** to prevent certain folders from depending on others is helpful to maintain a structured file hierarchy. The [`eslint-plugin-import`](https://github.com/import-js/eslint-plugin-import) is built exactly for this purpose.
 
 ## Editor extensions
 
-We all have our own preferred code editor plugins to aid us during development. At some point, certain plugins become de-facto standard in our team. Ideally, we would like all team members to have a particular set of plugins installed.
+We all have our own preferred code editor plugins to aid us during development. At some point, certain plugins become de facto standard in our team. Ideally, we would like all team members to have a particular set of plugins installed.
 
 Instead of providing a list of links in written documentation, VSCode provides a way to define [recommended extensions](https://code.visualstudio.com/docs/configure/extensions/extension-marketplace#_workspace-recommended-extensions) for a particular project.
 
@@ -83,3 +83,5 @@ Instead of providing a list of links in written documentation, VSCode provides a
 </Side>
 
 Adding this file to the repository will prompt the team members to install the recommended extensions. It's not mandatory, we can simply ignore it, or we can install a subset of the recommendations.
+
+**Continue reading <LinkTo part={CURRENT_PART + 1} />**
