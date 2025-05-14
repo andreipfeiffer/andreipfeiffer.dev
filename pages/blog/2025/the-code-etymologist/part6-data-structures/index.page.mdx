@@ -186,7 +186,40 @@ Discriminated unions provide valuable information about the entities and the rel
 
 ## Schemas
 
-> TODO
+As we've seen so far, types help a lot during development, at compile time. However, they don't provide 100% guarantees at runtime.
+
+Schema validators fill this gap, providing runtime data parsing and validation. Below we have the same data structure we worked with so far, but defined as a schema using [Zod](https://zod.dev/):
+
+
+```ts
+import { z } from "zod";
+
+enum MessageStatus { Unsent = 0, Sent = 1, Deleted = 2 };
+
+const TextMessage = z.object({
+  id: z.number(),
+  content: z.string(),
+  status: z.nativeEnum(MessageStatus),
+  messageType: z.literal("text"),
+  annotation: z.null(),
+});
+
+const AnnotationMessage = z.object({
+  id: z.number(),
+  content: z.string(),
+  status: z.nativeEnum(MessageStatus),
+  messageType: z.literal("annotation"),
+  annotation: Annotation,
+});
+
+const Message = z.discriminatedUnion("messageType", [TextMessage, AnnotationMessage]);
+```
+
+Additionally, modern libraries are powerful enough to **infer the TypeScript static type** from the schema definition. This enables us to have single source of truth for a data structure definition.
+
+```ts
+type Message = z.infer<typeof Message>;
+```
 
 ## Explaining Type
 
