@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
 
+
+
 import { Text } from "../../../../components/text";
 
 import { Metadata } from "../../../../lib/blog";
@@ -28,7 +30,7 @@ type Part = Metadata & {
 };
 
 const SERIES = [
-  { ...part0, id: 0, path: "", subtitle: "Introduction" },
+  { ...part0, id: 0, path: "", subtitle: "Preface" },
   { ...part1, id: 1, path: "part1-project-setup" },
   { ...part2, id: 2, path: "part2-coding-guidelines" },
   { ...part3, id: 3, path: "part3-development-workflows" },
