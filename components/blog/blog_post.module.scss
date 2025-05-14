@@ -155,6 +155,7 @@
 
   h3 {
     font-size: 28px;
+    padding-top: calc(var(--heading-spacing) / 1.5);
 
     @include breakpoint(md) {
       font-size: 44px;
@@ -163,6 +164,7 @@
 
   h4 {
     font-size: 22px;
+    padding-top: calc(var(--heading-spacing) / 3);
 
     @include breakpoint(md) {
       font-size: 30px;
