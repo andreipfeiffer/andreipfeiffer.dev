@@ -23,7 +23,7 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 Having the project running locally and knowing the coding guidelines, we can start writting some code. But software development is not only about writting the code, but delivering it to our end-users, which include multiple steps and various workflows.
 
-Unless we're explicitly handling only certain steps of the entire software lifecycle, we need to understand how to get the code from our local computer to the final client.
+Unless we're explicitly handling only certain parts of the entire software lifecycle, we need to understand how to get the code from our local computer to the final client.
 
 <Note>
   Any <strong>workflow</strong>, <strong>lifecycle</strong>, or{" "}
@@ -76,11 +76,11 @@ However, if the team uses a customized strategy, simpler or more complex, or wit
 
 ## Code reviews
 
-There are various reasons to submit code for review. While some teams use code reviews as an optional practice to encourage knowledge sharing, others enforce code review as part of their integration workflow to control what gets merged into the main repository.
+There are various reasons to submit code for review. While some teams use code reviews as an optional practice to encourage **knowledge sharing**, others enforce code review as part of their integration workflow to **supervise and control** what gets merged into the main repository.
 
 <br />
 
-Some code review flows might be pretty **simple** and somewhat linear, like the one from [Holistics](https://docs.holistics.io/docs/git-version-control/code-review). One thing I'd like to highlight in the diagram below is the separation between internal and external actions, to know were each of them take place.
+Some code review flows might be pretty **simple** and somewhat linear, like the one from [Holistics](https://docs.holistics.io/docs/git-version-control/code-review). One thing I'd like to highlight in the diagram below is the separation between internal and external actions, to easily understand where each of them takes place.
 
 <Figure background={"#fff"}>
   <Image src={amlpr} width="3000" height="1431" />
@@ -94,9 +94,9 @@ But code reviews could get really **complex**, involving different validation le
 
 ## Task lifecycle
 
-Most development teams have their own tasks workflow. Since most team members will be working with tasks and tickets, no matter what software is used for task management, it's important to have a clearly defined lifecycle.
+Each development teams have its own tasks workflow. Since most team members will be working with tasks and tickets, no matter what software is used for issue tracking, it's important to have a clearly defined lifecycle.
 
-Below is a diagram of our own internal workflow defined in the issue tracker. It depincts all the states and possible transitions between them. This is helpful for engineering, design, testing, and product teams as well.
+Below is a diagram of our internal workflow. It depincts all the states and possible transitions between them. This is helpful for engineering, design, testing, and product teams as well.
 
 <Figure background={"#fff"}>
   <Image src={tasklifecycle} width="1648" height="978" />
@@ -104,9 +104,7 @@ Below is a diagram of our own internal workflow defined in the issue tracker. It
 
 ## Release cycle
 
-In case you have a well-defined release plan, it's crucial to have it recorded, so all people involved can refer to the same information.
-
-For instance, Node.js Foundation publicly shared their [release lifecycle](https://nodesource.com/blog/understanding-how-node-js-release-lines-work) documentation, including the terminology and how Long Term Support works.
+In case we have a well-defined release plan, it's crucial to have it recorded, so all people involved can refer to the same information. For instance, Node.js Foundation publicly shared their [release lifecycle](https://nodesource.com/blog/understanding-how-node-js-release-lines-work) documentation, including the terminology and how Long Term Support works.
 
 <Figure background={"#fff"}>
   <Image src={nodejs} width="1278" height="492" />

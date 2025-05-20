@@ -31,7 +31,7 @@ So, the big question is: **_How do we maintain and keep up-to-date the current f
 
 Now, I'm sorry that I use **tests** and **documentation** in the same sentence, knowing that both of them are usually dreaded by most software developers, but that's the truth. **Automated tests provide feature documentation.** They show how the software currently works.
 
-In contrast to written documentation, tests don't get outdated so easily. Well, they do if we don't execute them. But if we do run them in a CI or a regular basis, the tests will prompt us once they get outdated, so we know when to update them.
+In contrast to written documentation, tests don't get outdated so easily. Well, they do if we don't execute them. But if we do run them in a CI on a regular basis, the tests will prompt us once they get outdated, so we know when to update them.
 
 Some larger features or complex scenarios that integrate multiple features might be more suitable for end-to-end tests, even if they don't cover all edge cases and acceptance criteria. Other smaller features or business logic details might be more suitable to be tested in isolation. The level of isolation or integration used in testing a specific business requirement depends and should be debated on a case-by-case basis.
 
@@ -46,7 +46,7 @@ In the end, it's a matter of measuring the effort. What's more cumbersome?
 - Writing, executing, and maintaining automated tests?
 - Or writing and updating SRS documents?
 
-SRS documents are definitely mandatory before development. But on the long term, they are non-trivial to maintain. And these documents should be reliable, developers and testers should be able to use them and understand how the product works. The question is **_What level of detail should be used to describe the specifications?_**
+SRS documents are definitely mandatory before development. But on the long term, they are non-trivial to maintain. And these documents should be reliable. Developers, testers and managers should be able to use them and understand how the product works. The question is **_What level of detail should be used to describe the specifications?_**
 
 - We can maintain a **superficial list** containing only the use cases with their acceptance criteria, skipping the test cases and corner cases. This might be easier to digest, but it lacks some details.
 - Or we could include **comprehensive details** regarding what buttons to click and what data to input in forms. This might include all the required information, but it would be a nightmare to read, digest, search, and maintain.
@@ -77,7 +77,7 @@ To better visualize and understand a feature that includes a multitude of scenar
   <Image src={flow_chart} width="2200" height="1184" />
 </Figure>
 
-Imagine explaining this entire graph using only written text. While text offers a higher degree of details, it can spread across a multitude of pages. As a result, the readers might be _unable to see the wood for the trees_. In contrast, flow charts enable us to see the forest as a whole.
+Imagine explaining this entire graph using only written text. While text offers a higher degree of details, it can spread across a multitude of pages. As a result, the readers might be _unable to see the forest for the trees_. Flow charts enable us to see the entire jungle and gradually dive into the details.
 
 ### State charts
 

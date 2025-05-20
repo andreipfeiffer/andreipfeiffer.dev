@@ -47,7 +47,7 @@ For instance, you might ask yourself:
 
 But in JS/TS land, types are completely stripped away at runtime, providing no actual guarantees. To add salt to injury, there are various levels of type-safety in TS, depending on the [strictness settings](https://www.typescriptlang.org/tsconfig/#strict) in `tsconfig.json`. So, any contract we might have at compile time can be completely broken during execution.
 
-Also, TypeScript per se doesn't implicitly help us. Even if _we use types_, the response might be typed as:
+Also, TypeScript per se doesn't implicitly help us a lot. Even if _we use types_, the response might be typed as:
 
 ```ts
 type MessageListResponse = Array<Message>;
@@ -118,7 +118,7 @@ The above declaration includes additional valuable information, regardless if we
 An alternative to Enums is to define all possible values as a Union of literal types. This applies especially for `string` values, because they are self-explanatory and don't require an additional key to explain the value. For instance, we might deal with 2 types of messages:
 
 ```ts{6}
-type MessageType = "text" | "annotation";
+type MessageType = "text" | "comment";
 
 type Message = {
     // ... other fields
@@ -149,7 +149,7 @@ Another hint for discriminated unions, even when there's no obvious discriminant
 We can refactor the `Message` type as a union of two different types, using the `messageType` as a discriminant:
 
 ```ts
-type Message = TextMessage | AnnotationMessage;
+type Message = TextMessage | CommentMessage;
 
 type TextMessage = {
   // ... other fields
@@ -158,9 +158,9 @@ type TextMessage = {
   annotation: null;
 };
 
-type AnnotationMessage = {
+type CommentMessage = {
   // ... other fields
-  messageType: "annotation";
+  messageType: "comment";
   status: MessageStatus;
   annotation: Annotation;
 };
@@ -169,7 +169,7 @@ type AnnotationMessage = {
 Using the above discriminated union, we're answering the 3rd question above. The `annotation` is not really nullable. Instead, there are two types of `Messages`:
 
 1. there's a `TextMessage` with no annotation;
-2. and there's an `AnnotationMessage` that includes some `Annotation` data.
+2. and there's an `CommentMessage` that includes some `Annotation` data.
 
 <br />
 
@@ -195,15 +195,15 @@ const TextMessage = z.object({
   annotation: z.null(),
 });
 
-const AnnotationMessage = z.object({
+const CommentMessage = z.object({
   id: z.number(),
   content: z.string(),
   status: z.nativeEnum(MessageStatus),
-  messageType: z.literal("annotation"),
+  messageType: z.literal("comment"),
   annotation: Annotation,
 });
 
-const Message = z.discriminatedUnion("messageType", [TextMessage, AnnotationMessage]);
+const Message = z.discriminatedUnion("messageType", [TextMessage, CommentMessage]);
 ```
 
 Additionally, modern libraries are powerful enough to **infer the TypeScript static type** from the schema definition. This enables us to have a single source of truth for a data structure definition.
