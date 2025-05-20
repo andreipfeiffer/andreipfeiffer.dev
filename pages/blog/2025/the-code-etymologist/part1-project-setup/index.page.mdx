@@ -158,21 +158,21 @@ We could use a **schema validator** and use executable code to define our enviro
 <Side header={{ file: "env.ts" }}>
 
 ```ts
-import { z } from "zod"
+import { z } from "zod";
 
 const envSchema = z.object({
   SOME_CLIENT_SECRET: z.string(),
   SOME_API_KEY: z.string(),
   SOME_SERVICE_URL: z.string(),
   ENABLE_METRICS: z.boolean().optional().default(false),
-})
+});
 ```
 </Side>
 
 Now, we can validate the `process.env` object at runtime during app initialisation, ensuring that all required environment variables were loaded.
 
 ```ts
-envSchema.parse(process.env);
+const ENV_VARS = envSchema.parse(process.env);
 ```
 
 This validation is equally beneficial during local development and any other pre-production or production enviroment, to guarantee there are no missing variables.
@@ -185,6 +185,6 @@ For more details about this approach, please checkout [**Typesafe environment va
 
 ---
 
-To conclude, writing down specific project settings, even in plain text files, is a great first step. However, many project setup steps can be described in parsable and executable code, using industry standard formats. The strongest advantage of code is that it enables automation and enforcement, a crucial step for preventing any accidental misuse.
+To conclude, writing down specific project settings, even in plain text files, is a great first step. However, many details can be described in parsable and executable code, using industry standard formats. The strongest advantage of code is that it enables automation and enforcement, a crucial step for preventing accidental misuse.
 
 **Continue reading <LinkTo part={CURRENT_PART + 1} />**
