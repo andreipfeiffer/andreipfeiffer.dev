@@ -56,4 +56,18 @@ function isNorthernIreland(administrativeArea: string) {
   return administrativeArea.toLowerCase() === "northern ireland";
 }
 ```
+
+## Costs
+
+Even though we cannot measure the cost of missing documentation, we can do some rough aproximations.
+
+An Attlasian survey from 2024, filled by more than 2100 developers and managers, concludes that **insufficient documentation** is the second reason for waisted time during development.
+
+> IMAGE
+
+https://www.atlassian.com/software/compass/resources/state-of-developer-2024
+
+The same survey concluded that developers lose about 8 working hours per week due to inefficiencies.
+
 -->
+

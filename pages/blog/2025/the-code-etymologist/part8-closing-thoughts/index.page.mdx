@@ -1,0 +1,75 @@
+import Image from "next/image";
+
+import { BlogPost } from "../../../../../components/blog/blog_post";
+import { Figure } from "../../../../../components/blog/figure";
+import { Side } from "../../../../../components/blog/sidebyside";
+import { Subheading } from "../../../../../components/blog/subheading";
+
+import { TOC, LinkTo } from "../toc";
+
+import { Overview } from "./Overview";
+import { meta } from "./meta";
+
+export { meta } from "./meta";
+const CURRENT_PART = 8;
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+<TOC current={CURRENT_PART} />
+
+Throughout this series, we discussed a **pragmatic approach to software documentation**. We've seen what aspects of software development are suitable for recording, so all team members can reference the same shared knowledge.
+
+This last part includes more personal thoughts, in contrast to the rest of the series, which is primarily objective.
+
+## Why?
+
+In the <LinkTo part={0} hash="authors">Preface</LinkTo> of this series, we've debated who should be responsible for maintaining software documentation. We've concluded that it's a responsibility shared between all team members, and it's one of the many skills that any software developer should practice.
+
+It's true that some of us have an affinity for documentation, while others don't. Some enjoy writing documentation, others completely hate it. I find myself somewhere in the middle. I don't enjoy doing it, but it often brings me satisfaction.
+
+<Subheading>Brushing my teeth</Subheading>
+
+I often compare writing documentation with doing some daily chores like brushing my teeth. It's not an activity that I typically enjoy. In fact, I don't recall a single time that I enjoyed it.
+
+However, I brush my teeth daily because I understand the benefits. Even though I cannot _show_ the benefits, I know that not brushing my teeth will lead to much worse consequences.
+
+<Subheading>Doing sports</Subheading>
+
+Another analogy is physical activity. I don't consider myself a sportsperson. However, I do some training at home several times a week to maintain myself in a decent physical shape. I also used to run, but I don't anymore.
+
+The truth is that I don't enjoy doing sports in particular. I don't enjoy going out for a run. I don't enjoy doing push-ups, pull-ups, or other physical exercises.
+
+But sometimes they bring me satisfaction. Sometimes, during longer runs, I get a dopamine rush. Other times, during an exercise, I feel good when I get to push my limits.
+
+However, the primary reason I'm doing physical exercises is not for the probability of getting some dopamine. The primary reason is that I understand the benefits of doing sports and being in good physical shape. It's an investment of time and effort in my future self.
+
+> Documentation is an investment of time and effort for the benefit of the current and future development team.
+
+## Summary
+
+Since documentation may come in different forms, below is a personal overview of preferred forms of documentation for each of the topics covered in this series. Please note that it's based solely on personal experience, and it might not coincide with your personal context.
+
+<Overview />
+
+- For <LinkTo part={1}>project setup</LinkTo> it's ideal to enforce as much as possible and reduce the number of manual steps. This also ensures a consistent development environment for all team members. Any steps that cannot be described in code should be written down in a `README.md` file.
+
+- Any <LinkTo part={2}>coding guidelines</LinkTo> should be enforced through tooling
+  as much as possible. Linters are a great tool for well-established standards and custom rules as well. Any guidelines that cannot
+  be enforced should be written in external documents and referenced in the project's `README.md`
+  file.
+
+- There are some <LinkTo part={3}>development workflows</LinkTo> that can be enforced. That should be the preferred approach, of course. However, most workflows imply a large amount of manual actions and sequences. Therefore, the preferred documentation method is visual diagrams, accompanied by text where details cannot be conveyed in the drawing.
+
+- By far, the best method to document <LinkTo part={4}>features</LinkTo> is automated tests. Complex scenarios or lengthy sequences can benefit from graphical diagrams. For particular use cases that cannot benefit from automated tests, we have to fall back to writen form.
+
+- Any internal <LinkTo part={5}>UI library</LinkTo> of reusable components should be documented using an interactive visual tool. In addition, automated UI components tests are a great choice to document behavior.
+
+- Regarding <LinkTo part={6}>data structures</LinkTo>, static types convey a high degree of knowledge sharing. Additionally, schema definitions provide declarative runtime data validation while inferring the static type at the same time. It's a perfect duet.
+
+- Documenting <LinkTo part={7}>technical decisions</LinkTo> right into code is definitely the preferred method. However, the use cases are quite limited, at least from my personal experience. Therefore, a lot of decisions should fall back to written form in markdown files or external documents.
+
+## Acknowledgements
+
+Before closing this series, there are a few people I would like to send my deepest appreciation. Here's to [**Ciprian Popa**](https://www.linkedin.com/in/ciprianweberpopa/) and [**Adi Fâciu**](https://adrianfaciu.dev/) for their thorough review and valuable feedback.
+
+Thank you, dear friends, for all your support.

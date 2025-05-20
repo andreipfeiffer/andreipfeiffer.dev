@@ -1,0 +1,42 @@
+@import "../../../../../styles/mixins";
+
+.overview {
+  width: 100%;
+  table-layout: fixed;
+  margin: 3em 0;
+  line-height: 1.2;
+  font-size: 75%;
+
+  @include breakpoint(md) {
+    font-size: 100%;
+  }
+
+  thead {
+    th:not(:first-child) {
+      width: 15%;
+
+      @include breakpoint(md) {
+        width: 16%;
+      }
+    }
+  }
+
+  tbody {
+    th {
+      border-top: 1px #88888844 solid;
+      text-align: left;
+      font-weight: normal;
+      padding: 8px 0px;
+    }
+
+    td {
+      border-top: 1px #88888844 solid;
+      text-align: center;
+      width: auto;
+    }
+    tr:last-child th,
+    tr:last-child td {
+      border-bottom: 1px #88888844 solid;
+    }
+  }
+}

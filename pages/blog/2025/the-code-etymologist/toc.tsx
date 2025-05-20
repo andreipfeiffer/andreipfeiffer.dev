@@ -5,6 +5,8 @@ import React, { ReactNode } from "react";
 
 import { Text } from "../../../../components/text";
 
+
+
 import { Metadata } from "../../../../lib/blog";
 
 import { meta as part0 } from "./meta";
@@ -15,12 +17,13 @@ import { meta as part4 } from "./part4-features/meta";
 import { meta as part5 } from "./part5-ui-components-library/meta";
 import { meta as part6 } from "./part6-data-structures/meta";
 import { meta as part7 } from "./part7-technical-decisions/meta";
+import { meta as part8 } from "./part8-closing-thoughts/meta";
 
 import styles from "./toc.module.scss";
 
 type PartId = (typeof SERIES)[number]["id"];
 
-const LAST_PUBLISHED_PART: PartId = 7;
+const LAST_PUBLISHED_PART: PartId = 8;
 
 const SERIES_BASE_URL = "/blog/2025/the-code-etymologist";
 
@@ -38,6 +41,7 @@ const SERIES = [
   { ...part5, id: 5, path: "part5-ui-components-library" },
   { ...part6, id: 6, path: "part6-data-structures" },
   { ...part7, id: 7, path: "part7-technical-decisions" },
+  { ...part8, id: 8, path: "part8-closing-thoughts" },
 ] as const;
 
 const DISPLAY_NEW = LAST_PUBLISHED_PART < SERIES[SERIES.length - 1].id;
