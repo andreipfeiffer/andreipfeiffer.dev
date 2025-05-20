@@ -17,30 +17,30 @@ export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 One of the first tasks as a new team member is to setup the project locally. With JavaScript projects, as soon as we get access to the code repository, part of the setup process is self-documented:
 
 1. **clone** the repository;
-2. **install** dependencies;
+2. **install** dependencies using `npm ci` or other package managers;
 3. and search the `package.json` file for a script that **starts the project** in development mode, usually `npm start` or `npm run dev`.
 
 <br />
 
-However, we usually need additional steps to perform to get the project running locally, that depend from project to project.
+While these steps might be sufficient for small and personal projects, large products usually require a number of additional steps:
 
 - what prerequisites do we need to install?
 - how to setup and connect to the database server(s)?
 - what environment variables are needed and where to get their values from? etc.
 
-If this information is already written down, we're part of a great team. If not, we have to do detective work and ask around. Or, we might get help from _"the person(s) that knows how to setup the project"_.
+If this information is already written down, we're in the right team. If not, we have to do detective work and ask around. Or, we might get help from _"the person(s) that knows how to setup the project"_.
 
 Now, this is the ideal occasion to write down all the necessary steps to setup the project locally. If we don't do it now, when we have the most fresh information, it's likely that it won't happen in the future neither. So, the next team member that will join the team will have to go through the same process all over again.
 
 ## The Readme
 
-Usually, any kind of documentation should be placed close to where it's needed. For the project setup, the most common place is a `README.md` file in the root folder of the project's repository.
+Usually, any kind of documentation should be placed as close to where readers might look for it. For the project setup, the most common place is a `README.md` file in the root folder of the project's repository.
 
 While setting up the project, we should write down in the `README.md` all the required steps to get the project running locally, by adding missing steps, updating old and incorrect information, and delete obsolete content.
 
 <Subheading>How do we test it?</Subheading>
 
-One way to verify that the documentation is accurate is to delete the project entirely and start fresh by strictly following the documentation we have written, and update it where necessary. However, we might have had some global configs or preinstalled applications that we missed to document, like Docker, VPN, etc.
+One way to verify that the documentation is accurate is to **delete the project entirely and start fresh by strictly following the written documentation**, and update it where necessary. However, we might have had some global configs or preinstalled applications that we missed to document, like Docker, VPN, etc.
 
 Therefore, the true test is when the next team member will join. Ask them to follow the documentation and see if they can setup the project without any additional help. They might have a different operating system than us, thus the documentation should be updated to include all the missing puzzle pieces.
 
@@ -70,11 +70,11 @@ services:
 
 The above code is an example of a Dockerfile that defines a MariaDB server and a Redis service. Even if we're not familiar with the syntax, this file is easy to read and understand the prerequisites of the project.
 
-## Constraints
+## Node.js version
 
-Some projects require a specific **Node.js** version. We could mention the required versions in the `README.md` file, but it will likely be overlooked, especially if we have multiple projects with different required versions.
+Even though the Node projects might work with multiple versions in development, when going to production we need to decide which specific version we use and support.
 
-A more suitable place to specify the required Node.js version is inside the `package.json` file, within the [`engines`](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#engines) section:
+We could mention the required version in the `README.md` file, but it will likely be overlooked. A more suitable place to specify the required Node.js version is inside the `package.json` file, within the [`engines`](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#engines) section:
 
 <Side header={{ file: "package.json" }}>
 
@@ -89,7 +89,9 @@ A more suitable place to specify the required Node.js version is inside the `pac
 
 </Side>
 
-Now, this alone won't have any additional effect, but there are a few more tricks we can do to enforce an explicit Node.js version. We can add a [`.npmrc`](https://docs.npmjs.com/cli/v9/configuring-npm/npmrc) file and enable the [`engine-strict`](https://docs.npmjs.com/cli/v9/using-npm/config#engine-strict) flag.
+The above change won't have any additional effect. It's just a more formal way to define the Node.js version in code.
+
+However, there are a few more tricks we can do to **enforce** an explicit Node.js version. We can add a [`.npmrc`](https://docs.npmjs.com/cli/v9/configuring-npm/npmrc) file and enable the [`engine-strict`](https://docs.npmjs.com/cli/v9/using-npm/config#engine-strict) flag.
 
 <Side header={{ file: ".npmrc" }}>
 
@@ -121,8 +123,68 @@ If we're using [nvm](https://github.com/nvm-sh/nvm) to manage multiple Node.js v
 
 Now, when we switch between projects, we can run `nvm use`, which will automatically switch to the specified Node.js version.
 
-<br />
+## Env vars
 
-In other words, writing down specific project settings is a great first step. But sometimes we can go a step further and even enforce them, preventing any accidental misuses.
+I assume any web-based project released on a production server requires at least a few [environment variables](https://en.wikipedia.org/wiki/Environment_variable) for common configurations. For example, the product that I'm currently working on contains more than 200 variables to initialize the entire system on multiple environments.
+
+One common practice to output environment variables in a `.env` file and parse it using a package such as [dotenv](https://www.npmjs.com/package/dotenv).
+
+<Side header={{ file: ".env" }}>
+
+```bash
+SOME_CLIENT_SECRET="..."
+SOME_API_KEY="..."
+SOME_SERVICE_URL="..."
+ENABLE_METRICS="false"
+# ...
+```
+
+</Side>
+
+This approach provides a great way to inject and load different variables, during different deployments, on different environments. Since these files are environment-specific, **we cannot commit them to the main repository**. As a side note, it's also a bad practice to commit any details about the content of these files, as they might include **sensitive information**.
+
+<Subheading>Sharing</Subheading>
+
+So, how do we share the variables for local development? One common practice is maintaining a `.env.sample` file with all the variable names, but without any actual value. Now, we should be able to compare our own `.env` file with the sample file for any missing variables.
+
+Manually comparing these files might work for several variables, but dealing with 50+ values can easily get out of control. We have to rely on verbal communication to inform our team members to update their `.env` file whenever we add or change a variable. Missing variables could cause difficult to detect runtime errors.
+
+<Subheading>Validation</Subheading>
+
+There is a better alternative to sample files, which are cumbersome to parse, as they include plain text, not a standard format.
+
+We could use a **schema validator** and use executable code to define our environment variables:
+
+<Side header={{ file: "env.ts" }}>
+
+```ts
+import { z } from "zod"
+
+const envSchema = z.object({
+  SOME_CLIENT_SECRET: z.string(),
+  SOME_API_KEY: z.string(),
+  SOME_SERVICE_URL: z.string(),
+  ENABLE_METRICS: z.boolean().optional().default(false),
+})
+```
+</Side>
+
+Now, we can validate the `process.env` object at runtime during app initialisation, ensuring that all required environment variables were loaded.
+
+```ts
+envSchema.parse(process.env);
+```
+
+This validation is equally beneficial during local development and any other pre-production or production enviroment, to guarantee there are no missing variables.
+
+For more details about this approach, please checkout [**Typesafe environment variables with Zod**](https://www.jacobparis.com/content/type-safe-env) by Jacob Paris. In addition, it also covers:
+
+- how to infer the TypeScript type from the schema definition;
+- how to patch the ProcessEnv type of Node.js to enforce using only defined variables;
+- how to display the list of missing variables required by the application;
+
+---
+
+To conclude, writing down specific project settings, even in plain text files, is a great first step. However, many project setup steps can be described in parsable and executable code, using industry standard formats. The strongest advantage of code is that it enables automation and enforcement, a crucial step for preventing any accidental misuse.
 
 **Continue reading <LinkTo part={CURRENT_PART + 1} />**
