@@ -111,7 +111,7 @@ npm ERR! notsup Required: {"node":"22.14.x"}
 npm ERR! notsup Actual:   {"npm":"9.8.1","node":"v18.18.2"}
 ```
 
-If we're using [nvm](https://github.com/nvm-sh/nvm) to manage multiple Node.js versions, we can also add a [`.nvmrc`](https://github.com/nvm-sh/nvm?tab=readme-ov-file#nvmrc) file. This file should also specify the required Node.js version for the project.
+If we're using [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm) to manage multiple Node.js versions, we can also add a [`.nvmrc`](https://github.com/nvm-sh/nvm?tab=readme-ov-file#nvmrc) file. This file should also specify the required Node.js version for the project.
 
 <Side header={{ file: ".nvmrc" }}>
 
@@ -121,7 +121,7 @@ If we're using [nvm](https://github.com/nvm-sh/nvm) to manage multiple Node.js v
 
 </Side>
 
-Now, when we switch between projects, we can run `nvm use`, which will automatically switch to the specified Node.js version.
+Now, when we switch between projects, we can run `nvm use`, or `fnm use` respectively, to switch to the required Node.js version.
 
 ## Env vars
 

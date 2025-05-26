@@ -1,3 +1,8 @@
+WHAT SECTIONS TO ADD:
+
+- software architecture (diagrams, dependencies, https://c4model.com/)
+- version history, change log (automatically)
+
 <!--
 
 <Subheading>Example 2</Subheading>
