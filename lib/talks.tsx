@@ -60,6 +60,10 @@ export const talks: Talk[] = [
       </>
     ),
     urls: [
+      {
+        type: "slides",
+        url: "/slides/the-code-etymologist.pdf",
+      },
       // {
       //   type: "code",
       //   url: "https://github.com/andreipfeiffer/html-streaming",
@@ -69,11 +73,11 @@ export const talks: Talk[] = [
       //   type: "video",
       //   url: "https://www.youtube.com/watch?v=QXUHpJ8HsGY",
       // },
-      // {
-      //   type: "article",
-      //   url: "/blog/2025/the-code-etymologist",
-      //   label: "Article",
-      // },
+      {
+        type: "article",
+        url: "/blog/2025/the-code-etymologist",
+        label: "Article",
+      },
     ],
     image: { path: "code-etymologist.png" },
   },
