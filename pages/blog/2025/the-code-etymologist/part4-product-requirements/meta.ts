@@ -5,7 +5,7 @@ import { meta as common_meta } from "../meta";
 
 export const meta: Metadata = {
   ...common_meta,
-  subtitle: "Part 4: Features",
+  subtitle: "Part 4: Product requirements",
   // date: "2022-02-02",
   // tags: ["css"],
   // tags_extra: ["scalability", "maintainability", "styling", "limitations"],

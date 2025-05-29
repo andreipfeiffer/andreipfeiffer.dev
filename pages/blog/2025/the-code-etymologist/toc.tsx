@@ -9,11 +9,13 @@ import { Text } from "../../../../components/text";
 
 import { Metadata } from "../../../../lib/blog";
 
+
+
 import { meta as part0 } from "./meta";
 import { meta as part1 } from "./part1-project-setup/meta";
 import { meta as part2 } from "./part2-coding-guidelines/meta";
 import { meta as part3 } from "./part3-development-workflows/meta";
-import { meta as part4 } from "./part4-features/meta";
+import { meta as part4 } from "./part4-product-requirements/meta";
 import { meta as part5 } from "./part5-ui-components-library/meta";
 import { meta as part6 } from "./part6-data-structures/meta";
 import { meta as part7 } from "./part7-technical-decisions/meta";
@@ -37,7 +39,7 @@ const SERIES = [
   { ...part1, id: 1, path: "part1-project-setup" },
   { ...part2, id: 2, path: "part2-coding-guidelines" },
   { ...part3, id: 3, path: "part3-development-workflows" },
-  { ...part4, id: 4, path: "part4-features" },
+  { ...part4, id: 4, path: "part4-product-requirements" },
   { ...part5, id: 5, path: "part5-ui-components-library" },
   { ...part6, id: 6, path: "part6-data-structures" },
   { ...part7, id: 7, path: "part7-technical-decisions" },
