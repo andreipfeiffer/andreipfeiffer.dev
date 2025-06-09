@@ -32,7 +32,7 @@ If this information is already written down, we're in the right team. If not, we
 
 Now, this is the ideal occasion to write down all the necessary steps to setup the project locally. If we don't do it now, when we have the most fresh information, it's likely that it won't happen in the future neither. So, the next team member that will join the team will have to go through the same process all over again.
 
-## The Readme
+## The README file
 
 Usually, any kind of documentation should be placed as close to where readers might look for it. For the project setup, the most common place is a `README.md` file in the root folder of the project's repository.
 
@@ -127,7 +127,7 @@ Now, when we switch between projects, we can run `nvm use`, or `fnm use` respect
 
 I assume any web-based project released on a production server requires at least a few [environment variables](https://en.wikipedia.org/wiki/Environment_variable) for common configurations. For example, the product that I'm currently working on contains more than 200 variables to initialize the entire system on multiple environments.
 
-One common practice to output environment variables in a `.env` file and parse it using a package such as [dotenv](https://www.npmjs.com/package/dotenv).
+One common practice to output environment variables in a `.env` file and parse it using a package such as [dotenv](https://www.npmjs.com/package/dotenv). However, Node.js 20 introduced **native support for `.env` files ** using the [`--env-file`](https://nodejs.org/dist/latest-v22.x/docs/api/cli.html#--env-fileconfig) argument.
 
 <Side header={{ file: ".env" }}>
 

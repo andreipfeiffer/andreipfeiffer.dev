@@ -516,7 +516,6 @@ It's worth noting that it's debatable whether it's better to test a hook directl
 Rendering components in a virtual DOM is fast and straightforward, as it only requires Node.js. However, using a fake DOM has notable limitations:
 
 - We cannot perform any **DOM layout calculations**;
-- We cannot access **browser APIs** like WebStorage;
 - We cannot manipulate scrollbars or subscribe to **scroll events**, etc.
 
 Cypress recently added support for **isolated component testing in a real browser**, providing the best of both worlds: integration with the browser and isolation from the application.

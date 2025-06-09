@@ -53,11 +53,11 @@ export function Overview() {
         </tr>
         <tr>
           <th>
-            <LinkTo part={5}>UI components library</LinkTo>
+            <LinkTo part={5}>UI components</LinkTo>
           </th>
           <td>-</td>
           <td>-</td>
-          <td>🆗</td>
+          <td>✅</td>
           <td>✅</td>
         </tr>
         <tr>

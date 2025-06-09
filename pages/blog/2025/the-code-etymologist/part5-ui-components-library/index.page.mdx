@@ -33,7 +33,7 @@ As a team member, new or old, we might have a few questions, especially regardin
 
 Now, imagine looking for a UI components library that answer only the the first 2 questions. Imagine they only display the list of components and their public interface, without showing us how they look and behave. We would have to install the library and play around with the input to discover the visual output. It's tedious. To be honest, no serios library would put their potential users through this experience.
 
-<Subheading>Interactivity</Subheading>
+## Interactive playground
 
 Since UI components are tightly coupled with the visual aspect of the project, it makes sense to document them accordingly. That's the reason why any popular UI library offers **interactive documentation**.
 
@@ -56,5 +56,49 @@ These are all built-in and out-of-the-box features. Additionally, there are plen
 <br />
 
 This kind of documentation is valuable for developers and designers, as well. You can read more about [isolated components driven development](/blog/2021/isolated-components-driven-development) which I wrote about in 2021 and it's still relevant today. It's an approach to UI components implementation, useful not only for documentation purposes, but also during development and debugging.
+
+
+## Automated tests
+
+While component stories are great for visualizing and experimenting with UI components, complex behaviour cannot be easily documented using this approach. This is where automated tests come into play.
+
+There 2 major categories of UI component tests when it comes to rendering:
+
+1. Rendering on an **emulated DOM**;
+2. Rendering on a **real DOM** using a headless browser;
+
+They both provide benefits and downsides, so let's take a brief look at each rendering approach.
+
+### Emulated DOM
+
+Most unit testing frameworks, like [Jest](https://jestjs.io/) or [Vitest](https://vitest.dev/), execute the tests on Node.js by default. Since Node.js doesn't know anything about the DOM, which is part of a client's browser, we can configure the testing framework to use an emulated DOM instead, such as [jsdom](https://github.com/jsdom/jsdom) or [happy-dom](https://www.npmjs.com/package/happy-dom).
+
+[Testing Library](https://testing-library.com/) provides helpful utilities for rendering, interacting, and asserting UI components. It supports both emulated and real DOM implementations.
+
+<Subheading>👌 Benefits</Subheading>
+
+The biggest advantage of using an emulated DOM is the **high execution speed** and the **lack of dependency on a real browser**.
+
+<Subheading>👎 Downsides</Subheading>
+
+The downside of emulated DOMs is that they don't support all the features of a real browser. For instance, we cannot perform **bounding box measurements**, manipulate scrollbars, or subscribe to **scroll events**.
+
+### Real DOM
+
+The alternative to emulated DOM is to use a real DOM from an actual browser. End-to-end frameworks, such as [Playwright](https://playwright.dev/docs/test-components) or [Cypress](https://docs.cypress.io/app/component-testing/get-started) also provide isolated UI components testing, integrated with a real browser. Additionally, [Storybook](https://storybook.js.org/docs/writing-tests) also provides component testing.
+
+This approach is similar to unit testing, considering that the framework renders a single UI component automatically in a browser, headless or not, without requiring us to build the application and provide a working URL, as we do in the case of E2E tests.
+
+<Subheading>👌 Benefits</Subheading>
+
+The biggest advantage of using a real DOM is **full support for standard browser features**. There is no limitation here.
+
+<Subheading>👎 Downsides</Subheading>
+
+However, having access to a real browser comes with a cost. Since there are many browsers available, some exotic features might work only in some of them. We also need to start the browser and communicate with it during tests, which is **typically slower**. Last, but not least, the overall complexity of the whole setup is higher compared to the simpler Node-based emulated DOM solution.
+
+---
+
+To conclude, the visual aspect and the behaviour of UI components are complementary. Interactive playgrounds document how the component should be used and how it looks. In contrast, automated tests document and assert behaviour, providing a strict control mechanism.
 
 **Continue reading <LinkTo part={CURRENT_PART + 1} />**

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { BlogPost } from "../../../../../components/blog/blog_post";
 import { Figure } from "../../../../../components/blog/figure";
 import { Side } from "../../../../../components/blog/sidebyside";
+import { Subheading } from "../../../../../components/blog/subheading";
 
 import { TOC, LinkTo } from "../toc";
 
@@ -105,6 +106,10 @@ Furthermore, we can experience the effects of this approach on the consumer side
 
 - add a ~~strikethrough~~ style on the deprecated field signaling that it shouldn't be used;
 - display the code comment when hovering the property, so consumers know how to fix the deprecation;
+
+<Subheading>Enforcement</Subheading>
+
+It's worth mentioning that **using deprecated code is not a type error in TypeScript**. If we want to prevent consumers from using deprecated APIs, we can enable the [`no-deprecated`](https://typescript-eslint.io/rules/no-deprecated/) TypeScript ESLint plugin.
 
 ## Architectural Decisions
 

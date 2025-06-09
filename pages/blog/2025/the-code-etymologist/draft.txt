@@ -2,6 +2,7 @@ WHAT SECTIONS TO ADD:
 
 - software architecture (diagrams, dependencies, https://c4model.com/)
 - version history, change log (automatically)
+- change UI components to Design system + include design tokens
 
 <!--
 
