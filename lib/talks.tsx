@@ -69,10 +69,10 @@ export const talks: Talk[] = [
       //   url: "https://github.com/andreipfeiffer/html-streaming",
       //   label: "Code",
       // },
-      // {
-      //   type: "video",
-      //   url: "https://www.youtube.com/watch?v=QXUHpJ8HsGY",
-      // },
+      {
+        type: "video",
+        url: "https://www.youtube.com/watch?v=WaFNH8AUAV0",
+      },
       {
         type: "article",
         url: "/blog/2025/the-code-etymologist",
