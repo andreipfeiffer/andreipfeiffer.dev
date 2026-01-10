@@ -18,13 +18,20 @@ export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-One of my main struggles in software development over the past 20 years has been organizing the files and folders of software projects. To put it simply: I always found it hard to figure out 1) what files should stay in the same folder and which ones should be separated; 2) when should I create a new folder and what files should go into it; 3) when to split a file into multiple ones; 4) when to combine multiple files into a single one. Sounds familiar?
+One of my great struggles in software development over the past 20 years has been organizing the files and folders of software projects. To put it simply: I always found it hard to figure out:
 
-There are various general approaches, such as organizing files either by **type**, **layer** or **domain**. You can read more about each approach in [Folder structure for big projects: package by type, layer or feature?](https://labs.madisoft.it/folder-structure-for-big-projects-package-by-type-layer-or-feature/).
+1. What files should stay in the same folder and which ones should be separated.
+2. When should I create a new folder and what files should go into it.
+3. When to split a file into multiple ones.
+4. When to combine multiple files into a single one.
 
-For a long time I thought that choosing one of the above approaches is simply a matter of preference. Not to mention that online content also suggests there is one solution better than the others, only because it works better for the author. However, recently I gave it a lot of thought and I came to the conclusion that all approaches are **equally viable**, but at different **scales of a software project**.
+Sounds familiar? To address these dilemas, there are various general approaches, such as organizing files either by **type**, **layer** or **domain**. You can read more about each approach in [Folder structure for big projects: package by type, layer or feature?](https://labs.madisoft.it/folder-structure-for-big-projects-package-by-type-layer-or-feature/).
+
+For a long time I thought that choosing one of the above approaches is simply a matter of preference. Not to mention that online content suggests there is one solution better than the others, only because it works better for the author. However, after giving it a lot of thought, I realized that all approaches are **equally viable**, but at different **scales of a software project**.
 
 In this blog post we'll analyze hospitals distribution at different scales and see that software projects follow a similar evolution regarding their files and folders anatomy.
+
+But before we jump into the actual content, let's take a quick look at an extreme example that touches upon the subject at hand.
 
 ## The African Solar Energy
 
@@ -120,7 +127,7 @@ When the project exceeds several thousands lines of code, the single file approa
 
 ## The Town Hospital
 
-Towns usually range from several thousands up to a few tens of thousands of inhabitants. Most of them also have their own hospital, with general practice doctors and specialized ones as well. Larger hospitals might even include specialized clinics inside the same building.
+Towns usually range from several thousands up to a few tens of thousands inhabitants. Most of them also have their own hospital, with general practice doctors and specialized ones as well. Larger hospitals might even include specialized clinics inside the same building.
 
 <Figure
   background={"#88888855"}
@@ -213,9 +220,9 @@ As a natural and organic evolution, we would also break large single files into 
   └ /types
 ```
 
-It's worth noticing that it comes naturally to place all the files of a certain type within the a folder, naming it using the type of the files within. For instance, putting all the `*.service.*` related files into a `/services` folder.
+It's worth noticing that it comes naturally to place all the files of a certain type within the same folder. For instance, putting all the `*.service.*` related files into a `/services` folder.
 
-At small or medium scale this approach works well, however when we increase the scale even further we encounter an issue. When implementing a new feature or changing an existing one, we usually work on a low number of domains, sometimes touching a single one. If the files are organized by type, this implies searching in different folders for the files related to the same domain.
+At small or medium scale, this approach works well. However when we increase the scale even further we encounter an issue. When implementing a new feature or changing an existing one, we usually work on a low number of domains, regularly touching a single one. If the files are organized by type, this implies searching in different folders for the files related to the same domain.
 
 ```
 ├ App.ts
@@ -263,9 +270,7 @@ If we zoom out from the city level to the country level, we see that each large 
   />
 </Figure>
 
-It's more beneficial for the citizens when the cities have their own hospitals. On the other hand, it's also a security measure. In case one hospital stops being operational, for whatever reason, there are others that might take care of the patients.
-
-It is also more scalable, since different cities have different needs. They are free to self-manage. Smaller cities might have a single hospital. Large cities could have multiple hospitals specialized in the same discipline.
+It's more beneficial for the citizens when the cities have their own hospitals. Not to mention it is more scalable, since different cities have different needs. They are free to self-manage. Smaller cities might have a single hospital. Large cities could have multiple hospitals specialized in the same discipline.
 
 Going back to file structure, the **domain** of the files are the actual cities from real life, because they are meant to serve primarily the local citizens. Therefore, at large scale software, groupping files by their domain makes more sense and is more efficient.
 
@@ -292,7 +297,7 @@ With this approach, all the files of a single domain/entity/concept/feature are 
 
 <br />
 
-Ok, but what about even larger scale? Is there any other approach that works better? Well, not if we look at global hospitals distribution. Regardless of national, continental, or global scale, the hospitals are built to serve the needs of a single settlement. They are never concentrated into a single area to serve a large area of multiple cities.
+Ok, but what about even larger scale? Is there any other approach that works better? Well, not if we look at global hospitals distribution. Regardless of national, continental, or global scale, the hospitals are built to serve the needs of a single settlement. They are never concentrated into a single area in order to serve multiple cities.
 
 However, there are some challenges with the purely domain-driven file structure.
 
@@ -300,20 +305,22 @@ However, there are some challenges with the purely domain-driven file structure.
 
 While the theory is solid, the practice of groupping files by domain proves to be not that easy to implement and maintain. The challenges usually depend from application to application, but some typical ones include:
 
-- It's often not obvious **in which domain to place certain files**. For instance files concerning `BillingInformation` should be placed in the `UserAccount` domain, as there is a one-to-many relationship between the 2? Or should it be placed in `Subscription` domain because there's also a one-to-one relationship between them?
-- It's debatable **when to create a new domain**, or when to extract files from an existing domain to a new one. For instance, `BillingInformation` could be extracted in it's own domain folder. But what about something like `UserPreferences` that's tightly coupled with `UserAccount`? There's usually a grey zone when deciding to extract.
-- Where shall we place **code shared by very few domains**, that doesn't make sense to stay in its own domain? We could place it in a separate `Shared` domain, but that might end up bloated up.
+- It's often not obvious **in which domain to place certain files**. For instance files concerning `BillingInformation` should be placed in the `UserAccount` domain, as there is a one-to-many relationship between the two entities? Or should it be placed in the `Subscription` domain because there's also a one-to-one relationship there?
+- It's debatable **when to create a new domain** or when to extract files from an existing domain to a new one. For instance, the above `BillingInformation` could be extracted in it's own domain folder. But what about something like `UserPreferences` that's tightly coupled with `UserAccount`? There's usually a grey zone when deciding to extract.
+- Where shall we place **code shared by very few domains**, that doesn't make sense to stay in its own domain? We could place it in a separate `Shared` domain, but that might end up bloated up, containing an awkward mix of unrelated code.
 - What about **domain-agnostic code**? Should we create a separate folder for it? Or should we mix domain-specific and domain-agnostic code?
 
 <!--
 - Organizing UI components based on domains in SPAs is more complicated than organizing server side RESTful APIs code, at least from my personal experience.
 -->
 
-Groupping by domain brings some notable challenges to the table. The development team has to spend more time debating files and folders organization. [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) is meant to demistify the questions above, however there are no black or white answers.
+<br />
+
+The truth is that groupping by domain brings some notable challenges to the table. The development team has to spend more time debating files and folders organization. [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) is meant to demistify the questions above, however there are no black or white answers.
 
 In the end, all the aproaches discussed so far are quite dogmatic. In real life it doesn't help to blindly follow a single school of thought. Therefore, a more practical and realistic solution is to consider a hybrid approach, mixing different methods to address our own needs.
 
-We could **combine packaging by layer, by type, and by domain** at different levels. In the following example, we'll look at a single page application.
+We could **combine packaging by layer, by type, and by domain** at different levels. In the following example, we'll look at a single page application folder structure.
 
 <Subheading>Group by layer</Subheading>
 
@@ -331,13 +338,13 @@ We could **combine packaging by layer, by type, and by domain** at different lev
 The first level of folders are **groupped by layer**, resembling the [Onion Architecture](https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/) proposed by Jeffrey Palermo or [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) coined by Robert C. Martin. They differ in many detailed aspects, but all have in common the concentric layers anatomy and the dependency direction between them.
 
 - `App.ts` is the entry point in our application;
-- `/pages` folder represents the outer layer, containing the page specific components assigned to the routes, along with any non-reusable components and logic;
+- `/pages` folder represents the outer layer, containing the page components assigned to the routes, along with all specific and non-reusable components and logic;
 - `/modules` folder represents the middle layer, containing domain specific logic along with any domain components reused by multiple pages;
 - `/shared` folder represents the inner layer, containing any abstract/non-domain specific logic, reused by multiple pages or modules;
 
 <Subheading>Group by domain</Subheading>
 
-Going deeper into the layers, the `/modules` folder follows a **groupping by domain** structure, because here is where we encapsulate the core of our domain code. Each subfolder will encapsulate the logic of each entity of our domain:
+Going deeper into the layers, the `/modules` folder follows a **groupping by domain** structure, because here is where we encapsulate the core of our domain code. Each subfolder will contain the logic of each domain entity:
 
 ```{5}
 ├ App.ts
@@ -404,22 +411,19 @@ Since the `/shared` folder doesn't contain domain code, we must also follow a **
   └ /constants
 ```
 
-We could include abstract or application-wide services, helpers and utils, constants, hooks, types, wrappers of 3rd party libraries, you name it.
+We could include domain-agnostic and application-wide services, helpers and utils, constants, hooks, types, wrappers of 3rd party libraries, you name it.
 
 <Note title="Important Note">
   <p>The example above follows an eclectic mix of principles and methods discussed
-  in this article. It is not meant to provide a solution for any software
-  project. However, if it fits your needs, you can use it as is, or get some
-  inspiration for your own project.</p>
+  in this article. It is not meant to provide a holy grail solution. However, if it fits your needs, you can use it _as is_, or get some
+  inspiration from it.</p>
 
-  <p>To be noted that it is not only a theoretical example. The above structure is used in a fairly large project, with 4k files totalling 700K lines, written over the course of 10 years.</p>
+  <p>To be noted that it is not only a theoretical example. The above structure is used in a fairly large project, with 4k files totalling 700K lines of code, written over the course of 9+ years.</p>
 </Note>
 
 ## To conclude
 
-Organizing project files is not different than the distribution of any other public service that we use in real life. The only difference is the size of the location that it serves.
-
-To synthesize everything we talked about:
+Organizing project files is not different than the distribution of any other public service that we use in real life. To synthesize everything we talked about:
 
 - Tiny projects with hundreds up to a few thousands lines of code don't really require any specific structure. We might even place all the code into a single file.
 - Small to medium projects with tens up to a few hundred thousands lines of code benefit from **groupping code by type**. The separation is either in files or folders containing different files of the same type for different domains.
@@ -431,4 +435,4 @@ Groupping by **type** seems to be the natural evolution of software projects, wh
 
 In contrast, groupping by **domain** or by **layer** require explicit effort and significant knowledge of _Domain-Driven Design_ and _Architectural Boundaries_ described by software architectures like _Onion_, _Clean_, or _Hexagonal_ just to name a few.
 
-However, in real life we would most likely adopt a **hybrid approach**, combining multiple methods that makes sense to address the needs of our own projects and our own development team(s).
+However, in real life we would most likely adopt a **hybrid approach**, combining multiple methods that makes sense to address the needs of our own projects and development team(s).
