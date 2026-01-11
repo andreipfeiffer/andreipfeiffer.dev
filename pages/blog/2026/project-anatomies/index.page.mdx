@@ -54,7 +54,7 @@ However, the **biggest challenge** is not producing that energy, but **distribut
 
 Moving to the software world, this approach is similar with organising **files by type**, putting the same type of files in the same folder. For example:
 
-```
+```md
 ├ App.ts
 │
 ├ /routes
@@ -100,7 +100,7 @@ I don't think there is a single village, at least in Romania, that has its own h
 
 Tiny projects, like personal experiments or school assignments, usually have zero or little structure. Most likely, there is no reusable code, except 3rd party libraries. The entire code is often written in a single file because there isn't a lot of it.
 
-```
+```md
 └ App.ts
 ```
 
@@ -143,7 +143,7 @@ Towns usually range from several thousand to a few tens of thousands of inhabita
 
 This is a perfect example of small-scale projects, where we can safely place all the code of a certain type in the same file.
 
-```
+```md
 ├ App.ts
 │
 └ /src
@@ -203,7 +203,7 @@ Larger cities usually have multiple hospitals. For instance, Timisoara has more 
 
 As a natural and organic evolution, we would also break large single files into multiple specialised files. This approach enables us to identify much quicker the code we're looking for, based on its **domain**.
 
-```
+```md{4}
 ├ App.ts
 │
 └ /src
@@ -223,7 +223,7 @@ It's worth noticing that it comes naturally to place all the files of a certain 
 
 At a small or even medium scale, this approach works well. However, when we increase the scale even further, we encounter another issue. When implementing a new feature or changing an existing one, we usually work on a low number of domains, regularly touching a single one. If the files are organized by type, this implies searching in different folders for the files related to the same domain.
 
-```
+```md
 ├ App.ts
 │
 └ /src
@@ -273,7 +273,7 @@ It's more beneficial for the citizens when the cities have their own hospitals. 
 
 Going back to the file structure, the **domains** are the actual cities from real life. They are meant to serve the local citizens primarily. Therefore, at large-scale software, grouping files by their domain makes more sense and is more efficient.
 
-```{4,12,15}
+```md{4,12,15}
 ├ App.ts
 │
 └ /src
@@ -326,7 +326,7 @@ We could **combine packaging by layer, by type, and by domain** at different lev
 <br />
 <br />
 
-```
+```md
 ├ App.ts
 │
 ├ /pages
@@ -345,7 +345,7 @@ The first level of folders are **groupped by layer**, resembling the [Onion Arch
 
 Going deeper into the layers, the `/modules` folder follows a **grouping by domain** structure, because here is where we encapsulate the core of our domain code. Each subfolder will contain the logic of each domain entity:
 
-```{5}
+```md{5}
 ├ App.ts
 │
 ├ /pages
@@ -362,7 +362,7 @@ Going deeper into the layers, the `/modules` folder follows a **grouping by doma
 
 However, each folder containing domain entities follows a **grouping by type** approach.
 
-```{6,14,17}
+```md{6,18,21}
 ├ App.ts
 │
 ├ /pages
@@ -398,7 +398,7 @@ Notice that not all domain folders must have the same set of files.
 
 Since the `/shared` folder doesn't contain domain code, we must also follow a **grouping by type** approach, colocating in separate folders files of the same type:
 
-```{6}
+```md{6}
 ├ App.ts
 │
 ├ /pages
@@ -430,7 +430,7 @@ Organising project files is not different than the distribution of any other pub
 
 <br />
 
-grouping by **type** seems to be the natural evolution of software projects, which might explain its high popularity and wide adoption.
+Grouping by **type** seems to be the natural evolution of software projects, which might explain its high popularity and wide adoption.
 
 In contrast, grouping by **domain** or by **layer** require explicit effort and significant knowledge of _Domain-Driven Design_ and _Architectural Boundaries_ described by software architectures like _Onion_, _Clean_, or _Hexagonal_ just to name a few.
 
