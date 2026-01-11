@@ -4,9 +4,10 @@ import { Metadata } from "../../../../lib/blog";
 
 import cover from "./project-anatomies-cover.png";
 
+
 export const meta: Metadata = {
-  title: "The Complete Map of Project Anatomies",
-  date: "2025-06-28",
+  title: "The complete map of project anatomies",
+  date: "2026-01-11",
   tags: ["entropy"],
   tags_extra: ["struture", "files", "folders"],
   intro:
