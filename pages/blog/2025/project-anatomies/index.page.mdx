@@ -18,18 +18,18 @@ export { meta } from "./meta";
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-One of my great struggles in software development over the past 20 years has been organizing the files and folders of software projects. To put it simply: I always found it hard to figure out:
+One of my great struggles in software development over the past 20 years has been organising the files and folders of software projects. To put it simply, I always found it hard to figure out:
 
-1. What files should stay in the same folder and which ones should be separated.
-2. When should I create a new folder and what files should go into it.
-3. When to split a file into multiple ones.
-4. When to combine multiple files into a single one.
+1. Which files should reside in the same folder, and which ones should be separated?
+2. When should I create a new folder, and what files should go into it?
+3. When should a single file be split into multiple files?
+4. When should we combine multiple files into a single one?
 
-Sounds familiar? To address these dilemas, there are various general approaches, such as organizing files either by **type**, **layer** or **domain**. You can read more about each approach in [Folder structure for big projects: package by type, layer or feature?](https://labs.madisoft.it/folder-structure-for-big-projects-package-by-type-layer-or-feature/).
+Sounds familiar? To address these dilemas, there are various general approaches, such as organising files either by **type**, **layer** or **domain**. You can read more about each approach in [Folder structure for big projects: package by type, layer or feature?](https://labs.madisoft.it/folder-structure-for-big-projects-package-by-type-layer-or-feature/).
 
-For a long time I thought that choosing one of the above approaches is simply a matter of preference. Not to mention that online content suggests there is one solution better than the others, only because it works better for the author. However, after giving it a lot of thought, I realized that all approaches are **equally viable**, but at different **scales of a software project**.
+For a long time, I thought that choosing one of the above approaches was simply a matter of preference. Not to mention that online content suggests there is one solution better than the others, only because it works better for the author. However, after giving it a lot of thought, I realized that all approaches are **equally viable**, but at different **scales of a software project**.
 
-In this blog post we'll analyze hospitals distribution at different scales and see that software projects follow a similar evolution regarding their files and folders anatomy.
+In this blog post we'll analyse hospitals distribution at different scales and see that software projects follow a similar evolution regarding their files and folders anatomy.
 
 But before we jump into the actual content, let's take a quick look at an extreme example that touches upon the subject at hand.
 
@@ -46,13 +46,13 @@ A few years ago, I saw a tweet with a picture similar to the one below, showing 
   />
 </Figure>
 
-At first glance, I was blown away. Such a small area, in comparison to the size of the Earth, could generate all the energy that humanity needed? Woaw. However, I didn't believe it to be accurate, so I asked a friend of mine from Lyon who actually works on solar energy on daily basis. He did some quick calculations and confirmed that the information was actually true.
+At first glance, I was blown away. Could such a small area, in comparison to the size of the Earth, generate all the energy that humanity needed? Wow! However, I didn't believe it to be accurate, so I asked a friend of mine from Lyon who actually works on solar energy on a daily basis. He did some quick calculations and confirmed that the information was actually true.
 
-However, the **biggest challenge** is not producing that energy, but **distributing** it to all the countries across the oceans. Other challenges include maintainance, political, and security concerns. You can watch [The Problem with Solar Energy in Africa](https://www.youtube.com/watch?v=7OpM_zKGE4o) for more details.
+However, the **biggest challenge** is not producing that energy, but **distributing** it to all the countries across the oceans. Other challenges include maintenance, political, and security concerns. You can watch [The Problem with Solar Energy in Africa](https://www.youtube.com/watch?v=7OpM_zKGE4o) for more details.
 
 <br />
 
-Moving to the software world, this approach is similar with organizing **files by type**, putting the same type of files in the same folder. For example:
+Moving to the software world, this approach is similar with organising **files by type**, putting the same type of files in the same folder. For example:
 
 ```
 ├ App.ts
@@ -65,15 +65,15 @@ Moving to the software world, this approach is similar with organizing **files b
 └ /types
 ```
 
-Apparently, at _very large scale_, this approach is not efficient. But what about _small scale_? Surely there are a lot of teams that use this approach and are quite happy with it. Is there an inflection point when organizing files by type is not the best approach? Why is this solution present all over the web, while some developers prefer other structures?
+Apparently, at a _very large scale_, this approach is not efficient. But what about _small-scale_? Surely there are a lot of teams that use this approach and are quite happy with it. Is there an inflection point when organising files by type is not the best approach? Why is this solution present all over the web, while some developers prefer other structures?
 
-To answer all these questions, let's move to a totally different example, analysing how hospitals are distributed at different scales. Going forward, you can think of **hospitals** as certain type of files in
-our project, reusable or not, for instance `services`.
+To answer all these questions, let's move to a totally different example, analysing how hospitals are distributed at different scales. Going forward, you can think of **hospitals** as a certain type of files in
+our project, reusable or not, for instance, `services`.
 
 <Note>
   <div>
     Hospitals and healthcare systems are only one example. The same principles
-    apply to other societal systems as well, such as: <b>education</b> (schools,
+    apply to other societal systems as well, such as <b>education</b> (schools,
     universities), <b>culture</b> ( theaters, cinemas), and more. You can think
     of them as other type of code, like <code>controllers</code>,
     <code>utils</code>, <code>types</code>, etc.
@@ -84,27 +84,27 @@ Let's start from the smallest settlement and slowly evolve to larger ones.
 
 ## The Village Doctor
 
-I don't think there is a single village, at least in Romania, that has its own hospital. There might be a general practice doctor's office or even a small medical center, but not an actual hospital. In case of an emergency, people living in villages usually travel to their closest town.
+I don't think there is a single village, at least in Romania, that has its own hospital. There might be a general practice doctor's office or even a small medical centre, but not an actual hospital. In case of an emergency, people living in villages usually travel to their closest town.
 
 <Figure
   background={"#88888855"}
-  caption="Villages don't have hospitals. Best case they have a small medical center."
+  caption="Villages don't have hospitals. The best case they have a small medical centre."
 >
   <Image
     src={img_village}
     width="1720"
     height="758"
-    alt="Map showing two villages from Romania, Begheiu Mic and Dumbrava. The latter also shows a red circle, representing a small medical center, while the former doesn't have any medical services."
+    alt="Map showing two villages from Romania, Begheiu Mic and Dumbrava. The latter also shows a red circle, representing a small medical centre, while the former doesn't have any medical services."
   />
 </Figure>
 
-Tiny projects, like personal experiments or school assignments, usually have zero or little structure. Most likely there is no reusable code, except 3rd party libraries. The entire code is often written in a single file because there isn't a lot of it.
+Tiny projects, like personal experiments or school assignments, usually have zero or little structure. Most likely, there is no reusable code, except 3rd party libraries. The entire code is often written in a single file because there isn't a lot of it.
 
 ```
 └ App.ts
 ```
 
-Villages usually have from hundreds to a couple thousands inhabitants, similar in size to "tiny projects" if we think about lines of code. As the project grows in size, we could group similar types of code together, separating them using code comments:
+Villages usually have from hundreds to a couple of thousands inhabitants, similar in size to "tiny projects" if we think about lines of code. As the project grows in size, we could group similar types of code together, separating them using code comments:
 
 <Side header={{ file: "App.ts" }}>
 
@@ -127,7 +127,7 @@ When the project exceeds several thousands lines of code, the single file approa
 
 ## The Town Hospital
 
-Towns usually range from several thousands up to a few tens of thousands inhabitants. Most of them also have their own hospital, with general practice doctors and specialized ones as well. Larger hospitals might even include specialized clinics inside the same building.
+Towns usually range from several thousand to a few tens of thousands of inhabitants. Most of them also have their own hospital, with general practice doctors and specialised ones as well. Larger hospitals might even include specialised clinics inside the same building.
 
 <Figure
   background={"#88888855"}
@@ -159,10 +159,9 @@ Now, this approach works well until those files get large enough. At some point,
 
 It's not an issue when we just added a new function at the end of a large file
 and import it right away, as we know its name because we just wrote it. The problem occurs if we
-follow this aproach at large scale, where we don't know the name of the
-function, where we search if there is a function that implements a specific
-functionality. It could be written by us a long time ago. It could have been
-changed over time by somebody else. It could be completely written by a
+follow this approach at a large scale, where we don't know the name of the
+function, and we have to search for a function that implements a specific
+functionality. It could have been written by us a long time ago. It could have been changed, or completely written by a
 different person. Or it might not exist at all.
 
 Eventually, we would group functions based on their **domain**, to facilitate easier discovery, also using code comments:
@@ -182,17 +181,17 @@ Eventually, we would group functions based on their **domain**, to facilitate ea
 
 </Side>
 
-When we see this pattern occur, it is a strong smell that we should break it apart into multiple files.
+When we see this pattern occur, it is a strong smell that we should split it apart into multiple files.
 
-The same pattern also occurs in real life. As medicine includes multiple disciplines, hospitals are also split into multiple specialized departments or even different buildings.
+The same pattern also occurs in real life. As medicine includes multiple disciplines, hospitals are also split into multiple specialised departments or even different buildings.
 
 ## City Hospitals
 
-Larger cities usually have multiples hospitals. For instance, Timisoara has more than 12 hospitals, scattered throughout the city. Some of them are larger, including multiple disciplines. Others are specialized in orthopedics, pediatrics, cardiology, infectious diseases, gynaecology, oncology, and more.
+Larger cities usually have multiple hospitals. For instance, Timisoara has more than 12 hospitals, scattered throughout the city. Some of them are larger, including multiple disciplines. Others are specialised in orthopedics, pediatrics, cardiology, infectious diseases, gynaecology, oncology, and more.
 
 <Figure
   background={"#88888855"}
-  caption="Cities usually have multiple hospitals. Some of them have a generalistic approach, including multiple clinics, while others are specialized on a single medical discipline."
+  caption="Cities usually have multiple hospitals. Some of them have a generalistic approach, including multiple clinics, while others are specialised on a single medical discipline."
 >
   <Image
     src={img_city}
@@ -202,7 +201,7 @@ Larger cities usually have multiples hospitals. For instance, Timisoara has more
   />
 </Figure>
 
-As a natural and organic evolution, we would also break large single files into multiple specialized files. This approach enables us to identify much quicker the code that we want to use based on the **domain**.
+As a natural and organic evolution, we would also break large single files into multiple specialised files. This approach enables us to identify much quicker the code we're looking for, based on its **domain**.
 
 ```
 ├ App.ts
@@ -222,7 +221,7 @@ As a natural and organic evolution, we would also break large single files into 
 
 It's worth noticing that it comes naturally to place all the files of a certain type within the same folder. For instance, putting all the `*.service.*` related files into a `/services` folder.
 
-At small or medium scale, this approach works well. However when we increase the scale even further we encounter an issue. When implementing a new feature or changing an existing one, we usually work on a low number of domains, regularly touching a single one. If the files are organized by type, this implies searching in different folders for the files related to the same domain.
+At a small or even medium scale, this approach works well. However, when we increase the scale even further, we encounter another issue. When implementing a new feature or changing an existing one, we usually work on a low number of domains, regularly touching a single one. If the files are organized by type, this implies searching in different folders for the files related to the same domain.
 
 ```
 ├ App.ts
@@ -248,11 +247,11 @@ At small or medium scale, this approach works well. However when we increase the
     └ ...
 ```
 
-A subfolder, like `/services` for instance, might end up containing 100+ files. Unless we're performing some big refactoring, it's unlikely we'll be touching all the files of a single type.
+A subfolder like `/services`, might end up containing 100+ files. Unless we're performing some big refactoring, it's unlikely we'll be touching all the files of a single type.
 
-> At large scale, it's not efficient to put all the files of the same type in the same folder, just as it's not efficient to place all the solar panels in the same area.
+> At a large scale, it's not efficient to put all the files of the same type in the same folder, just as it's not efficient to place all the solar panels in the same area.
 
-So, lets see how hospitals are organized at large scale by looking at their distribution within a whole country.
+So, let's see how hospitals are organized at large scale by looking at their distribution within a whole country.
 
 ## Country-wide distribution
 
@@ -266,13 +265,13 @@ If we zoom out from the city level to the country level, we see that each large 
     src={img_country}
     width="1720"
     height="758"
-    alt="Map showing a wide area of western and central Romania, highlighting it's major cities and towns. There are multiple red dots spread around, depicting the distribution of medical centers."
+    alt="Map showing a wide area of western and central Romania, highlighting it's major cities and towns. There are multiple red dots spread around, depicting the distribution of medical centres."
   />
 </Figure>
 
-It's more beneficial for the citizens when the cities have their own hospitals. Not to mention it is more scalable, since different cities have different needs. They are free to self-manage. Smaller cities might have a single hospital. Large cities could have multiple hospitals specialized in the same discipline.
+It's more beneficial for the citizens when the cities have their own hospitals. Not to mention it's more scalable, since different cities have different needs. They are free to self-manage. Smaller cities might have a single hospital. Large cities could have multiple hospitals specialised in the same discipline.
 
-Going back to file structure, the **domain** of the files are the actual cities from real life, because they are meant to serve primarily the local citizens. Therefore, at large scale software, groupping files by their domain makes more sense and is more efficient.
+Going back to the file structure, the **domains** are the actual cities from real life. They are meant to serve the local citizens primarily. Therefore, at large-scale software, grouping files by their domain makes more sense and is more efficient.
 
 ```{4,12,15}
 ├ App.ts
@@ -297,28 +296,28 @@ With this approach, all the files of a single domain/entity/concept/feature are 
 
 <br />
 
-Ok, but what about even larger scale? Is there any other approach that works better? Well, not if we look at global hospitals distribution. Regardless of national, continental, or global scale, the hospitals are built to serve the needs of a single settlement. They are never concentrated into a single area in order to serve multiple cities.
+Ok, but what about even larger scale? Is there any other approach that works better? Well, not if we look at the global distribution of hospitals. Regardless of national, continental, or global scale, the hospitals are built to serve the needs of a single settlement. They are never concentrated into a single area in order to serve multiple cities.
 
 However, there are some challenges with the purely domain-driven file structure.
 
 ## Hybrid approaches
 
-While the theory is solid, the practice of groupping files by domain proves to be not that easy to implement and maintain. The challenges usually depend from application to application, but some typical ones include:
+While the theory is solid, the practice of grouping files by domain proves to be not that easy to implement and maintain. The challenges usually vary from application to application, but some typical ones include:
 
-- It's often not obvious **in which domain to place certain files**. For instance files concerning `BillingInformation` should be placed in the `UserAccount` domain, as there is a one-to-many relationship between the two entities? Or should it be placed in the `Subscription` domain because there's also a one-to-one relationship there?
-- It's debatable **when to create a new domain** or when to extract files from an existing domain to a new one. For instance, the above `BillingInformation` could be extracted in it's own domain folder. But what about something like `UserPreferences` that's tightly coupled with `UserAccount`? There's usually a grey zone when deciding to extract.
-- Where shall we place **code shared by very few domains**, that doesn't make sense to stay in its own domain? We could place it in a separate `Shared` domain, but that might end up bloated up, containing an awkward mix of unrelated code.
+- It's often not obvious **in which domain to place certain files**. For instance, should files concerning `BillingInformation` be placed in the `UserAccount` domain, as there is a one-to-many relationship between the two entities? Or should it be placed in the `Subscription` domain because there's also a one-to-one relationship there?
+- It's debatable **when to create a new domain** or when to extract files from an existing domain to a new one. For instance, the above `BillingInformation` could be extracted in its own domain folder. But what about something like `UserPreferences` that's tightly coupled with `UserAccount`? There's usually a grey zone when deciding to extract.
+- Where shall we place **code shared by very few domains**, that doesn't make sense to stay in its own domain? We could place it in a separate `Shared` domain, but that might end up bloated, containing an awkward mix of unrelated code.
 - What about **domain-agnostic code**? Should we create a separate folder for it? Or should we mix domain-specific and domain-agnostic code?
 
 <!--
-- Organizing UI components based on domains in SPAs is more complicated than organizing server side RESTful APIs code, at least from my personal experience.
+- Organising UI components based on domains in SPAs is more complicated than organising server side RESTful APIs code, at least from my personal experience.
 -->
 
 <br />
 
-The truth is that groupping by domain brings some notable challenges to the table. The development team has to spend more time debating files and folders organization. [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) is meant to demistify the questions above, however there are no black or white answers.
+The truth is that grouping by domain brings some notable challenges to the table. The development team has to spend more time debating files and folder structure. [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) is meant to demystify the questions above, but keep in mind, there are no black or white answers.
 
-In the end, all the aproaches discussed so far are quite dogmatic. In real life it doesn't help to blindly follow a single school of thought. Therefore, a more practical and realistic solution is to consider a hybrid approach, mixing different methods to address our own needs.
+In the end, all the approaches discussed so far are quite dogmatic. In real life, it doesn't help to blindly follow a single school of thought. Therefore, a more practical and realistic solution is to consider a hybrid approach, mixing different methods to address our own needs.
 
 We could **combine packaging by layer, by type, and by domain** at different levels. In the following example, we'll look at a single page application folder structure.
 
@@ -339,12 +338,12 @@ The first level of folders are **groupped by layer**, resembling the [Onion Arch
 
 - `App.ts` is the entry point in our application;
 - `/pages` folder represents the outer layer, containing the page components assigned to the routes, along with all specific and non-reusable components and logic;
-- `/modules` folder represents the middle layer, containing domain specific logic along with any domain components reused by multiple pages;
+- `/modules` folder represents the middle layer, containing domain-specific logic along with any domain components reused by multiple pages;
 - `/shared` folder represents the inner layer, containing any abstract/non-domain specific logic, reused by multiple pages or modules;
 
 <Subheading>Group by domain</Subheading>
 
-Going deeper into the layers, the `/modules` folder follows a **groupping by domain** structure, because here is where we encapsulate the core of our domain code. Each subfolder will contain the logic of each domain entity:
+Going deeper into the layers, the `/modules` folder follows a **grouping by domain** structure, because here is where we encapsulate the core of our domain code. Each subfolder will contain the logic of each domain entity:
 
 ```{5}
 ├ App.ts
@@ -361,7 +360,7 @@ Going deeper into the layers, the `/modules` folder follows a **groupping by dom
 
 <Subheading>Group by type</Subheading>
 
-However, each folder containing domain entities follows a **groupping by type** approach.
+However, each folder containing domain entities follows a **grouping by type** approach.
 
 ```{6,14,17}
 ├ App.ts
@@ -391,13 +390,13 @@ However, each folder containing domain entities follows a **groupping by type** 
 └ /shared
 ```
 
-This is where we'll place the **types**, **DTOs**, **services**, **constants**, **utils**, **helpers**, etc. In case of a backend application we might also have **routes**, a **controller**, **database models**, **templates**, etc. Single page applications on the other hand might include **data stores**, **UI components**, **hooks**, **API layer**, etc.
+This is where we'll place the **types**, **DTOs**, **services**, **constants**, **utils**, **helpers**, etc. In case of a backend application, we might also have **routes**, a **controller**, **database models**, **templates**, etc. Single-page applications, on the other hand, might include **data stores**, **UI components**, **hooks**, **API layer**, etc.
 
 Notice that not all domain folders must have the same set of files.
 
 <br />
 
-Since the `/shared` folder doesn't contain domain code, we must also follow a **groupping by type** approach, colocating in separate folders files of the same type:
+Since the `/shared` folder doesn't contain domain code, we must also follow a **grouping by type** approach, colocating in separate folders files of the same type:
 
 ```{6}
 ├ App.ts
@@ -423,16 +422,16 @@ We could include domain-agnostic and application-wide services, helpers and util
 
 ## To conclude
 
-Organizing project files is not different than the distribution of any other public service that we use in real life. To synthesize everything we talked about:
+Organising project files is not different than the distribution of any other public service that we use in real life. To synthesize everything we talked about:
 
-- Tiny projects with hundreds up to a few thousands lines of code don't really require any specific structure. We might even place all the code into a single file.
-- Small to medium projects with tens up to a few hundred thousands lines of code benefit from **groupping code by type**. The separation is either in files or folders containing different files of the same type for different domains.
-- Large projects with many hundreds of thousands or even milions lines of code benefit from **groupping code by domain**, colocating all file types of the same domain in a folder.
+- Tiny projects with hundreds up to a few thousand lines of code don't really require any specific structure. We might even place all the code into a single file.
+- Small to medium projects with tens up to a few hundred thousands lines of code benefit from **grouping code by type**. The separation is either in files or folders containing different files of the same type for different domains.
+- Large projects with many hundreds of thousands or even milions lines of code benefit from **grouping code by domain**, colocating all file types of the same domain in a folder.
 
 <br />
 
-Groupping by **type** seems to be the natural evolution of software projects, which might explain its high popularity and wide adoption.
+grouping by **type** seems to be the natural evolution of software projects, which might explain its high popularity and wide adoption.
 
-In contrast, groupping by **domain** or by **layer** require explicit effort and significant knowledge of _Domain-Driven Design_ and _Architectural Boundaries_ described by software architectures like _Onion_, _Clean_, or _Hexagonal_ just to name a few.
+In contrast, grouping by **domain** or by **layer** require explicit effort and significant knowledge of _Domain-Driven Design_ and _Architectural Boundaries_ described by software architectures like _Onion_, _Clean_, or _Hexagonal_ just to name a few.
 
-However, in real life we would most likely adopt a **hybrid approach**, combining multiple methods that makes sense to address the needs of our own projects and development team(s).
+However, in real life, we would most likely adopt a **hybrid approach**, combining multiple methods to address the needs of our own projects and development team(s).
