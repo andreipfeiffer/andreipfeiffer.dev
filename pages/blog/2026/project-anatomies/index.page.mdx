@@ -31,6 +31,10 @@ For a long time, I thought that choosing one of the above approaches was simply 
 
 In this blog post we'll analyse hospitals distribution at different scales and see that software projects follow a similar evolution regarding their files and folders anatomy.
 
+<Note>
+  Frameworks usually enforce a specific project structure. This article is addressed to developers and teams that either don't use a framework, use a custom-built framework, or simply want to bypass the structure provided by their framework.
+</Note>
+
 But before we jump into the actual content, let's take a quick look at an extreme example that touches upon the subject at hand.
 
 ## The African Solar Energy
@@ -46,7 +50,7 @@ A few years ago, I saw a tweet with a picture similar to the one below, showing 
   />
 </Figure>
 
-At first glance, I was blown away. Could such a small area, in comparison to the size of the Earth, generate all the energy that humanity needed? Wow! However, I didn't believe it to be accurate, so I asked a friend of mine from Lyon who actually works on solar energy on a daily basis. He did some quick calculations and confirmed that the information was actually true.
+At first glance, I was blown away. Could such a small area, in comparison to the size of the Earth, generate all the energy that humanity needed? Wow! However, I didn't believe it to be accurate, so I asked a friend of mine, Daniel from Lyon/FR, who actually works on solar energy on a daily basis. He did some quick calculations and confirmed that the information was actually true.
 
 However, the **biggest challenge** is not producing that energy, but **distributing** it to all the countries across the oceans. Other challenges include maintenance, political, and security concerns. You can watch [The Problem with Solar Energy in Africa](https://www.youtube.com/watch?v=7OpM_zKGE4o) for more details.
 
@@ -75,8 +79,8 @@ our project, reusable or not, for instance, `services`.
     Hospitals and healthcare systems are only one example. The same principles
     apply to other societal systems as well, such as <b>education</b> (schools,
     universities), <b>culture</b> ( theaters, cinemas), and more. You can think
-    of them as other type of code, like <code>controllers</code>,
-    <code>utils</code>, <code>types</code>, etc.
+    of them as other types of code, like <code>controllers</code>,
+    <code>utils</code>, <code>templates</code>, etc.
   </div>
 </Note>
 
@@ -294,11 +298,13 @@ Going back to the file structure, the **domains** are the actual cities from rea
 
 With this approach, all the files of a single domain/entity/concept/feature are colocated in the same folder. Colocation, as a general approach, provides better maintainablity on the long term for large-scale projects.
 
+<Subheading>Responsability separation</Subheading>
+
+Another big advantage of domain-driven file structures is that it enables defining and even enforcing boundaries between domains. There might be multiple teams working on the same project, but each team would own specific domain(s).
+
 <br />
 
 Ok, but what about even larger scale? Is there any other approach that works better? Well, not if we look at the global distribution of hospitals. Regardless of national, continental, or global scale, the hospitals are built to serve the needs of a single settlement. They are never concentrated into a single area in order to serve multiple cities.
-
-However, there are some challenges with the purely domain-driven file structure.
 
 ## Hybrid approaches
 
@@ -414,7 +420,7 @@ We could include domain-agnostic and application-wide services, helpers and util
 
 <Note title="Important Note">
   <p>The example above follows an eclectic mix of principles and methods discussed
-  in this article. It is not meant to provide a holy grail solution. However, if it fits your needs, you can use it _as is_, or get some
+  in this article. It is not meant to provide a holy grail solution. However, if it fits your needs, you can use it <i>as is</i>, or get some
   inspiration from it.</p>
 
   <p>To be noted that it is not only a theoretical example. The above structure is used in a fairly large project, with 4k files totalling 700K lines of code, written over the course of 9+ years.</p>
@@ -425,7 +431,7 @@ We could include domain-agnostic and application-wide services, helpers and util
 Organising project files is not different than the distribution of any other public service that we use in real life. To synthesize everything we talked about:
 
 - Tiny projects with hundreds up to a few thousand lines of code don't really require any specific structure. We might even place all the code into a single file.
-- Small to medium projects with tens up to a few hundred thousands lines of code benefit from **grouping code by type**. The separation is either in files or folders containing different files of the same type for different domains.
+- Small to medium projects with tens up to a few hundred thousands lines of code benefit from **grouping code by type**, colocating all files of the same type in the same folder.
 - Large projects with many hundreds of thousands or even milions lines of code benefit from **grouping code by domain**, colocating all file types of the same domain in a folder.
 
 <br />
@@ -434,4 +440,4 @@ Grouping by **type** seems to be the natural evolution of software projects, whi
 
 In contrast, grouping by **domain** or by **layer** require explicit effort and significant knowledge of _Domain-Driven Design_ and _Architectural Boundaries_ described by software architectures like _Onion_, _Clean_, or _Hexagonal_ just to name a few.
 
-However, in real life, we would most likely adopt a **hybrid approach**, combining multiple methods to address the needs of our own projects and development team(s).
+However, eventually we would probably end up using a **hybrid solution**, combining multiple approaches to address the needs of our own projects and development team(s).
