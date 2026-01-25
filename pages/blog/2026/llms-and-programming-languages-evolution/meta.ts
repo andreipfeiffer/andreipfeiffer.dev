@@ -1,9 +1,9 @@
 import { Metadata } from "../../../../lib/blog";
 
-import cover from "./programming-languages-stagnation-cover.png";
+import cover from "./llms-and-programming-languages-evolution-cover.png";
 
 export const meta: Metadata = {
-  title: "The stagnation of programming languages?",
+  title: "Will LLMs evolve with programming languages?",
   date: "2026-01-25",
   tags: ["learning"],
   tags_extra: ["ai"],
