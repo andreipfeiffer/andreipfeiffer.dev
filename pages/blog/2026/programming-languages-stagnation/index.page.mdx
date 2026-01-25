@@ -1,0 +1,39 @@
+import Image from "next/image";
+
+import { BlogPost } from "../../../../components/blog/blog_post";
+import { Figure } from "../../../../components/blog/figure";
+import { Note } from "../../../../components/blog/note";
+import { Quote } from "../../../../components/blog/quote";
+import { Side, SideBySide } from "../../../../components/blog/sidebyside";
+import { Subheading } from "../../../../components/blog/subheading";
+
+import { meta } from "./meta";
+
+export { meta } from "./meta";
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+_NOTE: this blog post includes **personal thoughts** and **open questions**, without actual answers or well-thought-out conclusions._
+
+<br />
+
+Programming languages, just like regular languages, change and evolve constantly. Since 2015, ECMAScript got new features yearly. Here's a list of the [current proposals](https://github.com/tc39/proposals).
+
+With the rise of LLM-generated code, I was wondering who would be interested in learning **new language syntax** anymore. The same question applies to framework features as well.
+
+If we, the human software developers, want to be in control of the software development process, and not the other way around, we'll have to validate the LLM output, review it, and iterate. But to do that, we must be able to **understand** it.
+
+So, if the LLM will use new syntax that we are not aware of, it might be a good idea to stay up-to-date with the new language or framework features. Otherwise, the LLMs will become smarter, gradually gaining control over us.
+
+But, how would the LLMs learn the new language features? They need training data. A lot of it. However, if the majority of developers stop writting code and accept the LLM output, the question is **How would the new features reach the training data?**
+
+<br />
+
+I assume that standard features and new syntax will always be valuable for libraries and framework authors, but probably less common in application code.
+
+Obviously, there will always be a minority, the passionate ones, that will keep up-to-date, write (part of the) code manually, use new features and such. But will that be enough to train the models so others will benefit as well? Surely, only time will tell.
+
+My guess is that learning the new additions to programming languages and frameworks is, and will be, valuable, regardless if LLMs will keep up-to-date or not, for two reasons:
+
+1. It will make us personally more knowledgeable, and therefore more valuable, keeping us in control over the LLM.
+2. It will enable us to verify and correct the LLM output in case they will be able to learn new syntax eventually.
