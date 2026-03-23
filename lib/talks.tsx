@@ -1,9 +1,6 @@
 import React from "react";
 
-
-
 import { Text } from "../components/text";
-
 
 interface Video {
   type: "video";
@@ -38,6 +35,42 @@ export interface Talk {
 }
 
 export const talks: Talk[] = [
+  {
+    title: "The Complete Map of Project Anatomies",
+    date: "Feb 2026",
+    type: "Slides only",
+    abstract: (
+      <>
+        <p>
+          After two decades of organising software projects, I’ve learned a
+          simple truth: the way we structure our code should change as the
+          project grows. Popular approaches, such as grouping by type or by
+          domain, aren’t about preference or ideology. They’re about project
+          scale. Each approach solves a different kind of problem at a different
+          stage of growth.
+        </p>
+        <br />
+        <p>
+          To make this easier to grasp, we’ll compare projects structure to
+          hospitals distribution across settlements, from villages to entire
+          countries.
+        </p>
+      </>
+    ),
+    urls: [
+      // {
+      //   type: "slides",
+      //   url: "/slides/the-code-etymologist.pdf",
+      // },
+      {
+        type: "article",
+        url: "/blog/2026/project-anatomies",
+        label: "Article",
+      },
+    ],
+    image: { path: "project-anatomies.jpg" },
+  },
+
   {
     title: "The Code Etymologist",
     date: "May 2025",
