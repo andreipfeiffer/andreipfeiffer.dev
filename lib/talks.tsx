@@ -149,6 +149,38 @@ export const talks: Talk[] = [
   },
 
   {
+    title: "All Frameworks Are Slow",
+    date: "November 2023",
+    type: "Live demo",
+    abstract: (
+      <>
+        <p>
+          React used to be “fast enough”, but then it got compile-time
+          out-of-the-box memoization. At the same time, fine-grained reactivity
+          pledges to be the holy grail of performant JS frameworks. In this
+          talk, we’ll analyze the rendering performance of multiple popular
+          frameworks. We’ll see that performance is contextual, while frameworks
+          have general applicability. That’s why all frameworks get to be slow
+          at some point and the only way to create truly “performant” apps is to
+          understand and circumvent the framework bottlenecks.
+        </p>
+      </>
+    ),
+    image: { path: "game-of-life.png", bw: true },
+    urls: [
+      {
+        type: "video",
+        url: "https://www.youtube.com/watch?v=1nkXf3XYDYo",
+      },
+      {
+        type: "code",
+        url: "https://github.com/andreipfeiffer/game-of-life",
+        label: "Code",
+      },
+    ],
+  },
+
+  {
     title: "Waterbed Code",
     date: "May 2023",
     type: "Slides only",
@@ -224,6 +256,7 @@ export const talks: Talk[] = [
   },
 
   {
+    old: true,
     title: (
       <>
         A thorough analysis of <Text nowrap>CSS-in-JS</Text>
@@ -309,6 +342,7 @@ export const talks: Talk[] = [
   },
 
   {
+    old: true,
     title: "Simple vs. Easy",
     date: "July 2020",
     type: "Slides only",
@@ -343,6 +377,7 @@ export const talks: Talk[] = [
   },
 
   {
+    old: true,
     title: "CSS layout tricks",
     date: "August 2020",
     type: "Live code",
@@ -365,36 +400,7 @@ export const talks: Talk[] = [
   },
 
   {
-    title: "Game of Life and Performance",
-    date: "April 2020",
-    type: "Slides and Live demo",
-    abstract: (
-      <>
-        <p>
-          This is a 2-part talk. The first part is an introduction to John{" "}
-          {"Conway's"} Game of Life and some of {"it's"} practical applications
-          today. The second part walks through an implementation of Game of Life
-          in React.
-        </p>
-        <br />
-        <p>
-          {"We'll"} measure rendering performance and code execution
-          performance, identify bottlenecks and optimize our solution to run at
-          60fps.
-        </p>
-      </>
-    ),
-    image: { path: "game-of-life.png", bw: true },
-    urls: [
-      {
-        type: "code",
-        url: "https://github.com/andreipfeiffer/game-of-life",
-        label: "Code",
-      },
-    ],
-  },
-
-  {
+    old: true,
     title: "Memoization in React",
     date: "January 2020",
     type: "Live code",
@@ -439,6 +445,7 @@ export const talks: Talk[] = [
   },
 
   {
+    old: true,
     title: "The False Dichotomy of UI Development",
     date: "November 2019",
     type: "Slides only",
@@ -463,6 +470,7 @@ export const talks: Talk[] = [
   },
 
   {
+    old: true,
     title: "Isolated Components Driven Development",
     date: "February 2019",
     type: "Slides and Live demo",
@@ -491,19 +499,17 @@ export const talks: Talk[] = [
   },
 
   {
+    old: true,
     title: "Bridging Swift and React Native",
     date: "October 2018",
     type: "Live code",
     abstract: (
       <>
         <p>
-          This is a live coding session based on my{" "}
-          <a href="https://teabreak.e-spres-oh.com/swift-in-react-native-the-ultimate-guide-part-1-modules-9bb8d054db03">
-            Ultimate Guide for Swift in React Native
-          </a>
-          . {"We'll"} create a native module in Swift and implement a React
-          Native bridge, allowing us to exchange data back and forth between
-          JavaScript code and native iOS code written in Swift.
+          This is a live coding session based on my Ultimate Guide for Swift in
+          React Native. {"We'll"} create a native module in Swift and implement
+          a React Native bridge, allowing us to exchange data back and forth
+          between JavaScript code and native iOS code written in Swift.
         </p>
       </>
     ),
