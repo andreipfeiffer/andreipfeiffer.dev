@@ -58,10 +58,10 @@ export const talks: Talk[] = [
       </>
     ),
     urls: [
-      // {
-      //   type: "slides",
-      //   url: "/slides/the-code-etymologist.pdf",
-      // },
+      {
+        type: "slides",
+        url: "/slides/project-anatomies.pdf",
+      },
       {
         type: "article",
         url: "/blog/2026/project-anatomies",
