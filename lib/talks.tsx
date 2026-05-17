@@ -36,6 +36,34 @@ export interface Talk {
 
 export const talks: Talk[] = [
   {
+    title: "Retired Dependencies",
+    date: "May 2026",
+    type: "Code demo",
+    abstract: (
+      <>
+        <p>
+          For years, we’ve relied on countless third-party modules to build
+          Node.js applications, as the standard library lacked many essential
+          features. However, recent Node.js versions have introduced powerful
+          tools that greatly extend its built-in capabilities.
+        </p>
+        <br />
+        <p>
+          In this talk, we’ll explore these new features and identify
+          dependencies we can safely remove from our package.json files.
+        </p>
+      </>
+    ),
+    urls: [
+      // {
+      //   type: "video",
+      //   url: "",
+      // },
+    ],
+    image: { path: "retired-dependencies.png" },
+  },
+
+  {
     title: "The Complete Map of Project Anatomies",
     date: "Feb 2026",
     type: "Slides only",
