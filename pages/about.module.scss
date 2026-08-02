@@ -47,7 +47,7 @@
   }
 }
 
-.communities_list {
+.logo_list {
   @include breakpoint(md) {
     row-gap: 1.5em;
     grid-template-columns: auto 1fr;
@@ -64,7 +64,7 @@
     }
   }
 }
-.community_logo {
+.logo_list_item {
   --height: 50px;
   --cutoff: calc(var(--height) / 4);
   float: left;
@@ -96,10 +96,4 @@
     display: none;
     width: 80px;
   }
-}
-
-.donations_list {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
 }

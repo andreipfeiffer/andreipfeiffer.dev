@@ -98,8 +98,8 @@ export default function About() {
 
             <p>
               Most of my past experience focused on{" "}
-              <strong>User Interface development</strong>{" "}
-              for web, mobile web, and native mobile.
+              <strong>User Interface development</strong> for web, mobile web,
+              and native mobile.
             </p>
             <p>
               My everyday battles revolve around Clean Code Design, User &amp;
@@ -135,8 +135,8 @@ export default function About() {
 
             <Spacer vertical="16" />
 
-            <dl className={styles.communities_list}>
-              <dt className={styles.community_logo}>
+            <dl className={styles.logo_list}>
+              <dt className={styles.logo_list_item}>
                 <span
                   style={{ maskImage: "url(/images/logo-timjs.svg)" }}
                 ></span>
@@ -150,7 +150,7 @@ export default function About() {
                 , a monthly meetup dedicated to the entire JavaScript ecosystem.
               </dd>
 
-              <dt className={styles.community_logo}>
+              <dt className={styles.logo_list_item}>
                 <span
                   style={{ maskImage: "url(/images/logo-revojs.svg)" }}
                 ></span>
@@ -164,7 +164,7 @@ export default function About() {
                 driven JavaScript conference.
               </dd>
 
-              <dt className={styles.community_logo}>
+              <dt className={styles.logo_list_item}>
                 <span
                   style={{ maskImage: "url(/images/logo-jsheroes.svg)" }}
                 ></span>
@@ -212,38 +212,58 @@ export default function About() {
               Backing & Support
             </Text>
 
-            <p>
+            <Text size="p01" as="p">
               {"I'm"} currently supporting with recurring donations several
               organizations that managed to achieve trully beneficial outcomes.
               This requires a collective effort and {"I'm"} thrilled to be their
               backer:
-            </p>
+            </Text>
 
-            <ul className={styles.donations_list}>
-              <li>
+            <Spacer vertical="16" />
+
+            <dl className={styles.logo_list}>
+              <dt className={styles.logo_list_item}>
+                <span
+                  style={{
+                    maskImage: "url(/images/logo-wikipedia.svg)",
+                    transform: "scale(2)",
+                  }}
+                ></span>
+              </dt>
+              <dd>
                 <a href="https://en.wikipedia.org/">
                   <strong>Wikipedia</strong>
                 </a>{" "}
                 for providing open and free information for our entire
                 civilisation. {"I'm"} an occasional supporter since 2016 and a
                 regular donor since Mar 2023.
-              </li>
-              <li>
+              </dd>
+              <dt className={styles.logo_list_item}>
+                <span
+                  style={{ maskImage: "url(/images/logo-daruieste-viata.svg)" }}
+                ></span>
+              </dt>
+              <dd>
                 <a href="https://daruiesteviata.ro/">
                   <strong>Daruieste Viata</strong>
                 </a>{" "}
                 for building a {"childrens'"} hospital, something that not even
                 the romanian authorities are capable to do. {"I'm"} their backer
                 since Oct 2018.
-              </li>
-              <li>
+              </dd>
+              <dt className={styles.logo_list_item}>
+                <span
+                  style={{ maskImage: "url(/images/logo-recorder.svg)" }}
+                ></span>
+              </dt>
+              <dd>
                 <a href="https://recorder.ro/">
                   <strong>Recorder</strong>
                 </a>{" "}
                 for their trully meaningful press investigations and honest
                 journalism. {"I've"} been supporting them since Feb 2024.
-              </li>
-            </ul>
+              </dd>
+            </dl>
           </section>
         </Grid.Col>
       </Grid>
